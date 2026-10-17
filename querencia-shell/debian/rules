@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+CARGO_FEATURES :=
+include debian/querencia.mk
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-panel $(DESTDIR)/usr/bin/querencia-panel
+	install -D -m 0755 target/release/querencia-desktop $(DESTDIR)/usr/bin/querencia-desktop
+	install -D -m 0644 data/hintergruende/querencia-blau.png \
+		$(DESTDIR)/usr/share/querencia/hintergruende/querencia-blau.png
+	install -D -m 0644 README.md $(DESTDIR)/usr/share/doc/querencia-shell/README.md
+	gzip -9nc CHANGELOG.md >$(DESTDIR)/usr/share/doc/querencia-shell/changelog.gz

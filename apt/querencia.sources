@@ -1,0 +1,8 @@
+# /etc/apt/sources.list.d/querencia.sources  (Deb822)
+# <APT-URL> und den Schlüssel erst nach der Veröffentlichung einsetzen.
+Types: deb
+URIs: <APT-URL>/
+Suites: resolute
+Components: alpha
+Architectures: amd64
+Signed-By: /usr/share/keyrings/querencia-archive-keyring.gpg

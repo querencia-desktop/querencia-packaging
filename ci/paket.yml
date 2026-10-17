@@ -1,0 +1,67 @@
+# Vorlage für .github/workflows/paket.yml in querencia-packaging.
+# Baut alle Pakete aus den in quellen.conf festgelegten Commits und prüft sie.
+# Die Quell-Repositories werden als Geschwisterordner ausgecheckt.
+# Kein Signieren, keine Veröffentlichung, keine Geheimnisse.
+name: paket
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  bauen:
+    runs-on: ubuntu-latest
+    container: ubuntu:26.04
+    strategy:
+      fail-fast: false
+      matrix:
+        paket: [querencia-shell, querencia-terminal, querencia-screenshot, querencia-files, querencia-session, labwc]
+    steps:
+      - name: Werkzeuge
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates git dpkg-dev fakeroot xz-utils \
+            python3 desktop-file-utils cargo rustc pkgconf build-essential
+      - uses: actions/checkout@v4
+        with: { path: quellen/querencia-packaging }
+      - name: Quell-Repository
+        run: |
+          repo=$(awk -v s='${{ matrix.paket }}' '$1 == s { print $2 }' quellen/querencia-packaging/quellen.conf)
+          case $repo in
+          upstream/labwc.git) git clone --bare https://github.com/labwc/labwc.git quellen/upstream/labwc.git ;;
+          *) git clone --filter=blob:none "https://github.com/${GITHUB_REPOSITORY_OWNER}/${repo}.git" "quellen/${repo}" ;;
+          esac
+      - name: Build-Depends
+        run: |
+          cd quellen/querencia-packaging
+          d=${{ matrix.paket }}; [ -d "$d" ] || d=backports/$d
+          cd "$d"
+          apt-get install -y --no-install-recommends $(sed -n '/^Build-Depends:/,/^[A-Z]/p' debian/control \
+            | sed '1s/^Build-Depends://; $d' | tr ',' '\n' | sed 's/(.*)//; s/<.*>//; s/ //g' | grep .)
+      - name: Bauen
+        run: |
+          cd quellen/querencia-packaging
+          bash werkzeuge/orig-erzeugen.sh ${{ matrix.paket }}
+          QUERENCIA_BUILD_LOCK=/tmp/build.lock bash werkzeuge/paket-bauen.sh ${{ matrix.paket }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: deb-${{ matrix.paket }}
+          path: pakete/bau/${{ matrix.paket }}/*.deb
+  pruefen:
+    needs: bauen
+    runs-on: ubuntu-latest
+    container: ubuntu:26.04
+    steps:
+      - run: apt-get update && apt-get install -y --no-install-recommends git desktop-file-utils python3
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { path: debs, merge-multiple: true }
+      - run: bash werkzeuge/pakete-pruefen.sh debs/*.deb
+      - name: Smoke-Test (Installation im Container)
+        run: |
+          apt-get install -y ./debs/*.deb
+          querencia-session --version
+          querencia-session --check || true   # ohne Sitzung: nur Diagnose
+          test -x /usr/bin/querencia-panel && test -x /usr/bin/querencia-files

@@ -1,0 +1,10 @@
+labwc (0.9.8-0querencia1) resolute; urgency=medium
+
+  * Backport von labwc 0.9.8 (Upstream-Tag 0.9.8, 42bee041) für Ubuntu
+    26.04, nur für die Querencia-Paketquelle (QREL-01, Worker 5).
+  * Grund: labwc 0.9.3 aus Ubuntu gibt Layer-Shell-Popups (Panel-Menüs)
+    keinen Tastaturfokus; Querencia braucht 0.9.4 oder neuer.
+  * Paketierung ohne debhelper (querencia.mk); Versionierung unterhalb
+    eines späteren Ubuntu-Pakets 0.9.8-1.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 17 Oct 2026 02:30:00 +0200

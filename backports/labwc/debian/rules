@@ -1,0 +1,34 @@
+#!/usr/bin/make -f
+# labwc backport without debhelper (see querencia.mk). Build profiles
+# reduce the build where tools are missing on the build machine:
+#   nodoc             no man pages (scdoc)
+#   pkg.labwc.nosvg   no SVG window buttons (librsvg)
+#   pkg.labwc.nonls   no translations (gettext)
+# A release build uses no profile (clean chroot with all Build-Depends).
+QUERENCIA_KIND := custom
+include debian/querencia.mk
+
+feature = $(if $(filter $(1),$(DEB_BUILD_PROFILES)),disabled,enabled)
+MESON_OPTS := --prefix=/usr --libdir=lib/$(shell dpkg-architecture -qDEB_HOST_MULTIARCH) \
+	--buildtype=plain --wrap-mode=nodownload -Db_lto=false \
+	-Dxwayland=enabled -Dicon=enabled -Dtest=disabled \
+	-Dman-pages=$(call feature,nodoc) -Dsvg=$(call feature,pkg.labwc.nosvg) \
+	-Dnls=$(call feature,pkg.labwc.nonls)
+export CFLAGS := $(shell dpkg-buildflags --get CFLAGS)
+export CPPFLAGS := $(shell dpkg-buildflags --get CPPFLAGS)
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+
+querencia-build:
+	meson setup obj-querencia $(MESON_OPTS)
+	ninja -C obj-querencia -j $(NUMJOBS) -v
+
+querencia-install:
+	DESTDIR=$(DESTDIR) meson install -C obj-querencia --no-rebuild
+	# the examples live in /usr/share/doc/labwc as in Ubuntu's package
+	test -d $(DESTDIR)/usr/share/doc/labwc
+	gzip -9nf $(DESTDIR)/usr/share/doc/labwc/rc.xml.all $(DESTDIR)/usr/share/doc/labwc/themerc 2>/dev/null || true
+	install -m 0644 NEWS.md $(DESTDIR)/usr/share/doc/labwc/NEWS.md
+	gzip -9nf $(DESTDIR)/usr/share/doc/labwc/NEWS.md
+
+clean::
+	rm -rf obj-querencia

@@ -1,0 +1,36 @@
+Source: querencia-session
+Section: x11
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: desktop-file-utils, python3
+Standards-Version: 4.7.2
+
+Package: querencia-session
+Architecture: all
+Depends: labwc (>= 0.9.4),
+         querencia-shell (>= 0.1.0~alpha1),
+         procps,
+         systemd,
+         dbus-user-session,
+         xdg-user-dirs
+Recommends: querencia-screenshot,
+            querencia-files,
+            querencia-terminal,
+            gnome-human-icon-theme,
+            fonts-dejavu-core,
+            xdg-desktop-portal-gtk,
+            gvfs-backends
+Suggests: greetd
+Description: Querencia Desktop session (alpha)
+ Session starter and labwc configuration of Querencia Desktop, a classic
+ desktop in the style of GNOME 2 / Ubuntu 10.04 for Wayland.
+ .
+ Installs "Querencia Desktop" as a Wayland session for display managers
+ (/usr/share/wayland-sessions) and the session configuration in
+ /etc/querencia/labwc. No display manager is installed, enabled or
+ reconfigured, and nothing in home directories is changed.
+ .
+ Needs labwc 0.9.4 or newer (Ubuntu 26.04 ships 0.9.3, whose menus get
+ no keyboard focus; the Querencia APT repository provides a backport).
+ This is an alpha release.

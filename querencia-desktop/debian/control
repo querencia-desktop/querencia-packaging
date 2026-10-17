@@ -1,0 +1,33 @@
+Source: querencia-desktop
+Section: metapackages
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends:
+Standards-Version: 4.7.2
+
+Package: querencia-desktop
+Architecture: all
+Depends: querencia-session (>= 0.1.0~alpha1),
+         querencia-shell (>= 0.1.0~alpha1),
+         querencia-files (>= 0.1.0~alpha1),
+         querencia-terminal (>= 0.1.0~alpha1),
+         querencia-screenshot (>= 0.1.0~alpha1)
+Recommends: gnome-human-icon-theme,
+            gvfs-backends,
+            xdg-desktop-portal-gtk,
+            fonts-dejavu-core,
+            wl-clipboard,
+            slurp
+Suggests: greetd
+Description: Querencia Desktop – classic GNOME 2 style desktop (metapackage, alpha)
+ Querencia Desktop is a classic desktop in the style of GNOME 2 /
+ Ubuntu 10.04, written in Rust with GTK 4 for Wayland on the labwc
+ compositor.
+ .
+ This metapackage installs all components: session, panel and desktop,
+ file manager, terminal and screenshot tool. Afterwards "Querencia
+ Desktop" can be chosen in the session list of the display manager.
+ No display manager is installed or reconfigured.
+ .
+ This is an alpha release, not intended for production use.

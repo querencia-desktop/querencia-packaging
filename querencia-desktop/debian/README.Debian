@@ -1,0 +1,21 @@
+Querencia Desktop (Metapaket) – Hinweise
+========================================
+
+Nach der Installation erscheint „Querencia Desktop“ in der Sitzungsauswahl
+jedes Anmeldebildschirms, der Wayland-Sitzungen anbietet
+(/usr/share/wayland-sessions/querencia.desktop).
+
+Es wird KEIN Anmeldebildschirm installiert oder umkonfiguriert. Auf einem
+System ohne grafischen Anmeldebildschirm (z. B. Ubuntu Server) startet man
+die Sitzung nach der Anmeldung an einer lokalen Textkonsole mit
+
+    querencia-session
+
+oder richtet greetd als eigenen Schritt ein (Beispiele unter
+/usr/share/doc/querencia-session/examples/greetd/).
+
+Diagnose ohne Start:   querencia-session --check
+Logs:                  ~/.local/state/querencia/{labwc,panel,desktop}.log
+
+Status: Alpha. Bekannte Einschränkungen und Fehlerberichte: siehe
+docs/TROUBLESHOOTING.md im Repository „querencia“.

@@ -1,0 +1,35 @@
+# Vorlage: Veröffentlichung der APT-Quelle. Läuft NUR auf Tags und NUR im
+# geschützten Environment "apt-veroeffentlichung" (manuelle Freigabe durch
+# den Besitzer). Dort liegt der Signatur-UNTERschlüssel als Secret
+# QUERENCIA_APT_SIGNING_KEY (ASCII, passwortlos nur innerhalb des Secrets);
+# der Primärschlüssel bleibt offline. Nichts davon erscheint im Log.
+name: apt-veroeffentlichen
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+jobs:
+  veroeffentlichen:
+    runs-on: ubuntu-latest
+    environment: apt-veroeffentlichung
+    container: ubuntu:26.04
+    steps:
+      - run: apt-get update && apt-get install -y --no-install-recommends gpg python3 dpkg-dev git
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4   # .deb aus dem Workflow "paket" desselben Tags
+        with: { path: debs, merge-multiple: true }
+      - name: Signieren und erzeugen
+        env:
+          SIGNING_KEY: ${{ secrets.QUERENCIA_APT_SIGNING_KEY }}
+          FINGERPRINT: ${{ vars.QUERENCIA_APT_FINGERPRINT }}
+        run: |
+          set +x
+          export GNUPGHOME=$(mktemp -d); chmod 700 "$GNUPGHOME"
+          printf '%s\n' "$SIGNING_KEY" | gpg --batch --quiet --import
+          unset SIGNING_KEY
+          python3 werkzeuge/apt-quelle-erzeugen.py --ziel apt-site --gnupghome "$GNUPGHOME" \
+            --schluessel "$FINGERPRINT" debs/*.deb
+          gpgconf --kill all; rm -rf "$GNUPGHOME"
+      # Danach: apt-site/ per HTTPS veröffentlichen (z. B. actions/deploy-pages
+      # in ein eigenes Repository querencia-apt). Erst nach Freigabe einrichten.

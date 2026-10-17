@@ -1,0 +1,7 @@
+querencia-shell (0.1.0~alpha1-1) resolute; urgency=medium
+
+  * Erster Paketentwurf (QREL-01, Worker 5).
+  * Quelle: querencia-shell af0e11c9 (HMP-09 + Portabilitätskorrektur
+    des Hintergrund-Suchpfads).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 17 Oct 2026 02:30:00 +0200

@@ -1,0 +1,7 @@
+# Marks this installation as managed by APT (read by Strata's
+# services/install_source.rs): the built-in self-update stays disabled and
+# points the user to the package manager instead.
+manager = "APT"
+package = "querencia-files"
+channel = "alpha"
+update_command = "sudo apt update && sudo apt install --only-upgrade querencia-files"

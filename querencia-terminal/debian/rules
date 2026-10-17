@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+CARGO_FEATURES :=
+include debian/querencia.mk
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-terminal $(DESTDIR)/usr/bin/querencia-terminal
+	install -D -m 0644 data/org.example.Querencia.Terminal.desktop \
+		$(DESTDIR)/usr/share/applications/org.example.Querencia.Terminal.desktop
+	install -D -m 0644 README.md $(DESTDIR)/usr/share/doc/querencia-terminal/README.md
+	gzip -9nc CHANGELOG.md >$(DESTDIR)/usr/share/doc/querencia-terminal/changelog.gz

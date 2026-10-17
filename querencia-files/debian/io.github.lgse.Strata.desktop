@@ -1,0 +1,23 @@
+[Desktop Entry]
+# Querencia Files (derived from Strata). Desktop ID = GApplication ID
+# io.github.lgse.Strata, so labwc, the window list and the desktop icons can
+# map the window to this file. MimeType=inode/directory makes it a folder
+# handler; it becomes the default only in the Querencia session
+# (x-querencia-mimeapps.list in querencia-session).
+Type=Application
+Version=1.5
+Name=Querencia Files
+GenericName=File Manager
+GenericName[de]=Dateimanager
+Comment=Browse folders and files
+Comment[de]=Ordner und Dateien durchsuchen
+Exec=querencia-files %U
+TryExec=querencia-files
+Icon=folder
+Terminal=false
+Categories=GTK;Utility;FileTools;FileManager;
+MimeType=inode/directory;
+Keywords=files;folders;file manager;
+Keywords[de]=Dateien;Ordner;Dateimanager;
+StartupNotify=true
+StartupWMClass=io.github.lgse.Strata

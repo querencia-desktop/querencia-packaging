@@ -1,0 +1,4 @@
+# Erzeugnisse liegen außerhalb des Repositorys (../../pakete, ../../nachweis).
+*.swp
+*~
+__pycache__/

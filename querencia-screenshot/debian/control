@@ -1,0 +1,23 @@
+Source: querencia-screenshot
+Section: graphics
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libglib2.0-dev
+Standards-Version: 4.7.2
+
+Package: querencia-screenshot
+Architecture: any
+Depends: ${shlibs:Depends}, grim
+Recommends: slurp, wl-clipboard
+Description: Querencia Desktop screenshot tool (alpha)
+ Querencia Screenshot takes pictures of the whole screen, of a window or
+ of a rectangle on Wayland compositors with the wlr screencopy protocol
+ (grim, slurp), shows a preview and saves to the Pictures folder or
+ copies to the clipboard (wl-clipboard).
+ .
+ In Querencia Desktop the Print key opens it. This is an alpha release.

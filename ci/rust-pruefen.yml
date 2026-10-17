@@ -1,0 +1,30 @@
+# Vorlage für .github/workflows/pruefen.yml in querencia-shell, -terminal,
+# -screenshot (querencia-files: zusätzlich --no-default-features).
+# Baut mit Ubuntus Rust in ubuntu:26.04 – dieselbe Werkzeugkette wie der
+# Paketbau. Keine Geheimnisse nötig.
+name: pruefen
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    container: ubuntu:26.04
+    env:
+      CARGO_BUILD_JOBS: "2"
+      CARGO_INCREMENTAL: "0"
+    steps:
+      - name: Werkzeuge
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ca-certificates git build-essential pkgconf \
+            cargo rustc rustfmt rust-clippy libgtk-4-dev libgtk4-layer-shell-dev \
+            libvte-2.91-gtk4-dev libwayland-dev
+      - uses: actions/checkout@v4
+      - run: cargo fmt --all --check
+      - run: cargo clippy --all-targets --locked -- -D warnings
+      - run: cargo test --locked
+      - run: cargo build --release --locked

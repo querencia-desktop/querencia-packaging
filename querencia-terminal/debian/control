@@ -1,0 +1,25 @@
+Source: querencia-terminal
+Section: x11
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.10),
+               libvte-2.91-gtk4-dev (>= 0.76),
+               libglib2.0-dev
+Standards-Version: 4.7.2
+
+Package: querencia-terminal
+Architecture: any
+Depends: ${shlibs:Depends}
+Recommends: querencia-shell
+Provides: x-terminal-emulator
+Description: Querencia Desktop terminal (alpha)
+ Querencia Terminal is the terminal emulator of Querencia Desktop, a
+ classic desktop in the style of GNOME 2, built on GTK 4 and VTE.
+ .
+ Copy and paste work as in GNOME Terminal 2.x (Ctrl+Shift+C/V,
+ Shift+Insert, context menu). Tabs and profiles are not implemented yet.
+ This is an alpha release.

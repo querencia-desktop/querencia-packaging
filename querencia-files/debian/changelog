@@ -1,0 +1,13 @@
+querencia-files (0.1.0~alpha1-1) resolute; urgency=medium
+
+  * Erster Paketentwurf (QREL-01, Worker 5).
+  * Quelle: querencia-files 09670432 (Strata 2317e1af + QF-0b … QF-0f
+    + Abschaltung der Update-Prüfung, gebaut mit
+    QUERENCIA_DISABLE_UPDATE_CHECKS=1).
+  * Prototyp mit Rust 1.98.1 außerhalb des Archivs gebaut
+    (Profil pkg.querencia.fremdrust): Strata braucht rustc >= 1.98,
+    Ubuntu 26.04 hat 1.93.1.
+  * Ohne RAR-Unterstützung gebaut; unrar und unrar_sys sind aus dem
+    Vendor-Archiv entfernt (nicht freie UnRAR-Lizenz).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 17 Oct 2026 02:30:00 +0200

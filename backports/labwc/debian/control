@@ -1,0 +1,42 @@
+Source: labwc
+Section: x11
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+XSBC-Original-Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Rules-Requires-Root: no
+Build-Depends: meson (>= 1.3),
+               ninja-build,
+               pkgconf,
+               libwlroots-0.19-dev,
+               libwayland-dev,
+               wayland-protocols,
+               libxkbcommon-dev,
+               libinput-dev,
+               libxml2-dev,
+               libglib2.0-dev,
+               libcairo2-dev,
+               libpango1.0-dev,
+               libpixman-1-dev,
+               libpng-dev,
+               libsfdo-dev,
+               libdrm-dev,
+               libxcb1-dev,
+               libxcb-ewmh-dev,
+               xwayland,
+               librsvg2-dev <!pkg.labwc.nosvg>,
+               scdoc <!nodoc>,
+               gettext <!pkg.labwc.nonls>
+Standards-Version: 4.7.2
+Homepage: https://labwc.github.io
+
+Package: labwc
+Architecture: any
+Depends: ${shlibs:Depends}, xwayland
+Suggests: foot | x-terminal-emulator, kanshi, swaybg, swayidle
+Description: Wayland window-stacking compositor (backport for Querencia)
+ labwc is a wlroots-based window-stacking compositor for Wayland,
+ inspired by Openbox.
+ .
+ This is upstream labwc 0.9.8 rebuilt for Ubuntu 26.04 by the Querencia
+ project: Ubuntu 26.04 ships 0.9.3, whose layer-shell popups get no
+ keyboard focus (Querencia's panel menus need 0.9.4 or newer).

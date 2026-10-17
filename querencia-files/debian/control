@@ -1,0 +1,36 @@
+Source: querencia-files
+Section: utils
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.98) <!pkg.querencia.fremdrust>,
+               rustc (>= 1.98) <!pkg.querencia.fremdrust>,
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libgtksourceview-5-dev,
+               libpoppler-glib-dev,
+               libgstreamer1.0-dev,
+               libgstreamer-plugins-base1.0-dev,
+               libfontconfig-dev,
+               libcairo2-dev,
+               libglib2.0-dev
+Standards-Version: 4.7.2
+
+Package: querencia-files
+Architecture: any
+Depends: ${shlibs:Depends}, bubblewrap
+Recommends: gvfs, gvfs-backends, gnome-human-icon-theme,
+            gstreamer1.0-plugins-base, gstreamer1.0-plugins-good,
+            xdg-utils
+Suggests: gstreamer1.0-libav, ffmpegthumbnailer
+Conflicts: strata
+Description: Querencia Desktop file manager (alpha)
+ Querencia Files is the file manager of Querencia Desktop, a classic
+ desktop in the style of GNOME 2. It is derived from the Strata file
+ manager by LGSE Ltd. (MIT license) and adds a classic Nautilus 2 like
+ look with the GNOME Human icon theme.
+ .
+ This package is built without RAR support (the UnRAR library has a
+ non-free license). It does not register itself as the system-wide
+ org.freedesktop.FileManager1 service or file chooser portal.
+ This is an alpha release.

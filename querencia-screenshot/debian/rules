@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+CARGO_FEATURES :=
+include debian/querencia.mk
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-screenshot $(DESTDIR)/usr/bin/querencia-screenshot
+	install -D -m 0644 data/org.querencia.Screenshot.desktop \
+		$(DESTDIR)/usr/share/applications/org.querencia.Screenshot.desktop
+	install -D -m 0644 README.md $(DESTDIR)/usr/share/doc/querencia-screenshot/README.md
+	gzip -9nc CHANGELOG.md >$(DESTDIR)/usr/share/doc/querencia-screenshot/changelog.gz
