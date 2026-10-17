@@ -63,7 +63,10 @@ for deb in "${debs[@]}"; do
     [ -z "$scripts" ] && ok "$p: keine Maintainer-Skripte"
 
     # Entwicklerpfade in allen Dateien (auch in Binaries)
-    hits=$(grep -r -l -a -E '/home/[a-z]|/projects/querencia|claude-w5|pakete/bau|/target/(debug|release)|\.cargo/registry' "$R" 2>/dev/null | sed "s|^$R||")
+    # absolute Entwicklerpfade; relative "./target/…" aus -ffile-prefix-map und
+    # Glob-Muster wie "!**/.cargo/registry/" (Suchausschlüsse in Querencia Files)
+    # verraten keinen Rechner und zählen nicht
+    hits=$(grep -r -l -a -E '/home/[a-z]|/projects/querencia|claude-w5|pakete/bau|[^.!*]/target/(debug|release)/|/\.cargo/registry/src' "$R" 2>/dev/null | sed "s|^$R||")
     [ -z "$hits" ] && ok "$p: keine Entwicklerpfade" || nok "$p: Entwicklerpfade in: $hits"
 
     # md5sums vollständig

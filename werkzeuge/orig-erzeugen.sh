@@ -2,7 +2,8 @@
 # Erzeugt die Upstream-Quellarchive eines Quellpakets aus einem festen Commit:
 #   <src>_<ver>.orig.tar.xz              git archive des Commits (deterministisch)
 #   <src>_<ver>.orig-cargo-vendor.tar.xz alle Crates aus Cargo.lock (cargo vendor),
-#                                        ohne die in quellen.conf ausgeschlossenen
+#                                        die in quellen.conf ausgeschlossenen nur als
+#                                        entkernte Platzhalter (Manifest ohne Code)
 # und aktualisiert debian/copyright (aus copyright.in) und debian/upstream-commit
 # im Paketierungs-Repository. Lizenzinventar nach nachweis/lizenzen/.
 #
@@ -43,8 +44,10 @@ if [ "$VENDOR" = ja ]; then
         for m in "${muster[@]}"; do
             for d in "$TMP"/cargo-vendor/$m; do
                 [ -d "$d" ] || continue
-                log "aus dem Vendor-Archiv entfernt: $(basename "$d")"
-                rm -rf "$d"
+                # Cargo braucht das Manifest auch abgeschalteter optionaler
+                # Crates; der Code wird entfernt (werkzeuge/crate-entkernen.py).
+                python3 -I "$PK/werkzeuge/crate-entkernen.py" "$d" "in quellen.conf ausgeschlossen (Lizenz)" >/dev/null
+                log "im Vendor-Archiv entkernt (nur Manifest): $(basename "$d")"
             done
         done
     fi

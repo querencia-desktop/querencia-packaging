@@ -53,6 +53,12 @@ LINK_ARGS := $(foreach f,$(filter -Wl%,$(shell dpkg-buildflags --get LDFLAGS)),-
 export RUSTFLAGS := $(shell dpkg-buildflags --get RUSTFLAGS) $(LINK_ARGS) \
 	--remap-path-prefix=$(CURDIR)=/usr/src/$(SOURCE)-$(UPSTREAM_VERSION) \
 	--remap-path-prefix=$(CARGO_HOME)=/usr/share/cargo
+# C/C++ code built by crates (cc crate: e.g. QuickJS in rquickjs-sys) gets
+# the distribution flags too: hardening and -ffile-prefix-map, so no build
+# path ends up in __FILE__ strings.
+export CFLAGS := $(shell dpkg-buildflags --get CFLAGS)
+export CXXFLAGS := $(shell dpkg-buildflags --get CXXFLAGS)
+export CPPFLAGS := $(shell dpkg-buildflags --get CPPFLAGS)
 CARGO_FLAGS := --release --frozen -j $(NUMJOBS) $(CARGO_FEATURES)
 
 debian/cargo-home/config.toml:

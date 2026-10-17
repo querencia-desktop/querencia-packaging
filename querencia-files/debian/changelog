@@ -7,7 +7,7 @@ querencia-files (0.1.0~alpha1-1) resolute; urgency=medium
   * Prototyp mit Rust 1.98.1 außerhalb des Archivs gebaut
     (Profil pkg.querencia.fremdrust): Strata braucht rustc >= 1.98,
     Ubuntu 26.04 hat 1.93.1.
-  * Ohne RAR-Unterstützung gebaut; unrar und unrar_sys sind aus dem
-    Vendor-Archiv entfernt (nicht freie UnRAR-Lizenz).
+  * Ohne RAR-Unterstützung gebaut; unrar und unrar_sys sind im
+    Vendor-Archiv entkernt (nur Manifest, kein UnRAR-Code) (nicht freie UnRAR-Lizenz).
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 17 Oct 2026 02:30:00 +0200

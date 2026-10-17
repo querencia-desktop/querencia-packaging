@@ -3,8 +3,8 @@ Upstream-Name: querencia-files (derived from Strata)
 Upstream-Contact: https://github.com/LGSE/strata
 Source: https://github.com/pottrauschen/strata (branch querencia)
 Comment: Generated from copyright.in by werkzeuge/copyright-erzeugen.py.
- The crates unrar and unrar_sys (UnRAR, non-free license) are removed from
- cargo-vendor/; the package is built with --no-default-features.
+ The crates unrar and unrar_sys (UnRAR, non-free license) are stubbed in
+ cargo-vendor/ (manifest only, no code, see ENTKERNT.txt); the package is built with --no-default-features.
 
 Files: *
 Copyright: 2026 LGSE Ltd.

@@ -3,8 +3,8 @@ Upstream-Name: querencia-files (derived from Strata)
 Upstream-Contact: https://github.com/LGSE/strata
 Source: https://github.com/pottrauschen/strata (branch querencia)
 Comment: Generated from copyright.in by werkzeuge/copyright-erzeugen.py.
- The crates unrar and unrar_sys (UnRAR, non-free license) are removed from
- cargo-vendor/; the package is built with --no-default-features.
+ The crates unrar and unrar_sys (UnRAR, non-free license) are stubbed in
+ cargo-vendor/ (manifest only, no code, see ENTKERNT.txt); the package is built with --no-default-features.
 
 Files: *
 Copyright: 2026 LGSE Ltd.
@@ -1754,6 +1754,16 @@ Files: cargo-vendor/unicode-width-0.2.2/*
 Copyright: kwantam <kwantam@gmail.com>; Manish Goregaokar <manishsmail@gmail.com>
 License: Expat or Apache-2.0
 Comment: Rust crate unicode-width 0.2.2, vendored from crates.io (checksum in cargo-vendor/unicode-width-0.2.2/.cargo-checksum.json).
+
+Files: cargo-vendor/unrar-0.5.8/*
+Copyright: Danyel Bayraktar <rust@danyel.io>; vjoki <vjoki@zv.fi>
+License: Expat or Apache-2.0
+Comment: Rust crate unrar 0.5.8, vendored from crates.io (checksum in cargo-vendor/unrar-0.5.8/.cargo-checksum.json).
+
+Files: cargo-vendor/unrar_sys-0.5.8/*
+Copyright: Danyel Bayraktar <rust@danyel.io>
+License: Expat or Apache-2.0
+Comment: Rust crate unrar_sys 0.5.8, vendored from crates.io (checksum in cargo-vendor/unrar_sys-0.5.8/.cargo-checksum.json).
 
 Files: cargo-vendor/unsafe-libyaml-norway-0.2.15/*
 Copyright: Christina Sørensen <christina@cafkafk.com>; David Tolnay <dtolnay@gmail.com>
