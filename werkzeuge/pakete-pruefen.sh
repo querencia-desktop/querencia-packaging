@@ -72,6 +72,22 @@ for deb in "${debs[@]}"; do
     # md5sums vollständig
     (cd "$R" && md5sum --quiet -c "$C/md5sums" >/dev/null 2>&1) && ok "$p: md5sums stimmen" || nok "$p: md5sums"
 
+    # GTK 4.22 + xdg-toplevel-icon: Liegt ein Symbol sowohl in hicolor/48x48 als
+    # auch in einem Scalable-Verzeichnis (scalable, 256x256, 512x512), zeichnet
+    # GTK zwei 48-px-Puffer derselben Textur, gibt einen sofort frei und beim
+    # Schließen eines Dialogs erneut -> SIGSEGV (Bericht
+    # querencia-gtk-symbolabsturz-pruefung.md). Solche Symbole sind verboten.
+    icondir=$R/usr/share/icons/hicolor
+    if [ -d "$icondir" ]; then
+        for f in "$icondir"/48x48/apps/*; do
+            [ -e "$f" ] || continue
+            n=$(basename "${f%.*}")
+            dup=$(ls "$icondir"/{scalable,256x256,512x512}/apps/"$n".* 2>/dev/null | sed "s|^$R||" | tr '\n' ' ')
+            [ -z "$dup" ] && ok "$p: Symbol $n ohne doppelte 48er-Stufe" ||
+                nok "$p: Symbol $n in 48x48 und in $dup – GTK-4.22-Absturz bei Fenstersymbolen; Scalable-Variante oder 48er weglassen"
+        done
+    fi
+
     # Desktop-Dateien
     for d in "$R"/usr/share/applications/*.desktop "$R"/usr/share/wayland-sessions/*.desktop; do
         [ -f "$d" ] || continue
