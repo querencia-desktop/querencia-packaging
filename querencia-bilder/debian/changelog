@@ -1,3 +1,13 @@
+querencia-bilder (0.1.0~alpha1-2) resolute; urgency=medium
+
+  * Programmsymbol nicht mehr in hicolor/48x48 installieren: GTK 4.22 gibt
+    bei einem Symbol in 48x48 und einem Scalable-Verzeichnis einen
+    xdg-toplevel-icon-Puffer doppelt frei (SIGSEGV beim Schließen von
+    Fenstern, querencia-gtk-symbolabsturz-pruefung.md). Patch
+    querencia-bilder-symbole-ohne-48.patch.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sun, 18 Oct 2026 18:00:00 +0200
+
 querencia-bilder (0.1.0~alpha1-1) resolute; urgency=medium
 
   * Erster Paketentwurf nach Freigabe von QI-01 (eigener Betrachter in

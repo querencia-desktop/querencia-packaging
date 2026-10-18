@@ -4,7 +4,12 @@ QUERENCIA_TEST := yes
 CARGO_FEATURES :=
 include debian/querencia.mk
 
-ICON_SIZES := 16 22 24 32 48 64 128 256
+# Ohne 48: GTK 4.22 zeichnet für ein Symbol, das sowohl in 48x48 als auch in
+# einem Scalable-Verzeichnis (scalable, 256x256) liegt, zwei 48-px-Puffer
+# derselben Textur (xdg-toplevel-icon) und gibt einen davon doppelt frei ->
+# Absturz beim Schließen von Fenstern (querencia-gtk-symbolabsturz-pruefung.md).
+# Die 48er-Stufe rendert GTK aus dem SVG.
+ICON_SIZES := 16 22 24 32 64 128 256
 
 querencia-install:
 	install -D -m 0755 target/release/querencia-bilder $(DESTDIR)/usr/bin/querencia-bilder
