@@ -1,0 +1,27 @@
+Source: querencia-bilder
+Section: graphics
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libgdk-pixbuf-2.0-dev,
+               libglib2.0-dev
+Standards-Version: 4.7.2
+
+Package: querencia-bilder
+Architecture: any
+Depends: ${shlibs:Depends}
+Recommends: glycin-loaders, gnome-human-icon-theme
+Description: Querencia Desktop image viewer (alpha)
+ Querencia Bilder is the image viewer of Querencia Desktop, a classic
+ desktop in the style of GNOME 2. It shows PNG, JPEG, GIF, BMP, WebP and
+ every other format gdk-pixbuf can load, with a classic menu bar, a
+ compact toolbar, zoom, fit to window, full screen, slideshow, rotation
+ and image properties.
+ .
+ Images are only displayed, never modified or saved. This package does
+ not register the viewer for any image type (no MimeType); the
+ association is a separate step. This is an alpha release.

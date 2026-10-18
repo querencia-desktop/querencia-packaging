@@ -1,0 +1,8 @@
+querencia-bilder (0.1.0~alpha1-1) resolute; urgency=medium
+
+  * Erster Paketentwurf nach Freigabe von QI-01 (eigener Betrachter in
+    Rust/GTK 4 statt EOM-Fork, Application-ID org.querencia.Bilder).
+  * Quelle: querencia-bilder 8845066 (Prototyp QI-01).
+  * Ohne MIME-Zuordnung: die Desktop-Datei nennt keine Bildtypen.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sun, 18 Oct 2026 01:40:00 +0200

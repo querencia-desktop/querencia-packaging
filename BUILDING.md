@@ -10,7 +10,7 @@ bash werkzeuge/paket-bauen.sh  querencia-shell     # dpkg-buildpackage -us -uc
 ```
 
 Reihenfolge für den vollständigen Satz: `querencia-shell`,
-`querencia-terminal`, `querencia-screenshot`, `querencia-files`,
+`querencia-terminal`, `querencia-screenshot`, `querencia-files`, `querencia-bilder`,
 `querencia-session`, `querencia-desktop`, `labwc`.
 
 labwc auf einem Rechner ohne `scdoc`, `librsvg2-dev`, `gettext`:

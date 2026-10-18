@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+CARGO_FEATURES :=
+include debian/querencia.mk
+
+ICON_SIZES := 16 22 24 32 48 64 128 256
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-bilder $(DESTDIR)/usr/bin/querencia-bilder
+	install -D -m 0644 data/org.querencia.Bilder.desktop \
+		$(DESTDIR)/usr/share/applications/org.querencia.Bilder.desktop
+	for s in $(ICON_SIZES); do \
+		install -D -m 0644 data/icons/hicolor/$${s}x$${s}/apps/org.querencia.Bilder.png \
+			$(DESTDIR)/usr/share/icons/hicolor/$${s}x$${s}/apps/org.querencia.Bilder.png; done
+	install -D -m 0644 data/icons/hicolor/scalable/apps/org.querencia.Bilder.svg \
+		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Bilder.svg
+	# Bewusst keine MimeType-Zeile: ohne anderen Bildbetrachter würde GIO das
+	# Paket sonst sofort zum Standard für Bilder machen (QI-01, Integrationsplan).
+	! grep -q '^MimeType=' $(DESTDIR)/usr/share/applications/org.querencia.Bilder.desktop
+	install -D -m 0644 README.md $(DESTDIR)/usr/share/doc/querencia-bilder/README.md
+	gzip -9nc CHANGELOG.md >$(DESTDIR)/usr/share/doc/querencia-bilder/changelog.gz
