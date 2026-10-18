@@ -7,5 +7,5 @@
   Paketbau ohne debhelper, Paketprüfung, DEP-5-Copyright aus
   Crate-Metadaten, signierte APT-Quelle und Veröffentlichungsprüfung.
 - CI-Vorlagen (GitHub Actions), nicht aktiviert.
-- querencia-bilder (QI-01): Bildbetrachter, noch ohne MIME-Zuordnung und
-  noch nicht im Metapaket.
+- querencia-bilder (QI-01): Bildbetrachter, noch ohne MIME-Zuordnung;
+  querencia-desktop 0.1.0~alpha1-2 empfiehlt ihn (Recommends).

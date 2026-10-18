@@ -1,3 +1,10 @@
+querencia-desktop (0.1.0~alpha1-2) resolute; urgency=medium
+
+  * Recommends: querencia-bilder (Bildbetrachter, QI-01). Weiterhin ohne
+    MIME-Zuordnung: das Metapaket ändert keine Standardprogramme.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sun, 18 Oct 2026 17:00:00 +0200
+
 querencia-desktop (0.1.0~alpha1-1) resolute; urgency=medium
 
   * Erster Entwurf des Metapakets (QREL-01, Worker 5).

@@ -13,7 +13,8 @@ Depends: querencia-session (>= 0.1.0~alpha1),
          querencia-files (>= 0.1.0~alpha1),
          querencia-terminal (>= 0.1.0~alpha1),
          querencia-screenshot (>= 0.1.0~alpha1)
-Recommends: gnome-human-icon-theme,
+Recommends: querencia-bilder (>= 0.1.0~alpha1),
+            gnome-human-icon-theme,
             gvfs-backends,
             xdg-desktop-portal-gtk,
             fonts-dejavu-core,
@@ -26,7 +27,8 @@ Description: Querencia Desktop – classic GNOME 2 style desktop (metapackage, a
  compositor.
  .
  This metapackage installs all components: session, panel and desktop,
- file manager, terminal and screenshot tool. Afterwards "Querencia
+ file manager, terminal and screenshot tool, and recommends the image
+ viewer. Afterwards "Querencia
  Desktop" can be chosen in the session list of the display manager.
  No display manager is installed or reconfigured.
  .

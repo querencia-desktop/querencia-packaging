@@ -14,7 +14,7 @@ querencia-shell/debian/   Panel + Desktop
 querencia-terminal/debian/
 querencia-screenshot/debian/
 querencia-files/debian/   Dateimanager (ohne UnRAR, ohne Update-Prüfung)
-querencia-bilder/debian/  Bildbetrachter (QI-01, ohne MIME-Zuordnung)
+querencia-bilder/debian/  Bildbetrachter (QI-01, ohne MIME-Zuordnung; Recommends des Metapakets)
 querencia-session/debian/ Sitzung (Architecture: all)
 querencia-desktop/debian/ Metapaket (Quelle: Repository querencia)
 backports/labwc/debian/   labwc 0.9.8 für Ubuntu 26.04
