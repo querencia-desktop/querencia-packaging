@@ -23,8 +23,10 @@ Depends: labwc (>= 0.9.4),
          querencia-rechner (>= 0.1.1),
          querencia-systemmonitor (>= 0.1.0),
          querencia-dateisuche (>= 0.1.1),
-         querencia-software (>= 0.1.0)
-Recommends: pipewire,
+         querencia-software (>= 0.1.0),
+         dmz-cursor-theme,
+         fonts-dejavu
+Recommends: fonts-dejavu-extra, pipewire,
             pipewire-pulse,
             wireplumber,
             network-manager,
@@ -34,7 +36,6 @@ Recommends: pipewire,
             avahi-daemon,
             wsdd-server,
             xdg-desktop-portal-gtk,
-            fonts-dejavu-core,
             wl-clipboard,
             slurp
 Suggests: greetd
@@ -49,6 +50,10 @@ Description: Querencia Desktop – classic GNOME 2 style desktop (metapackage, a
  viewer, calculator, system monitor, file search and the software manager.
  Afterwards "Querencia Desktop" can be chosen in the session list of the
  display manager. No display manager is installed or reconfigured.
+ .
+ The mouse pointer theme (DMZ) and the DejaVu fonts come from the
+ distribution packages dmz-cursor-theme and fonts-dejavu (recommended:
+ fonts-dejavu-extra); this package ships neither fonts nor pointers.
  .
  Recommended: PipeWire for sound (volume applet) and NetworkManager for
  the network applet (with systemd-networkd it only shows the state).

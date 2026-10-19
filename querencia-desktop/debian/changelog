@@ -3,6 +3,9 @@ querencia-desktop (0.1.0~alpha2-1) resolute; urgency=medium
   * Zieht den ganzen Live-Stand (G2-F): neu Depends querencia-sitzung,
     -benachrichtigungen, -einstellungen, -editor, -bilder, -rechner,
     -systemmonitor, -dateisuche, -software, -symbole und labwc (>= 0.9.4).
+  * Depends: dmz-cursor-theme, fonts-dejavu; Recommends: fonts-dejavu-extra
+    (QD-046 ④, Zeigerthema und Schriften der Sitzung; nur Paketnamen,
+    nichts davon wird mitgeliefert).
   * Recommends: PipeWire (pipewire, pipewire-pulse, wireplumber),
     network-manager, apt-config-icons, avahi-daemon, wsdd-server.
   * Maintainer und Copyright nach ENTSCHEIDUNGEN Nr. 3 und 14.
