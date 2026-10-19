@@ -11,6 +11,9 @@ querencia-shell (0.1.0~alpha2-1) resolute; urgency=medium
     org.querencia.Panel und org.querencia.Desktop.
   * Depends: querencia-symbole (Symbol der Lautstärke). Recommends:
     libpulse0 (wird zur Laufzeit geladen), pipewire-pulse, network-manager.
+  * debian/patches/0001-desktop-quellbaum-nur-debug.patch: kein Bauordner
+    im Binary (env!("CARGO_MANIFEST_DIR") nur in Debug-Builds).
+  * Ohne README der Runtime (beschreibt die Entwicklungs-VM).
   * Maintainer und Copyright nach ENTSCHEIDUNGEN Nr. 3 und 14.
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:39:59 +0200

@@ -1,0 +1,26 @@
+Description: Quellbaum-Rückfall des Hintergrundbilds nur in Debug-Builds
+ querencia-desktop sucht das eingebaute Bild querencia-blau.png zuletzt im
+ Quellbaum (env!("CARGO_MANIFEST_DIR")). Der Pfad wird zur Bauzeit ins Binary
+ geschrieben und von --remap-path-prefix nicht erfasst; im Paket stand damit
+ der Bauordner. Release-Builds suchen nur in den XDG-Datenordnern
+ (/usr/share/querencia/hintergruende).
+Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Forwarded: not-yet (Vorschlag für querencia-runtime, G2-F)
+Last-Update: 2026-10-20
+---
+--- a/crates/querencia-desktop/src/main.rs
++++ b/crates/querencia-desktop/src/main.rs
+@@ -210,7 +210,13 @@
+ fn built_in_texture() -> Option<gdk::Texture> {
+     let mut data_dirs = vec![glib::user_data_dir()];
+     data_dirs.extend(glib::system_data_dirs());
++    // Source-tree fallback only for development builds: env!() is not
++    // covered by --remap-path-prefix and would put the build directory into
++    // release binaries (Debian package, pakete-pruefen.sh).
++    #[cfg(debug_assertions)]
+     let source_tree = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
++    #[cfg(not(debug_assertions))]
++    let source_tree = PathBuf::from("/nonexistent");
+     config::built_in_candidates(&data_dirs, &source_tree)
+         .into_iter()
+         .find(|path| path.is_file())

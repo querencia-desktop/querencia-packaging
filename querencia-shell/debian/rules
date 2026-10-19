@@ -20,4 +20,4 @@ querencia-install:
 	# Symbol der Lautstärke kommt aus querencia-symbole (PNG-Stufen und SVG)
 	$(call desktop_install,crates/querencia-lautstaerke/data/org.querencia.Lautstaerke.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Lautstaerke.desktop)
 	$(call metainfo_install,org.querencia.Panel org.querencia.Desktop)
-	$(call doc_install,.)
+	# Kein README: das der Runtime beschreibt die Entwicklungs-VM.
