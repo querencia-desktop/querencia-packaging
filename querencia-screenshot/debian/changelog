@@ -1,11 +1,12 @@
-querencia-screenshot (0.2.4-1) resolute; urgency=medium
+querencia-screenshot (0.2.6-1) resolute; urgency=medium
 
-  * Neue Upstream-Version 0.2.4 (querencia-screenshot-dev, Tag
-    screenshot/0.2.4, 53e95bf1; live 11bca7842c8ce50f): Stift als
-    Standardwerkzeug, Strichstärken 1-20 px, Farbpalette, GTK-Ordnerdialog.
+  * Neue Upstream-Version 0.2.6 (querencia-screenshot-dev, Tag
+    screenshot/0.2.6, 7d263f4a; live seit 20.10. 00:45, 18665fbc): Strg+Q
+    schließt den Editor, Datei-Menü; enthält 0.2.4 (Stift als
+    Standardwerkzeug, Strichstärken 1-20 px, Farbpalette, GTK-Ordnerdialog).
+  * Lizenz jetzt GPL-3.0-or-later (ENTSCHEIDUNGEN Nr. 2); MetaInfo aus dem
+    Upstream (data/org.querencia.Screenshot.metainfo.xml).
   * Desktop-Datei in debian/ (das Entwicklungs-Repository hat keine).
-  * MetaInfo org.querencia.Screenshot. Lizenz dieser Version: MIT; die
-    Angleichung an GPL-3.0-or-later (ENTSCHEIDUNGEN Nr. 2) kommt mit 0.2.6.
   * Maintainer nach ENTSCHEIDUNGEN Nr. 3.
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:39:59 +0200

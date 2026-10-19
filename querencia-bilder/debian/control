@@ -10,7 +10,8 @@ Build-Depends: cargo (>= 1.92),
                libglib2.0-dev,
                appstream,
                desktop-file-utils,
-               libgdk-pixbuf-2.0-dev
+               libgdk-pixbuf-2.0-dev,
+               gettext
 Standards-Version: 4.7.2
 
 Package: querencia-bilder
@@ -25,9 +26,8 @@ Description: Querencia Desktop image viewer (alpha)
  compact toolbar, zoom, fit to window, full screen, slideshow, rotation
  and image properties.
  .
- Images are only displayed, never modified or saved. The desktop file
- names no image types; in the Querencia session querencia-session makes
- it the default viewer.
+ Images are only displayed, never modified or saved. The interface is
+ English with a German translation (gettext).
  .
  Querencia Desktop is developed with AI tools; every change is reviewed
  and accepted by the project owner.

@@ -13,6 +13,11 @@ License: GPL-3+
 Comment: Own program icon (QI-01, G2-V); the package
  installs the copy from querencia-symbole instead.
 
+Files: po/*
+Copyright: 2026 Querencia Desktop contributors
+License: GPL-3+
+Comment: Translations written for Querencia (no text from Eye of GNOME).
+
 Files: debian/*
 Copyright: 2026 Querencia Desktop contributors
 License: GPL-3+

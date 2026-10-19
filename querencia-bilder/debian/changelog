@@ -1,9 +1,12 @@
-querencia-bilder (0.1.1-1) resolute; urgency=medium
+querencia-bilder (0.2.0-1) resolute; urgency=medium
 
-  * Neue Upstream-Version 0.1.1 (Tag bilder/0.1.1, 8878952a): Info-Fenster
-    mit eigenem Symbol aus der GResource, Escape schließt es, Strg+=
-    vergrößert, Lizenzvermerk. Live auf entwicklungs-vm als Ablage
-    2cbf88652ac66f18.
+  * Neue Upstream-Version 0.2.0 (Tag bilder/0.2.0, 07ae210b; live seit
+    20.10. 00:54, 1c06d9fa): Übersetzungen über gettext (englische msgids,
+    po/de.po, zweisprachiger Starter), MimeType für die gängigen Bildtypen;
+    enthält 0.1.1 (Info-Fenster mit eigenem Symbol, Escape, Strg+=,
+    Lizenzvermerk).
+  * Kataloge po/<sprache>.po werden beim Bau mit msgfmt zu
+    /usr/share/locale/<sprache>/LC_MESSAGES/querencia-bilder.mo.
   * Programmsymbole jetzt aus querencia-symbole (gemeinsame Quelle aller
     eigenen Symbole); das Paket installiert keine hicolor-Datei mehr.
   * MetaInfo org.querencia.Bilder (Querencia Software).

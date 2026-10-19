@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Querencia Screenshot 0.2.4 (Live-Stand, W3). Lizenz MIT nach LICENSE in querencia-screenshot-dev. Menüname „Bildschirmfoto aufnehmen“, der Komponentenname ist der Programmname.
-     Erzeugt von werkzeug/metainfo-erzeugen.py (SW-5, Querencia Software, 2026-10-18);
+<!-- Querencia Screenshot 0.2.6. Lizenz GPL-3.0-or-later nach LICENSE (bis 0.2.4 MIT). Menüname „Bildschirmfoto aufnehmen“, der Komponentenname ist der Programmname.
+     Abgeleitet von der Fassung aus werkzeug/metainfo-erzeugen.py (SW-5, Querencia Software, 2026-10-18);
      Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
 <component type="desktop-application">
   <id>org.querencia.Screenshot</id>
@@ -9,7 +9,7 @@
   <summary>Take a screenshot of the screen, a window or an area and annotate it</summary>
   <summary xml:lang="de">Ein Bildschirmfoto des Bildschirms, eines Fensters oder eines Bereichs aufnehmen und markieren</summary>
   <metadata_license>FSFAP</metadata_license>
-  <project_license>MIT</project_license>
+  <project_license>GPL-3.0-or-later</project_license>
   <developer id="org.querencia">
     <name>Querencia Desktop</name>
     <name xml:lang="de">Querencia Desktop</name>
@@ -45,6 +45,7 @@
     <color type="primary" scheme_preference="dark">#B8532B</color>
   </branding>
   <releases>
+    <release version="0.2.6" date="2026-10-19"/>
     <release version="0.2.4" date="2026-10-18"/>
   </releases>
 </component>

@@ -4,7 +4,7 @@ Comment: Generated from copyright.in by werkzeuge/copyright-erzeugen.py.
 
 Files: *
 Copyright: 2026 Querencia Desktop contributors
-License: Expat
+License: GPL-3+
 
 Files: debian/*
 Copyright: 2026 Querencia Desktop contributors
