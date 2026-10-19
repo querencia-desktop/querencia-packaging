@@ -1,0 +1,7 @@
+querencia-dateisuche (0.1.1-1) resolute; urgency=medium
+
+  * Erstes Paket (G2-F). Quelle: querencia-dateisuche, Tag
+    dateisuche/0.1.1 (1b0524b1), live als Ablage b7ad2cd50f8ea388.
+  * Programmsymbol nur als SVG (Symbolregel GTK 4.22, kein 48x48).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:39:08 +0200

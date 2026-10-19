@@ -1,0 +1,27 @@
+Source: querencia-dateisuche
+Section: utils
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libglib2.0-dev,
+               appstream,
+               desktop-file-utils
+Standards-Version: 4.7.2
+
+Package: querencia-dateisuche
+Architecture: any
+Depends: ${shlibs:Depends}
+Recommends: querencia-files
+Description: Querencia Desktop file search (alpha)
+ Querencia Dateisuche is the "Search for Files" tool of Querencia Desktop,
+ a classic desktop in the style of GNOME 2, modelled on
+ gnome-search-tool: search by name, content, size, date and owner, without
+ an index service.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

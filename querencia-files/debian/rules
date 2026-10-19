@@ -2,24 +2,26 @@
 QUERENCIA_KIND := rust
 # The full suite (~2760 tests, 14-18 min, up to 5.5 GiB) has 61 known
 # environment failures (portal services, GVfs smb, GUI without Wayland) that
-# also fail in the unmodified Strata base. It runs separately (TESTING.md),
+# also fail in the unmodified Strata base. It runs separately (TESTING.md of Strata),
 # not inside the package build.
 QUERENCIA_TEST := no
 CARGO_FEATURES := --no-default-features
 # Strata needs rustc >= 1.98 (uses APIs stabilised after 1.93, e.g.
 # atomic_try_update; kstring 2.0.4 declares rust-version 1.96). Ubuntu 26.04
 # has 1.93.1, so prototypes build with DEB_BUILD_PROFILES=pkg.querencia.fremdrust
-# and QUERENCIA_RUST_BIN=<toolchain>/bin (see BUILDING.md).
+# and QUERENCIA_RUST_BIN=<toolchain>/bin (querencia-packaging docs/building.md).
 # Update checks against GitHub/AUR are compiled out (services/update_check.rs).
 export QUERENCIA_DISABLE_UPDATE_CHECKS := 1
 export STRATA_BUILD_KIND := alpha
-export STRATA_BUILD_COMMIT := $(shell cat debian/upstream-commit 2>/dev/null)
+export STRATA_BUILD_COMMIT := $(shell head -n 1 debian/upstream-commit 2>/dev/null)
+# The update check is switched off by debian/patches/
+# 0001-update-pruefung-abschaltbar.patch (QUERENCIA_DISABLE_UPDATE_CHECKS above).
 include debian/querencia.mk
 
 querencia-install:
 	install -D -m 0755 target/release/strata $(DESTDIR)/usr/bin/querencia-files
-	install -D -m 0644 debian/io.github.lgse.Strata.desktop \
-		$(DESTDIR)/usr/share/applications/io.github.lgse.Strata.desktop
+	$(call desktop_install,debian/io.github.lgse.Strata.desktop,$(DESTDIR)/usr/share/applications/io.github.lgse.Strata.desktop)
+	$(call metainfo_install,io.github.lgse.Strata)
 	install -D -m 0644 debian/install-source.toml $(DESTDIR)/usr/share/strata/install-source.toml
 	install -D -m 0644 QUERENCIA.md $(DESTDIR)/usr/share/doc/querencia-files/QUERENCIA.md
 	install -D -m 0644 THIRD_PARTY_LICENSES.md $(DESTDIR)/usr/share/doc/querencia-files/THIRD_PARTY_LICENSES.md

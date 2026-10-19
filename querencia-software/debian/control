@@ -1,0 +1,42 @@
+Source: querencia-software
+Section: admin
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libglib2.0-dev,
+               appstream,
+               desktop-file-utils
+Standards-Version: 4.7.2
+
+Package: querencia-software
+Architecture: any
+Depends: ${shlibs:Depends},
+         packagekit (>= 1.2),
+         appstream,
+         querencia-sitzung (>= 0.1.1) | lxpolkit | polkit-1-auth-agent
+Recommends: apt-config-icons,
+         gnome-human-icon-theme
+Suggests: apt-config-icons-hidpi
+Description: Querencia Desktop software manager (alpha)
+ Querencia Software is the software manager of Querencia Desktop, a
+ classic desktop in the style of GNOME 2, in the manner of "Add/Remove
+ Applications": programs by category from the AppStream catalogue,
+ search, a details page, install and remove with progress, the list of
+ installed programs and pending updates, with a classic menu bar.
+ .
+ Package operations run through PackageKit. Installing and removing
+ needs a polkit authentication agent in the session; Querencia's own
+ agent comes with querencia-sitzung, any other agent works as well.
+ Without apt-config-icons the catalogue has icons only for programs
+ whose icon is in an installed icon theme.
+ .
+ The first version handles Debian packages from the configured APT
+ sources; Snap, Flatpak and firmware are not shown.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

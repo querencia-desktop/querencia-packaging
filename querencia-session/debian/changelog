@@ -1,3 +1,16 @@
+querencia-session (0.1.0~alpha2-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.1.0~alpha2 (G2-F, Zweig g2f-live-stand 6f63b450):
+    autostart mit polkit-Agent, Leerlaufsperre, Benachrichtigungen und
+    Bildschirmanordnung, rc.xml mit den Kürzeln, Fensterregeln, Alt+Tab-Liste
+    und dem Theme der Entwicklungs-VM, Alt+Druck, Standardprogramme für Texte
+    und Bilder in der Querencia-Sitzung.
+  * Recommends: querencia-sitzung, querencia-benachrichtigungen,
+    querencia-einstellungen.
+  * Maintainer und Copyright nach ENTSCHEIDUNGEN Nr. 3 und 14.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:39:59 +0200
+
 querencia-session (0.1.0~alpha1-1) resolute; urgency=medium
 
   * Erster Paketentwurf (QREL-01, Worker 5).

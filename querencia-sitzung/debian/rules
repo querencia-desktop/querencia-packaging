@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+CARGO_FEATURES :=
+include debian/querencia.mk
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-sitzung $(DESTDIR)/usr/bin/querencia-sitzung
+	install -D -m 0755 target/release/querencia-polkit-agent $(DESTDIR)/usr/bin/querencia-polkit-agent
+	$(call desktop_install,data/org.querencia.Sitzung.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Sitzung.desktop)
+	grep -qx 'Exec=querencia-sitzung --dialog' $(DESTDIR)/usr/share/applications/org.querencia.Sitzung.desktop
+	$(call metainfo_install,org.querencia.Sitzung)
+	$(call doc_install,.)

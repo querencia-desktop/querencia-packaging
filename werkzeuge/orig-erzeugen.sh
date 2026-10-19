@@ -4,6 +4,9 @@
 #   <src>_<ver>.orig-cargo-vendor.tar.xz alle Crates aus Cargo.lock (cargo vendor),
 #                                        die in quellen.conf ausgeschlossenen nur als
 #                                        entkernte Platzhalter (Manifest ohne Code)
+#   <src>_<ver>.orig-<name>.tar.xz       je Komponente aus <src>/komponenten.conf
+#                                        (z. B. Bausteine, die als Pfad-Abhängigkeit
+#                                        neben dem Haupt-Workspace liegen)
 # und aktualisiert debian/copyright (aus copyright.in) und debian/upstream-commit
 # im Paketierungs-Repository. Lizenzinventar nach nachweis/lizenzen/.
 #
@@ -21,15 +24,29 @@ mkdir -p "$AUSGABE/orig" "$NACHWEIS/lizenzen" "$VENDOR_CARGO_HOME"
 TMP=$(mktemp -d "$AUSGABE/.orig-XXXXXX")
 trap 'chmod -R u+w "$TMP" 2>/dev/null; rm -rf "$TMP"' EXIT
 
-log "$SRC $VER aus $REPO@${COMMIT:0:12}"
-git -C "$QUELLEN/$REPO" archive --format=tar --prefix="$DIR/" "$COMMIT" >"$TMP/orig.tar"
+log "$SRC $VER aus $REPO@${COMMIT:0:12}${UNTERORDNER:+ (im Unterordner $UNTERORDNER/)}"
+git -C "$QUELLEN/$REPO" archive --format=tar --prefix="$DIR/${UNTERORDNER:+$UNTERORDNER/}" "$COMMIT" \
+    -- . "${AUSSCHLUSS[@]}" >"$TMP/orig.tar"
 xz -T1 -9 -c "$TMP/orig.tar" >"$AUSGABE/orig/$ORIG"
-echo "$COMMIT" >"$DEBDIR/upstream-commit"
+{
+    echo "$COMMIT"
+    for i in "${!KOMP_NAMEN[@]}"; do echo "${KOMP_REVS[$i]} ${KOMP_NAMEN[$i]}"; done
+} >"$DEBDIR/upstream-commit"
+KOMP_ARCHIVE=()
+for i in "${!KOMP_NAMEN[@]}"; do
+    n=${KOMP_NAMEN[$i]} a=$(orig_komp "${KOMP_NAMEN[$i]}")
+    log "Komponente $n aus ${KOMP_REPOS[$i]}@${KOMP_REVS[$i]:0:12}"
+    git -C "$QUELLEN/${KOMP_REPOS[$i]}" archive --format=tar --prefix="$n/" "${KOMP_REVS[$i]}" \
+        -- . "${AUSSCHLUSS[@]}" >"$TMP/komp-$n.tar"
+    xz -T1 -9 -c "$TMP/komp-$n.tar" >"$AUSGABE/orig/$a"
+    KOMP_ARCHIVE+=("$a")
+done
 
 if [ "$VENDOR" = ja ]; then
     tar -xf "$TMP/orig.tar" -C "$TMP"
+    for n in "${KOMP_NAMEN[@]}"; do tar -xf "$TMP/komp-$n.tar" -C "$TMP/$DIR"; done
     (
-        cd "$TMP/$DIR"
+        cd "$TMP/$DIR/$UNTERORDNER"
         export CARGO_HOME=$VENDOR_CARGO_HOME
         if ! sauber CARGO_HOME="$CARGO_HOME" /usr/bin/cargo vendor --locked --offline --versioned-dirs \
             "$TMP/cargo-vendor" >/dev/null 2>"$TMP/vendor-offline.err"; then
@@ -61,4 +78,4 @@ if [ "$VENDOR" = ja ]; then
 elif [ -f "$DEBDIR/copyright.in" ]; then
     python3 -I "$PK/werkzeuge/copyright-erzeugen.py" "$DEBDIR/copyright.in" - "$DEBDIR/copyright"
 fi
-(cd "$AUSGABE/orig" && sha256sum "$ORIG" $([ "$VENDOR" = ja ] && echo "$ORIG_VENDOR")) | tee "$AUSGABE/orig/$SRC.sha256"
+(cd "$AUSGABE/orig" && sha256sum "$ORIG" "${KOMP_ARCHIVE[@]}" $([ "$VENDOR" = ja ] && echo "$ORIG_VENDOR")) | tee "$AUSGABE/orig/$SRC.sha256"

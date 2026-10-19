@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Application
+Version=1.5
+Name=Take Screenshot
+Name[de]=Bildschirmfoto aufnehmen
+GenericName=Screenshot
+GenericName[de]=Bildschirmfoto
+Comment=Save a picture of the screen, a window or an area
+Comment[de]=Ein Bildschirmfoto des Bildschirms, eines Fensters oder eines Bereichs speichern
+Exec=querencia-screenshot
+TryExec=querencia-screenshot
+Icon=applets-screenshooter
+Terminal=false
+Categories=GTK;Utility;
+Keywords=screenshot;capture;print;
+Keywords[de]=Bildschirmfoto;Screenshot;Aufnahme;
+StartupNotify=true
+StartupWMClass=org.querencia.Screenshot

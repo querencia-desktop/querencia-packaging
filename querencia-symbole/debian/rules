@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := data
+include debian/querencia.mk
+
+ICONS := integration/vorlage/icons/hicolor
+
+querencia-install:
+	# Symbolregel: nie 48x48 zusammen mit einem Scalable-Verzeichnis
+	test ! -e $(ICONS)/48x48
+	set -e; cd $(ICONS) && for f in */apps/*; do \
+		install -D -m 0644 $$f $(DESTDIR)/usr/share/icons/hicolor/$$f; done
+	test $$(find $(DESTDIR)/usr/share/icons/hicolor -type f | wc -l) -eq 48

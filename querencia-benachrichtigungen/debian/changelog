@@ -1,0 +1,8 @@
+querencia-benachrichtigungen (0.1.1-1) resolute; urgency=medium
+
+  * Erstes Paket (G2-F). Quelle: querencia-benachrichtigungen, Tag
+    benachrichtigungen/0.1.1 (96371153), live als Ablage 928411e9259bfc92.
+  * Nur der Dienst; das Prüfprogramm panel-attrappe wird nicht installiert.
+  * Keine D-Bus-Aktivierungsdatei: Start über den Autostart der Sitzung.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:39:08 +0200

@@ -5,6 +5,8 @@ Source: https://github.com/pottrauschen/strata (branch querencia)
 Comment: Generated from copyright.in by werkzeuge/copyright-erzeugen.py.
  The crates unrar and unrar_sys (UnRAR, non-free license) are stubbed in
  cargo-vendor/ (manifest only, no code, see ENTKERNT.txt); the package is built with --no-default-features.
+ The program is MIT licensed and linked against libpoppler-glib (GPL), so the
+ binary as a whole is distributed under the terms of the GPL.
 
 Files: *
 Copyright: 2026 LGSE Ltd.
@@ -42,7 +44,7 @@ Comment: Only the license text is part of the source; the UnRAR code itself
  is not included in this package.
 
 Files: debian/*
-Copyright: 2026 pottrauschen and the Querencia Desktop contributors
+Copyright: 2026 Querencia Desktop contributors
 License: GPL-3+
 
 @CARGO_VENDOR@

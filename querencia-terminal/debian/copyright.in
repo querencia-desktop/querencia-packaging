@@ -3,7 +3,7 @@ Upstream-Name: querencia-terminal
 Comment: Generated from copyright.in by werkzeuge/copyright-erzeugen.py.
 
 Files: *
-Copyright: 2026 pottrauschen and the Querencia Desktop contributors
+Copyright: 2026 Querencia Desktop contributors
 License: GPL-3+
 
 Files: vendor/vte4/*
@@ -14,7 +14,7 @@ Comment: vte4 0.10.0 from crates.io (upstream commit 051bd027 of
  src/terminal.rs and src/pty.rs (see README.md, "Lokaler vte4-Patch").
 
 Files: debian/*
-Copyright: 2026 pottrauschen and the Querencia Desktop contributors
+Copyright: 2026 Querencia Desktop contributors
 License: GPL-3+
 
 @CARGO_VENDOR@

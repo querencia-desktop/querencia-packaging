@@ -1,6 +1,11 @@
 # Vorlage für .github/workflows/paket.yml in querencia-packaging.
 # Baut alle Pakete aus den in quellen.conf festgelegten Commits und prüft sie.
 # Die Quell-Repositories werden als Geschwisterordner ausgecheckt.
+# ACHTUNG (G2-F): quellen.conf nennt heute die lokalen Ordner auf entwicklungs-vm
+# (querencia-runtime, querencia-files-dev, …); vor dem Einschalten auf die
+# GitHub-Namen aus REPOS.md umstellen (querencia-shell, querencia-files, …).
+# querencia-files braucht rustc >= 1.98 (Ubuntu 26.04: 1.93), querencia-software
+# zusätzlich die Bausteine aus querencia-software/komponenten.conf.
 # Kein Signieren, keine Veröffentlichung, keine Geheimnisse.
 name: paket
 on:
@@ -17,13 +22,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        paket: [querencia-shell, querencia-terminal, querencia-screenshot, querencia-files, querencia-session, labwc]
+        paket: [querencia-shell, querencia-session, querencia-terminal, querencia-screenshot, querencia-files,
+                querencia-bilder, querencia-editor, querencia-sitzung, querencia-benachrichtigungen,
+                querencia-rechner, querencia-systemmonitor, querencia-dateisuche, querencia-einstellungen,
+                querencia-software, querencia-symbole, querencia-desktop, labwc]
     steps:
       - name: Werkzeuge
         run: |
           apt-get update
           apt-get install -y --no-install-recommends ca-certificates git dpkg-dev fakeroot xz-utils \
-            python3 desktop-file-utils cargo rustc pkgconf build-essential
+            python3 desktop-file-utils appstream cargo rustc pkgconf build-essential
       - uses: actions/checkout@v4
         with: { path: quellen/querencia-packaging }
       - name: Quell-Repository
@@ -48,7 +56,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: deb-${{ matrix.paket }}
-          path: pakete/bau/${{ matrix.paket }}/*.deb
+          path: quellen/querencia-packaging/build/bau/${{ matrix.paket }}/*.deb
   pruefen:
     needs: bauen
     runs-on: ubuntu-latest

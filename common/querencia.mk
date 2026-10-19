@@ -86,6 +86,26 @@ ifeq ($(QUERENCIA_KIND),custom)
 endif
 	touch $@
 
+# --- helpers for querencia-install ---------------------------------------
+# Desktop file from the source tree for /usr: comment lines dropped (they
+# describe the development VM), an absolute directory in Exec/TryExec
+# stripped (packages install to /usr/bin), validated afterwards.
+#   $(call desktop_install,<file in the tree>,<installed path>)
+desktop_install = install -d $(dir $(2)) && \
+	sed -E -e '/^[[:space:]]*\#/d' -e 's@^(Exec|TryExec)=/[^ ]*/@\1=@' $(1) >$(2) && \
+	chmod 0644 $(2) && desktop-file-validate $(2)
+# MetaInfo of one or more components from debian/metainfo/ (copied there by
+# werkzeuge/paket-bauen.sh), validated with appstreamcli, <pkgname> = $(PKG).
+#   $(call metainfo_install,<component id> …)
+metainfo_install = DESTDIR=$(DESTDIR) QS_PAKETNAME=$(PKG) QS_METAINFO_QUELLE=debian/metainfo \
+	bash debian/metainfo/metainfo-paket-installieren.sh $(1)
+# README/CHANGELOG of the source tree, when present.
+#   $(call doc_install,<directory in the tree>)
+doc_install = set -e; d=$(DESTDIR)/usr/share/doc/$(PKG); install -d $$d; \
+	for f in README.md BUILDING.md TESTING.md QUERENCIA.md; do \
+		if [ -f $(1)/$$f ]; then install -m 0644 $(1)/$$f $$d/$$f; fi; done; \
+	if [ -f $(1)/CHANGELOG.md ]; then gzip -9nc $(1)/CHANGELOG.md >$$d/changelog.gz; fi
+
 # --- generic binary package ---------------------------------------------
 
 ARCH := $(shell sed -n '/^Package: *$(PKG)$$/,/^$$/s/^Architecture: *//p' debian/control)

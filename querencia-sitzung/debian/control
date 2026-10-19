@@ -1,0 +1,39 @@
+Source: querencia-sitzung
+Section: x11
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libglib2.0-dev,
+               appstream,
+               desktop-file-utils,
+               libwayland-dev,
+               libxkbcommon-dev
+Standards-Version: 4.7.2
+
+Package: querencia-sitzung
+Architecture: any
+Depends: ${shlibs:Depends},
+         querencia-symbole (>= 0.2),
+         libpam0g,
+         polkitd
+Recommends: querencia-session
+Provides: polkit-1-auth-agent
+Description: Querencia Desktop session dialog, screen lock and polkit agent (alpha)
+ Querencia Sitzung provides the session functions of Querencia Desktop,
+ a classic desktop in the style of GNOME 2:
+  * querencia-sitzung: the dialog "Abmelden, Bildschirm sperren, Neu
+    starten, Herunterfahren" (Ctrl+Alt+Delete), the screen lock
+    (ext-session-lock, password check through PAM, Ctrl+Alt+L) and the
+    idle lock;
+  * querencia-polkit-agent: the polkit authentication agent of the
+    session (password dialog for administrative actions).
+ .
+ Both are started by the Querencia session (querencia-session).
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

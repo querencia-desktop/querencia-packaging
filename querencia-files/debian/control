@@ -13,7 +13,9 @@ Build-Depends: cargo (>= 1.98) <!pkg.querencia.fremdrust>,
                libgstreamer-plugins-base1.0-dev,
                libfontconfig-dev,
                libcairo2-dev,
-               libglib2.0-dev
+               libglib2.0-dev,
+               appstream,
+               desktop-file-utils
 Standards-Version: 4.7.2
 
 Package: querencia-files
@@ -30,7 +32,14 @@ Description: Querencia Desktop file manager (alpha)
  manager by LGSE Ltd. (MIT license) and adds a classic Nautilus 2 like
  look with the GNOME Human icon theme.
  .
+ Querencia Files is MIT licensed and linked against the GPL library
+ libpoppler-glib (PDF previews), so the binary as a whole is distributed
+ under the terms of the GPL.
+ .
  This package is built without RAR support (the UnRAR library has a
  non-free license). It does not register itself as the system-wide
  org.freedesktop.FileManager1 service or file chooser portal.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
  This is an alpha release.

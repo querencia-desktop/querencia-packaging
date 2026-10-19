@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+# Unit-Tests ohne Daemon (Attrappen, QS_ATTRAPPE=1); die Tests gegen den
+# privaten packagekitd (SW-1 PRUEFGERUEST.md) laufen getrennt.
+export QS_ATTRAPPE := 1
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+CARGO_FEATURES := --manifest-path querencia-software/Cargo.toml
+include debian/querencia.mk
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-software $(DESTDIR)/usr/bin/querencia-software
+	$(call desktop_install,debian/org.querencia.Software.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Software.desktop)
+	grep -qx 'Exec=querencia-software' $(DESTDIR)/usr/share/applications/org.querencia.Software.desktop
+	# Nur SVG, nie 48x48 (GTK-4.22-Symbolabsturz, pakete-pruefen.sh).
+	install -D -m 0644 debian/org.querencia.Software.svg \
+		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Software.svg
+	$(call metainfo_install,org.querencia.Software)
+	$(call doc_install,querencia-software/programm)

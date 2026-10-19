@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+CARGO_FEATURES :=
+include debian/querencia.mk
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-einstellungen $(DESTDIR)/usr/bin/querencia-einstellungen
+	$(call desktop_install,debian/org.querencia.Einstellungen.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Einstellungen.desktop)
+	$(call metainfo_install,org.querencia.Einstellungen)

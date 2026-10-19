@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+CARGO_FEATURES :=
+include debian/querencia.mk
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-rechner $(DESTDIR)/usr/bin/querencia-rechner
+	$(call desktop_install,data/org.querencia.Rechner.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Rechner.desktop)
+	install -D -m 0644 data/icons/hicolor/scalable/apps/org.querencia.Rechner.svg \
+		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Rechner.svg
+	$(call metainfo_install,org.querencia.Rechner)
+	$(call doc_install,.)

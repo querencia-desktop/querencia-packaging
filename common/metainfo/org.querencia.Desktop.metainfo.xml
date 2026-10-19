@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Querencia Desktop (Arbeitsfläche), GApplication-ID org.querencia.Desktop, Crate querencia-desktop in querencia-runtime (Live-Stand QE-01). Kein Menüeintrag, deshalb generic ohne launchable.
+     Erzeugt von werkzeug/metainfo-erzeugen.py (SW-5, Querencia Software, 2026-10-18);
+     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
+<component type="generic">
+  <id>org.querencia.Desktop</id>
+  <name>Querencia Desktop Background</name>
+  <name xml:lang="de">Querencia Arbeitsfläche</name>
+  <summary>Desktop background and desktop icons of Querencia Desktop</summary>
+  <summary xml:lang="de">Hintergrund und Symbole der Arbeitsfläche von Querencia Desktop</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="org.querencia">
+    <name>Querencia Desktop</name>
+    <name xml:lang="de">Querencia Desktop</name>
+  </developer>
+  <project_group>Querencia</project_group>
+  <description>
+    <p>The desktop component of Querencia Desktop draws the background of the work area and the icons on it (home folder, trash, files on the desktop), in the style of GNOME 2.</p>
+    <p xml:lang="de">Die Arbeitsfläche von Querencia Desktop zeichnet den Hintergrund und die Symbole darauf (persönlicher Ordner, Papierkorb, Dateien auf der Arbeitsfläche) im Stil von GNOME 2.</p>
+    <p>It is part of the Querencia shell package together with the panel and is not started from the application menu.</p>
+    <p xml:lang="de">Sie gehört mit dem Panel zum Paket querencia-shell und wird nicht aus dem Anwendungsmenü gestartet.</p>
+  </description>
+  <url type="homepage">https://querencialinux.org</url>
+  <provides>
+    <binary>querencia-desktop</binary>
+  </provides>
+  <pkgname>querencia-shell</pkgname>
+  <categories>
+    <category>System</category>
+  </categories>
+  <branding>
+    <color type="primary" scheme_preference="light">#F07746</color>
+    <color type="primary" scheme_preference="dark">#B8532B</color>
+  </branding>
+  <releases>
+    <release version="0.1.0" date="2026-10-18"/>
+  </releases>
+</component>

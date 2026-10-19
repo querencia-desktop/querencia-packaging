@@ -1,0 +1,33 @@
+Source: querencia-benachrichtigungen
+Section: x11
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libglib2.0-dev,
+               appstream,
+               desktop-file-utils,
+               libgtk4-layer-shell-dev,
+               libwayland-dev
+Standards-Version: 4.7.2
+
+Package: querencia-benachrichtigungen
+Architecture: any
+Depends: ${shlibs:Depends}
+Recommends: querencia-session
+Provides: notification-daemon
+Description: Querencia Desktop notification service (alpha)
+ Querencia Benachrichtigungen implements org.freedesktop.Notifications
+ for Querencia Desktop and shows notifications as popups in the top
+ right corner (gtk4-layer-shell), with actions and images.
+ .
+ It is started by the Querencia session (querencia-session); the package
+ installs no D-Bus activation file, so other desktops keep their own
+ notification service.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

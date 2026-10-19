@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Querencia Rechner 0.1.0 (G2-H, Tag rechner/0.1.0, live seit 19:36 als „Taschenrechner“ unter Zubehör).
+     Erzeugt von werkzeug/metainfo-erzeugen.py (SW-5, Querencia Software, 2026-10-18);
+     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
+<component type="desktop-application">
+  <id>org.querencia.Rechner</id>
+  <name>Querencia Calculator</name>
+  <name xml:lang="de">Querencia Rechner</name>
+  <summary>Perform arithmetic calculations</summary>
+  <summary xml:lang="de">Grundrechenarten, Prozent, Wurzel und Speicher</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="org.querencia">
+    <name>Querencia Desktop</name>
+    <name xml:lang="de">Querencia Desktop</name>
+  </developer>
+  <project_group>Querencia</project_group>
+  <description>
+    <p>Querencia Calculator is the calculator of Querencia Desktop. It offers the basic arithmetic operations with precedence and brackets, percent, square root, square, reciprocal, sign and a memory, operated by mouse, keyboard or numeric keypad.</p>
+    <p xml:lang="de">Querencia Rechner ist der Taschenrechner von Querencia Desktop. Er bietet die Grundrechenarten mit Punkt-vor-Strich und Klammern, Prozent, Wurzel, Quadrat, Kehrwert, Vorzeichen und einen Speicher, bedienbar mit Maus, Tastatur oder Ziffernblock.</p>
+  </description>
+  <url type="homepage">https://querencialinux.org</url>
+  <launchable type="desktop-id">org.querencia.Rechner.desktop</launchable>
+  <provides>
+    <binary>querencia-rechner</binary>
+  </provides>
+  <pkgname>querencia-rechner</pkgname>
+  <categories>
+    <category>Utility</category>
+    <category>Calculator</category>
+  </categories>
+  <keywords>
+    <keyword>calculator</keyword>
+    <keyword>calc</keyword>
+    <keyword xml:lang="de">Rechner</keyword>
+    <keyword xml:lang="de">Taschenrechner</keyword>
+    <keyword xml:lang="de">Rechnen</keyword>
+  </keywords>
+  <content_rating type="oars-1.1"/>
+  <branding>
+    <color type="primary" scheme_preference="light">#F07746</color>
+    <color type="primary" scheme_preference="dark">#B8532B</color>
+  </branding>
+  <releases>
+    <release version="0.1.0" date="2026-10-18"/>
+  </releases>
+</component>

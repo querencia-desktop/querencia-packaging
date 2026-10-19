@@ -1,0 +1,7 @@
+querencia-symbole (0.2-1) resolute; urgency=medium
+
+  * Erstes Paket (G2-F). Quelle: querencia-symbole, Tag symbole/0.2
+    (a094043c), die auf entwicklungs-vm seit 19.10. aktiven Symbole (QD-034).
+  * Übernimmt die Programmsymbole von querencia-bilder (<< 0.1.1-1).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:41:20 +0200

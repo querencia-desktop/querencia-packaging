@@ -1,0 +1,25 @@
+Source: querencia-systemmonitor
+Section: admin
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libglib2.0-dev,
+               appstream,
+               desktop-file-utils
+Standards-Version: 4.7.2
+
+Package: querencia-systemmonitor
+Architecture: any
+Depends: ${shlibs:Depends},
+         querencia-symbole (>= 0.2)
+Description: Querencia Desktop system monitor (alpha)
+ Querencia Systemmonitor shows processes, resources (CPU, memory, network)
+ and file systems, in the style of gnome-system-monitor from GNOME 2.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

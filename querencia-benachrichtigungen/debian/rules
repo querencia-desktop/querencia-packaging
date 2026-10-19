@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+CARGO_FEATURES :=
+include debian/querencia.mk
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-benachrichtigungen $(DESTDIR)/usr/bin/querencia-benachrichtigungen
+	$(call metainfo_install,org.querencia.Benachrichtigungen)
+	$(call doc_install,.)

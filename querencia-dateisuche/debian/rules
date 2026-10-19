@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+CARGO_FEATURES :=
+include debian/querencia.mk
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-dateisuche $(DESTDIR)/usr/bin/querencia-dateisuche
+	$(call desktop_install,data/org.querencia.Dateisuche.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Dateisuche.desktop)
+	install -D -m 0644 data/icons/hicolor/scalable/apps/org.querencia.Dateisuche.svg \
+		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Dateisuche.svg
+	$(call metainfo_install,org.querencia.Dateisuche)
+	$(call doc_install,.)

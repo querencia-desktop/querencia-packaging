@@ -6,27 +6,44 @@ Rules-Requires-Root: no
 Build-Depends: cargo (>= 1.92),
                rustc (>= 1.92),
                pkgconf,
-               libgtk-4-dev (>= 4.10),
+               libgtk-4-dev (>= 4.12),
                libgtk4-layer-shell-dev,
                libglib2.0-dev,
-               libwayland-dev
+               libwayland-dev,
+               appstream,
+               desktop-file-utils
 Standards-Version: 4.7.2
 
 Package: querencia-shell
 Architecture: any
-Depends: ${shlibs:Depends}
-Recommends: querencia-session, gnome-human-icon-theme, gvfs
-Suggests: querencia-files, querencia-terminal
-Description: Querencia Desktop panel and desktop (alpha)
+Depends: ${shlibs:Depends},
+         querencia-symbole (>= 0.2)
+Recommends: querencia-session,
+            gnome-human-icon-theme,
+            gvfs,
+            libpulse0,
+            pipewire-pulse,
+            network-manager
+Suggests: querencia-files, querencia-terminal, querencia-einstellungen
+Description: Querencia Desktop panel, desktop and window theme (alpha)
  Querencia Desktop is a classic desktop in the style of GNOME 2 /
  Ubuntu 10.04, written in Rust with GTK 4 for Wayland (labwc).
  .
- This package contains the two shell programs:
+ This package contains the shell programs:
   * querencia-panel: top panel with the Applications, Places and System
-    menus and a clock; bottom panel with window list and workspace
-    switcher;
-  * querencia-desktop: desktop background, desktop icons and the
-    desktop context menu.
+    menus, clock, volume and network applets; bottom panel with window
+    list and workspace switcher;
+  * querencia-desktop: desktop background, desktop icons (including
+    mounted volumes) and the desktop context menu;
+  * querencia-lautstaerke: volume control (PulseAudio API, e.g. PipeWire);
+  * querencia-netzwerk: network state for the applet (NetworkManager,
+    read-only fallback for systemd-networkd);
+  * querencia-kuerzel: overview of the keyboard shortcuts (Super+?);
+ and the labwc window theme Querencia-Klassisch.
  .
  They need a wlroots compositor with the layer-shell protocol and are
- normally started by querencia-session. This is an alpha release.
+ normally started by querencia-session.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

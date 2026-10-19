@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Querencia Panel, Crate querencia-panel in querencia-runtime (Live-Stand QREL-04d). Die GApplication-ID ist heute noch org.example.Querencia.Panel (Übergabe W2, Falle 5); die Komponenten-ID folgt bereits der Zielkonvention org.querencia.Panel, weil kein Menüeintrag darauf verweist. Bei der Umbenennung der App-ID stimmt beides überein.
+     Erzeugt von werkzeug/metainfo-erzeugen.py (SW-5, Querencia Software, 2026-10-18);
+     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
+<component type="generic">
+  <id>org.querencia.Panel</id>
+  <name>Querencia Panel</name>
+  <name xml:lang="de">Querencia Panel</name>
+  <summary>Panels with application menu, places, system menu, window list and workspace switcher</summary>
+  <summary xml:lang="de">Panels mit Anwendungsmenü, Orte, Systemmenü, Fensterliste und Arbeitsflächenumschalter</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="org.querencia">
+    <name>Querencia Desktop</name>
+    <name xml:lang="de">Querencia Desktop</name>
+  </developer>
+  <project_group>Querencia</project_group>
+  <description>
+    <p>The panel of Querencia Desktop provides the classic two panels of GNOME 2: at the top the menus Applications, Places and System with a clock, at the bottom the window list and the workspace switcher. Launchers and applets can be added.</p>
+    <p xml:lang="de">Das Panel von Querencia Desktop bietet die beiden klassischen Panels von GNOME 2: oben die Menüs Anwendungen, Orte und System mit Uhr, unten die Fensterliste und den Arbeitsflächenumschalter. Starter und Applets lassen sich hinzufügen.</p>
+    <p>It is part of the Querencia shell package and is started by the session, not from the application menu.</p>
+    <p xml:lang="de">Es gehört zum Paket querencia-shell und wird von der Sitzung gestartet, nicht aus dem Anwendungsmenü.</p>
+  </description>
+  <url type="homepage">https://querencialinux.org</url>
+  <provides>
+    <binary>querencia-panel</binary>
+  </provides>
+  <pkgname>querencia-shell</pkgname>
+  <categories>
+    <category>System</category>
+  </categories>
+  <branding>
+    <color type="primary" scheme_preference="light">#F07746</color>
+    <color type="primary" scheme_preference="dark">#B8532B</color>
+  </branding>
+  <releases>
+    <release version="0.1.0" date="2026-10-18"/>
+  </releases>
+</component>

@@ -7,7 +7,10 @@ Build-Depends: cargo (>= 1.92),
                rustc (>= 1.92),
                pkgconf,
                libgtk-4-dev (>= 4.12),
-               libglib2.0-dev
+               libglib2.0-dev,
+               libwayland-dev,
+               appstream,
+               desktop-file-utils
 Standards-Version: 4.7.2
 
 Package: querencia-screenshot
@@ -20,4 +23,8 @@ Description: Querencia Desktop screenshot tool (alpha)
  (grim, slurp), shows a preview and saves to the Pictures folder or
  copies to the clipboard (wl-clipboard).
  .
- In Querencia Desktop the Print key opens it. This is an alpha release.
+ In Querencia Desktop the Print key opens it, Alt+Print captures a window.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

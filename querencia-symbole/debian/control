@@ -1,0 +1,25 @@
+Source: querencia-symbole
+Section: x11
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends:
+Standards-Version: 4.7.2
+
+Package: querencia-symbole
+Architecture: all
+Depends: hicolor-icon-theme
+Breaks: querencia-bilder (<< 0.1.1-1)
+Replaces: querencia-bilder (<< 0.1.1-1)
+Description: Querencia Desktop program icons (alpha)
+ Own program icons of Querencia Desktop, a classic desktop in the style of
+ GNOME 2, for the hicolor icon theme: Bilder, Editor, Einstellungen,
+ Lautstärke, Sitzung and Systemmonitor, each as SVG and as PNG in 16, 22,
+ 24, 32, 64, 128 and 256 pixels.
+ .
+ There is deliberately no 48x48 PNG next to the SVG: GTK 4.22 frees the
+ window icon buffer twice for such icons and crashes when a window closes.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

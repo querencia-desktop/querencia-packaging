@@ -1,3 +1,9 @@
+labwc (0.9.8-0querencia2) resolute; urgency=medium
+
+  * Unverändert neu gebaut (G2-F); nur Maintainer nach ENTSCHEIDUNGEN Nr. 3.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:40:48 +0200
+
 labwc (0.9.8-0querencia1) resolute; urgency=medium
 
   * Backport von labwc 0.9.8 (Upstream-Tag 0.9.8, 42bee041) für Ubuntu

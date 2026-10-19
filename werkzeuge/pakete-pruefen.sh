@@ -10,6 +10,12 @@
 #   - Desktop-Dateien gültig (desktop-file-validate), Exec/TryExec im Paketsatz,
 #     Symbole in einem installierten Symbolthema vorhanden
 #   - Wayland-Sitzungsdatei gültig, Starter im Paketsatz
+#   - Regel M (SW-5): jedes Querencia-Paket liefert mindestens eine gültige
+#     MetaInfo-Datei unter /usr/share/metainfo (appstreamcli validate --no-net
+#     ohne Fehler/Warnung), Dateiname = Komponenten-ID, <pkgname> = Paket,
+#     ein launchable desktop-id liegt im Paketsatz. Ausnahmen (Metapaket,
+#     Sitzungsstarter, Backports) in QUERENCIA_METAINFO_AUSNAHMEN.
+#   - keine Datei in zwei Paketen des Satzes (G2-F)
 #   - Abhängigkeiten: apt-get --simulate gegen das laufende System
 #     (schreibt nichts, braucht kein root)
 # Ausgabe: PASS/FAIL je Prüfung, Exit 1 bei einem FAIL.
@@ -35,6 +41,16 @@ for deb in "${debs[@]}"; do
     dpkg-deb -e "$deb" "$T/$p/ctl"
     cp -a "$T/$p/root/." "$T/alle/"
 done
+
+# Keine Datei in zwei Paketen des Satzes (dpkg würde die Installation des
+# zweiten abbrechen, solange kein Replaces/Breaks die Übergabe regelt).
+for deb in "${debs[@]}"; do
+    p=$(dpkg-deb -f "$deb" Package)
+    (cd "$T/$p/root" && find . ! -type d -printf '%P\n') | sed "s|^|$p /|"
+done | sort -k2 >"$T/dateien.txt"
+doppelt=$(awk '{n[$2]++; w[$2]=w[$2] " " $1} END {for (f in n) if (n[f] > 1) print f ":" w[f]}' "$T/dateien.txt" | sort)
+[ -z "$doppelt" ] && ok "Paketsatz: keine Datei in zwei Paketen" ||
+    nok "Paketsatz: Dateien in mehreren Paketen: $(echo "$doppelt" | tr '\n' ' ')"
 
 for deb in "${debs[@]}"; do
     p=$(dpkg-deb -f "$deb" Package)
@@ -110,6 +126,41 @@ for deb in "${debs[@]}"; do
             fi
         fi
     done
+    # Regel M (SW-5, Querencia Software): Ohne MetaInfo-Datei ist ein
+    # Querencia-Programm im eigenen Installer unsichtbar (G2-I 5.5, 06 §3).
+    case " ${QUERENCIA_METAINFO_AUSNAHMEN:-querencia-desktop querencia-session querencia-symbole labwc} " in
+    *" $p "*) hinweis "$p: ohne MetaInfo-Pflicht (Ausnahme: Metapaket/Sitzungsstarter/Symbole/Backport)" ;;
+    *)
+        case $p in
+        querencia-*)
+            mis=$(ls "$R"/usr/share/metainfo/*.metainfo.xml 2>/dev/null)
+            if [ -z "$mis" ]; then
+                nok "$p: keine MetaInfo-Datei unter /usr/share/metainfo (Regel M)"
+            fi
+            for m in $mis; do
+                mname=${m#"$R"}
+                mid=$(sed -n 's|^ *<id>\(.*\)</id>.*|\1|p' "$m" | head -n 1)
+                [ "$(basename "$m")" = "$mid.metainfo.xml" ] && ok "$p: $mname Dateiname = ID" ||
+                    nok "$p: $mname passt nicht zur ID $mid"
+                if command -v appstreamcli >/dev/null; then
+                    mout=$(appstreamcli validate --no-net "$m" 2>&1)
+                    if [ $? -eq 0 ] && ! echo "$mout" | grep -q -E '^(E|W): '; then ok "$p: $mname gültig (appstreamcli)"
+                    else nok "$p: $mname: $(echo "$mout" | grep -E '^(E|W): ' | tr '\n' ' ')"; fi
+                else
+                    hinweis "$p: appstreamcli fehlt, $mname nicht validiert"
+                fi
+                mpkg=$(sed -n 's|^ *<pkgname>\(.*\)</pkgname>.*|\1|p' "$m" | head -n 1)
+                [ "$mpkg" = "$p" ] && ok "$p: $mname pkgname = $p" || nok "$p: $mname pkgname „$mpkg“ ≠ $p"
+                ml=$(sed -n 's|^ *<launchable type="desktop-id">\(.*\)</launchable>.*|\1|p' "$m" | head -n 1)
+                if [ -n "$ml" ]; then
+                    [ -f "$T/alle/usr/share/applications/$ml" ] && ok "$p: $mname launchable $ml im Paketsatz" ||
+                        nok "$p: $mname launchable $ml nicht im Paketsatz"
+                fi
+            done
+            ;;
+        esac
+        ;;
+    esac
 done
 
 # Abhängigkeiten gegen das laufende System (nur Simulation).

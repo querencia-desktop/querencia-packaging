@@ -1,0 +1,98 @@
+Description: Update-Prüfung und Versionshinweise zur Bauzeit abschaltbar
+ Querencia Files wird über die Paketverwaltung aktualisiert. Mit
+ QUERENCIA_DISABLE_UPDATE_CHECKS=1 beim Bau (debian/rules) fragt das Programm
+ weder das AUR noch GitHub lgse/strata nach neuen Versionen und zeigt keine
+ Versionshinweise; die Einstellungsseite nennt stattdessen die Paketverwaltung.
+Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Origin: vendor, querencia-packaging (W5, QREL-01), Commit 0967043256007bbd
+Forwarded: not-needed
+Last-Update: 2026-10-20
+---
+diff --git a/build.rs b/build.rs
+index d132f67d..0b3f5142 100644
+--- a/build.rs
++++ b/build.rs
+@@ -23,6 +23,7 @@ fn main() {
+     println!("cargo::rustc-env=STRATA_BUILD_COMMIT={commit}");
+ 
+     println!("cargo::rerun-if-env-changed=STRATA_RELEASE_TAG");
++    println!("cargo::rerun-if-env-changed=QUERENCIA_DISABLE_UPDATE_CHECKS");
+     println!("cargo::rerun-if-env-changed=STRATA_BUILD_KIND");
+ 
+     let release_tag = env::var("STRATA_RELEASE_TAG")
+diff --git a/src/services/mod.rs b/src/services/mod.rs
+index 5364c4a9..bcc02730 100644
+--- a/src/services/mod.rs
++++ b/src/services/mod.rs
+@@ -107,7 +107,8 @@ pub(crate) use search::{
+     index_folder_paths, index_paths, index_trees_with_exclusions,
+ };
+ pub(crate) use update_check::{
+-    ReleaseMetadata, ReleaseNotes, UpdateCheck, check_for_updates, fetch_release_notes,
++    ReleaseMetadata, ReleaseNotes, UPDATE_CHECKS_DISABLED, UpdateCheck, check_for_updates,
++    fetch_release_notes,
+ };
+ pub(crate) use update_install::{
+     InstallCancel, InstallRequest, UpdateInstall, UpdateMethod, install_update, rollback_path,
+diff --git a/src/services/update_check.rs b/src/services/update_check.rs
+index b7ac594d..c5a045b7 100644
+--- a/src/services/update_check.rs
++++ b/src/services/update_check.rs
+@@ -20,6 +20,15 @@ use super::{
+     release_channel::{BuildKind, Channel, ReleaseSummary, Version, best_update, rollback_target},
+ };
+ 
++/// Querencia Files packages are updated by the distribution's package
++/// manager; Strata's release sources (GitHub releases of lgse/strata, AUR)
++/// do not apply to this fork. Set at build time with
++/// `QUERENCIA_DISABLE_UPDATE_CHECKS=1` (querencia-packaging does): no
++/// automatic or manual update check and no release-notes request then
++/// leaves the machine.
++pub(crate) const UPDATE_CHECKS_DISABLED: bool =
++    option_env!("QUERENCIA_DISABLE_UPDATE_CHECKS").is_some();
++
+ const API_ROOT: &str = "https://api.github.com/repos/lgse/strata/releases";
+ const COMMITS_ROOT: &str = "https://api.github.com/repos/lgse/strata/commits";
+ const RELEASES_URL: &str = "https://github.com/lgse/strata/releases";
+@@ -660,6 +669,15 @@ pub fn check_for_updates(
+     force: bool,
+ ) -> Receiver<UpdateCheck> {
+     let (sender, receiver) = mpsc::channel();
++    if UPDATE_CHECKS_DISABLED {
++        let instruction = super::InstallSource::detect()
++            .managed()
++            .cloned()
++            .unwrap_or_default()
++            .update_instruction();
++        let _sent = sender.send(UpdateCheck::Failed(instruction));
++        return receiver;
++    }
+     let spawned = std::thread::Builder::new()
+         .name("strata-update-check".into())
+         .spawn(move || {
+@@ -683,6 +701,12 @@ pub fn check_for_updates(
+ /// [`crate::build_info::RELEASE_TAG`].
+ pub fn fetch_release_notes(tag: &'static str) -> Receiver<ReleaseNotes> {
+     let (sender, receiver) = mpsc::channel();
++    if UPDATE_CHECKS_DISABLED {
++        let _sent = sender.send(ReleaseNotes::Unavailable {
++            url: release_page_url(tag),
++        });
++        return receiver;
++    }
+     let spawned = std::thread::Builder::new()
+         .name("strata-release-notes".into())
+         .spawn(move || {
+diff --git a/src/ui/preferences.rs b/src/ui/preferences.rs
+index 8d2769ad..509bfdfa 100644
+--- a/src/ui/preferences.rs
++++ b/src/ui/preferences.rs
+@@ -918,7 +918,7 @@ impl PreferenceManager {
+     }
+ 
+     pub fn checks_for_updates(&self) -> bool {
+-        self.preferences.borrow().check_for_updates
++        !crate::services::UPDATE_CHECKS_DISABLED && self.preferences.borrow().check_for_updates
+     }
+ 
+     pub fn set_checks_for_updates(&self, enabled: bool) {

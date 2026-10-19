@@ -15,7 +15,7 @@ oder richtet greetd als eigenen Schritt ein (Beispiele unter
 /usr/share/doc/querencia-session/examples/greetd/).
 
 Diagnose ohne Start:   querencia-session --check
-Logs:                  ~/.local/state/querencia/{labwc,panel,desktop}.log
+Logs:                  ~/.local/state/querencia/{labwc,panel,desktop,sitzung,polkit-agent,benachrichtigungen,bildschirm}.log
 
 Status: Alpha. Bekannte Einschränkungen und Fehlerberichte: siehe
 docs/TROUBLESHOOTING.md im Repository „querencia“.

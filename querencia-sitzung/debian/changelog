@@ -1,0 +1,10 @@
+querencia-sitzung (0.1.1-1) resolute; urgency=medium
+
+  * Erstes Paket (G2-F). Quelle: querencia-sitzung, Tag sitzung/0.1.1-1
+    (7dd6894d), live als Ablage b9eb15aca1b36c01.
+  * PAM: das Programm nimmt den Dienst "querencia-sitzung", wenn
+    /etc/pam.d/querencia-sitzung existiert, sonst "login"; das Paket
+    legt keinen eigenen PAM-Dienst an.
+  * Provides: polkit-1-auth-agent. Programmsymbol aus querencia-symbole.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:39:08 +0200

@@ -1,0 +1,29 @@
+Source: querencia-editor
+Section: editors
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libglib2.0-dev,
+               appstream,
+               desktop-file-utils,
+               libgtksourceview-5-dev,
+               gettext
+Standards-Version: 4.7.2
+
+Package: querencia-editor
+Architecture: any
+Depends: ${shlibs:Depends},
+         querencia-symbole (>= 0.2)
+Description: Querencia Desktop text editor (alpha)
+ Querencia Editor is the text editor of Querencia Desktop, a classic
+ desktop in the style of GNOME 2, modelled on gedit 2.30: tabs, syntax
+ highlighting (GtkSourceView 5), search and replace, line numbers.
+ The interface is English with a German translation (gettext).
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

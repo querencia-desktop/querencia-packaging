@@ -7,7 +7,6 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	sh tests/run.sh
 endif
 	$(MAKE) install DESTDIR=$(DESTDIR) PREFIX=/usr SYSCONFDIR=/etc
-	install -D -m 0644 README.md $(DESTDIR)/usr/share/doc/querencia-session/README.md
+	$(call doc_install,.)
 	install -d $(DESTDIR)/usr/share/doc/querencia-session/examples/greetd
 	install -m 0644 examples/greetd/* $(DESTDIR)/usr/share/doc/querencia-session/examples/greetd/
-	gzip -9nc CHANGELOG.md >$(DESTDIR)/usr/share/doc/querencia-session/changelog.gz

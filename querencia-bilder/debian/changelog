@@ -1,3 +1,15 @@
+querencia-bilder (0.1.1-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.1.1 (Tag bilder/0.1.1, 8878952a): Info-Fenster
+    mit eigenem Symbol aus der GResource, Escape schließt es, Strg+=
+    vergrößert, Lizenzvermerk. Live auf entwicklungs-vm als Ablage
+    2cbf88652ac66f18.
+  * Programmsymbole jetzt aus querencia-symbole (gemeinsame Quelle aller
+    eigenen Symbole); das Paket installiert keine hicolor-Datei mehr.
+  * MetaInfo org.querencia.Bilder (Querencia Software).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:39:08 +0200
+
 querencia-bilder (0.1.0~alpha1-2) resolute; urgency=medium
 
   * Programmsymbol nicht mehr in hicolor/48x48 installieren: GTK 4.22 gibt

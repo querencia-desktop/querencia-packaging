@@ -1,3 +1,18 @@
+querencia-files (0.1.0~alpha2-1) resolute; urgency=medium
+
+  * Live-Stand QF-0o-1 (querencia-files-dev, Tag files/qf-0o-1 = fc5a8db1;
+    live 6a5c549f1cbea563): Netzwerk (SFTP, SMB), Datenträger, Host-Key-Frage
+    auch mit deutschem GVfs.
+  * Abschaltung der Update-Prüfung als debian/patches/ (vorher eigener
+    Commit 09670432 im W5-Repository; der Live-Zweig hat ihn nicht).
+  * MetaInfo io.github.lgse.Strata. Hinweis auf die GPL-Bibliothek
+    libpoppler-glib in Beschreibung und copyright (ENTSCHEIDUNGEN Nr. 14 Q4).
+  * Weiter mit Rust 1.98.1 außerhalb des Archivs gebaut
+    (pkg.querencia.fremdrust).
+  * Maintainer nach ENTSCHEIDUNGEN Nr. 3.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:39:59 +0200
+
 querencia-files (0.1.0~alpha1-1) resolute; urgency=medium
 
   * Erster Paketentwurf (QREL-01, Worker 5).

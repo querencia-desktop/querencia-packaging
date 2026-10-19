@@ -1,0 +1,8 @@
+querencia-einstellungen (0.0.6-1) resolute; urgency=medium
+
+  * Erstes Paket (G2-F). Quelle: querencia-einstellungen, Tag
+    einstellungen/0.0.6 (489c1414), live als Ablage 05ac8f96c28e4434.
+  * Desktop-Datei in debian/ (das Repository hat nur Vorlagen der
+    Live-Integration); Programmsymbol aus querencia-symbole.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:39:08 +0200

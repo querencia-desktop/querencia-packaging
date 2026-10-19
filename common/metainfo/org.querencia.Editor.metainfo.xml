@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Querencia Editor 0.1.0 (Prototyp W5 7eab69e, live seit G2-E als „Texteditor“ unter Zubehör). MIME-Typen wie in der Live-Desktop-Datei.
+     Erzeugt von werkzeug/metainfo-erzeugen.py (SW-5, Querencia Software, 2026-10-18);
+     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
+<component type="desktop-application">
+  <id>org.querencia.Editor</id>
+  <name>Querencia Editor</name>
+  <name xml:lang="de">Querencia Editor</name>
+  <summary>Edit text files</summary>
+  <summary xml:lang="de">Textdateien bearbeiten</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="org.querencia">
+    <name>Querencia Desktop</name>
+    <name xml:lang="de">Querencia Desktop</name>
+  </developer>
+  <project_group>Querencia</project_group>
+  <description>
+    <p>Querencia Editor is the text editor of Querencia Desktop: a classic editor with menu bar and toolbar on GtkSourceView 5 with syntax highlighting, search and replace, line numbers and several documents in tabs.</p>
+    <p xml:lang="de">Querencia Editor ist der Texteditor von Querencia Desktop: ein klassischer Editor mit Menüleiste und Werkzeugleiste auf GtkSourceView 5 mit Syntaxhervorhebung, Suchen und Ersetzen, Zeilennummern und mehreren Dokumenten in Reitern.</p>
+  </description>
+  <url type="homepage">https://querencialinux.org</url>
+  <launchable type="desktop-id">org.querencia.Editor.desktop</launchable>
+  <provides>
+    <binary>querencia-editor</binary>
+    <mediatype>text/plain</mediatype>
+    <mediatype>text/markdown</mediatype>
+    <mediatype>application/json</mediatype>
+    <mediatype>application/xml</mediatype>
+    <mediatype>application/x-shellscript</mediatype>
+    <mediatype>text/x-python</mediatype>
+    <mediatype>text/rust</mediatype>
+    <mediatype>text/x-csrc</mediatype>
+    <mediatype>text/x-chdr</mediatype>
+  </provides>
+  <pkgname>querencia-editor</pkgname>
+  <categories>
+    <category>Utility</category>
+    <category>TextEditor</category>
+  </categories>
+  <keywords>
+    <keyword>text</keyword>
+    <keyword>editor</keyword>
+    <keyword>notes</keyword>
+    <keyword xml:lang="de">Text</keyword>
+    <keyword xml:lang="de">Editor</keyword>
+    <keyword xml:lang="de">Texteditor</keyword>
+    <keyword xml:lang="de">Notizen</keyword>
+  </keywords>
+  <content_rating type="oars-1.1"/>
+  <branding>
+    <color type="primary" scheme_preference="light">#F07746</color>
+    <color type="primary" scheme_preference="dark">#B8532B</color>
+  </branding>
+  <releases>
+    <release version="0.1.0" date="2026-10-18"/>
+  </releases>
+</component>

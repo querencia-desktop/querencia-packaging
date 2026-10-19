@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+CARGO_FEATURES :=
+include debian/querencia.mk
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-systemmonitor $(DESTDIR)/usr/bin/querencia-systemmonitor
+	$(call desktop_install,data/org.querencia.Systemmonitor.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Systemmonitor.desktop)
+	$(call metainfo_install,org.querencia.Systemmonitor)
+	$(call doc_install,.)

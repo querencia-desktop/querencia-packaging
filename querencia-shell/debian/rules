@@ -4,10 +4,20 @@ QUERENCIA_TEST := yes
 CARGO_FEATURES :=
 include debian/querencia.mk
 
+PROGRAMME := querencia-panel querencia-desktop querencia-kuerzel querencia-lautstaerke querencia-netzwerk
+THEME := data/themes/Querencia-Klassisch/labwc
+
 querencia-install:
-	install -D -m 0755 target/release/querencia-panel $(DESTDIR)/usr/bin/querencia-panel
-	install -D -m 0755 target/release/querencia-desktop $(DESTDIR)/usr/bin/querencia-desktop
+	for p in $(PROGRAMME); do install -D -m 0755 target/release/$$p $(DESTDIR)/usr/bin/$$p; done
 	install -D -m 0644 data/hintergruende/querencia-blau.png \
 		$(DESTDIR)/usr/share/querencia/hintergruende/querencia-blau.png
-	install -D -m 0644 README.md $(DESTDIR)/usr/share/doc/querencia-shell/README.md
-	gzip -9nc CHANGELOG.md >$(DESTDIR)/usr/share/doc/querencia-shell/changelog.gz
+	# Fensterthema für labwc (<theme><name>Querencia-Klassisch</name> in rc.xml)
+	install -d $(DESTDIR)/usr/share/themes/Querencia-Klassisch/labwc
+	install -m 0644 $(THEME)/themerc $(THEME)/*.png $(DESTDIR)/usr/share/themes/Querencia-Klassisch/labwc/
+	$(call desktop_install,crates/querencia-kuerzel/data/org.querencia.Kuerzel.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Kuerzel.desktop)
+	install -D -m 0644 crates/querencia-kuerzel/data/org.querencia.Kuerzel.svg \
+		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Kuerzel.svg
+	# Symbol der Lautstärke kommt aus querencia-symbole (PNG-Stufen und SVG)
+	$(call desktop_install,crates/querencia-lautstaerke/data/org.querencia.Lautstaerke.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Lautstaerke.desktop)
+	$(call metainfo_install,org.querencia.Panel org.querencia.Desktop)
+	$(call doc_install,.)

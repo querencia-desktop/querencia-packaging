@@ -7,7 +7,7 @@ Copyright: 2026 Querencia Desktop contributors
 License: Expat
 
 Files: debian/*
-Copyright: 2026 pottrauschen and the Querencia Desktop contributors
+Copyright: 2026 Querencia Desktop contributors
 License: GPL-3+
 
 Files: cargo-vendor/autocfg-1.5.1/*
@@ -30,20 +30,40 @@ Copyright: The gtk-rs Project Developers
 License: Expat
 Comment: Rust crate cairo-sys-rs 0.22.9, vendored from crates.io (checksum in cargo-vendor/cairo-sys-rs-0.22.9/.cargo-checksum.json).
 
+Files: cargo-vendor/cc-1.8.0/*
+Copyright: the cc authors (see crate metadata)
+License: Expat or Apache-2.0
+Comment: Rust crate cc 1.8.0, vendored from crates.io (checksum in cargo-vendor/cc-1.8.0/.cargo-checksum.json).
+
 Files: cargo-vendor/cfg-expr-0.20.10/*
 Copyright: Embark <opensource@embark-studios.com>; Jake Shadle <jake.shadle@embark-studios.com>
 License: Expat or Apache-2.0
 Comment: Rust crate cfg-expr 0.20.10, vendored from crates.io (checksum in cargo-vendor/cfg-expr-0.20.10/.cargo-checksum.json).
+
+Files: cargo-vendor/downcast-rs-1.2.1/*
+Copyright: Ashish Myles <marcianx@gmail.com>; Runji Wang <wangrunji0408@163.com>
+License: Expat or Apache-2.0
+Comment: Rust crate downcast-rs 1.2.1, vendored from crates.io (checksum in cargo-vendor/downcast-rs-1.2.1/.cargo-checksum.json).
 
 Files: cargo-vendor/equivalent-1.0.3/*
 Copyright: the equivalent authors (see crate metadata)
 License: Apache-2.0 or Expat
 Comment: Rust crate equivalent 1.0.3, vendored from crates.io (checksum in cargo-vendor/equivalent-1.0.3/.cargo-checksum.json).
 
+Files: cargo-vendor/errno-0.3.14/*
+Copyright: Chris Wong <lambda.fairy@gmail.com>; Dan Gohman <dev@sunfishcode.online>
+License: Expat or Apache-2.0
+Comment: Rust crate errno 0.3.14, vendored from crates.io (checksum in cargo-vendor/errno-0.3.14/.cargo-checksum.json).
+
 Files: cargo-vendor/field-offset-0.3.6/*
 Copyright: Diggory Blake <diggsey@googlemail.com>
 License: Expat or Apache-2.0
 Comment: Rust crate field-offset 0.3.6, vendored from crates.io (checksum in cargo-vendor/field-offset-0.3.6/.cargo-checksum.json).
+
+Files: cargo-vendor/find-msvc-tools-0.1.14/*
+Copyright: the find-msvc-tools authors (see crate metadata)
+License: Expat or Apache-2.0
+Comment: Rust crate find-msvc-tools 0.1.14, vendored from crates.io (checksum in cargo-vendor/find-msvc-tools-0.1.14/.cargo-checksum.json).
 
 Files: cargo-vendor/futures-channel-0.3.34/*
 Copyright: the futures-channel authors (see crate metadata)
@@ -185,6 +205,11 @@ Copyright: the libc authors (see crate metadata)
 License: Expat or Apache-2.0
 Comment: Rust crate libc 0.2.190, vendored from crates.io (checksum in cargo-vendor/libc-0.2.190/.cargo-checksum.json).
 
+Files: cargo-vendor/linux-raw-sys-0.12.1/*
+Copyright: Dan Gohman <dev@sunfishcode.online>
+License: Apache-2.0 with LLVM exception or Apache-2.0 or Expat
+Comment: Rust crate linux-raw-sys 0.12.1, vendored from crates.io (checksum in cargo-vendor/linux-raw-sys-0.12.1/.cargo-checksum.json).
+
 Files: cargo-vendor/memchr-2.8.3/*
 Copyright: Andrew Gallant <jamslam@gmail.com>; bluss
 License: Unlicense or Expat
@@ -225,6 +250,11 @@ Copyright: David Tolnay <dtolnay@gmail.com>; Alex Crichton <alex@alexcrichton.co
 License: Expat or Apache-2.0
 Comment: Rust crate proc-macro2 1.0.107, vendored from crates.io (checksum in cargo-vendor/proc-macro2-1.0.107/.cargo-checksum.json).
 
+Files: cargo-vendor/quick-xml-0.41.0/*
+Copyright: the quick-xml authors (see crate metadata)
+License: Expat
+Comment: Rust crate quick-xml 0.41.0, vendored from crates.io (checksum in cargo-vendor/quick-xml-0.41.0/.cargo-checksum.json).
+
 Files: cargo-vendor/quote-1.0.47/*
 Copyright: David Tolnay <dtolnay@gmail.com>
 License: Expat or Apache-2.0
@@ -234,6 +264,11 @@ Files: cargo-vendor/rustc_version-0.4.1/*
 Copyright: the rustc_version authors (see crate metadata)
 License: Expat or Apache-2.0
 Comment: Rust crate rustc_version 0.4.1, vendored from crates.io (checksum in cargo-vendor/rustc_version-0.4.1/.cargo-checksum.json).
+
+Files: cargo-vendor/rustix-1.1.5/*
+Copyright: Dan Gohman <dev@sunfishcode.online>; Jakub Konka <kubkon@jakubkonka.com>
+License: Apache-2.0 with LLVM exception or Apache-2.0 or Expat
+Comment: Rust crate rustix 1.1.5, vendored from crates.io (checksum in cargo-vendor/rustix-1.1.5/.cargo-checksum.json).
 
 Files: cargo-vendor/semver-1.0.28/*
 Copyright: David Tolnay <dtolnay@gmail.com>
@@ -254,6 +289,11 @@ Files: cargo-vendor/serde_spanned-1.1.2/*
 Copyright: the serde_spanned authors (see crate metadata)
 License: Expat or Apache-2.0
 Comment: Rust crate serde_spanned 1.1.2, vendored from crates.io (checksum in cargo-vendor/serde_spanned-1.1.2/.cargo-checksum.json).
+
+Files: cargo-vendor/shlex-2.0.1/*
+Copyright: comex <comexk@gmail.com>; Fenhl <fenhl@fenhl.net>; Adrian Taylor <adetaylor@chromium.org>; Alex Touchet <alextouchet@outlook.com>; Daniel Parks <dp+git@oxidized.org>; Garrett Berg <googberg@gmail.com>
+License: Expat or Apache-2.0
+Comment: Rust crate shlex 2.0.1, vendored from crates.io (checksum in cargo-vendor/shlex-2.0.1/.cargo-checksum.json).
 
 Files: cargo-vendor/slab-0.4.12/*
 Copyright: Carl Lerche <me@carllerche.com>
@@ -314,6 +354,36 @@ Files: cargo-vendor/version-compare-0.2.1/*
 Copyright: Tim Visee <3a4fb3964f@sinenomine.email>
 License: Expat
 Comment: Rust crate version-compare 0.2.1, vendored from crates.io (checksum in cargo-vendor/version-compare-0.2.1/.cargo-checksum.json).
+
+Files: cargo-vendor/wayland-backend-0.3.17/*
+Copyright: Elinor Berger <elinor@safaradeg.net>
+License: Expat
+Comment: Rust crate wayland-backend 0.3.17, vendored from crates.io (checksum in cargo-vendor/wayland-backend-0.3.17/.cargo-checksum.json).
+
+Files: cargo-vendor/wayland-client-0.31.15/*
+Copyright: Elinor Berger <elinor@safaradeg.net>
+License: Expat
+Comment: Rust crate wayland-client 0.31.15, vendored from crates.io (checksum in cargo-vendor/wayland-client-0.31.15/.cargo-checksum.json).
+
+Files: cargo-vendor/wayland-protocols-0.32.13/*
+Copyright: Elinor Berger <elinor@safaradeg.net>
+License: Expat
+Comment: Rust crate wayland-protocols 0.32.13, vendored from crates.io (checksum in cargo-vendor/wayland-protocols-0.32.13/.cargo-checksum.json).
+
+Files: cargo-vendor/wayland-protocols-wlr-0.3.12/*
+Copyright: Elinor Berger <elinor@safaradeg.net>
+License: Expat
+Comment: Rust crate wayland-protocols-wlr 0.3.12, vendored from crates.io (checksum in cargo-vendor/wayland-protocols-wlr-0.3.12/.cargo-checksum.json).
+
+Files: cargo-vendor/wayland-scanner-0.31.11/*
+Copyright: Elinor Berger <elinor@safaradeg.net>
+License: Expat
+Comment: Rust crate wayland-scanner 0.31.11, vendored from crates.io (checksum in cargo-vendor/wayland-scanner-0.31.11/.cargo-checksum.json).
+
+Files: cargo-vendor/wayland-sys-0.31.11/*
+Copyright: Elinor Berger <elinor@safaradeg.net>
+License: Expat
+Comment: Rust crate wayland-sys 0.31.11, vendored from crates.io (checksum in cargo-vendor/wayland-sys-0.31.11/.cargo-checksum.json).
 
 Files: cargo-vendor/windows-link-0.2.1/*
 Copyright: the windows-link authors (see crate metadata)

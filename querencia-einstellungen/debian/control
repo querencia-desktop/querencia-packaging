@@ -1,0 +1,29 @@
+Source: querencia-einstellungen
+Section: x11
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libglib2.0-dev,
+               appstream,
+               desktop-file-utils,
+               libwayland-dev
+Standards-Version: 4.7.2
+
+Package: querencia-einstellungen
+Architecture: any
+Depends: ${shlibs:Depends},
+         querencia-symbole (>= 0.2)
+Recommends: querencia-shell
+Description: Querencia Desktop settings centre (alpha)
+ Querencia Einstellungen is the control centre of Querencia Desktop, a
+ classic desktop in the style of GNOME 2: desktop background and icons,
+ display resolution and monitor layout (wlr-output-management, with a
+ 15-second revert), fonts, theme and default applications.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

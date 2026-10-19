@@ -2,12 +2,20 @@
 # Alles läuft im Arbeitsbereich; nichts wird installiert, nichts nach $HOME
 # außerhalb dieses Bereichs geschrieben, kein sudo.
 PK=$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)
+# Quell-Repositories: die Spalte <repository> in quellen.conf ist relativ zu
+# QUELLEN (Standard: der Ordner, in dem dieses Repository liegt).
 QUELLEN=${QUERENCIA_QUELLEN:-$(dirname "$PK")}
-AUSGABE=${QUERENCIA_AUSGABE:-$(dirname "$QUELLEN")/pakete}
-NACHWEIS=${QUERENCIA_NACHWEIS:-$(dirname "$QUELLEN")/nachweis}
+# Erzeugnisse im Ordner build/ dieses Repositorys (nicht in Git, .gitignore).
+AUSGABE=${QUERENCIA_AUSGABE:-$PK/build}
+NACHWEIS=${QUERENCIA_NACHWEIS:-$AUSGABE/nachweis}
 VENDOR_CARGO_HOME=${QUERENCIA_VENDOR_CARGO_HOME:-$AUSGABE/cargo-home}
 BUILD_LOCK=${QUERENCIA_BUILD_LOCK:-$HOME/.local/state/querencia/bau.lock}
 JOBS=${QUERENCIA_JOBS:-2}
+# Niedrige CPU-Priorität für alle Bauläufe (mehrere Sitzungen bauen parallel).
+NICE=${QUERENCIA_NICE:-10}
+# Nie ins Quellarchiv: Arbeitsanweisungen, Nachweise, Integrationsskripte
+# (ENTSCHEIDUNGEN Nr. 9, 10, 13). komponenten.conf kann das abschalten.
+ORIG_AUSSCHLUSS_STANDARD="CLAUDE.md nachweis integration"
 
 log() { printf '%s: %s\n' "$(basename "$0")" "$*"; }
 die() { printf '%s: FEHLER: %s\n' "$(basename "$0")" "$*" >&2; exit 1; }
@@ -28,7 +36,42 @@ quelle() {
     DEBDIR=$PK/$SRC/debian
     [ -d "$DEBDIR" ] || DEBDIR=$PK/backports/$SRC/debian
     [ -d "$DEBDIR" ] || die "debian/ für $SRC fehlt"
+    komponenten
 }
+
+# komponenten: liest <src>/komponenten.conf (optional), eine Angabe je Zeile:
+#   unterordner <ordner>              Hauptarchiv liegt im Quellbaum unter <ordner>/
+#   komponente <name> <repo> <rev>    weiteres Archiv <src>_<ver>.orig-<name>.tar.xz,
+#                                     dpkg-source entpackt es nach <name>/
+#   ausschluss <glob>                 zusätzlich nicht ins Hauptarchiv (git-Pathspec-Glob)
+#   ausschluss-standard nein          ORIG_AUSSCHLUSS_STANDARD nicht anwenden
+# Setzt UNTERORDNER, KOMP_NAMEN, KOMP_REPOS, KOMP_REVS, AUSSCHLUSS (Pathspecs).
+komponenten() {
+    UNTERORDNER= KOMP_NAMEN=() KOMP_REPOS=() KOMP_REVS=() AUSSCHLUSS=()
+    local conf=$(dirname "$DEBDIR")/komponenten.conf standard=ja art a b c x
+    if [ -f "$conf" ]; then
+        while read -r art a b c; do
+            case $art in
+            '' | '#'*) ;;
+            unterordner) UNTERORDNER=$a ;;
+            komponente)
+                git -C "$QUELLEN/$b" rev-parse --verify -q "$c^{commit}" >/dev/null || die "$conf: $b@$c fehlt"
+                KOMP_NAMEN+=("$a") KOMP_REPOS+=("$b") KOMP_REVS+=("$(git -C "$QUELLEN/$b" rev-parse "$c^{commit}")") ;;
+            ausschluss) AUSSCHLUSS+=(":(exclude,glob)$a") ;;
+            ausschluss-standard) [ "$a" = nein ] && standard=nein ;;
+            *) die "$conf: unbekannte Angabe $art" ;;
+            esac
+        done <"$conf"
+    fi
+    if [ "$standard" = ja ]; then
+        for x in $ORIG_AUSSCHLUSS_STANDARD; do
+            AUSSCHLUSS+=(":(exclude,glob)**/$x" ":(exclude,glob)**/$x/**")
+        done
+    fi
+}
+
+# Dateiname des Archivs der Komponente $1.
+orig_komp() { echo "${SRC}_${VER}.orig-$1.tar.xz"; }
 
 # Umgebung ohne Verbindung zur laufenden Sitzung und ohne rustup-Proxys.
 sauber() {

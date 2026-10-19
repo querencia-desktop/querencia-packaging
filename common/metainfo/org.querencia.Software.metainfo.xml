@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Querencia Software 0.1.0 (in Arbeit: SW-1 … SW-4 bauen die Crates, SW-5 liefert diese Datei). Lizenz-Platzhalter GPL-3.0-or-later wie alle eigenen Querencia-Programme; die SW-Repos haben noch keine LICENSE-Datei. Menüeintrag „Software“ unter System → Systemverwaltung (Categories Settings;System).
+     Erzeugt von werkzeug/metainfo-erzeugen.py (SW-5, Querencia Software, 2026-10-18);
+     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
+<component type="desktop-application">
+  <id>org.querencia.Software</id>
+  <name>Querencia Software</name>
+  <name xml:lang="de">Querencia Software</name>
+  <summary>Install, remove and update programs</summary>
+  <summary xml:lang="de">Programme installieren, entfernen und aktualisieren</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="org.querencia">
+    <name>Querencia Desktop</name>
+    <name xml:lang="de">Querencia Desktop</name>
+  </developer>
+  <project_group>Querencia</project_group>
+  <description>
+    <p>Querencia Software is the software manager of Querencia Desktop in the manner of „Add/Remove Applications“ of GNOME 2: programs by category from the AppStream catalogue, search, a details page with description, version, size and license, install and remove with progress, a list of installed programs and the pending updates. Package operations run through PackageKit; the session's polkit agent asks for the password.</p>
+    <p xml:lang="de">Querencia Software ist die Softwareverwaltung von Querencia Desktop nach Art von „Anwendungen hinzufügen/entfernen“ aus GNOME 2: Programme nach Kategorien aus dem AppStream-Katalog, Suche, eine Detailseite mit Beschreibung, Version, Größe und Lizenz, Installieren und Entfernen mit Fortschritt, die Liste der installierten Programme und die anstehenden Aktualisierungen. Paketvorgänge laufen über PackageKit; der polkit-Agent der Sitzung fragt nach dem Passwort.</p>
+    <p>The first version handles Debian packages from the configured APT sources; Snap, Flatpak and firmware are not shown.</p>
+    <p xml:lang="de">Die erste Version behandelt Debian-Pakete aus den eingerichteten APT-Quellen; Snap, Flatpak und Firmware werden nicht gezeigt.</p>
+  </description>
+  <url type="homepage">https://querencialinux.org</url>
+  <launchable type="desktop-id">org.querencia.Software.desktop</launchable>
+  <provides>
+    <binary>querencia-software</binary>
+  </provides>
+  <pkgname>querencia-software</pkgname>
+  <categories>
+    <category>System</category>
+    <category>PackageManager</category>
+    <category>Settings</category>
+  </categories>
+  <keywords>
+    <keyword>software</keyword>
+    <keyword>packages</keyword>
+    <keyword>install</keyword>
+    <keyword>remove</keyword>
+    <keyword>update</keyword>
+    <keyword>apps</keyword>
+    <keyword>store</keyword>
+    <keyword xml:lang="de">Software</keyword>
+    <keyword xml:lang="de">Pakete</keyword>
+    <keyword xml:lang="de">Programme</keyword>
+    <keyword xml:lang="de">installieren</keyword>
+    <keyword xml:lang="de">entfernen</keyword>
+    <keyword xml:lang="de">aktualisieren</keyword>
+    <keyword xml:lang="de">Softwareverwaltung</keyword>
+  </keywords>
+  <content_rating type="oars-1.1"/>
+  <branding>
+    <color type="primary" scheme_preference="light">#F07746</color>
+    <color type="primary" scheme_preference="dark">#B8532B</color>
+  </branding>
+  <releases>
+    <release version="0.1.0" date="2026-10-18" type="development"/>
+  </releases>
+</component>

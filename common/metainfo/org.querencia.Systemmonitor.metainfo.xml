@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Querencia Systemmonitor 0.1.0 (G2-S; Menüeintrag „Systemüberwachung“ unter Anwendungen → Systemwerkzeuge).
+     Erzeugt von werkzeug/metainfo-erzeugen.py (SW-5, Querencia Software, 2026-10-18);
+     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
+<component type="desktop-application">
+  <id>org.querencia.Systemmonitor</id>
+  <name>Querencia System Monitor</name>
+  <name xml:lang="de">Querencia Systemüberwachung</name>
+  <summary>View current processes and monitor system state</summary>
+  <summary xml:lang="de">Laufende Prozesse anzeigen und den Systemzustand überwachen</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="org.querencia">
+    <name>Querencia Desktop</name>
+    <name xml:lang="de">Querencia Desktop</name>
+  </developer>
+  <project_group>Querencia</project_group>
+  <description>
+    <p>Querencia System Monitor shows the running processes with CPU and memory use, the load of processor, memory and network over time and the file systems with their free space. Processes can be ended after confirmation.</p>
+    <p xml:lang="de">Querencia Systemüberwachung zeigt die laufenden Prozesse mit Prozessor- und Speicherverbrauch, die Auslastung von Prozessor, Speicher und Netzwerk im Verlauf und die Dateisysteme mit ihrem freien Platz. Prozesse lassen sich nach Rückfrage beenden.</p>
+  </description>
+  <url type="homepage">https://querencialinux.org</url>
+  <launchable type="desktop-id">org.querencia.Systemmonitor.desktop</launchable>
+  <provides>
+    <binary>querencia-systemmonitor</binary>
+  </provides>
+  <pkgname>querencia-systemmonitor</pkgname>
+  <categories>
+    <category>System</category>
+    <category>Monitor</category>
+  </categories>
+  <keywords>
+    <keyword>monitor</keyword>
+    <keyword>system</keyword>
+    <keyword>process</keyword>
+    <keyword>cpu</keyword>
+    <keyword>memory</keyword>
+    <keyword>task manager</keyword>
+    <keyword xml:lang="de">Überwachung</keyword>
+    <keyword xml:lang="de">System</keyword>
+    <keyword xml:lang="de">Prozess</keyword>
+    <keyword xml:lang="de">Prozessor</keyword>
+    <keyword xml:lang="de">Speicher</keyword>
+    <keyword xml:lang="de">Task-Manager</keyword>
+  </keywords>
+  <content_rating type="oars-1.1"/>
+  <branding>
+    <color type="primary" scheme_preference="light">#F07746</color>
+    <color type="primary" scheme_preference="dark">#B8532B</color>
+  </branding>
+  <releases>
+    <release version="0.1.0" date="2026-10-18"/>
+  </releases>
+</component>

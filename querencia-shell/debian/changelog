@@ -1,3 +1,20 @@
+querencia-shell (0.1.0~alpha2-1) resolute; urgency=medium
+
+  * Live-Stand der Entwicklungs-VM (G2-F): Quelle querencia-runtime main
+    52f177cd mit Panel G2-Y (Tag panel/statussymbole-0.1, live 97461a61),
+    Desktop QE-04a (Tag desktop/qe-04a, live f48795676f867b82), Lautstärke
+    (panel/lautstaerke-0.1), Netzwerk (panel/netzwerk-0.2), Tastenkürzel
+    (kuerzel/0.1.0) und Theme Querencia-Klassisch mit Alt+Tab-OSD
+    (theme/querencia-klassisch-osd).
+  * Neu im Paket: querencia-lautstaerke, querencia-netzwerk,
+    querencia-kuerzel, /usr/share/themes/Querencia-Klassisch, MetaInfo
+    org.querencia.Panel und org.querencia.Desktop.
+  * Depends: querencia-symbole (Symbol der Lautstärke). Recommends:
+    libpulse0 (wird zur Laufzeit geladen), pipewire-pulse, network-manager.
+  * Maintainer und Copyright nach ENTSCHEIDUNGEN Nr. 3 und 14.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:39:59 +0200
+
 querencia-shell (0.1.0~alpha1-1) resolute; urgency=medium
 
   * Erster Paketentwurf (QREL-01, Worker 5).

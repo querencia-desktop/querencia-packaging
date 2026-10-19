@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Querencia Sitzung 0.1.1 (G2-K, Tag sitzung/0.1.1, nicht live). Enthält querencia-sitzung und querencia-polkit-agent. Achtung Namenskollision mit dem W5-Paket querencia-session (Sitzungsstarter, Wayland-Session): zwei verschiedene Pakete, Entscheidung des Besitzers offen (Übergabe SW-5 Abschnitt 5). Desktop-Datei hat NoDisplay=true, deshalb generic.
+     Erzeugt von werkzeug/metainfo-erzeugen.py (SW-5, Querencia Software, 2026-10-18);
+     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
+<component type="generic">
+  <id>org.querencia.Sitzung</id>
+  <name>Querencia Session</name>
+  <name xml:lang="de">Querencia Sitzung</name>
+  <summary>Log out, lock the screen, restart or shut down; polkit authentication agent</summary>
+  <summary xml:lang="de">Abmelden, Bildschirm sperren, Neu starten oder Herunterfahren; polkit-Berechtigungsdialog</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="org.querencia">
+    <name>Querencia Desktop</name>
+    <name xml:lang="de">Querencia Desktop</name>
+  </developer>
+  <project_group>Querencia</project_group>
+  <description>
+    <p>Querencia Session provides the session dialog of Querencia Desktop (log out, lock, restart, shut down), the screen lock with idle locking and the polkit authentication agent that asks for the password when a program needs administrative rights, for example to install software.</p>
+    <p xml:lang="de">Querencia Sitzung liefert den Sitzungsdialog von Querencia Desktop (Abmelden, Sperren, Neu starten, Herunterfahren), die Bildschirmsperre mit Leerlaufsperre und den polkit-Berechtigungsdialog, der nach dem Passwort fragt, wenn ein Programm Verwaltungsrechte braucht, zum Beispiel zum Installieren von Software.</p>
+    <p>The dialog is opened from the panel's System menu and by keyboard shortcuts; the menu entry is hidden.</p>
+    <p xml:lang="de">Der Dialog wird aus dem Systemmenü des Panels und über Tastenkürzel geöffnet; der Menüeintrag ist ausgeblendet.</p>
+  </description>
+  <url type="homepage">https://querencialinux.org</url>
+  <launchable type="desktop-id">org.querencia.Sitzung.desktop</launchable>
+  <provides>
+    <binary>querencia-sitzung</binary>
+    <binary>querencia-polkit-agent</binary>
+  </provides>
+  <pkgname>querencia-sitzung</pkgname>
+  <categories>
+    <category>System</category>
+  </categories>
+  <branding>
+    <color type="primary" scheme_preference="light">#F07746</color>
+    <color type="primary" scheme_preference="dark">#B8532B</color>
+  </branding>
+  <releases>
+    <release version="0.1.1" date="2026-10-18"/>
+  </releases>
+</component>

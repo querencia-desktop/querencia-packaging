@@ -1,3 +1,14 @@
+querencia-desktop (0.1.0~alpha2-1) resolute; urgency=medium
+
+  * Zieht den ganzen Live-Stand (G2-F): neu Depends querencia-sitzung,
+    -benachrichtigungen, -einstellungen, -editor, -bilder, -rechner,
+    -systemmonitor, -dateisuche, -software, -symbole und labwc (>= 0.9.4).
+  * Recommends: PipeWire (pipewire, pipewire-pulse, wireplumber),
+    network-manager, apt-config-icons, avahi-daemon, wsdd-server.
+  * Maintainer und Copyright nach ENTSCHEIDUNGEN Nr. 3 und 14.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:39:59 +0200
+
 querencia-desktop (0.1.0~alpha1-2) resolute; urgency=medium
 
   * Recommends: querencia-bilder (Bildbetrachter, QI-01). Weiterhin ohne

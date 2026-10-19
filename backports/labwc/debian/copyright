@@ -94,7 +94,7 @@ License: MIT-like
  SOFTWARE.
 
 Files: debian/*
-Copyright: 2026 pottrauschen (Querencia backport, without debhelper)
+Copyright: 2026 Querencia Desktop contributors (Querencia backport, without debhelper)
 License: GPL-2
 Comment: Taken over from the copyright file of Ubuntu's labwc 0.9.3-1;
  before publication check it against the 0.9.8 sources.

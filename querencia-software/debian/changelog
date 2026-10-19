@@ -1,0 +1,11 @@
+querencia-software (0.1.0-1) resolute; urgency=medium
+
+  * Erstes Paket (G2-F, nach der Vorlage von SW-5). Quelle:
+    querencia-software, Tag software/0.1.0-1 (41bef370), live als Ablage
+    b3dd4e235fcbb0e9. Bausteine als eigene Upstream-Archive
+    (komponenten.conf): paketkit 24c7429e, katalog 8b6d1f19,
+    transaktion a2983d5b (Tag transaktion/0.1.1).
+  * Desktop-Datei und Programmsymbol (nur SVG) aus querencia-software-paket
+    (Tag software-paket/0.1.1) in debian/.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:39:08 +0200

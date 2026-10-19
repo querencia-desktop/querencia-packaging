@@ -8,14 +8,31 @@ Standards-Version: 4.7.2
 
 Package: querencia-desktop
 Architecture: all
-Depends: querencia-session (>= 0.1.0~alpha1),
-         querencia-shell (>= 0.1.0~alpha1),
-         querencia-files (>= 0.1.0~alpha1),
-         querencia-terminal (>= 0.1.0~alpha1),
-         querencia-screenshot (>= 0.1.0~alpha1)
-Recommends: querencia-bilder (>= 0.1.0~alpha1),
+Depends: labwc (>= 0.9.4),
+         querencia-session (>= 0.1.0~alpha2),
+         querencia-shell (>= 0.1.0~alpha2),
+         querencia-symbole (>= 0.2),
+         querencia-sitzung (>= 0.1.1),
+         querencia-benachrichtigungen (>= 0.1.1),
+         querencia-einstellungen (>= 0.0.6),
+         querencia-files (>= 0.1.0~alpha2),
+         querencia-terminal (>= 0.1.0~alpha2),
+         querencia-screenshot (>= 0.2.4),
+         querencia-editor (>= 0.2.0),
+         querencia-bilder (>= 0.1.1),
+         querencia-rechner (>= 0.1.1),
+         querencia-systemmonitor (>= 0.1.0),
+         querencia-dateisuche (>= 0.1.1),
+         querencia-software (>= 0.1.0)
+Recommends: pipewire,
+            pipewire-pulse,
+            wireplumber,
+            network-manager,
             gnome-human-icon-theme,
+            apt-config-icons,
             gvfs-backends,
+            avahi-daemon,
+            wsdd-server,
             xdg-desktop-portal-gtk,
             fonts-dejavu-core,
             wl-clipboard,
@@ -27,9 +44,15 @@ Description: Querencia Desktop – classic GNOME 2 style desktop (metapackage, a
  compositor.
  .
  This metapackage installs all components: session, panel and desktop,
- file manager, terminal and screenshot tool, and recommends the image
- viewer. Afterwards "Querencia
- Desktop" can be chosen in the session list of the display manager.
- No display manager is installed or reconfigured.
+ session dialog with screen lock and polkit agent, notifications,
+ settings, file manager, terminal, screenshot tool, text editor, image
+ viewer, calculator, system monitor, file search and the software manager.
+ Afterwards "Querencia Desktop" can be chosen in the session list of the
+ display manager. No display manager is installed or reconfigured.
  .
+ Recommended: PipeWire for sound (volume applet) and NetworkManager for
+ the network applet (with systemd-networkd it only shows the state).
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
  This is an alpha release, not intended for production use.

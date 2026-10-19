@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Querencia Benachrichtigungen 0.1.0 (G2-L, Tag benachrichtigungen/0.1.0, live seit 19:36). Dienst ohne systemd-Unit, deshalb generic statt service; D-Bus-Namen unter &lt;provides&gt;.
+     Erzeugt von werkzeug/metainfo-erzeugen.py (SW-5, Querencia Software, 2026-10-18);
+     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
+<component type="generic">
+  <id>org.querencia.Benachrichtigungen</id>
+  <name>Querencia Notifications</name>
+  <name xml:lang="de">Querencia Benachrichtigungen</name>
+  <summary>Notification service with pop-ups, urgency, actions and do-not-disturb</summary>
+  <summary xml:lang="de">Benachrichtigungsdienst mit Popups, Dringlichkeit, Aktionen und Nicht stören</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="org.querencia">
+    <name>Querencia Desktop</name>
+    <name xml:lang="de">Querencia Desktop</name>
+  </developer>
+  <project_group>Querencia</project_group>
+  <description>
+    <p>The notification service of Querencia Desktop implements org.freedesktop.Notifications on the session bus: pop-ups at the top right below the panel, urgency levels, actions, a history and a do-not-disturb mode (also for the panel through org.querencia.Benachrichtigungen).</p>
+    <p xml:lang="de">Der Benachrichtigungsdienst von Querencia Desktop setzt org.freedesktop.Notifications auf dem Sitzungsbus um: Popups oben rechts unter dem Panel, Dringlichkeitsstufen, Aktionen, ein Verlauf und ein Nicht-stören-Modus (auch für das Panel über org.querencia.Benachrichtigungen).</p>
+    <p>It is started by the session and has no menu entry.</p>
+    <p xml:lang="de">Er wird von der Sitzung gestartet und hat keinen Menüeintrag.</p>
+  </description>
+  <url type="homepage">https://querencialinux.org</url>
+  <provides>
+    <binary>querencia-benachrichtigungen</binary>
+    <dbus type="user">org.freedesktop.Notifications</dbus>
+    <dbus type="user">org.querencia.Benachrichtigungen</dbus>
+  </provides>
+  <pkgname>querencia-benachrichtigungen</pkgname>
+  <categories>
+    <category>System</category>
+  </categories>
+  <branding>
+    <color type="primary" scheme_preference="light">#F07746</color>
+    <color type="primary" scheme_preference="dark">#B8532B</color>
+  </branding>
+  <releases>
+    <release version="0.1.0" date="2026-10-18"/>
+  </releases>
+</component>

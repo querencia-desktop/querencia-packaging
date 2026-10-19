@@ -1,0 +1,9 @@
+querencia-editor (0.2.0-1) resolute; urgency=medium
+
+  * Erstes Paket (G2-F). Quelle: querencia-editor, Tag editor/0.2.0
+    (4eda767a), live als Ablage f3d02fee577732ed.
+  * Übersetzungen: po/<sprache>.po (LINGUAS) werden beim Bau mit msgfmt
+    zu /usr/share/locale/<sprache>/LC_MESSAGES/querencia-editor.mo.
+  * Programmsymbol kommt aus querencia-symbole.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 00:39:08 +0200

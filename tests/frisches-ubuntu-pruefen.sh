@@ -16,13 +16,23 @@ vorher)
     ;;
 nachher)
     dpkg -l >"$OUT/dpkg-nachher.txt"
-    for x in querencia-desktop querencia-session querencia-shell querencia-files querencia-terminal querencia-screenshot labwc; do
+    for x in querencia-desktop querencia-session querencia-shell querencia-symbole querencia-sitzung \
+        querencia-benachrichtigungen querencia-einstellungen querencia-files querencia-terminal \
+        querencia-screenshot querencia-editor querencia-bilder querencia-rechner querencia-systemmonitor \
+        querencia-dateisuche querencia-software labwc; do
         dpkg -s "$x" >/dev/null 2>&1 && ok "installiert: $x $(dpkg-query -W -f='${Version}' $x)" || nok "fehlt: $x"
     done
     v=$(labwc --version | awk '{print $2}'); dpkg --compare-versions "$v" ge 0.9.4 && ok "labwc $v" || nok "labwc $v < 0.9.4"
-    for d in io.github.lgse.Strata org.example.Querencia.Terminal org.querencia.Screenshot; do
+    for d in io.github.lgse.Strata org.example.Querencia.Terminal org.querencia.Screenshot org.querencia.Editor \
+        org.querencia.Bilder org.querencia.Rechner org.querencia.Systemmonitor org.querencia.Dateisuche \
+        org.querencia.Einstellungen org.querencia.Software org.querencia.Sitzung org.querencia.Kuerzel \
+        org.querencia.Lautstaerke; do
         desktop-file-validate /usr/share/applications/$d.desktop >/dev/null 2>&1 && ok "D $d.desktop" || nok "D $d.desktop"
     done
+    n=$(ls /usr/share/metainfo/ 2>/dev/null | grep -c -E '^(org\.querencia|org\.example\.Querencia|io\.github\.lgse\.Strata)')
+    [ "$n" -ge 14 ] && ok "MetaInfo: $n Querencia-Komponenten" || nok "MetaInfo: nur $n von 14"
+    [ ! -e /usr/share/icons/hicolor/48x48/apps/org.querencia.Bilder.png ] && ok "Symbolregel: kein 48x48 neben SVG" || nok "Symbolregel"
+    [ -s /usr/share/locale/de/LC_MESSAGES/querencia-editor.mo ] && ok "Editor: deutscher Katalog" || nok "Editor: de.mo fehlt"
     [ -f /usr/share/wayland-sessions/querencia.desktop ] && ok "F Sitzungsdatei" || nok "F Sitzungsdatei"
     querencia-session --check && ok "G querencia-session --check" || nok "G --check"
     diff <(grep -E 'gdm|sddm|lightdm|greetd' "$OUT/dpkg-vorher.txt" | awk '{print $2}') \
@@ -39,7 +49,17 @@ sitzung)
     querencia-session 2>&1 | grep -q 'läuft bereits' && ok "H zweiter Start verweigert" || nok "zweiter Start"
     echo "$XDG_CURRENT_DESKTOP" | grep -q X-Querencia && ok "XDG_CURRENT_DESKTOP=X-Querencia" || nok "XDG_CURRENT_DESKTOP"
     [ "$(xdg-mime query default inode/directory)" = io.github.lgse.Strata.desktop ] && ok "Ordnerprogramm in der Sitzung" || nok "Ordnerprogramm"
-    echo "J/K/L/M: Terminal, Files, Druck-Taste und Menü Zubehör von Hand prüfen, Bildschirmfotos ablegen"
+    [ "$(xdg-mime query default text/plain)" = org.querencia.Editor.desktop ] && ok "Textprogramm in der Sitzung" || nok "Textprogramm"
+    [ "$(xdg-mime query default image/png)" = org.querencia.Bilder.desktop ] && ok "Bildprogramm in der Sitzung" || nok "Bildprogramm"
+    for x in querencia-polkit-agent querencia-benachrichtigungen; do
+        [ "$(pgrep -c -u "$(id -u)" -f "^(/usr/bin/)?$x( |\$)")" = 1 ] && ok "$x läuft" || nok "$x läuft nicht"
+    done
+    pgrep -u "$(id -u)" -f "^(/usr/bin/)?querencia-sitzung --leerlauf" >/dev/null && ok "Leerlaufsperre läuft" || nok "Leerlaufsperre"
+    for x in panel desktop labwc; do
+        grep -q -E '/home/[^/]+/(projects|opt)/' "$HOME/.local/state/querencia/$x.log" 2>/dev/null &&
+            nok "Entwicklerpfad in $x.log" || ok "kein Entwicklerpfad in $x.log"
+    done
+    echo "Weiter von Hand nach docs/pflichtprobe-frische-vm.md, Abschnitt 6 (Prüfliste)"
     ;;
 entfernt)
     [ -d "$HOME/.config/querencia" ] || [ -d "$HOME/.local/state/querencia" ] && ok "N Benutzerdaten erhalten" || echo "HINW keine Benutzerdaten angelegt"

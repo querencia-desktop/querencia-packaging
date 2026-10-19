@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Version=1.5
+Name=Systemeinstellungen
+GenericName=Einstellungen
+Comment=Hintergrund und Symbole der Arbeitsfläche, Bildschirmauflösung, Monitoranordnung und Standardanwendungen von Querencia ändern
+Exec=querencia-einstellungen
+TryExec=querencia-einstellungen
+Icon=org.querencia.Einstellungen
+Terminal=false
+NoDisplay=false
+Categories=Settings;
+Keywords=Einstellungen;Systemeinstellungen;Kontrollzentrum;Hintergrund;Bildschirm;Auflösung;Monitor;Skalierung;Standardanwendungen;
+StartupNotify=true
+StartupWMClass=org.querencia.Einstellungen

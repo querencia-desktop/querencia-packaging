@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Querencia Einstellungen 0.0.1 (Live-Stand G2-C). Paketname querencia-einstellungen; 06 §3 schlägt querencia-settings vor – Entscheidung des Besitzers offen (Begründung: W5 wählte querencia-bilder statt querencia-images, das Programm heißt querencia-einstellungen). Menüeintrag „Systemeinstellungen“ unter System → Einstellungen (Categories=Settings ohne System).
+     Erzeugt von werkzeug/metainfo-erzeugen.py (SW-5, Querencia Software, 2026-10-18);
+     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
+<component type="desktop-application">
+  <id>org.querencia.Einstellungen</id>
+  <name>Querencia Settings</name>
+  <name xml:lang="de">Querencia Einstellungen</name>
+  <summary>Change the desktop background and other settings of Querencia</summary>
+  <summary xml:lang="de">Hintergrund der Arbeitsfläche und weitere Einstellungen von Querencia ändern</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="org.querencia">
+    <name>Querencia Desktop</name>
+    <name xml:lang="de">Querencia Desktop</name>
+  </developer>
+  <project_group>Querencia</project_group>
+  <description>
+    <p>Querencia Settings is the control centre of Querencia Desktop in the style of GNOME 2. The first area sets the desktop background (colour, picture, centred, tiled); further areas such as the screen (resolution, scale, monitors) are being added.</p>
+    <p xml:lang="de">Querencia Einstellungen ist das Kontrollzentrum von Querencia Desktop im Stil von GNOME 2. Der erste Bereich stellt den Hintergrund der Arbeitsfläche ein (Farbe, Bild, zentriert, gekachelt); weitere Bereiche wie Bildschirm (Auflösung, Skalierung, Monitore) kommen hinzu.</p>
+  </description>
+  <url type="homepage">https://querencialinux.org</url>
+  <launchable type="desktop-id">org.querencia.Einstellungen.desktop</launchable>
+  <provides>
+    <binary>querencia-einstellungen</binary>
+  </provides>
+  <pkgname>querencia-einstellungen</pkgname>
+  <categories>
+    <category>Settings</category>
+    <category>DesktopSettings</category>
+  </categories>
+  <keywords>
+    <keyword>settings</keyword>
+    <keyword>preferences</keyword>
+    <keyword>control center</keyword>
+    <keyword>background</keyword>
+    <keyword xml:lang="de">Einstellungen</keyword>
+    <keyword xml:lang="de">Systemeinstellungen</keyword>
+    <keyword xml:lang="de">Kontrollzentrum</keyword>
+    <keyword xml:lang="de">Hintergrund</keyword>
+  </keywords>
+  <content_rating type="oars-1.1"/>
+  <branding>
+    <color type="primary" scheme_preference="light">#F07746</color>
+    <color type="primary" scheme_preference="dark">#B8532B</color>
+  </branding>
+  <releases>
+    <release version="0.0.1" date="2026-10-18"/>
+  </releases>
+</component>

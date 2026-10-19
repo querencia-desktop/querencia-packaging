@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Querencia Terminal (Live-Stand M3.0a mit Zwischenablage). Die ID org.example.Querencia.Terminal ist die heutige GApplication-ID und Desktop-ID (06 §2: Release-Blocker „App-IDs org.example.*“). Bei der Umbenennung auf org.querencia.Terminal müssen App-ID, Desktop-Datei und diese Datei zusammen wechseln; eine &lt;replaces&gt;/&lt;provides&gt;&lt;id&gt;-Brücke kommt dann hier hinein.
+     Erzeugt von werkzeug/metainfo-erzeugen.py (SW-5, Querencia Software, 2026-10-18);
+     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
+<component type="desktop-application">
+  <id>org.example.Querencia.Terminal</id>
+  <name>Querencia Terminal</name>
+  <name xml:lang="de">Querencia Terminal</name>
+  <summary>Use the command line</summary>
+  <summary xml:lang="de">Die Befehlszeile verwenden</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="org.querencia">
+    <name>Querencia Desktop</name>
+    <name xml:lang="de">Querencia Desktop</name>
+  </developer>
+  <project_group>Querencia</project_group>
+  <description>
+    <p>Querencia Terminal is the terminal emulator of Querencia Desktop, built on VTE with a classic menu bar, copy and paste with Ctrl+Shift+C and Ctrl+Shift+V and a context menu.</p>
+    <p xml:lang="de">Querencia Terminal ist der Terminal-Emulator von Querencia Desktop auf Basis von VTE mit klassischer Menüleiste, Kopieren und Einfügen mit Strg+Umschalt+C und Strg+Umschalt+V sowie Kontextmenü.</p>
+  </description>
+  <url type="homepage">https://querencialinux.org</url>
+  <launchable type="desktop-id">org.example.Querencia.Terminal.desktop</launchable>
+  <provides>
+    <binary>querencia-terminal</binary>
+  </provides>
+  <pkgname>querencia-terminal</pkgname>
+  <categories>
+    <category>Utility</category>
+    <category>TerminalEmulator</category>
+  </categories>
+  <keywords>
+    <keyword>shell</keyword>
+    <keyword>console</keyword>
+    <keyword>command line</keyword>
+    <keyword>terminal</keyword>
+    <keyword xml:lang="de">Shell</keyword>
+    <keyword xml:lang="de">Konsole</keyword>
+    <keyword xml:lang="de">Befehlszeile</keyword>
+    <keyword xml:lang="de">Terminal</keyword>
+  </keywords>
+  <content_rating type="oars-1.1"/>
+  <branding>
+    <color type="primary" scheme_preference="light">#F07746</color>
+    <color type="primary" scheme_preference="dark">#B8532B</color>
+  </branding>
+  <releases>
+    <release version="0.1.0" date="2026-10-18"/>
+  </releases>
+</component>

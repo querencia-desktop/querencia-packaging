@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Querencia Dateisuche 0.1.0 (G2-T, Tag dateisuche/0.1.0, live seit 20:12 als „Nach Dateien suchen …“ unter Zubehör).
+     Erzeugt von werkzeug/metainfo-erzeugen.py (SW-5, Querencia Software, 2026-10-18);
+     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
+<component type="desktop-application">
+  <id>org.querencia.Dateisuche</id>
+  <name>Querencia File Search</name>
+  <name xml:lang="de">Querencia Dateisuche</name>
+  <summary>Search files by name, content, date and size</summary>
+  <summary xml:lang="de">Dateien nach Name, Inhalt, Datum und Größe suchen</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="org.querencia">
+    <name>Querencia Desktop</name>
+    <name xml:lang="de">Querencia Desktop</name>
+  </developer>
+  <project_group>Querencia</project_group>
+  <description>
+    <p>Querencia File Search is the search dialog of Querencia Desktop in the manner of gnome-search-tool: search by name pattern in a folder, with further criteria such as text content, age, size, owner, regular expression, hidden and backup files. Results open with their applications or in Querencia Files; no indexer is needed.</p>
+    <p xml:lang="de">Querencia Dateisuche ist der Suchdialog von Querencia Desktop nach Art von gnome-search-tool: Suche nach Namensmuster in einem Ordner, mit weiteren Kriterien wie Textinhalt, Alter, Größe, Besitzer, regulärer Ausdruck, versteckte und Sicherungsdateien. Treffer öffnen sich mit ihren Programmen oder in Querencia Files; ein Indexer ist nicht nötig.</p>
+  </description>
+  <url type="homepage">https://querencialinux.org</url>
+  <launchable type="desktop-id">org.querencia.Dateisuche.desktop</launchable>
+  <provides>
+    <binary>querencia-dateisuche</binary>
+  </provides>
+  <pkgname>querencia-dateisuche</pkgname>
+  <categories>
+    <category>Utility</category>
+    <category>FileTools</category>
+  </categories>
+  <keywords>
+    <keyword>search</keyword>
+    <keyword>find</keyword>
+    <keyword>files</keyword>
+    <keyword xml:lang="de">Suchen</keyword>
+    <keyword xml:lang="de">Finden</keyword>
+    <keyword xml:lang="de">Dateien</keyword>
+    <keyword xml:lang="de">Dateisuche</keyword>
+  </keywords>
+  <content_rating type="oars-1.1"/>
+  <branding>
+    <color type="primary" scheme_preference="light">#F07746</color>
+    <color type="primary" scheme_preference="dark">#B8532B</color>
+  </branding>
+  <releases>
+    <release version="0.1.0" date="2026-10-18"/>
+  </releases>
+</component>

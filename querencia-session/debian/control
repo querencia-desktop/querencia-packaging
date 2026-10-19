@@ -9,12 +9,15 @@ Standards-Version: 4.7.2
 Package: querencia-session
 Architecture: all
 Depends: labwc (>= 0.9.4),
-         querencia-shell (>= 0.1.0~alpha1),
+         querencia-shell (>= 0.1.0~alpha2),
          procps,
          systemd,
          dbus-user-session,
          xdg-user-dirs
-Recommends: querencia-screenshot,
+Recommends: querencia-sitzung,
+            querencia-benachrichtigungen,
+            querencia-einstellungen,
+            querencia-screenshot,
             querencia-files,
             querencia-terminal,
             gnome-human-icon-theme,
@@ -28,7 +31,9 @@ Description: Querencia Desktop session (alpha)
  .
  Installs "Querencia Desktop" as a Wayland session for display managers
  (/usr/share/wayland-sessions) and the session configuration in
- /etc/querencia/labwc. No display manager is installed, enabled or
+ /etc/querencia/labwc. The session starts, when installed, the polkit agent
+ and idle lock (querencia-sitzung), the notification service and the saved
+ display layout (querencia-einstellungen). No display manager is installed, enabled or
  reconfigured, and nothing in home directories is changed.
  .
  Needs labwc 0.9.4 or newer (Ubuntu 26.04 ships 0.9.3, whose menus get
