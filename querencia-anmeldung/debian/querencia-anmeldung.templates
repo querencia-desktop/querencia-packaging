@@ -1,0 +1,34 @@
+Template: shared/default-x-display-manager
+Type: select
+Choices: ${choices}
+Description: Default display manager:
+ A display manager shows the graphical login screen. Several display
+ manager packages are installed, but only one of them runs at boot.
+ Please choose the one that should start by default.
+ .
+ The change takes effect at the next boot; a running display manager is
+ not stopped.
+Description-de.UTF-8: Standard-Anmeldedienst (Display-Manager):
+ Ein Display-Manager zeigt den grafischen Anmeldebildschirm. Es sind
+ mehrere Display-Manager installiert, beim Systemstart läuft aber nur einer.
+ Bitte wählen Sie, welcher standardmäßig starten soll.
+ .
+ Die Änderung wirkt nach dem nächsten Neustart; ein laufender
+ Display-Manager wird nicht angehalten.
+
+Template: querencia-anmeldung/daemon_name
+Type: string
+Default: /usr/sbin/querencia-anmeldung
+Description: for internal use only
+
+Template: querencia-anmeldung/ziel
+Type: string
+Description: for internal use only
+
+Template: querencia-anmeldung/vorher_datei
+Type: string
+Description: for internal use only
+
+Template: querencia-anmeldung/vorher_dienst
+Type: string
+Description: for internal use only

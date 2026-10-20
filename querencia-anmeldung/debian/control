@@ -1,0 +1,52 @@
+Source: querencia-anmeldung
+Section: x11
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.85),
+               rustc (>= 1.85),
+               pkgconf,
+               libgtk-4-dev (>= 4.16),
+               libglib2.0-dev,
+               liblcms2-dev,
+               libseccomp-dev,
+               libfontconfig-dev,
+               python3:any
+Standards-Version: 4.7.2
+Homepage: https://github.com/rharish101/ReGreet
+
+Package: querencia-anmeldung
+Architecture: any
+Depends: ${shlibs:Depends},
+         debconf (>= 0.5) | debconf-2.0,
+         greetd (>= 0.10),
+         labwc (>= 0.9.8),
+         dbus-daemon,
+         glycin-loaders
+Recommends: querencia-shell (>= 0.1.0~alpha3),
+            querencia-symbole (>= 0.5.2),
+            dmz-cursor-theme,
+            fonts-dejavu-core
+Provides: x-display-manager
+Description: Querencia Desktop login screen (greetd with ReGreet, alpha)
+ The graphical login screen of Querencia Desktop: the greetd daemon shows
+ the GTK 4 greeter ReGreet in a labwc compositor without menu or key
+ bindings, with the Querencia-Klassisch theme, the Querencia icon theme
+ and the background "Querencia Blau". All sessions from
+ /usr/share/wayland-sessions and /usr/share/xsessions can be chosen, so
+ Ubuntu (GNOME) stays available next to Querencia Desktop.
+ .
+ The package coexists with GDM and other display managers. It becomes the
+ default display manager only when none is set up yet, when it is chosen
+ in the debconf question shared/default-x-display-manager, or with
+ QUERENCIA_ANMELDUNG=ja. "dpkg-reconfigure querencia-anmeldung" switches in
+ both directions; removing the package restores the previous display
+ manager. A running display manager is never stopped.
+ .
+ ReGreet 0.5.0 is built from the upstream release with its own paths
+ (/etc/querencia/greetd); the configuration of the greetd package is not
+ touched.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

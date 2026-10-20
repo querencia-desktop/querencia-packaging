@@ -1,3 +1,14 @@
+querencia-desktop (0.1.0~alpha2-3) resolute; urgency=medium
+
+  * Suggests: querencia-anmeldung statt greetd (ANM-1). Bewusst Suggests,
+    nicht Recommends: apt installiert Recommends standardmäßig mit, und auf
+    einem Ubuntu Desktop soll GDM bleiben, bis der Benutzer selbst umschaltet
+    (querencia-anmeldung verdrängt zwar keinen aktiven Display-Manager, die
+    debconf-Frage bei jeder Desktop-Installation wäre aber unnötig).
+  * README.Debian: Anmeldebildschirm installieren und umschalten.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 17:55:00 +0200
+
 querencia-desktop (0.1.0~alpha2-2) resolute; urgency=medium
 
   * Mindestversionen auf den Paketsatz G2-F2 (Live-Stand 20.10. ~13:00).

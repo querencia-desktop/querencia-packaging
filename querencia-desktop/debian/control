@@ -41,7 +41,7 @@ Recommends: fonts-dejavu-extra,
             xdg-desktop-portal-gtk,
             wl-clipboard,
             slurp
-Suggests: greetd
+Suggests: querencia-anmeldung
 Description: Querencia Desktop – classic GNOME 2 style desktop (metapackage, alpha)
  Querencia Desktop is a classic desktop in the style of GNOME 2 /
  Ubuntu 10.04, written in Rust with GTK 4 for Wayland on the labwc
@@ -54,7 +54,8 @@ Description: Querencia Desktop – classic GNOME 2 style desktop (metapackage, a
  software manager. Afterwards
  "Querencia Desktop" can be chosen in the session list of the display
  manager (GDM shows it after a restart). No display manager is installed
- or reconfigured.
+ or reconfigured; the Querencia login screen is the separate, suggested
+ package querencia-anmeldung.
  .
  The mouse pointer theme (DMZ) and the DejaVu fonts come from the
  distribution packages dmz-cursor-theme and fonts-dejavu (recommended:

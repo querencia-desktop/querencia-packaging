@@ -1,0 +1,98 @@
+#!/bin/sh
+# Setzt den in config gewählten Display-Manager (querencia-anmeldung/ziel)
+# wie gdm3 und lightdm: Pfad des Programms nach
+# /etc/X11/default-display-manager, Link display-manager.service auf den
+# Dienst <name>.service. Merkt sich vor der ersten Übernahme, was vorher
+# aktiv war (prerm stellt es beim Entfernen wieder her). Kein Dienst wird
+# gestartet oder angehalten; der Wechsel wirkt nach dem nächsten Neustart.
+set -e
+
+. /usr/share/debconf/confmodule
+
+THIS=querencia-anmeldung
+FRAGE=shared/default-x-display-manager
+R=${DPKG_ROOT:-}
+DMF=$R/etc/X11/default-display-manager
+DMS=$R/etc/systemd/system/display-manager.service
+
+# dienst_von <programmpfad>: Unit-Datei <basename>.service oder leer
+dienst_von() {
+    n=$(basename "$1").service
+    for d in /usr/lib/systemd/system /lib/systemd/system /etc/systemd/system; do
+        if [ -e "$R$d/$n" ]; then echo "$d/$n"; return 0; fi
+    done
+}
+
+melden() { echo "querencia-anmeldung: $*"; }
+
+if [ "$1" = configure ]; then
+    db_get $THIS/ziel || RET=
+    ZIEL=$RET
+    db_set $THIS/ziel "" || true
+
+    if [ -L "$DMS" ] && [ "$(readlink "$DMS")" = /dev/null ]; then
+        melden "display-manager.service ist maskiert, nichts geändert."
+        ZIEL=
+    fi
+
+    AKTIV_DATEI=
+    if [ -s "$DMF" ]; then AKTIV_DATEI=$(grep -v '^[[:space:]]*#' "$DMF" | head -n 1); fi
+    AKTIV_DIENST=
+    if [ -L "$DMS" ]; then AKTIV_DIENST=$(readlink "$DMS"); fi
+
+    if [ -n "$ZIEL" ] && [ "$ZIEL" != - ]; then
+        if db_get "$ZIEL/daemon_name" && [ -n "$RET" ]; then
+            PROGRAMM=$RET
+            DIENST=$(dienst_von "$PROGRAMM")
+            if [ -z "$DIENST" ]; then
+                melden "WARNUNG: kein Dienst $(basename "$PROGRAMM").service für $ZIEL, nichts geändert." >&2
+            else
+                # vorherigen Stand merken, nur beim Wechsel von einem anderen zu uns
+                if [ "$ZIEL" = "$THIS" ] && [ "$(basename "$AKTIV_DATEI")" != "$THIS" ] &&
+                    [ "${AKTIV_DIENST##*/}" != "$THIS.service" ]; then
+                    db_set $THIS/vorher_datei "$AKTIV_DATEI"
+                    db_set $THIS/vorher_dienst "$AKTIV_DIENST"
+                fi
+                mkdir -p "$(dirname "$DMF")" "$(dirname "$DMS")"
+                echo "$PROGRAMM" >"$DMF"
+                ln -sf "$DIENST" "$DMS"
+                melden "Standard-Anmeldedienst ist jetzt $ZIEL (wirkt nach dem nächsten Neustart)."
+            fi
+        fi
+    elif [ "$ZIEL" = - ]; then
+        # QUERENCIA_ANMELDUNG=nein ohne anderen Display-Manager: vorherigen
+        # Dienst ohne debconf-Eintrag wiederherstellen, sonst Textkonsole
+        db_get $THIS/vorher_dienst || RET=
+        if [ -n "$RET" ] && [ -e "$R$RET" ] && [ "${RET##*/}" != "$THIS.service" ]; then
+            ln -sf "$RET" "$DMS"
+            melden "Standard-Anmeldedienst ist wieder $(basename "$RET" .service) (wirkt nach dem nächsten Neustart)."
+        else
+            rm -f "$DMS"
+            melden "Kein grafischer Anmeldedienst mehr eingetragen (Anmeldung an der Textkonsole)."
+        fi
+        if [ "$(basename "$AKTIV_DATEI")" = "$THIS" ]; then rm -f "$DMF"; fi
+    else
+        # nichts gewählt: Hinweis, wenn ein anderer aktiv bleibt
+        if [ -n "$AKTIV_DATEI" ] && [ "$(basename "$AKTIV_DATEI")" != "$THIS" ]; then
+            melden "$(basename "$AKTIV_DATEI") bleibt Standard-Anmeldedienst. Wechsel: sudo dpkg-reconfigure querencia-anmeldung"
+        elif [ -z "$AKTIV_DATEI" ] && [ -n "$AKTIV_DIENST" ] && [ "${AKTIV_DIENST##*/}" != "$THIS.service" ] &&
+            [ "$AKTIV_DIENST" != /dev/null ]; then
+            melden "$(basename "$AKTIV_DIENST" .service) bleibt Standard-Anmeldedienst. Wechsel: sudo dpkg-reconfigure querencia-anmeldung"
+        elif [ "$(basename "$AKTIV_DATEI")" = "$THIS" ] && [ "${AKTIV_DIENST##*/}" != "$THIS.service" ] &&
+            [ "$AKTIV_DIENST" != /dev/null ]; then
+            # eingetragen, aber Link fehlt oder zeigt woandershin (wie gdm3 nachziehen)
+            DIENST=$(dienst_von "$AKTIV_DATEI")
+            if [ -n "$DIENST" ]; then ln -sf "$DIENST" "$DMS"; fi
+        fi
+    fi
+
+    if [ -z "$R" ]; then
+        systemd-tmpfiles --create querencia-anmeldung.conf >/dev/null 2>&1 || true
+        if [ -d /run/systemd/system ]; then
+            systemctl --system daemon-reload >/dev/null 2>&1 || true
+        fi
+    fi
+fi
+
+db_stop || true
+exit 0

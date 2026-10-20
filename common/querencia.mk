@@ -154,8 +154,11 @@ endif
 	set -e; if [ -d $(DESTDIR)/etc ]; then \
 		(cd $(DESTDIR) && find etc -type f | LC_ALL=C sort | sed 's|^|/|') >$(DESTDIR)/DEBIAN/conffiles; \
 		chmod 0644 $(DESTDIR)/DEBIAN/conffiles; fi
-	set -e; for s in preinst postinst prerm postrm; do \
+	set -e; for s in preinst postinst prerm postrm config; do \
 		if [ -f debian/$(PKG).$$s ]; then install -m 0755 debian/$(PKG).$$s $(DESTDIR)/DEBIAN/$$s; fi; done
+	# debconf-Vorlagen (dh_installdebconf)
+	if [ -f debian/$(PKG).templates ]; then \
+		install -m 0644 debian/$(PKG).templates $(DESTDIR)/DEBIAN/templates; fi
 	rm -f debian/$(PKG).substvars
 	set -e; elf="$$($(FIND_ELF))"; if [ -n "$$elf" ]; then \
 		dpkg-shlibdeps -Tdebian/$(PKG).substvars $$elf; fi

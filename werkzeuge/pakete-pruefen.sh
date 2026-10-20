@@ -5,7 +5,8 @@
 #   bash werkzeuge/pakete-pruefen.sh <paket.deb>…
 #
 #   - Inhalt: nur /usr, /etc (Conffiles); nichts unter /usr/local, /home, /root,
-#     /var, /opt; keine Maintainer-Skripte außer erlaubten
+#     /var, /opt; keine Maintainer-Skripte außer erlaubten (Display-Manager-
+#     Pakete: debconf-Skripte ohne Home und ohne Dienststart/-stopp)
 #   - Binaries und Skripte ohne Entwicklerpfade (/home/…, target/, Build-Pfad)
 #   - Desktop-Dateien gültig (desktop-file-validate), Exec/TryExec im Paketsatz,
 #     Symbole in einem installierten Symbolthema vorhanden
@@ -29,6 +30,8 @@ nok() { fail=$((fail + 1)); echo "FAIL $*"; }
 hinweis() { warn=$((warn + 1)); echo "HINW $*"; }
 
 ALLOWED_SCRIPTS='^(postinst|prerm)$'   # nur update-alternatives (querencia-terminal)
+# Pakete, die den Standard-Display-Manager per debconf wählen (ANM-1)
+DM_PAKETE=${QUERENCIA_DM_PAKETE:-querencia-anmeldung}
 debs=()
 for deb in "$@"; do debs+=("$(readlink -f "$deb")"); done
 
@@ -70,6 +73,18 @@ for deb in "${debs[@]}"; do
 
     scripts=$(cd "$C" && ls | grep -v -E '^(control|md5sums|conffiles|shlibs|triggers)$' || true)
     for s in $scripts; do
+        if [[ " $DM_PAKETE " == *" $p "* ]] && [[ $s =~ ^(config|templates|postinst|prerm|postrm)$ ]]; then
+            # Display-Manager-Paket: debconf-Wahl wie gdm3/lightdm (Link
+            # display-manager.service), aber nie Home und nie einen Dienst
+            # starten, anhalten oder aktivieren (daemon-reload ist erlaubt)
+            if ! grep -q -E 'HOME|~/|/home/' "$C/$s" &&
+                ! grep -q -E 'systemctl( +--[a-z-]+)* +(start|stop|restart|reload|try-restart|reload-or-restart|enable|disable|mask|isolate|kill)( |$)|invoke-rc\.d|deb-systemd-invoke|update-rc\.d' "$C/$s"; then
+                ok "$p: Display-Manager-Skript $s berührt weder Home noch startet/stoppt es Dienste"
+            else
+                nok "$p: Display-Manager-Skript $s"
+            fi
+            continue
+        fi
         if [[ $s =~ $ALLOWED_SCRIPTS ]] && ! grep -q -E 'HOME|~/|/home/|systemctl|greetd|pam' "$C/$s"; then
             ok "$p: Maintainer-Skript $s berührt weder Home noch Dienste"
         else
@@ -132,8 +147,8 @@ for deb in "${debs[@]}"; do
     done
     # Regel M (SW-5, Querencia Software): Ohne MetaInfo-Datei ist ein
     # Querencia-Programm im eigenen Installer unsichtbar (G2-I 5.5, 06 §3).
-    case " ${QUERENCIA_METAINFO_AUSNAHMEN:-querencia-desktop querencia-session querencia-symbole labwc} " in
-    *" $p "*) hinweis "$p: ohne MetaInfo-Pflicht (Ausnahme: Metapaket/Sitzungsstarter/Symbole/Backport)" ;;
+    case " ${QUERENCIA_METAINFO_AUSNAHMEN:-querencia-desktop querencia-session querencia-symbole querencia-anmeldung labwc} " in
+    *" $p "*) hinweis "$p: ohne MetaInfo-Pflicht (Ausnahme: Metapaket/Sitzungsstarter/Symbole/Anmeldebildschirm/Backport)" ;;
     *)
         case $p in
         querencia-*)

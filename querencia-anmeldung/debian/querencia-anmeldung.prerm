@@ -1,0 +1,101 @@
+#!/bin/sh
+# Beim Entfernen: Ist die Querencia Anmeldung Standard-Anmeldedienst, den
+# vorherigen wieder eintragen (gemerkt von postinst), sonst wie gdm3 und
+# lightdm einen anderen installierten Display-Manager wählen lassen, sonst
+# keinen (Textkonsole). Kein Dienst wird angehalten; wer über die Querencia
+# Anmeldung angemeldet ist, bleibt es bis zum Abmelden. Wirkt nach dem
+# nächsten Neustart.
+set -e
+
+THIS=querencia-anmeldung
+FRAGE=shared/default-x-display-manager
+R=${DPKG_ROOT:-}
+DMF=$R/etc/X11/default-display-manager
+DMS=$R/etc/systemd/system/display-manager.service
+
+dienst_von() {
+    n=$(basename "$1").service
+    for d in /usr/lib/systemd/system /lib/systemd/system /etc/systemd/system; do
+        if [ -e "$R$d/$n" ]; then echo "$d/$n"; return 0; fi
+    done
+}
+
+melden() { echo "querencia-anmeldung: $*"; }
+
+if { [ "$1" = remove ] || [ "$1" = deconfigure ]; } && [ -e /usr/share/debconf/confmodule ]; then
+    . /usr/share/debconf/confmodule
+
+    AKTIV_DATEI=
+    if [ -s "$DMF" ]; then AKTIV_DATEI=$(grep -v '^[[:space:]]*#' "$DMF" | head -n 1); fi
+    AKTIV_DIENST=
+    if [ -L "$DMS" ]; then AKTIV_DIENST=$(readlink "$DMS"); fi
+    WIR=
+    if [ "$(basename "$AKTIV_DATEI")" = "$THIS" ] || [ "${AKTIV_DIENST##*/}" = "$THIS.service" ]; then
+        WIR=ja
+    fi
+
+    db_get $THIS/vorher_datei || RET=
+    VORHER_DATEI=$RET
+    db_get $THIS/vorher_dienst || RET=
+    VORHER_DIENST=$RET
+
+    # die gemeinsame Frage abgeben
+    db_unregister $FRAGE || true
+    OWNERS=
+    if db_get $FRAGE; then
+        db_metaget $FRAGE owners || RET=
+        OWNERS=$RET
+        db_subst $FRAGE choices "$OWNERS" || true
+    fi
+    ist_eigentuemer() {
+        case ", $OWNERS," in *", $1,"*) return 0 ;; esac
+        return 1
+    }
+
+    if [ -n "$WIR" ] && [ "$AKTIV_DIENST" != /dev/null ]; then
+        NEU=
+        NEU_DATEI=
+        NEU_DIENST=
+        V=$(basename "$VORHER_DATEI")
+        if [ -n "$VORHER_DATEI" ] && [ "$V" != "$THIS" ] && ist_eigentuemer "$V" &&
+            [ -n "$(dienst_von "$VORHER_DATEI")" ]; then
+            # 1. der vorherige Display-Manager (z. B. GDM) ist noch installiert
+            NEU=$V
+            NEU_DATEI=$VORHER_DATEI
+            NEU_DIENST=$(dienst_von "$VORHER_DATEI")
+            db_set $FRAGE "$NEU" || true
+        elif [ -z "$VORHER_DATEI" ] && [ -n "$VORHER_DIENST" ] && [ "$VORHER_DIENST" != /dev/null ] &&
+            [ "${VORHER_DIENST##*/}" != "$THIS.service" ] && [ -e "$R$VORHER_DIENST" ]; then
+            # 2. vorher lief ein Dienst ohne debconf-Eintrag (von Hand eingerichtet)
+            NEU=$(basename "$VORHER_DIENST" .service)
+            NEU_DIENST=$VORHER_DIENST
+        elif [ -n "$OWNERS" ]; then
+            # 3. ein anderer installierter Display-Manager, wie gdm3/lightdm
+            db_get $FRAGE || RET=
+            if ! ist_eigentuemer "$RET"; then
+                RET=$(echo "$OWNERS" | tr ',' ' ' | awk '{ print $1 }')
+                db_set $FRAGE "$RET"
+            fi
+            db_fset $FRAGE seen false || true
+            db_input critical $FRAGE || true
+            db_go || true
+            db_get $FRAGE
+            if ist_eigentuemer "$RET" && db_get "$RET/daemon_name" && [ -n "$RET" ]; then
+                NEU_DATEI=$RET
+                NEU_DIENST=$(dienst_von "$RET")
+                NEU=$(basename "$RET")
+            fi
+        fi
+
+        if [ -n "$NEU_DIENST" ]; then
+            if [ -n "$NEU_DATEI" ]; then echo "$NEU_DATEI" >"$DMF"; else rm -f "$DMF"; fi
+            ln -sf "$NEU_DIENST" "$DMS"
+            melden "Standard-Anmeldedienst ist wieder $NEU (wirkt nach dem nächsten Neustart)."
+        else
+            rm -f "$DMF" "$DMS"
+            melden "Kein grafischer Anmeldedienst mehr eingetragen (Anmeldung an der Textkonsole nach dem nächsten Neustart)."
+        fi
+    fi
+fi
+
+exit 0

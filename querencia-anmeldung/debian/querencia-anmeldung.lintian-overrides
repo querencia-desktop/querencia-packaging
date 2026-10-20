@@ -1,0 +1,7 @@
+# Die Wartungsskripte sprechen die Vorlagen über Variablen an ($FRAGE,
+# $THIS/ziel, "$ZIEL/daemon_name"); die internen Vorlagen werden nie
+# angezeigt (Muster gdm3/lightdm: <paket>/daemon_name).
+querencia-anmeldung: unused-debconf-template * [templates:*]
+# Display-Manager werden über Alias=display-manager.service gestartet, nicht
+# über WantedBy (wie greetd.service und gdm.service).
+querencia-anmeldung: systemd-service-file-missing-install-key [usr/lib/systemd/system/querencia-anmeldung.service]
