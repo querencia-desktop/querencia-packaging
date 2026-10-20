@@ -72,8 +72,13 @@ fi
 n=$(apt_in "$R" apt-cache dumpavail 2>/dev/null | grep -c '^Package:')
 [ "$n" -ge 1 ] && ok "signierte Quelle: $n Pakete sichtbar" || nok "keine Pakete sichtbar"
 apt_in "$R" apt-cache policy querencia-desktop >"$OUT/apt-policy.txt" 2>&1
-grep -q 'Candidate: 0.1.0~alpha1-1' "$OUT/apt-policy.txt" && ok "querencia-desktop 0.1.0~alpha1-1 als Kandidat" ||
-    nok "querencia-desktop nicht als Kandidat"
+# erwartete Version: die des übergebenen Metapakets (sonst irgendeine)
+soll=
+for deb in "$@"; do
+    [ "$(dpkg-deb -f "$deb" Package)" = querencia-desktop ] && soll=$(dpkg-deb -f "$deb" Version)
+done
+if grep -q "Candidate: ${soll:-[0-9]}" "$OUT/apt-policy.txt"; then ok "querencia-desktop ${soll:-} als Kandidat"
+else nok "querencia-desktop ${soll:-} nicht als Kandidat"; fi
 
 # 2 manipuliert
 cp -a "$T/repo" "$T/repo-manip"
