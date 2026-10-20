@@ -53,6 +53,9 @@ for p in "${pakete[@]}"; do
     rc=$?
     dauer=$(( $(date +%s) - start ))
     if [ $rc -eq 0 ]; then
+        # ältere Fassung desselben Pakets aus dem Sammelordner nehmen (ein
+        # Binärpaket je Quellpaket, gleicher Name), sonst lägen zwei im Satz
+        rm -f "$AUSGABE/debs/${p}_"*.deb
         cp "$AUSGABE/bau/$p"/*.deb "$AUSGABE/debs/"
         echo "PASS $p (${dauer}s)" | tee -a "$ERG"
     else
