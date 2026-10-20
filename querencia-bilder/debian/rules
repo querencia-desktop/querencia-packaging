@@ -13,4 +13,5 @@ querencia-install:
 		msgfmt --check -o $(DESTDIR)/usr/share/locale/$$l/LC_MESSAGES/querencia-bilder.mo po/$$l.po; done
 	test -s $(DESTDIR)/usr/share/locale/de/LC_MESSAGES/querencia-bilder.mo
 	$(call metainfo_install,org.querencia.Bilder)
-	$(call doc_install,.)
+	# README nennt Arbeitsordner der Entwicklungs-VM (~/projects/...); nur das Änderungsprotokoll.
+	$(call doc_install,.,-)

@@ -15,4 +15,5 @@ querencia-install:
 	install -D -m 0644 debian/org.querencia.Software.svg \
 		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Software.svg
 	$(call metainfo_install,org.querencia.Software)
-	$(call doc_install,querencia-software/programm)
+	# README nennt Arbeitsordner der Entwicklungs-VM (~/projects/...); nur das Änderungsprotokoll.
+	$(call doc_install,querencia-software/programm,-)

@@ -99,10 +99,12 @@ desktop_install = install -d $(dir $(2)) && \
 #   $(call metainfo_install,<component id> …)
 metainfo_install = DESTDIR=$(DESTDIR) QS_PAKETNAME=$(PKG) QS_METAINFO_QUELLE=debian/metainfo \
 	bash debian/metainfo/metainfo-paket-installieren.sh $(1)
-# README/CHANGELOG of the source tree, when present.
-#   $(call doc_install,<directory in the tree>)
+# User documentation of the source tree: CHANGELOG.md (as changelog.gz) and
+# the files named in $(2) (default README.md), when present. BUILDING.md and
+# TESTING.md describe the development VM and stay out of the package.
+#   $(call doc_install,<directory in the tree>[,<files>])
 doc_install = set -e; d=$(DESTDIR)/usr/share/doc/$(PKG); install -d $$d; \
-	for f in README.md BUILDING.md TESTING.md QUERENCIA.md; do \
+	for f in $(if $(2),$(2),README.md); do \
 		if [ -f $(1)/$$f ]; then install -m 0644 $(1)/$$f $$d/$$f; fi; done; \
 	if [ -f $(1)/CHANGELOG.md ]; then gzip -9nc $(1)/CHANGELOG.md >$$d/changelog.gz; fi
 
