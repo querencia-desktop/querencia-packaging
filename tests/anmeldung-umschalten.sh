@@ -114,8 +114,14 @@ aktualisieren
 erwarte "A2 Aktualisierung ändert nichts" "$Q" "$QL"
 entfernen
 erwarte "A3 Entfernen: kein Display-Manager mehr (Textkonsole)" "" ""
+mkdir -p "$W/run/querencia-anmeldung/wayland-sessions" "$W/var/lib/querencia-anmeldung" "$W/var/log/querencia-anmeldung"
 purgen
 if ! grep -q querencia-anmeldung "$W/var/cache/debconf/config.dat"; then ok "A4 purge: debconf-Einträge weg"; else nein "A4 purge: debconf-Einträge weg"; fi
+if [ ! -e "$W/run/querencia-anmeldung" ] && [ ! -e "$W/var/lib/querencia-anmeldung" ] && [ ! -e "$W/var/log/querencia-anmeldung" ]; then
+    ok "A5 purge: Sitzungsliste, Zustand und Protokoll weg"
+else
+    nein "A5 purge: Sitzungsliste, Zustand und Protokoll weg"
+fi
 
 # B: Ubuntu Desktop mit GDM, Installation ohne Antwort (noninteractive)
 szene b-gdm

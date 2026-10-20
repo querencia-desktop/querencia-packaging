@@ -1,3 +1,26 @@
+querencia-anmeldung (0.1.1-1) resolute; urgency=medium
+
+  * Sitzungshülle /usr/libexec/querencia-anmeldung/sitzung-starten (KOEX-1
+    KB1, ANM-2): setzt wie GDM XDG_CURRENT_DESKTOP aus DesktopNames,
+    XDG_SESSION_DESKTOP und DESKTOP_SESSION aus dem Dateinamen und
+    XDG_SESSION_TYPE=wayland, liest danach /etc/profile und ~/.profile
+    (greetd source_profile = false) und führt Exec aus. Querencia Desktop
+    startet mit denselben Werten wie bisher (X-Querencia).
+  * Sitzungsauswahl sitzungen-auswahl: ReGreet ist mit
+    SESSION_DIRS=/run/querencia-anmeldung/wayland-sessions gebaut und
+    startet ohne XDG_DATA_DIRS; angeboten werden nur Querencia-Sitzungen
+    und in /etc/querencia/greetd/sitzungen.conf (neues Conffile)
+    freigegebene, nie die nackte labwc-Sitzung (KB3), versteckte oder
+    kaputte Sitzungsdateien und keine X11-Sitzungen. GNOME braucht GDM für
+    die Bildschirmsperre und ist deshalb nicht freigegeben.
+  * Vorwahl „Querencia Desktop“ für Benutzer ohne gültige letzte Sitzung
+    (KB3).
+  * debconf-Frage: Hinweis, dass GNOME GDM für die Bildschirmsperre braucht
+    und bei installiertem GNOME GDM Standard bleibt (de, en).
+  * purge entfernt auch /run/querencia-anmeldung.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 19:58:19 +0200
+
 querencia-anmeldung (0.1.0-1) resolute; urgency=medium
 
   * Erstes Paket (ANM-1): Anmeldebildschirm von Querencia Desktop aus greetd
