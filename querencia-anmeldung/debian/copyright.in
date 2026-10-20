@@ -1,0 +1,75 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: querencia-anmeldung
+Source: https://github.com/rharish101/ReGreet (tag 0.5.0)
+Comment: Generated from copyright.in by werkzeuge/copyright-erzeugen.py.
+ The cargo-vendor/ stanzas come from the vendored crates' Cargo.toml.
+ The main source is the unmodified ReGreet 0.5.0 release (commit
+ 290e6f8d65b7034c5b63bc950a20bcf8277ebe5f, REUSE-compliant upstream);
+ querencia/ holds the Querencia configuration, start scripts and
+ documentation (repository querencia-anmeldung).
+
+Files: *
+Copyright: 2022-2026 The ReGreet Authors
+License: GPL-3+
+
+Files: src/gui/model.rs README.md
+Copyright: 2021 Maximilian Moser <maximilian.moser@tuwien.ac.at>
+ 2022-2026 The ReGreet Authors
+License: GPL-3+ and Expat
+
+Files: Cargo.toml Cargo.lock .gitignore .pre-commit-config.yaml
+ systemd-tmpfiles.conf .github/*
+Copyright: 2022-2023 The ReGreet Authors
+License: 0BSD
+
+Files: querencia/*
+Copyright: 2026 Querencia Desktop contributors
+License: GPL-3+
+Comment: Querencia Desktop is developed with AI tools; every change is
+ reviewed and accepted by the project owner.
+
+Files: debian/*
+Copyright: 2026 Querencia Desktop contributors
+License: GPL-3+
+
+@CARGO_VENDOR@
+
+License: GPL-3+
+ This program is free software: you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the Free
+ Software Foundation, either version 3 of the License, or (at your option)
+ any later version.
+ .
+ On Debian systems the full text of the GNU General Public License version 3
+ is in /usr/share/common-licenses/GPL-3.
+
+License: Expat
+ Permission is hereby granted, free of charge, to any person obtaining a
+ copy of this software and associated documentation files (the "Software"),
+ to deal in the Software without restriction, including without limitation
+ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ and/or sell copies of the Software, and to permit persons to whom the
+ Software is furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ DEALINGS IN THE SOFTWARE.
+
+License: 0BSD
+ Permission to use, copy, modify, and/or distribute this software for any
+ purpose with or without fee is hereby granted.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+ SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
+ IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.

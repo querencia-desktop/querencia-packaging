@@ -11,8 +11,17 @@ die Sitzung nach der Anmeldung an einer lokalen Textkonsole mit
 
     querencia-session
 
-oder richtet greetd als eigenen Schritt ein (Beispiele unter
-/usr/share/doc/querencia-session/examples/greetd/).
+oder installiert den Anmeldebildschirm von Querencia Desktop (vorgeschlagen,
+nicht automatisch):
+
+    sudo apt install querencia-anmeldung
+
+Er wird nur dann Standard, wenn noch kein anderer Anmeldedienst
+eingerichtet ist; neben GDM bleibt GDM, bis man umschaltet:
+
+    sudo dpkg-reconfigure querencia-anmeldung
+
+(Einzelheiten: /usr/share/doc/querencia-anmeldung/umschalten.md)
 
 GDM liest neue Sitzungsdateien nur beim Start: nach der Installation den
 Rechner einmal neu starten, dann steht „Querencia Desktop“ im Zahnrad unten

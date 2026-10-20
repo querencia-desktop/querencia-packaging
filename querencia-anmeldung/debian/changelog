@@ -1,0 +1,17 @@
+querencia-anmeldung (0.1.0-1) resolute; urgency=medium
+
+  * Erstes Paket (ANM-1): Anmeldebildschirm von Querencia Desktop aus greetd
+    (Paket greetd) und ReGreet 0.5.0 (Upstream-Tag 0.5.0, 290e6f8d, gebaut
+    mit eigenen Pfaden /etc/querencia/greetd, /var/lib und /var/log
+    querencia-anmeldung) in labwc ohne Menü und Tastenkürzel; Grußtext
+    „Querencia Desktop“, Thema Querencia-Klassisch, Symbolthema Querencia,
+    Hintergrund Querencia Blau; Sitzungen aus /usr/share/wayland-sessions
+    und /usr/share/xsessions (Querencia Desktop und Ubuntu/GNOME).
+  * Eigener Dienst querencia-anmeldung.service (Alias display-manager.service)
+    und debconf-Frage shared/default-x-display-manager wie gdm3/lightdm:
+    Standard nur ohne anderen Display-Manager, nach Wahl in der Frage oder
+    mit QUERENCIA_ANMELDUNG=ja; dpkg-reconfigure schaltet in beide
+    Richtungen; Entfernen trägt den vorherigen Display-Manager wieder ein.
+    Kein laufender Dienst wird angehalten.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 17:24:03 +0200

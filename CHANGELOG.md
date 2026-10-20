@@ -2,6 +2,15 @@
 
 ## [0.1.0~alpha2] – unveröffentlicht
 
+- Neues Paket querencia-anmeldung (ANM-1, Zweig anm-1): Anmeldebildschirm
+  aus greetd und ReGreet 0.5.0 (Upstream, Spiegel
+  `querencia-anmeldung/upstream/regreet.git`) mit den Querencia-Teilen als
+  Komponente `querencia/`; debconf-Frage `shared/default-x-display-manager`
+  wie gdm3/lightdm, eigener Dienst `querencia-anmeldung.service`;
+  Umschaltprüfung `tests/anmeldung-umschalten.sh` (Wegwerf-Wurzel, eigene
+  debconf-Datenbank). `common/querencia.mk` installiert jetzt auch
+  `debian/<paket>.config` und `.templates`. Metapaket: Suggests
+  querencia-anmeldung statt greetd.
 - Paketsatz auf dem Live-Stand von entwicklungs-vm (20.10.2026 ~13:00, G2-F2):
   Runtime 348351c (main 8014df9 + G2-AD 0.1), Editor/Bilder 0.2.1,
   Rechner 0.1.3, Systemmonitor 0.1.2, Dateisuche 0.1.3, Software 0.1.2,
