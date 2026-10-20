@@ -3,6 +3,7 @@ labwc (0.9.8-0querencia3) resolute; urgency=medium
   * Neu gebaut mit Manpages (scdoc) und SVG-Fensterknöpfen (librsvg),
     ohne die Bauprofile nodoc und pkg.labwc.nosvg (G2-F2); Quelle
     unverändert Upstream-Tag 0.9.8.
+  * Manpages gzip-komprimiert (querencia.mk, wie dh_compress).
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 13:50:01 +0200
 

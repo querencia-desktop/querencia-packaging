@@ -82,9 +82,11 @@ for deb in "${debs[@]}"; do
     # absolute Entwicklerpfade; relative "./target/…" aus -ffile-prefix-map und
     # Glob-Muster wie "!**/.cargo/registry/" (Suchausschlüsse in Querencia Files)
     # verraten keinen Rechner und zählen nicht
+    # (GH-5: rquickjs-sys u. a. betten ohne -ffile-prefix-map C-Pfade ein; der
+    # Bau setzt die Flags über dpkg-buildflags, geprüft wird hier jedes Paket.)
     # /home/<name>/<ordner> statt /home/[a-z]: Rust legt String-Literale ohne
     # Trenner hintereinander ("/home" "/root" ergibt "/home/root/...").
-    hits=$(grep -r -l -a -E '/home/[a-z][a-z0-9_-]*/(projects|opt|src|\.cargo|\.rustup|\.local)/|/projects/querencia|claude-w5|pakete/bau|build/bau/|[^.!*]/target/(debug|release)/|/\.cargo/registry/src' "$R" 2>/dev/null | sed "s|^$R||")
+    hits=$(grep -r -l -a -E '~|/home/[a-z][a-z0-9_-]*/(projects|opt|src|\.cargo|\.rustup|\.local|build)/|/projects/querencia|claude-w5|pakete/bau|build/bau/|[^.!*]/target/(debug|release)/|/\.cargo/registry/src' "$R" 2>/dev/null | sed "s|^$R||")
     [ -z "$hits" ] && ok "$p: keine Entwicklerpfade" || nok "$p: Entwicklerpfade in: $hits"
 
     # md5sums vollständig

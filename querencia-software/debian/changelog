@@ -1,8 +1,9 @@
 querencia-software (0.1.2-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.1.2 (Tag software/0.1.2, 28b91f46; live seit
-    20.10. 13:00, e9bb9be9): dunkle Auswahlschrift #1a1a1a auf dem orangen Menüverlauf (CSS-Welle), Seitenleiste und Programmliste;
-    enthält 0.1.1 (gettext de/en, Statuszeile). Bausteine unverändert.
+    20.10. 13:00, e9bb9be9): dunkle Auswahlschrift #1a1a1a auf dem orangen
+    Menüverlauf (CSS-Welle), Seitenleiste und Programmliste; enthält 0.1.1
+    (gettext de/en, Statuszeile). Bausteine unverändert.
   * Desktop-Datei aus dem Upstream (programm/data/), statt der Kopie in
     debian/.
   * Übersetzungen über gettext (englische msgids, po/de.po): die Kataloge

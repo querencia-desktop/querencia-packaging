@@ -1,8 +1,9 @@
 querencia-rechner (0.1.3-1) resolute; urgency=medium
 
-  * Neue Upstream-Version 0.1.3 (Tag rechner/0.1.3, 5570c3dd; live seit
-    20.10. 12:19, b40bf654): dunkle Auswahlschrift #1a1a1a auf dem orangen Menüverlauf (CSS-Welle), auch auf der Taste =; enthält 0.1.2
-    (gettext de/en).
+  * Neue Upstream-Version 0.1.3 (Tag rechner/0.1.3, 5570c3dd; live seit 20.10.
+    12:19, b40bf654): dunkle Auswahlschrift #1a1a1a auf dem orangen
+    Menüverlauf (CSS-Welle), auch auf der Taste =; enthält 0.1.2 (gettext
+    de/en).
   * Übersetzungen über gettext (englische msgids, po/de.po): die Kataloge
     werden beim Bau mit msgfmt zu /usr/share/locale/<sprache>/LC_MESSAGES/
     querencia-rechner.mo (ENTSCHEIDUNGEN Nr. 16).

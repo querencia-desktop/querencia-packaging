@@ -1,8 +1,9 @@
 querencia-dateisuche (0.1.3-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.1.3 (Tag dateisuche/0.1.3, dc516960; live seit
-    20.10. 12:53, 7b15b4e8): dunkle Auswahlschrift #1a1a1a auf dem orangen Menüverlauf (CSS-Welle), auch in der Ergebnisliste; enthält
-    0.1.2 (gettext de/en).
+    20.10. 12:53, 7b15b4e8): dunkle Auswahlschrift #1a1a1a auf dem orangen
+    Menüverlauf (CSS-Welle), auch in der Ergebnisliste; enthält 0.1.2 (gettext
+    de/en).
   * Übersetzungen über gettext (englische msgids, po/de.po): die Kataloge
     werden beim Bau mit msgfmt zu /usr/share/locale/<sprache>/LC_MESSAGES/
     querencia-dateisuche.mo (ENTSCHEIDUNGEN Nr. 16).

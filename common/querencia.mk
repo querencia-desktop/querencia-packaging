@@ -138,6 +138,9 @@ debian/stamp-binary: debian/stamp-build
 	if [ -f debian/$(PKG).lintian-overrides ]; then \
 		install -D -m 0644 debian/$(PKG).lintian-overrides $(DESTDIR)/usr/share/lintian/overrides/$(PKG); fi
 	chmod 0644 $(DESTDIR)/usr/share/doc/$(PKG)/changelog.Debian.gz
+	# Manpages komprimiert, wie dh_compress
+	if [ -d $(DESTDIR)/usr/share/man ]; then \
+		find $(DESTDIR)/usr/share/man -type f ! -name '*.gz' -exec gzip -9n {} +; fi
 ifeq (,$(filter nostrip,$(DEB_BUILD_OPTIONS)))
 	for f in $$($(FIND_ELF)); do \
 		strip --remove-section=.comment --remove-section=.note --strip-unneeded "$$f"; done
