@@ -66,6 +66,9 @@ if [ "${1-}" = --innen ]; then
     for p in "${pakete[@]}"; do
         st=$(D -s "$p" 2>/dev/null | sed -n 's/^Status: //p')
         if [ "$st" = "install ok installed" ]; then ok "$p: $st"
+        # --no-triggers: z. B. das gschema-Override von querencia-session wartet
+        # auf den Trigger von libglib2.0 (Prüfpunkt 2 meldet ihn als Hinweis)
+        elif [ "$st" = "install ok triggers-awaited" ] || [ "$st" = "install ok triggers-pending" ]; then ok "$p: $st (Probe ohne Trigger)"
         elif [ "$st" = "install ok unpacked" ] && nur_archiv "$p"; then hinweis "$p: entpackt, Konfiguration wartet auf Archiv-Abhängigkeiten"
         else nok "$p: ${st:-nicht installiert}"; fi
     done
