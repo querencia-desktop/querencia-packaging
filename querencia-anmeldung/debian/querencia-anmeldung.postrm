@@ -1,6 +1,6 @@
 #!/bin/sh
-# purge: Zustand und Protokoll von ReGreet und die debconf-Einträge
-# entfernen. Zeigt danach noch ein Eintrag auf die Querencia Anmeldung
+# purge: Zustand und Protokoll von ReGreet, die Sitzungsliste und die
+# debconf-Einträge entfernen. Zeigt danach noch ein Eintrag auf die Querencia Anmeldung
 # (prerm lief nicht durch), wird er entfernt statt ins Leere zu zeigen.
 set -e
 
@@ -22,7 +22,7 @@ if [ "$1" = remove ] || [ "$1" = purge ]; then
 fi
 
 if [ "$1" = purge ]; then
-    rm -rf "$R/var/lib/querencia-anmeldung" "$R/var/log/querencia-anmeldung"
+    rm -rf "$R/var/lib/querencia-anmeldung" "$R/var/log/querencia-anmeldung" "$R/run/querencia-anmeldung"
     if [ -e /usr/share/debconf/confmodule ]; then
         . /usr/share/debconf/confmodule
         db_purge

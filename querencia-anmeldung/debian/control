@@ -32,9 +32,12 @@ Description: Querencia Desktop login screen (greetd with ReGreet, alpha)
  The graphical login screen of Querencia Desktop: the greetd daemon shows
  the GTK 4 greeter ReGreet in a labwc compositor without menu or key
  bindings, with the Querencia-Klassisch theme, the Querencia icon theme
- and the background "Querencia Blau". All sessions from
- /usr/share/wayland-sessions and /usr/share/xsessions can be chosen, so
- Ubuntu (GNOME) stays available next to Querencia Desktop.
+ and the background "Querencia Blau". It offers the Querencia Desktop
+ session; other Wayland sessions appear only when they are enabled in
+ /etc/querencia/greetd/sitzungen.conf, and every session starts through a
+ wrapper that sets XDG_CURRENT_DESKTOP and DESKTOP_SESSION like GDM.
+ GNOME needs GDM for its screen lock, so on Ubuntu Desktop GDM stays the
+ default display manager and offers both GNOME and Querencia Desktop.
  .
  The package coexists with GDM and other display managers. It becomes the
  default display manager only when none is set up yet, when it is chosen
