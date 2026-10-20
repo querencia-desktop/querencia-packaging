@@ -3,9 +3,8 @@ querencia-anmeldung (0.1.1-1) resolute; urgency=medium
   * Sitzungshülle /usr/libexec/querencia-anmeldung/sitzung-starten (KOEX-1
     KB1, ANM-2): setzt wie GDM XDG_CURRENT_DESKTOP aus DesktopNames,
     XDG_SESSION_DESKTOP und DESKTOP_SESSION aus dem Dateinamen und
-    XDG_SESSION_TYPE=wayland, liest danach /etc/profile und ~/.profile
-    (greetd source_profile = false) und führt Exec aus. Querencia Desktop
-    startet mit denselben Werten wie bisher (X-Querencia).
+    XDG_SESSION_TYPE=wayland und führt danach Exec aus. Querencia Desktop
+    startet mit denselben Werten wie unter GDM (X-Querencia, querencia).
   * Sitzungsauswahl sitzungen-auswahl: ReGreet ist mit
     SESSION_DIRS=/run/querencia-anmeldung/wayland-sessions gebaut und
     startet ohne XDG_DATA_DIRS; angeboten werden nur Querencia-Sitzungen
