@@ -36,6 +36,23 @@ neu starten, dann **Snapshot `frisch`** anlegen:
 virsh snapshot-create-as querencia-probe frisch
 ```
 
+### Fertige Probe-VM auf dem Proxmox-Host (seit 20.10.2026)
+
+VM **115 `querencia-probe`** auf `192.0.2.40`: Ubuntu-26.04.1-Cloud-Image
+(Server-Weg, Anmeldung an tty1), Benutzer `probe`, Snapshot `frisch`
+(full-upgrade, 2 GB `/swap.img`, noch ohne Querencia). Abschnitte 2 bis 5
+erledigt das Skript, ab einem frisch zurückgerollten Snapshot:
+
+```bash
+cd ~/projects/querencia-packaging-wt-g2f && bash werkzeuge/probe-wiederholen.sh
+```
+
+Mit `--desktop` installiert es vorher `ubuntu-desktop-minimal` (GDM, wie
+das Desktop-Abbild) und startet neu. ZFS rollt nur auf den jüngsten Snapshot
+zurück, deshalb gibt es nur `frisch`. Danach weiter mit Abschnitt 6, am Ende
+`ssh root@192.0.2.40 qm stop 115`. Ablauf und Befunde des ersten Laufs:
+.
+
 ## 2. Pakete auf die VM bringen
 
 Auf `entwicklungs-vm` (der Ordner enthält nur die `.deb` und `SHA256SUMS`):

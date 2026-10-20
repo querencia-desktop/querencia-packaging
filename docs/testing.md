@@ -32,4 +32,6 @@ labwc-Sitzung mit Panel und Desktop. Das echte System bleibt unverändert.
 ## Pflichtprobe auf frischem Ubuntu
 
 [pflichtprobe-frische-vm.md](pflichtprobe-frische-vm.md), Werkzeug
-`tests/frisches-ubuntu-pruefen.sh`.
+`tests/frisches-ubuntu-pruefen.sh`. Auf der Proxmox-VM 115 wiederholt
+`werkzeuge/probe-wiederholen.sh [--desktop]` den automatischen Teil ab
+Snapshot `frisch` (Installation, `vorher`/`nachher`).

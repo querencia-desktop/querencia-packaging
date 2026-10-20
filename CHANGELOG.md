@@ -2,6 +2,10 @@
 
 ## [0.1.0~alpha2] – unveröffentlicht
 
+- Pflichtprobe auf frischer VM (20.10.2026): `werkzeuge/probe-wiederholen.sh`
+  für die Proxmox-VM 115; `tests/frisches-ubuntu-pruefen.sh` ohne
+  Fehl-FAIL unter pipefail und mit Anmeldebildschirm-Vergleich über
+  Prüfsummen.
 - Paketsatz auf dem Live-Stand von entwicklungs-vm (20.10.2026, G2-F):
   Quellen aus den Arbeits-Repositories (querencia-runtime main 52f177cd,
   Files QF-0o-1, Screenshot 0.2.4, Bilder 0.1.1, Editor 0.2.0 …), siehe
