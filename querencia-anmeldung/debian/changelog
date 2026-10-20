@@ -14,8 +14,11 @@ querencia-anmeldung (0.1.1-1) resolute; urgency=medium
     die Bildschirmsperre und ist deshalb nicht freigegeben.
   * Vorwahl „Querencia Desktop“ für Benutzer ohne gültige letzte Sitzung
     (KB3).
-  * debconf-Frage: Hinweis, dass GNOME GDM für die Bildschirmsperre braucht
-    und bei installiertem GNOME GDM Standard bleibt (de, en).
+  * debconf-Frage: Hinweis, dass GNOME GDM für die Bildschirmsperre braucht,
+    unter querencia-anmeldung (wie unter jedem anderen Display-Manager)
+    ohne Bildschirmsperre läuft und bei installiertem GNOME GDM Standard
+    bleibt (de, en). README erklärt die Kopplung an org.gnome.DisplayManager
+    (gnome-shell 50.1).
   * purge entfernt auch /run/querencia-anmeldung.
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 19:58:19 +0200
