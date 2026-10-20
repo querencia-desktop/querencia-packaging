@@ -1,9 +1,9 @@
 querencia-desktop (0.1.0~alpha2-2) resolute; urgency=medium
 
   * Mindestversionen auf den Paketsatz G2-F2 (Live-Stand 20.10. ~13:00).
+  * Depends: querencia-dokumente (>= 0.1.0), PDF-Betrachter, 18. Paket.
   * Recommends: libnotify-bin (notify-send für Prüfliste und
-    Bildschirmfoto-Hinweise, Pflichtprobe B5) und querencia-dokumente
-    (PDF-Betrachter, 18. Paket, folgt mit Dokumente 0.1.0).
+    Bildschirmfoto-Hinweise, Pflichtprobe B5).
   * network-manager bleibt Recommends (Pflichtprobe B2, QD-067);
     README.Debian erklärt den netplan-Renderer auf Server-Installationen.
   * README.Debian und Beschreibung: GDM zeigt die Sitzung erst nach einem

@@ -24,10 +24,10 @@ Depends: labwc (>= 0.9.4),
          querencia-systemmonitor (>= 0.1.2),
          querencia-dateisuche (>= 0.1.3),
          querencia-software (>= 0.1.2),
+         querencia-dokumente (>= 0.1.0),
          dmz-cursor-theme,
          fonts-dejavu
-Recommends: querencia-dokumente,
-            fonts-dejavu-extra,
+Recommends: fonts-dejavu-extra,
             libnotify-bin,
             pipewire,
             pipewire-pulse,
@@ -50,8 +50,8 @@ Description: Querencia Desktop – classic GNOME 2 style desktop (metapackage, a
  This metapackage installs all components: session, panel and desktop,
  session dialog with screen lock and polkit agent, notifications,
  settings, file manager, terminal, screenshot tool, text editor, image
- viewer, calculator, system monitor, file search and the software manager;
- the PDF viewer (querencia-dokumente) is recommended. Afterwards
+ viewer, PDF viewer, calculator, system monitor, file search and the
+ software manager. Afterwards
  "Querencia Desktop" can be chosen in the session list of the display
  manager (GDM shows it after a restart). No display manager is installed
  or reconfigured.
