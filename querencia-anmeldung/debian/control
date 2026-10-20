@@ -22,7 +22,8 @@ Depends: ${shlibs:Depends},
          greetd (>= 0.10),
          labwc (>= 0.9.8),
          dbus-daemon,
-         glycin-loaders
+         glycin-loaders,
+         accountsservice
 Recommends: querencia-shell (>= 0.1.0~alpha3),
             querencia-symbole (>= 0.5.2),
             dmz-cursor-theme,

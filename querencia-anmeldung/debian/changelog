@@ -1,3 +1,13 @@
+querencia-anmeldung (0.1.1-2) resolute; urgency=medium
+
+  * Depends: accountsservice. ReGreet liest Benutzer und Sitzungen über
+    org.freedesktop.Accounts; ohne den Dienst bricht es ab („Couldn't read
+    available users and sessions“) und der Anmeldebildschirm bleibt schwarz
+    (Pflichtprobe G2-F3, frisches Ubuntu-Server-Abbild, Weg S/S3). Sonst
+    unverändert (Upstream wie 0.1.1-1).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 22:18:16 +0200
+
 querencia-anmeldung (0.1.1-1) resolute; urgency=medium
 
   * Sitzungshülle /usr/libexec/querencia-anmeldung/sitzung-starten (KOEX-1
