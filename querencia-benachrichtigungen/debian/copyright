@@ -11,6 +11,11 @@ Files: debian/*
 Copyright: 2026 Querencia Desktop contributors
 License: GPL-3+
 
+Files: cargo-vendor/aho-corasick-1.1.5/*
+Copyright: Andrew Gallant <jamslam@gmail.com>
+License: Unlicense or Expat
+Comment: Rust crate aho-corasick 1.1.5, vendored from crates.io (checksum in cargo-vendor/aho-corasick-1.1.5/.cargo-checksum.json).
+
 Files: cargo-vendor/async-broadcast-0.7.2/*
 Copyright: Stjepan Glavina <stjepang@gmail.com>; Yoshua Wuyts <yoshuawuyts@gmail.com>; Zeeshan Ali Khan <zeeshanak@gnome.org>
 License: Expat or Apache-2.0
@@ -76,6 +81,11 @@ Copyright: The Rust Project Developers
 License: Expat or Apache-2.0
 Comment: Rust crate bitflags 2.13.2, vendored from crates.io (checksum in cargo-vendor/bitflags-2.13.2/.cargo-checksum.json).
 
+Files: cargo-vendor/block-0.1.6/*
+Copyright: Steven Sheldon
+License: Expat
+Comment: Rust crate block 0.1.6, vendored from crates.io (checksum in cargo-vendor/block-0.1.6/.cargo-checksum.json).
+
 Files: cargo-vendor/blocking-1.7.0/*
 Copyright: the blocking authors (see crate metadata)
 License: Apache-2.0 or Expat
@@ -95,6 +105,11 @@ Files: cargo-vendor/cairo-sys-rs-0.22.9/*
 Copyright: The gtk-rs Project Developers
 License: Expat
 Comment: Rust crate cairo-sys-rs 0.22.9, vendored from crates.io (checksum in cargo-vendor/cairo-sys-rs-0.22.9/.cargo-checksum.json).
+
+Files: cargo-vendor/cc-1.9.0/*
+Copyright: the cc authors (see crate metadata)
+License: Expat or Apache-2.0
+Comment: Rust crate cc 1.9.0, vendored from crates.io (checksum in cargo-vendor/cc-1.9.0/.cargo-checksum.json).
 
 Files: cargo-vendor/cfg-expr-0.20.10/*
 Copyright: Embark <opensource@embark-studios.com>; Jake Shadle <jake.shadle@embark-studios.com>
@@ -161,6 +176,11 @@ Copyright: Diggory Blake <diggsey@googlemail.com>
 License: Expat or Apache-2.0
 Comment: Rust crate field-offset 0.3.6, vendored from crates.io (checksum in cargo-vendor/field-offset-0.3.6/.cargo-checksum.json).
 
+Files: cargo-vendor/find-msvc-tools-0.1.15/*
+Copyright: the find-msvc-tools authors (see crate metadata)
+License: Expat or Apache-2.0
+Comment: Rust crate find-msvc-tools 0.1.15, vendored from crates.io (checksum in cargo-vendor/find-msvc-tools-0.1.15/.cargo-checksum.json).
+
 Files: cargo-vendor/futures-channel-0.3.34/*
 Copyright: the futures-channel authors (see crate metadata)
 License: Expat or Apache-2.0
@@ -225,6 +245,16 @@ Files: cargo-vendor/getrandom-0.4.3/*
 Copyright: The Rand Project Developers
 License: Expat or Apache-2.0
 Comment: Rust crate getrandom 0.4.3, vendored from crates.io (checksum in cargo-vendor/getrandom-0.4.3/.cargo-checksum.json).
+
+Files: cargo-vendor/gettext-rs-0.8.0/*
+Copyright: Konstantin Salikhov <koka58@yandex.ru>; Alexander Batischev <eual.jp@gmail.com>
+License: Expat
+Comment: Rust crate gettext-rs 0.8.0, vendored from crates.io (checksum in cargo-vendor/gettext-rs-0.8.0/.cargo-checksum.json).
+
+Files: cargo-vendor/gettext-sys-0.27.0/*
+Copyright: Brian Olsen <brian@maven-group.org>; Alexander Batischev <eual.jp@gmail.com>
+License: Expat
+Comment: Rust crate gettext-sys 0.27.0, vendored from crates.io (checksum in cargo-vendor/gettext-sys-0.27.0/.cargo-checksum.json).
 
 Files: cargo-vendor/gio-0.22.10/*
 Copyright: The gtk-rs Project Developers
@@ -356,6 +386,11 @@ Copyright: Brendan Zabarauskas <bjzaba@yahoo.com.au>; Corey Richardson; Arseny K
 License: Apache-2.0
 Comment: Rust crate khronos_api 3.1.0, vendored from crates.io (checksum in cargo-vendor/khronos_api-3.1.0/.cargo-checksum.json).
 
+Files: cargo-vendor/lazy_static-1.5.1/*
+Copyright: Marvin Löbel <loebel.marvin@gmail.com>
+License: Expat or Apache-2.0
+Comment: Rust crate lazy_static 1.5.1, vendored from crates.io (checksum in cargo-vendor/lazy_static-1.5.1/.cargo-checksum.json).
+
 Files: cargo-vendor/libc-0.2.191/*
 Copyright: the libc authors (see crate metadata)
 License: Expat or Apache-2.0
@@ -366,10 +401,20 @@ Copyright: Dan Gohman <dev@sunfishcode.online>
 License: Apache-2.0 with LLVM exception or Apache-2.0 or Expat
 Comment: Rust crate linux-raw-sys 0.12.1, vendored from crates.io (checksum in cargo-vendor/linux-raw-sys-0.12.1/.cargo-checksum.json).
 
+Files: cargo-vendor/locale_config-0.3.0/*
+Copyright: Jan Hudec <bulb@ucw.cz>
+License: Expat
+Comment: Rust crate locale_config 0.3.0, vendored from crates.io (checksum in cargo-vendor/locale_config-0.3.0/.cargo-checksum.json).
+
 Files: cargo-vendor/log-0.4.34/*
 Copyright: The Rust Project Developers
 License: Expat or Apache-2.0
 Comment: Rust crate log 0.4.34, vendored from crates.io (checksum in cargo-vendor/log-0.4.34/.cargo-checksum.json).
+
+Files: cargo-vendor/malloc_buf-0.0.6/*
+Copyright: Steven Sheldon
+License: Expat
+Comment: Rust crate malloc_buf 0.0.6, vendored from crates.io (checksum in cargo-vendor/malloc_buf-0.0.6/.cargo-checksum.json).
 
 Files: cargo-vendor/memchr-2.8.3/*
 Copyright: Andrew Gallant <jamslam@gmail.com>; bluss
@@ -380,6 +425,21 @@ Files: cargo-vendor/memoffset-0.9.1/*
 Copyright: Gilad Naaman <gilad.naaman@gmail.com>
 License: Expat
 Comment: Rust crate memoffset 0.9.1, vendored from crates.io (checksum in cargo-vendor/memoffset-0.9.1/.cargo-checksum.json).
+
+Files: cargo-vendor/objc-0.2.7/*
+Copyright: Steven Sheldon
+License: Expat
+Comment: Rust crate objc 0.2.7, vendored from crates.io (checksum in cargo-vendor/objc-0.2.7/.cargo-checksum.json).
+
+Files: cargo-vendor/objc-foundation-0.1.1/*
+Copyright: Steven Sheldon
+License: Expat
+Comment: Rust crate objc-foundation 0.1.1, vendored from crates.io (checksum in cargo-vendor/objc-foundation-0.1.1/.cargo-checksum.json).
+
+Files: cargo-vendor/objc_id-0.1.1/*
+Copyright: Steven Sheldon
+License: Expat
+Comment: Rust crate objc_id 0.1.1, vendored from crates.io (checksum in cargo-vendor/objc_id-0.1.1/.cargo-checksum.json).
 
 Files: cargo-vendor/once_cell-1.21.4/*
 Copyright: Aleksey Kladov <aleksey.kladov@gmail.com>
@@ -446,6 +506,21 @@ Copyright: the r-efi authors (see crate metadata)
 License: Expat or Apache-2.0 or LGPL-2.1+
 Comment: Rust crate r-efi 6.0.0, vendored from crates.io (checksum in cargo-vendor/r-efi-6.0.0/.cargo-checksum.json).
 
+Files: cargo-vendor/regex-1.13.1/*
+Copyright: The Rust Project Developers; Andrew Gallant <jamslam@gmail.com>
+License: Expat or Apache-2.0
+Comment: Rust crate regex 1.13.1, vendored from crates.io (checksum in cargo-vendor/regex-1.13.1/.cargo-checksum.json).
+
+Files: cargo-vendor/regex-automata-0.4.18/*
+Copyright: The Rust Project Developers; Andrew Gallant <jamslam@gmail.com>
+License: Expat or Apache-2.0
+Comment: Rust crate regex-automata 0.4.18, vendored from crates.io (checksum in cargo-vendor/regex-automata-0.4.18/.cargo-checksum.json).
+
+Files: cargo-vendor/regex-syntax-0.8.11/*
+Copyright: The Rust Project Developers; Andrew Gallant <jamslam@gmail.com>
+License: Expat or Apache-2.0
+Comment: Rust crate regex-syntax 0.8.11, vendored from crates.io (checksum in cargo-vendor/regex-syntax-0.8.11/.cargo-checksum.json).
+
 Files: cargo-vendor/rustc_version-0.4.1/*
 Copyright: the rustc_version authors (see crate metadata)
 License: Expat or Apache-2.0
@@ -491,6 +566,11 @@ Copyright: the serde_spanned authors (see crate metadata)
 License: Expat or Apache-2.0
 Comment: Rust crate serde_spanned 1.1.2, vendored from crates.io (checksum in cargo-vendor/serde_spanned-1.1.2/.cargo-checksum.json).
 
+Files: cargo-vendor/shlex-2.0.1/*
+Copyright: comex <comexk@gmail.com>; Fenhl <fenhl@fenhl.net>; Adrian Taylor <adetaylor@chromium.org>; Alex Touchet <alextouchet@outlook.com>; Daniel Parks <dp+git@oxidized.org>; Garrett Berg <googberg@gmail.com>
+License: Expat or Apache-2.0
+Comment: Rust crate shlex 2.0.1, vendored from crates.io (checksum in cargo-vendor/shlex-2.0.1/.cargo-checksum.json).
+
 Files: cargo-vendor/signal-hook-registry-1.4.8/*
 Copyright: Michal 'vorner' Vaner <vorner@vorner.cz>; Masaki Hara <ackie.h.gmai@gmail.com>
 License: Expat or Apache-2.0
@@ -530,6 +610,11 @@ Files: cargo-vendor/target-lexicon-0.13.5/*
 Copyright: Dan Gohman <sunfish@mozilla.com>
 License: Apache-2.0 with LLVM exception
 Comment: Rust crate target-lexicon 0.13.5, vendored from crates.io (checksum in cargo-vendor/target-lexicon-0.13.5/.cargo-checksum.json).
+
+Files: cargo-vendor/temp-dir-0.1.16/*
+Copyright: Michael Leonhard <michael@leonhardllc.com>
+License: Apache-2.0
+Comment: Rust crate temp-dir 0.1.16, vendored from crates.io (checksum in cargo-vendor/temp-dir-0.1.16/.cargo-checksum.json).
 
 Files: cargo-vendor/tempfile-3.27.0/*
 Copyright: Steven Allen <steven@stebalien.com>; The Rust Project Developers; Ashley Mannix <ashleymannix@live.com.au>; Jason White <me@jasonwhite.io>
@@ -616,6 +701,21 @@ Copyright: The wasm-bindgen Developers
 License: Expat or Apache-2.0
 Comment: Rust crate wasm-bindgen-shared 0.2.129, vendored from crates.io (checksum in cargo-vendor/wasm-bindgen-shared-0.2.129/.cargo-checksum.json).
 
+Files: cargo-vendor/winapi-0.3.9/*
+Copyright: Peter Atashian <retep998@gmail.com>
+License: Expat or Apache-2.0
+Comment: Rust crate winapi 0.3.9, vendored from crates.io (checksum in cargo-vendor/winapi-0.3.9/.cargo-checksum.json).
+
+Files: cargo-vendor/winapi-i686-pc-windows-gnu-0.4.0/*
+Copyright: Peter Atashian <retep998@gmail.com>
+License: Expat or Apache-2.0
+Comment: Rust crate winapi-i686-pc-windows-gnu 0.4.0, vendored from crates.io (checksum in cargo-vendor/winapi-i686-pc-windows-gnu-0.4.0/.cargo-checksum.json).
+
+Files: cargo-vendor/winapi-x86_64-pc-windows-gnu-0.4.0/*
+Copyright: Peter Atashian <retep998@gmail.com>
+License: Expat or Apache-2.0
+Comment: Rust crate winapi-x86_64-pc-windows-gnu 0.4.0, vendored from crates.io (checksum in cargo-vendor/winapi-x86_64-pc-windows-gnu-0.4.0/.cargo-checksum.json).
+
 Files: cargo-vendor/windows-link-0.2.1/*
 Copyright: the windows-link authors (see crate metadata)
 License: Expat or Apache-2.0
@@ -685,11 +785,11 @@ License: Apache-2.0
  /usr/share/common-licenses/Apache-2.0.
 
 License: Expat
- Text taken from cargo-vendor/async-broadcast-0.7.2/LICENSE-MIT.
+ Text taken from cargo-vendor/aho-corasick-1.1.5/LICENSE-MIT.
  .
  The MIT License (MIT)
  .
- Copyright (c) 2020 Yoshua Wuyts
+ Copyright (c) 2015 Andrew Gallant
  .
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -698,16 +798,16 @@ License: Expat
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
  .
- The above copyright notice and this permission notice shall be included in all
- copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
  .
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- SOFTWARE.
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
 
 License: LGPL-2.1+
  On Debian systems the full text of this license is in
@@ -757,7 +857,7 @@ License: Unicode-3.0
  authorization of the copyright holder.
 
 License: Unlicense
- Text taken from cargo-vendor/memchr-2.8.3/UNLICENSE.
+ Text taken from cargo-vendor/aho-corasick-1.1.5/UNLICENSE.
  .
  This is free and unencumbered software released into the public domain.
  .
