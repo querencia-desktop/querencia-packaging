@@ -376,6 +376,11 @@ Copyright: the indexmap authors (see crate metadata)
 License: Apache-2.0 or Expat
 Comment: Rust crate indexmap 2.14.2, vendored from crates.io (checksum in cargo-vendor/indexmap-2.14.2/.cargo-checksum.json).
 
+Files: cargo-vendor/itoa-1.0.18/*
+Copyright: David Tolnay <dtolnay@gmail.com>
+License: Expat or Apache-2.0
+Comment: Rust crate itoa 1.0.18, vendored from crates.io (checksum in cargo-vendor/itoa-1.0.18/.cargo-checksum.json).
+
 Files: cargo-vendor/js-sys-0.3.106/*
 Copyright: The wasm-bindgen Developers
 License: Expat or Apache-2.0
@@ -555,6 +560,11 @@ Files: cargo-vendor/serde_derive-1.0.229/*
 Copyright: Erick Tryzelaar <erick.tryzelaar@gmail.com>; David Tolnay <dtolnay@gmail.com>
 License: Expat or Apache-2.0
 Comment: Rust crate serde_derive 1.0.229, vendored from crates.io (checksum in cargo-vendor/serde_derive-1.0.229/.cargo-checksum.json).
+
+Files: cargo-vendor/serde_json-1.0.151/*
+Copyright: Erick Tryzelaar <erick.tryzelaar@gmail.com>; David Tolnay <dtolnay@gmail.com>
+License: Expat or Apache-2.0
+Comment: Rust crate serde_json 1.0.151, vendored from crates.io (checksum in cargo-vendor/serde_json-1.0.151/.cargo-checksum.json).
 
 Files: cargo-vendor/serde_repr-0.1.21/*
 Copyright: David Tolnay <dtolnay@gmail.com>
@@ -755,6 +765,11 @@ Files: cargo-vendor/zcheapstr-1.1.0/*
 Copyright: Zeeshan Ali Khan <zeeshanak@gnome.org>
 License: Expat
 Comment: Rust crate zcheapstr 1.1.0, vendored from crates.io (checksum in cargo-vendor/zcheapstr-1.1.0/.cargo-checksum.json).
+
+Files: cargo-vendor/zmij-1.0.23/*
+Copyright: David Tolnay <dtolnay@gmail.com>
+License: Expat
+Comment: Rust crate zmij 1.0.23, vendored from crates.io (checksum in cargo-vendor/zmij-1.0.23/.cargo-checksum.json).
 
 Files: cargo-vendor/zvariant-5.15.1/*
 Copyright: Zeeshan Ali Khan <zeeshanak@gnome.org>
