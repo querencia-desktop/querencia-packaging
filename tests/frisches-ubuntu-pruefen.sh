@@ -30,8 +30,16 @@ nachher)
         querencia-dateisuche querencia-software labwc; do
         dpkg -s "$x" >/dev/null 2>&1 && ok "installiert: $x $(dpkg-query -W -f='${Version}' $x)" || nok "fehlt: $x"
     done
+    # 18. Paket: Pflicht, sobald es im Paketsatz liegt (Recommends des Metapakets)
+    if dpkg -s querencia-dokumente >/dev/null 2>&1; then
+        ok "installiert: querencia-dokumente $(dpkg-query -W -f='${Version}' querencia-dokumente)"
+        desktop-file-validate /usr/share/applications/org.querencia.Dokumente.desktop >/dev/null 2>&1 &&
+            ok "D org.querencia.Dokumente.desktop" || nok "D org.querencia.Dokumente.desktop"
+    else
+        echo "HINW querencia-dokumente nicht im Paketsatz"
+    fi
     v=$(labwc --version | awk '{print $2}'); dpkg --compare-versions "$v" ge 0.9.4 && ok "labwc $v" || nok "labwc $v < 0.9.4"
-    for d in io.github.lgse.Strata org.example.Querencia.Terminal org.querencia.Screenshot org.querencia.Editor \
+    for d in io.github.lgse.Strata org.querencia.Terminal org.querencia.Screenshot org.querencia.Editor \
         org.querencia.Bilder org.querencia.Rechner org.querencia.Systemmonitor org.querencia.Dateisuche \
         org.querencia.Einstellungen org.querencia.Software org.querencia.Sitzung org.querencia.Kuerzel \
         org.querencia.Lautstaerke; do
@@ -41,6 +49,20 @@ nachher)
     [ "$n" -ge 14 ] && ok "MetaInfo: $n Querencia-Komponenten" || nok "MetaInfo: nur $n von 14"
     [ ! -e /usr/share/icons/hicolor/48x48/apps/org.querencia.Bilder.png ] && ok "Symbolregel: kein 48x48 neben SVG" || nok "Symbolregel"
     [ -s /usr/share/locale/de/LC_MESSAGES/querencia-editor.mo ] && ok "Editor: deutscher Katalog" || nok "Editor: de.mo fehlt"
+    n=$(ls /usr/share/locale/de/LC_MESSAGES/ 2>/dev/null | grep -c '^querencia-.*\.mo$')
+    [ "$n" -ge 10 ] && ok "deutsche Kataloge: $n" || nok "deutsche Kataloge: nur $n von 10"
+    [ -f /usr/share/icons/Querencia/index.theme ] && ok "Symbolthema Querencia" || nok "Symbolthema Querencia fehlt"
+    [ -f /usr/share/themes/Querencia-Klassisch/gtk-4.0/gtk.css ] && [ -f /usr/share/themes/Querencia-Klassisch/labwc/themerc ] &&
+        ok "Thema Querencia-Klassisch (GTK 4, labwc)" || nok "Thema Querencia-Klassisch unvollständig"
+    n=$(ls /usr/share/querencia/hintergruende/*.png 2>/dev/null | wc -l)
+    [ "$n" -eq 17 ] && ok "Hintergründe: 17" || nok "Hintergründe: $n statt 17"
+    grep -qx 'default=gtk' /usr/share/xdg-desktop-portal/x-querencia-portals.conf 2>/dev/null &&
+        ok "B6 Portal-Konfiguration X-Querencia" || nok "B6 x-querencia-portals.conf fehlt"
+    [ "$(XDG_CURRENT_DESKTOP=X-Querencia GSETTINGS_BACKEND=memory gsettings get org.gnome.desktop.interface gtk-theme)" = "'Querencia-Klassisch'" ] &&
+        ok "B7 Erscheinungsbild nur in X-Querencia" || nok "B7 gschema-Override wirkt nicht"
+    [ "$(XDG_CURRENT_DESKTOP=GNOME GSETTINGS_BACKEND=memory gsettings get org.gnome.desktop.interface gtk-theme)" != "'Querencia-Klassisch'" ] &&
+        ok "B7 andere Desktops unverändert" || nok "B7 Override wirkt auch außerhalb von X-Querencia"
+    command -v notify-send >/dev/null && ok "B5 notify-send vorhanden" || echo "HINW notify-send fehlt (Recommends libnotify-bin nicht installiert)"
     [ -f /usr/share/wayland-sessions/querencia.desktop ] && ok "F Sitzungsdatei" || nok "F Sitzungsdatei"
     querencia-session --check && ok "G querencia-session --check" || nok "G --check"
     diff <(grep -E 'gdm|sddm|lightdm|greetd' "$OUT/dpkg-vorher.txt" | awk '{print $2}') \

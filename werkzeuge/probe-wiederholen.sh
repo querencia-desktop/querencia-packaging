@@ -10,7 +10,7 @@
 #   --desktop     nach dem Zurückrollen ubuntu-desktop-minimal (GDM, GNOME)
 #                 installieren und neu starten, wie das Desktop-Abbild der
 #                 Anleitung; ohne: Server-Weg, Anmeldung an tty1
-#   <debs-ordner> Standard build/debs (17 .deb und SHA256SUMS)
+#   <debs-ordner> Standard build/debs (mindestens 17 .deb, alle in SHA256SUMS)
 #
 # Läuft auf entwicklungs-vm, braucht den SSH-Schlüssel für root@PROBE_HOST und
 # probe@<vm>. Fasst auf dem Host nur VM 115 an und prüft vorher deren Namen.
@@ -34,7 +34,10 @@ SSH_OPT=(-o BatchMode=yes -o ConnectTimeout=10)
 meld() { echo "probe-wiederholen: $*"; }
 host() { ssh "${SSH_OPT[@]}" "$HOST" "$@"; }
 
-[ "$(ls "$DEBS"/*.deb | wc -l)" -eq 17 ] || { meld "erwartet 17 .deb in $DEBS"; exit 1; }
+# 17 Pakete, mit querencia-dokumente 18; jede .deb muss in SHA256SUMS stehen.
+n=$(ls "$DEBS"/*.deb | wc -l)
+[ "$n" -ge 17 ] && [ "$n" -eq "$(grep -c '\.deb$' "$DEBS/SHA256SUMS")" ] ||
+    { meld "erwartet mindestens 17 .deb in $DEBS, jede in SHA256SUMS (gefunden: $n)"; exit 1; }
 (cd "$DEBS" && sha256sum -c --quiet SHA256SUMS) || { meld "SHA256SUMS stimmt nicht"; exit 1; }
 
 name=$(host "qm config $VMID" | awk '/^name:/ {print $2}')

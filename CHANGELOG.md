@@ -2,6 +2,23 @@
 
 ## [0.1.0~alpha2] – unveröffentlicht
 
+- Paketsatz auf dem Live-Stand von entwicklungs-vm (20.10.2026 ~13:00, G2-F2):
+  Runtime 348351c (main 8014df9 + G2-AD 0.1), Editor/Bilder 0.2.1,
+  Rechner 0.1.3, Systemmonitor 0.1.2, Dateisuche 0.1.3, Software 0.1.2,
+  Screenshot 0.2.8, Terminal 0.2.0 (App-ID org.querencia.Terminal),
+  Einstellungen 0.0.8, Symbole 0.5.2, Sitzung und Benachrichtigungen 0.1.2,
+  Files qf-0o-2-2; siehe `quellen.conf`.
+- querencia-shell: GTK-Thema Querencia-Klassisch (Komponente
+  querencia-thema), Standardhintergründe G2-AF; querencia-symbole:
+  Symbolthema Querencia; gettext-Kataloge in allen übersetzten Programmen
+  (Makro `mo_install`), MetaInfo aus dem Upstream (`metainfo_install_from`),
+  Lintian-Ausnahmen aus `debian/<paket>.lintian-overrides`.
+- Befunde der Pflichtprobe: libnotify-bin (B5), x-querencia-portals.conf
+  (B6) und Erscheinungsbild nur für X-Querencia (B7) im Sitzungspaket,
+  Hinweise zu netplan/NetworkManager (B2), GDM-Neustart (B9) und Umfang
+  (B12); labwc mit Manpages und SVG-Knöpfen.
+- Neues Gerüst querencia-dokumente (18. Paket, wartet auf den Tag
+  dokumente/0.1.0); Prüfskripte zählen 17 oder 18 Pakete.
 - Pflichtprobe auf frischer VM (20.10.2026): `werkzeuge/probe-wiederholen.sh`
   für die Proxmox-VM 115; `tests/frisches-ubuntu-pruefen.sh` ohne
   Fehl-FAIL unter pipefail und mit Anmeldebildschirm-Vergleich über

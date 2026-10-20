@@ -28,7 +28,7 @@ fi
 if [ $# -gt 0 ]; then
     pakete=("$@")
 else
-    mapfile -t pakete < <(awk '!/^#/ && NF { print $1 }' "$PK/quellen.conf")
+    mapfile -t pakete < <(awk '!/^#/ && NF { print $1 }' "$QUELLEN_CONF")
 fi
 mkdir -p "$AUSGABE/debs" "$NACHWEIS/logs"
 ERG=$AUSGABE/bau-ergebnis.txt

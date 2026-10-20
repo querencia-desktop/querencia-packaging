@@ -2,8 +2,9 @@
 # Baut ein Quellpaket und sein Binärpaket mit dpkg-buildpackage (unsigniert):
 # entpackt die Archive aus orig-erzeugen.sh, legt debian/ aus diesem
 # Repository dazu und ruft dpkg-buildpackage -us -uc in einer Umgebung ohne
-# Sitzung (kein WAYLAND_DISPLAY, kein D-Bus, nur /usr/bin). Hält dabei den
-# gemeinsamen Build-Lock und baut mit höchstens $JOBS Cargo-Jobs, mit nice.
+# Sitzung (kein WAYLAND_DISPLAY, kein D-Bus, nur /usr/bin). Läuft auf einem
+# Bau-Platz (bau-platz.sh, sonst gemeinsamer Build-Lock) mit höchstens $JOBS
+# Cargo-Jobs, mit nice.
 #
 #   bash werkzeuge/paket-bauen.sh <quellpaket> [weitere dpkg-buildpackage-Optionen]
 #
@@ -40,7 +41,8 @@ LOGF=$NACHWEIS/logs/bau-$SRC.log
 log "dpkg-buildpackage $SRC (Log: $LOGF)"
 (
     cd "$BAU/$DIR"
-    sauber DEB_BUILD_OPTIONS="parallel=$JOBS ${DEB_BUILD_OPTIONS:-}" ${DEB_BUILD_PROFILES:+DEB_BUILD_PROFILES="$DEB_BUILD_PROFILES"} \
-        HOME="$BAU/home" flock "$BUILD_LOCK" nice -n "$NICE" dpkg-buildpackage -us -uc "$@"
+    bauplatz bash -c '. "$1"; shift; sauber "$@"' _ "$PK/werkzeuge/gemeinsam.sh" \
+        DEB_BUILD_OPTIONS="parallel=$JOBS ${DEB_BUILD_OPTIONS:-}" ${DEB_BUILD_PROFILES:+DEB_BUILD_PROFILES="$DEB_BUILD_PROFILES"} \
+        HOME="$BAU/home" dpkg-buildpackage -us -uc "$@"
 ) >"$LOGF" 2>&1 || { tail -40 "$LOGF" >&2; die "Bau von $SRC fehlgeschlagen"; }
 ls -l "$BAU"/*.deb

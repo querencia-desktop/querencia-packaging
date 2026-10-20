@@ -1,4 +1,4 @@
-querencia-session (0.1.0~alpha2-2) resolute; urgency=medium
+querencia-session (0.1.0~alpha3-1) resolute; urgency=medium
 
   * Portal-Konfiguration /usr/share/xdg-desktop-portal/x-querencia-portals.conf
     ([preferred] default=gtk): xdg-desktop-portal wählt gtk nicht mehr als
@@ -12,9 +12,14 @@ querencia-session (0.1.0~alpha2-2) resolute; urgency=medium
     gsettings-desktop-schemas.
   * Beschreibung ohne überlange Zeile (Lintian
     extended-description-line-too-long).
-  * Unveränderte Quelle 6f63b450; Benutzerkopie der labwc-Konfiguration
-    (G2-AG) und der neue Sitzungsstarter (G2-AI) folgen mit dem nächsten
-    Port.
+  * Neue Upstream-Version 0.1.0~alpha3 (W5-Port querencia-session, Zweig
+    g2f2, 80b4ce20): labwc-Vorgabe wie live (Runtime main 4557927):
+    Symbolthema Querencia, Schriften DejaVu Sans 10, iconPriority=client für
+    Einstellungen, Editor, Systemmonitor, Zeiger DMZ-White 24. labwc hat
+    ohne das Symbolthema keinen Rückfall: Depends querencia-symbole
+    (>= 0.5.2).
+  * Benutzerkopie der labwc-Konfiguration mit Abgleich (G2-AG) und der
+    neue Sitzungsstarter (G2-AI) folgen mit dem nächsten Port.
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 13:49:04 +0200
 

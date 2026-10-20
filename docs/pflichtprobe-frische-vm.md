@@ -9,9 +9,11 @@ APT-Quelle und die Veröffentlichung.
 **Nie auf `entwicklungs-vm` ausführen.** Nur auf einer neuen, wegwerfbaren VM mit
 Snapshot.
 
-Paketsatz: `build/debs/` dieses Repositorys (17 Pakete, `SHA256SUMS`),
-gebaut von G2-F; Quellstände in [quellen.conf](../quellen.conf), Bericht
-.
+Paketsatz: `build/debs/` dieses Repositorys (17 Pakete, mit
+querencia-dokumente 18, `SHA256SUMS`), zuletzt gebaut von G2-F2 im Worktree
+`~/projects/querencia-packaging-wt-g2f2`; Quellstände in
+[quellen.conf](../quellen.conf), Berichte 
+und (erster Lauf) .
 
 ## 1. VM anlegen
 
@@ -44,7 +46,7 @@ VM **115 `querencia-probe`** auf `192.0.2.40`: Ubuntu-26.04.1-Cloud-Image
 erledigt das Skript, ab einem frisch zurückgerollten Snapshot:
 
 ```bash
-cd ~/projects/querencia-packaging-wt-g2f && bash werkzeuge/probe-wiederholen.sh
+cd ~/projects/querencia-packaging-wt-g2f2 && bash werkzeuge/probe-wiederholen.sh
 ```
 
 Mit `--desktop` installiert es vorher `ubuntu-desktop-minimal` (GDM, wie
@@ -58,8 +60,8 @@ zurück, deshalb gibt es nur `frisch`. Danach weiter mit Abschnitt 6, am Ende
 Auf `entwicklungs-vm` (der Ordner enthält nur die `.deb` und `SHA256SUMS`):
 
 ```bash
-scp -r ~/projects/querencia-packaging-wt-g2f/build/debs probe@<vm-ip>:querencia-debs
-scp ~/projects/querencia-packaging-wt-g2f/tests/frisches-ubuntu-pruefen.sh probe@<vm-ip>:
+scp -r ~/projects/querencia-packaging-wt-g2f2/build/debs probe@<vm-ip>:querencia-debs
+scp ~/projects/querencia-packaging-wt-g2f2/tests/frisches-ubuntu-pruefen.sh probe@<vm-ip>:
 ```
 
 Auf der VM:
@@ -99,11 +101,11 @@ cd ~/querencia-debs && sudo apt install ./*.deb 2>&1 | tee ~/apt-install.log
 `entwicklungs-vm` eine Quelle mit Wegwerf-Schlüssel erzeugen:
 
 ```bash
-cd ~/projects/querencia-packaging-wt-g2f && mkdir -p -m 0700 build/probe-gnupg && gpg --homedir build/probe-gnupg --batch --passphrase '' --quick-gen-key 'Querencia Probe <probe@invalid>' ed25519 sign 30d
+cd ~/projects/querencia-packaging-wt-g2f2 && mkdir -p -m 0700 build/probe-gnupg && gpg --homedir build/probe-gnupg --batch --passphrase '' --quick-gen-key 'Querencia Probe <probe@invalid>' ed25519 sign 30d
 ```
 
 ```bash
-cd ~/projects/querencia-packaging-wt-g2f && FPR=$(gpg --homedir build/probe-gnupg --list-secret-keys --with-colons | awk -F: '/^fpr/ {print $10; exit}') && python3 werkzeuge/apt-quelle-erzeugen.py --ziel build/probe-apt --gnupghome build/probe-gnupg --schluessel "$FPR" build/debs/*.deb
+cd ~/projects/querencia-packaging-wt-g2f2 && FPR=$(gpg --homedir build/probe-gnupg --list-secret-keys --with-colons | awk -F: '/^fpr/ {print $10; exit}') && python3 werkzeuge/apt-quelle-erzeugen.py --ziel build/probe-apt --gnupghome build/probe-gnupg --schluessel "$FPR" build/debs/*.deb
 ```
 
 `build/probe-apt/` auf die VM kopieren (z. B. nach `/srv/querencia-apt`),
@@ -124,21 +126,35 @@ sudo apt update && sudo apt install querencia-desktop
 Nach der Probe den Wegwerf-Schlüssel auf `entwicklungs-vm` löschen
 (`rm -rf build/probe-gnupg`).
 
+**Server-Abbild und NetworkManager (Befund B2 der ersten Probe):** Das
+Metapaket empfiehlt `network-manager`. Auf dem Server-Abbild verwaltet
+netplan das Netz über systemd-networkd; NetworkManager meldet dann „nicht
+verbunden“, PackageKit hält das System für offline und Querencia Software
+installiert nichts (Prüfliste Nr. 15, 18). Für die volle Prüfliste vor der
+Installation in `/etc/netplan/*.yaml` unter `network:` die Zeile
+`renderer: NetworkManager` ergänzen und `sudo netplan apply`; ohne diese
+Zeile Nr. 15 und 18 als „PASS mit Befund B2“ werten.
+
 ## 5. Nachher-Prüfung (ohne Sitzung)
 
 ```bash
 bash ~/frisches-ubuntu-pruefen.sh nachher
 ```
 
-Erwartet: alle 17 Pakete installiert, labwc ≥ 0.9.4, alle Desktop-Dateien
-gültig, 14 MetaInfo-Dateien, kein 48×48-Symbol neben SVG, deutscher
-Editor-Katalog, `querencia-session --check` ohne `FEHLT`, kein
-Anmeldebildschirm verändert, nichts in `/home` angelegt.
+Erwartet: alle 17 Pakete installiert (dazu querencia-dokumente, wenn im
+Satz), labwc ≥ 0.9.4, alle Desktop-Dateien gültig, mindestens 14
+MetaInfo-Dateien, kein 48×48-Symbol neben SVG, mindestens zehn deutsche
+Kataloge, Symbolthema Querencia, Thema Querencia-Klassisch (GTK 4 und
+labwc), 17 Hintergründe, Portal-Konfiguration `x-querencia-portals.conf`
+(B6), Erscheinungsbild nur in der Querencia-Sitzung (B7), notify-send (B5),
+`querencia-session --check` ohne `FEHLT`, kein Anmeldebildschirm verändert,
+nichts in `/home` angelegt.
 
 ## 6. Anmeldung und Prüfliste
 
-**Desktop-Abbild:** abmelden, im GDM-Anmeldebildschirm unten rechts das
-Zahnrad, „Querencia Desktop“ wählen, anmelden.
+**Desktop-Abbild:** nach der Installation **neu starten** (GDM liest neue
+Sitzungsdateien nur beim Start, Befund B9), dann im GDM-Anmeldebildschirm
+unten rechts das Zahnrad, „Querencia Desktop“ wählen, anmelden.
 **Server-Abbild:** an tty1 anmelden, `querencia-session` eingeben.
 
 Dann im Querencia-Terminal:
@@ -155,7 +171,7 @@ Von Hand, je Zeile PASS/FAIL mit Bildschirmfoto (Druck-Taste) notieren:
 | 2 | Panel unten | Fensterliste, Arbeitsflächenumschalter mit 4 Flächen |
 | 3 | Arbeitsfläche | Hintergrund „Querencia Blau“, Symbole Rechner, Persönlicher Ordner, Papierkorb; Rechtsklick-Menü |
 | 4 | Fensterrahmen | Theme Querencia-Klassisch (klassische Knöpfe), Titelleiste mit Programmsymbol |
-| 5 | Menü Anwendungen | Zubehör, Grafik, Systemwerkzeuge vorhanden; Einträge mit eigenen Symbolen |
+| 5 | Menü Anwendungen | Zubehör, Systemwerkzeuge (und Büro mit Dokumente) vorhanden; Einträge mit eigenen Symbolen. „Grafik“ fehlt, bis der nächste Bilder-Patch `Categories=GTK;Graphics;Viewer;` setzt (Befund B3): Bilder steht bis dahin unter Zubehör |
 | 6 | Querencia Files | Orte → Persönlicher Ordner; Ordner öffnen, Datei kopieren |
 | 7 | Terminal | Zubehör → Terminal; Strg+Umschalt+C/V |
 | 8 | Texteditor | Zubehör → Texteditor; deutsche Menüs, Datei speichern; Doppelklick auf eine `.txt` in Files öffnet den Editor |
@@ -163,10 +179,10 @@ Von Hand, je Zeile PASS/FAIL mit Bildschirmfoto (Druck-Taste) notieren:
 | 10 | Rechner | Zubehör → Taschenrechner; `0,1 + 0,2 − 0,3 = 0` |
 | 11 | Systemüberwachung | Systemwerkzeuge → Systemüberwachung; Prozesse, Ressourcen, Dateisysteme |
 | 12 | Dateisuche | „Nach Dateien suchen …“; Suche nach `*.txt` im Persönlichen Ordner |
-| 13 | Bildschirmfoto | Druck öffnet die Auswahl, Alt+Druck nimmt ein Fenster auf, Speichern unter Bilder |
+| 13 | Bildschirmfoto | Druck öffnet die Auswahl, Alt+Druck nimmt ein Fenster auf (in einer VM evtl. ohne Wirkung, Befund B8), Speichern unter Bilder |
 | 14 | Einstellungen | System → Einstellungen → Systemeinstellungen; Hintergrund ändern, Auflösung ändern und den 15-s-Rückfall abwarten |
 | 15 | Software | System → Systemverwaltung → Software; Katalog lädt; ein kleines Programm installieren → **Passwortdialog des Querencia-polkit-Agenten**; wieder entfernen |
-| 16 | Benachrichtigung | `notify-send Test Hallo` zeigt ein Popup oben rechts |
+| 16 | Benachrichtigung | `notify-send Test Hallo` zeigt ein Popup oben rechts (notify-send kommt über die Recommends, Paket libnotify-bin) |
 | 17 | Lautstärke | Klick auf das Symbol öffnet den Regler (in einer VM evtl. nur „Dummy Output“) |
 | 18 | Netzwerk | Symbol zeigt die Verbindung (mit NetworkManager auch die Liste) |
 | 19 | Tastenkürzel | Super+? zeigt die Übersicht; Alt+Tab mit Liste; Strg+Alt+←/→ wechselt die Fläche |

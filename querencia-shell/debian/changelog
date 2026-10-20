@@ -1,8 +1,9 @@
 querencia-shell (0.1.0~alpha3-1) resolute; urgency=medium
 
-  * Live-Stand 20.10. ~13:00 (G2-F2): Quelle querencia-runtime 348351c3
-    (Merge von main 8014df9 und G2-AD 0.1 64f587a im Zweig g2ai). crates/
-    ist byte-gleich mit 64f587a = Tags panel/kalender-0.1 und
+  * Live-Stand 20.10. ~13:00 (G2-F2): Quelle querencia-runtime 56547fd9,
+    Zweig g2f2-basis = Merge von 348351c3 (main 8014df9 + G2-AD 0.1
+    64f587a, Zweig g2ai) und main 4557927 (labwc-Vorgabe mit Symbolthema
+    Querencia, live seit 11:28). crates/ ist byte-gleich mit 64f587a = Tags panel/kalender-0.1 und
     desktop/symbolthema-0.1 (live: Panel 5e4eaa0b, Desktop 9d622162):
     Kalender an der Uhr, „Ausschalten …“, Abmelden mit Countdown,
     Symbolthema aus den Einstellungen. runtime main 4557927 enthält G2-AD
