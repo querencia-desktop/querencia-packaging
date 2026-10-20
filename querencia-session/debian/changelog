@@ -1,3 +1,12 @@
+querencia-session (0.1.0~alpha7-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.1.0~alpha7 (W5-Port g2f3 ad52852): Super+D
+    „Arbeitsfläche anzeigen“ über das Panel (QD-078, labwc-Vorgabe wie
+    Runtime main dce66e3). Depends: libglib2.0-bin (gdbus für das Kürzel).
+    debian/patches/0001-mimeapps-archiv-svg.patch unverändert.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 22:38:50 +0200
+
 querencia-session (0.1.0~alpha6-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.1.0~alpha6 (W5-Port g2f3 106531a): Super+F und

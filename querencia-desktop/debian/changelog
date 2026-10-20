@@ -1,3 +1,10 @@
+querencia-desktop (0.1.0~alpha2-6) resolute; urgency=medium
+
+  * Mindestversionen auf den Endsatz G2-F3: Shell 0.1.0~alpha6 und Session
+    0.1.0~alpha7 (G2-AL: Arbeitsfläche anzeigen, Glocke, Super+D).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 22:38:50 +0200
+
 querencia-desktop (0.1.0~alpha2-5) resolute; urgency=medium
 
   * Mindestversionen auf den Paketsatz G2-F3 Phase 2 (Live-Stand 20.10.

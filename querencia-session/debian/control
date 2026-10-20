@@ -15,6 +15,7 @@ Depends: labwc (>= 0.9.4),
          systemd,
          dbus-user-session,
          dbus-bin,
+         libglib2.0-bin,
          gsettings-desktop-schemas,
          xdg-user-dirs
 Recommends: querencia-sitzung,

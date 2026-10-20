@@ -1,3 +1,13 @@
+querencia-shell (0.1.0~alpha6-1) resolute; urgency=medium
+
+  * Endsatz G2-F3: Quelle querencia-runtime main dce66e3 (G2-AL; live Panel
+    57a01524): Knopf „Arbeitsfläche anzeigen“ links im unteren Panel
+    (QD-078) und Glocke der Mitteilungszentrale mit Zähler (QD-073 Teil 2,
+    D-Bus von querencia-benachrichtigungen 0.2.0). Symbole der Glocke sind
+    eingebettet.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 22:38:50 +0200
+
 querencia-shell (0.1.0~alpha5-1) resolute; urgency=medium
 
   * Live-Stand 20.10. ~19:50 (G2-F3 Phase 2): Quelle querencia-runtime main
