@@ -1,3 +1,14 @@
+querencia-session (0.1.0~alpha5-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.1.0~alpha5 (W5-Port g2f3 74b4147), nur
+    x-querencia-portals.conf: [preferred] default=gtk und
+    org.freedesktop.impl.portal.Secret=gnome-keyring statt default=gtk;*
+    (QD-077, Befund KOEX-1, Entscheidung Startsession): mit „*“ zog
+    xdg-desktop-portal auf Ubuntu Desktop xdg-desktop-portal-gnome heran,
+    jeder Portal-Aufruf hing außerhalb von GNOME rund zwei Minuten.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 18:11:58 +0200
+
 querencia-session (0.1.0~alpha4-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.1.0~alpha4 (W5-Port querencia-session, Zweig

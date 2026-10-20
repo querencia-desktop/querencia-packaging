@@ -67,8 +67,10 @@ nachher)
         ok "Thema Querencia-Klassisch (GTK 4, labwc)" || nok "Thema Querencia-Klassisch unvollständig"
     n=$(ls /usr/share/querencia/hintergruende/*.png 2>/dev/null | wc -l)
     [ "$n" -eq 17 ] && ok "Hintergründe: 17" || nok "Hintergründe: $n statt 17"
-    grep -q '^default=gtk' /usr/share/xdg-desktop-portal/x-querencia-portals.conf 2>/dev/null &&
-        ok "B6 Portal-Konfiguration X-Querencia" || nok "B6 x-querencia-portals.conf fehlt"
+    pc=/usr/share/xdg-desktop-portal/x-querencia-portals.conf
+    grep -qx 'default=gtk' "$pc" 2>/dev/null && grep -qx 'org.freedesktop.impl.portal.Secret=gnome-keyring' "$pc" &&
+        ! grep -q '\*' <(grep -v '^#' "$pc") &&
+        ok "B6/QD-077 Portal-Konfiguration X-Querencia (default=gtk, Secret, ohne *)" || nok "B6/QD-077 x-querencia-portals.conf: $(grep -v '^#' "$pc" 2>/dev/null | tr '\n' ' ')"
     [ "$(XDG_CURRENT_DESKTOP=X-Querencia GSETTINGS_BACKEND=memory gsettings get org.gnome.desktop.interface gtk-theme)" = "'Querencia-Klassisch'" ] &&
         ok "B7 Erscheinungsbild nur in X-Querencia" || nok "B7 gschema-Override wirkt nicht"
     [ "$(XDG_CURRENT_DESKTOP=GNOME GSETTINGS_BACKEND=memory gsettings get org.gnome.desktop.interface gtk-theme)" != "'Querencia-Klassisch'" ] &&
@@ -119,6 +121,12 @@ sitzung)
     xdp=$(pgrep -u "$(id -u)" -f '^(/usr/libexec/)?xdg-desktop-portal( |$)' | head -1)
     [ -n "$xdp" ] && tr '\000' '\n' <"/proc/$xdp/environ" | grep -qx "LANG=$want_lang" &&
         ok "Portal läuft mit LANG=$want_lang" || nok "Portal-Locale: $(tr '\000' '\n' <"/proc/$xdp/environ" 2>/dev/null | grep '^LANG=')"
+    # QD-077: Settings-Portal antwortet in unter 1 s (gemessen nach der Anmeldung)
+    t0=$(date +%s%N)
+    busctl --user --timeout=10 call org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop \
+        org.freedesktop.portal.Settings ReadOne ss org.gnome.desktop.interface gtk-theme >/dev/null 2>&1; rc=$?
+    ms=$((($(date +%s%N) - t0) / 1000000))
+    [ "$rc" = 0 ] && [ "$ms" -lt 1000 ] && ok "QD-077 Settings.ReadOne antwortet in $ms ms" || nok "QD-077 Settings.ReadOne rc=$rc nach $ms ms"
     seit=$(sed -n '1s/^# Querencia-Sitzung \([0-9-]* [0-9:]*\).*/\1/p' "$S/sitzung-start.log")
     fb=$(journalctl --user -u xdg-desktop-portal.service --since "$seit" 2>/dev/null | grep -c 'last-resort fallback')
     [ "$fb" = 0 ] && ok "B6 xdg-desktop-portal ohne last-resort fallback seit $seit" || nok "B6 $fb× last-resort fallback"
