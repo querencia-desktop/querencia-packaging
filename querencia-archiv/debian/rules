@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+CARGO_FEATURES :=
+include debian/querencia.mk
+
+ICONS := data/icons/hicolor
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-archiv $(DESTDIR)/usr/bin/querencia-archiv
+	$(call desktop_install,data/org.querencia.Archiv.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Archiv.desktop)
+	# Programmsymbol aus dem Upstream, solange querencia-symbole es nicht
+	# führt (dann hier entfernen und Depends: querencia-symbole); nie 48x48
+	# neben Scalable (GTK-4.22-Symbolabsturz)
+	test ! -e $(ICONS)/48x48
+	set -e; cd $(ICONS) && for f in */apps/org.querencia.Archiv.*; do \
+		install -D -m 0644 $$f $(DESTDIR)/usr/share/icons/hicolor/$$f; done
+	$(call mo_install,po,querencia-archiv)
+	$(call metainfo_install_from,data,org.querencia.Archiv)
+	$(call doc_install,.)

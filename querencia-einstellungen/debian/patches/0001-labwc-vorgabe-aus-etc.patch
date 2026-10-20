@@ -1,5 +1,5 @@
 Description: labwc-Vorgabe aus /etc/querencia/labwc statt aus dem Runtime-Repo
- Querencia Einstellungen 0.0.8 liest die Vorgabe der labwc-Konfiguration
+ Querencia Einstellungen 0.0.8 und 0.0.9 lesen die Vorgabe der labwc-Konfiguration
  (Vergleich mit der Benutzerkopie ~/.config/querencia/labwc) aus einem festen
  Pfad der Entwicklungs-VM. Im Paketsystem liefert querencia-session die
  Vorgabe nach /etc/querencia/labwc. QE_LABWC_VORGABE wirkt weiter.

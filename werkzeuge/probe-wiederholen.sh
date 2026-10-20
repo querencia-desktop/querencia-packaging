@@ -34,7 +34,7 @@ SSH_OPT=(-o BatchMode=yes -o ConnectTimeout=10)
 meld() { echo "probe-wiederholen: $*"; }
 host() { ssh "${SSH_OPT[@]}" "$HOST" "$@"; }
 
-# 17 Pakete, mit querencia-dokumente 18; jede .deb muss in SHA256SUMS stehen.
+# 17 Pakete, mit querencia-dokumente 18, mit querencia-archiv 19; jede .deb muss in SHA256SUMS stehen.
 n=$(ls "$DEBS"/*.deb | wc -l)
 [ "$n" -ge 17 ] && [ "$n" -eq "$(grep -c '\.deb$' "$DEBS/SHA256SUMS")" ] ||
     { meld "erwartet mindestens 17 .deb in $DEBS, jede in SHA256SUMS (gefunden: $n)"; exit 1; }

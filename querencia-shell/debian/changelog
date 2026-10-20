@@ -1,3 +1,15 @@
+querencia-shell (0.1.0~alpha4-1) resolute; urgency=medium
+
+  * Live-Stand 20.10. ~17:15 (G2-F3): Quelle querencia-runtime b10aedba
+    (Zweig g2ai, Tag session/g2ai-starter-21). crates/ ist byte-gleich mit
+    den Tags panel/g2ai-portal und desktop/g2ai-portal = 4d62f128 (live seit
+    14:08: Panel 94faa385, Desktop 4b45feac): Panel und Arbeitsfläche warten
+    höchstens kurz auf das Settings-Portal und übernehmen die gsettings
+    selbst (QD-062). g2ai enthält main 4557927 und G2-AD 0.1; Zweig
+    g2f2-basis ist damit überholt.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 17:19:17 +0200
+
 querencia-shell (0.1.0~alpha3-1) resolute; urgency=medium
 
   * Live-Stand 20.10. ~13:00 (G2-F2): Quelle querencia-runtime 56547fd9, Zweig

@@ -1,3 +1,14 @@
+querencia-einstellungen (0.0.9-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.0.9 (Tag einstellungen/0.0.9, 25eacf38; live
+    seit 20.10. 14:03, de7e95a5): Erscheinungsbild und Schriften über
+    gsettings und ~/.config/querencia/labwc, Galerie auf der Seite
+    Hintergrundbild, Zeichenfehler behoben (G2-AJ).
+  * debian/patches/0001-labwc-vorgabe-aus-etc.patch greift unverändert
+    (labwc_konfig.rs:25 weiter mit festem Pfad, QD-063).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 17:19:17 +0200
+
 querencia-einstellungen (0.0.8-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.0.8 (Tag einstellungen/0.0.8, 417bf967; live

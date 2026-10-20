@@ -1,3 +1,20 @@
+querencia-session (0.1.0~alpha4-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.1.0~alpha4 (W5-Port querencia-session, Zweig
+    g2f3): Starter 2.1 der Entwicklungs-VM portabel (live seit 20.10. 14:25,
+    12b8689e): Reste einer früheren Sitzung beenden, Portale vor und nach
+    labwc zurücksetzen, Locale und Desktop für systemd und D-Bus (QD-062,
+    QD-064, Pflichtprobe B1), fünf Log-Generationen. Benutzerkopie
+    ~/.config/querencia/labwc mit Abgleich gegen /etc/querencia/labwc
+    (G2-AG), QE_LABWC_VORGABE für Querencia Einstellungen (QD-063).
+    autostart mit Portal-Wächter; GSK_DEBUG=full-redraw (QD-070).
+  * x-querencia-portals.conf kommt jetzt aus dem Upstream
+    (share/xdg-desktop-portal/), debian/x-querencia-portals.conf entfällt.
+  * Depends: dbus-bin (dbus-update-activation-environment),
+    querencia-shell (>= 0.1.0~alpha4).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 17:28:57 +0200
+
 querencia-session (0.1.0~alpha3-1) resolute; urgency=medium
 
   * Portal-Konfiguration /usr/share/xdg-desktop-portal/x-querencia-portals.conf

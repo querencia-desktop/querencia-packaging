@@ -1,0 +1,13 @@
+querencia-archiv (0.1.0-1) resolute; urgency=medium
+
+  * Erstes Paket (G2-F3): Archivverwaltung nach File Roller 2.30, Rust/GTK 4
+    mit libarchive (Lesen über compress-tools, Schreiben über eine eigene
+    kleine Anbindung). Quelle: querencia-archiv, Tag archiv/0.1.0
+    (ac782456; live seit 20.10. 17:07, 84d49d9d).
+  * Übersetzungen über gettext (englische msgids, po/de.po), Desktop-Datei
+    mit 14 Archivtypen und MetaInfo aus dem Upstream (data/).
+  * Programmsymbol aus dem Upstream (data/icons, PNG 16–256 und SVG, kein
+    48x48), bis querencia-symbole es führt.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 17:25:59 +0200
+

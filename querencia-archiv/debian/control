@@ -1,0 +1,33 @@
+Source: querencia-archiv
+Section: utils
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libglib2.0-dev,
+               libarchive-dev (>= 3.7),
+               appstream,
+               desktop-file-utils,
+               gettext
+Standards-Version: 4.7.2
+
+Package: querencia-archiv
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Querencia Desktop archive manager (alpha)
+ Querencia Archiv is the archive manager of Querencia Desktop, a classic
+ desktop in the style of GNOME 2, modelled on File Roller 2.30: open
+ archives as a folder tree, preview and extract files, create zip, tar.gz
+ and tar.xz archives and add or remove files.
+ .
+ Archives are read with the libarchive library (zip, also encrypted, tar
+ with all common filters, 7z, RAR 4/5 read-only, ISO, cpio and more).
+ Paths outside the target folder and links from an archive are never
+ written. The interface is English with a German translation (gettext).
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

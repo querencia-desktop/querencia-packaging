@@ -1,3 +1,11 @@
+querencia-files (0.1.0~alpha4-1) resolute; urgency=medium
+
+  * Live-Stand QF-0o-3 (querencia-files-dev, Tag files/qf-0o-3 = aed87276;
+    live seit 20.10. 13:56, cef0bafb330e1440): dunkle Schrift auf dem
+    Menüverlauf (CSS-Welle).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 17:19:17 +0200
+
 querencia-files (0.1.0~alpha3-1) resolute; urgency=medium
 
   * Live-Stand QF-0o-2 (querencia-files-dev, Tag files/qf-0o-2-2 = 23355474;

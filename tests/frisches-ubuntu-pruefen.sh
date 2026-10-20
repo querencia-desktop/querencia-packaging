@@ -38,6 +38,17 @@ nachher)
     else
         echo "HINW querencia-dokumente nicht im Paketsatz"
     fi
+    # 19. Paket (G2-F3): Archiv
+    if dpkg -s querencia-archiv >/dev/null 2>&1; then
+        ok "installiert: querencia-archiv $(dpkg-query -W -f='${Version}' querencia-archiv)"
+        desktop-file-validate /usr/share/applications/org.querencia.Archiv.desktop >/dev/null 2>&1 &&
+            ok "D org.querencia.Archiv.desktop" || nok "D org.querencia.Archiv.desktop"
+    else
+        echo "HINW querencia-archiv nicht im Paketsatz"
+    fi
+    grep -q '^Categories=.*Graphics' /usr/share/applications/org.querencia.Bilder.desktop &&
+        ok "B3 Bilder im Menü Grafik" || echo "HINW B3 Bilder ohne Categories Graphics (unter Zubehör)"
+    grep -qx 'GSK_DEBUG=full-redraw' /etc/querencia/labwc/environment && ok "QD-070 GSK_DEBUG in der Vorgabe" || nok "QD-070 GSK_DEBUG fehlt"
     v=$(labwc --version | awk '{print $2}'); dpkg --compare-versions "$v" ge 0.9.4 && ok "labwc $v" || nok "labwc $v < 0.9.4"
     for d in io.github.lgse.Strata org.querencia.Terminal org.querencia.Screenshot org.querencia.Editor \
         org.querencia.Bilder org.querencia.Rechner org.querencia.Systemmonitor org.querencia.Dateisuche \
@@ -91,6 +102,38 @@ sitzung)
         grep -q -E '/home/[^/]+/(projects|opt)/' "$HOME/.local/state/querencia/$x.log" 2>/dev/null &&
             nok "Entwicklerpfad in $x.log" || ok "kein Entwicklerpfad in $x.log"
     done
+    # G2-F3: Sitzungsstarter 0.1.0~alpha4 (QD-062, QD-064, G2-AG)
+    S=$HOME/.local/state/querencia
+    labwc_pid=$(pgrep -u "$(id -u)" -x labwc | head -1)
+    tr '\000' ' ' <"/proc/$labwc_pid/cmdline" | grep -q -- "-C $HOME/.config/querencia/labwc" &&
+        ok "labwc liest die Benutzerkopie" || nok "labwc liest nicht die Benutzerkopie: $(tr '\000' ' ' <"/proc/$labwc_pid/cmdline")"
+    [ -f "$HOME/.config/querencia/labwc/.vorgabe/stand" ] && ok "Benutzerkopie mit .vorgabe/stand" || nok "Benutzerkopie ohne .vorgabe"
+    grep -q 'Aktivierungsumgebung gesetzt' "$S/sitzung-start.log" && ok "Starter: Aktivierungsumgebung gesetzt" || nok "Starter: keine Aktivierungsumgebung"
+    grep -q 'Portale .*(vor dem Start' "$S/sitzung-start.log" && ok "Starter: Portale vor dem Start zurückgesetzt" || nok "Starter: kein Portal-Reset"
+    portal=$(grep -o 'Settings-Portal antwortet nach [0-9]* ms' "$S/sitzung-start.log" | tail -1)
+    [ -n "$portal" ] && ok "autostart: $portal" || nok "autostart: Portal antwortet nicht ($(grep 'Settings-Portal' "$S/sitzung-start.log" | tail -1))"
+    akt=$(systemctl --user show-environment)
+    want_lang=$(tr '\000' '\n' <"/proc/$labwc_pid/environ" | sed -n 's/^LANG=//p')
+    grep -qx "LANG=$want_lang" <<<"$akt" && ok "QD-064 Aktivierungsumgebung LANG=$want_lang" || nok "QD-064 LANG: $(grep '^LANG=' <<<"$akt") statt $want_lang"
+    grep -qx 'XDG_CURRENT_DESKTOP=X-Querencia' <<<"$akt" && ok "QD-064 Aktivierungsumgebung X-Querencia" || nok "QD-064 XDG_CURRENT_DESKTOP"
+    xdp=$(pgrep -u "$(id -u)" -f '^(/usr/libexec/)?xdg-desktop-portal( |$)' | head -1)
+    [ -n "$xdp" ] && tr '\000' '\n' <"/proc/$xdp/environ" | grep -qx "LANG=$want_lang" &&
+        ok "Portal läuft mit LANG=$want_lang" || nok "Portal-Locale: $(tr '\000' '\n' <"/proc/$xdp/environ" 2>/dev/null | grep '^LANG=')"
+    seit=$(sed -n '1s/^# Querencia-Sitzung \([0-9-]* [0-9:]*\).*/\1/p' "$S/sitzung-start.log")
+    fb=$(journalctl --user -u xdg-desktop-portal.service --since "$seit" 2>/dev/null | grep -c 'last-resort fallback')
+    [ "$fb" = 0 ] && ok "B6 xdg-desktop-portal ohne last-resort fallback seit $seit" || nok "B6 $fb× last-resort fallback"
+    panel_pid=$(pgrep -u "$(id -u)" -f "^(/usr/bin/)?querencia-panel( |\$)" | head -1)
+    tr '\000' '\n' <"/proc/$panel_pid/environ" | grep -qx 'GSK_DEBUG=full-redraw' && ok "QD-070 Panel mit GSK_DEBUG=full-redraw" || nok "QD-070 GSK_DEBUG fehlt im Panel"
+    tr '\000' '\n' <"/proc/$panel_pid/environ" | grep -q '^GDK_DEBUG=.*no-portals' && echo "HINW Panel ohne Portal gestartet (no-portals)" || ok "Panel mit Portal gestartet"
+    # Zeiten: Start der Prozesse in Takten seit Boot, relativ zu labwc
+    tick=$(getconf CLK_TCK)
+    st() { set -- $(sed 's/^.*) //' "/proc/$1/stat"); echo "${20}"; }
+    l=$(st "$labwc_pid")
+    for x in panel desktop; do
+        q=$(pgrep -u "$(id -u)" -f "^(/usr/bin/)?querencia-$x( |\$)" | head -1)
+        [ -n "$q" ] && echo "ZEIT querencia-$x startet $(( ($(st "$q") - l) * 1000 / tick )) ms nach labwc"
+    done
+    grep -h 'Settings-Portal antwortet\|no-portals\|Ersatz' "$S/panel.log" "$S/desktop.log" 2>/dev/null | tail -4 | sed 's/^/LOG /'
     echo "Weiter von Hand nach docs/pflichtprobe-frische-vm.md, Abschnitt 6 (Prüfliste)"
     ;;
 entfernt)

@@ -9,11 +9,12 @@ Standards-Version: 4.7.2
 Package: querencia-session
 Architecture: all
 Depends: labwc (>= 0.9.4),
-         querencia-shell (>= 0.1.0~alpha3),
+         querencia-shell (>= 0.1.0~alpha4),
          querencia-symbole (>= 0.5.2),
          procps,
          systemd,
          dbus-user-session,
+         dbus-bin,
          gsettings-desktop-schemas,
          xdg-user-dirs
 Recommends: querencia-sitzung,
