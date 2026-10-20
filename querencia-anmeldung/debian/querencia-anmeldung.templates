@@ -9,11 +9,11 @@ Description: Default display manager:
  The change takes effect at the next boot; a running display manager is
  not stopped.
  .
- GNOME needs GDM for its screen lock: under another display manager GNOME
- runs without screen locking. While GNOME is installed, GDM therefore
- stays the default; the Querencia login screen offers only Querencia
- Desktop unless other sessions are enabled in
- /etc/querencia/greetd/sitzungen.conf.
+ GNOME needs GDM for its screen lock: under querencia-anmeldung, as under
+ any other display manager, GNOME runs without screen locking. While
+ GNOME is installed, GDM therefore stays the default; the Querencia login
+ screen offers only Querencia Desktop unless other sessions are enabled
+ in /etc/querencia/greetd/sitzungen.conf.
 Description-de.UTF-8: Standard-Anmeldedienst (Display-Manager):
  Ein Display-Manager zeigt den grafischen Anmeldebildschirm. Es sind
  mehrere Display-Manager installiert, beim Systemstart läuft aber nur einer.
@@ -22,11 +22,12 @@ Description-de.UTF-8: Standard-Anmeldedienst (Display-Manager):
  Die Änderung wirkt nach dem nächsten Neustart; ein laufender
  Display-Manager wird nicht angehalten.
  .
- GNOME braucht GDM für die Bildschirmsperre: Unter einem anderen
- Display-Manager läuft GNOME ohne Bildschirmsperre. Bei installiertem
- GNOME bleibt deshalb GDM Standard; die Querencia Anmeldung bietet nur
- Querencia Desktop an, solange in /etc/querencia/greetd/sitzungen.conf
- keine weiteren Sitzungen freigegeben sind.
+ GNOME braucht GDM für die Bildschirmsperre: Unter querencia-anmeldung
+ läuft GNOME, wie unter jedem anderen Display-Manager, ohne
+ Bildschirmsperre. Bei installiertem GNOME bleibt deshalb GDM Standard;
+ die Querencia Anmeldung bietet nur Querencia Desktop an, solange in
+ /etc/querencia/greetd/sitzungen.conf keine weiteren Sitzungen
+ freigegeben sind.
 
 Template: querencia-anmeldung/daemon_name
 Type: string
