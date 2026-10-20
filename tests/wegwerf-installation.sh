@@ -256,9 +256,13 @@ bind=(--bind "$A" "$A" --bind "$OUT" "$OUT")
 for deb in "${debs[@]}"; do bind+=(--ro-bind "$(dirname "$deb")" "$(dirname "$deb")"); done
 # Reihenfolge zählt: erst die leeren tmpfs, dann die beschreibbaren Ordner
 # (die auch unter /tmp liegen dürfen).
+# /run/needrestart gibt es nur, solange needrestart seit dem Boot lief
+# (tmpfs); bwrap kann den Ordner im schreibgeschützten / nicht anlegen.
+leer=(--tmpfs /run/user --tmpfs /run/dbus)
+[ -d /run/needrestart ] && leer+=(--tmpfs /run/needrestart)
 huelle() {
-    bwrap --ro-bind / / --dev /dev --proc /proc --tmpfs /tmp --tmpfs /run/user --tmpfs /run/dbus \
-        --tmpfs /run/needrestart "${bind[@]}" --unshare-pid --unshare-net --unshare-ipc --die-with-parent \
+    bwrap --ro-bind / / --dev /dev --proc /proc --tmpfs /tmp "${leer[@]}" \
+        "${bind[@]}" --unshare-pid --unshare-net --unshare-ipc --die-with-parent \
         --unsetenv WAYLAND_DISPLAY --unsetenv DISPLAY --unsetenv DBUS_SESSION_BUS_ADDRESS \
         --unsetenv XDG_RUNTIME_DIR --unsetenv XDG_SESSION_ID --unsetenv SWAYSOCK --unsetenv LABWC_PID "$@"
 }
