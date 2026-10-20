@@ -1,9 +1,10 @@
 querencia-session (0.1.0~alpha3-1) resolute; urgency=medium
 
   * Portal-Konfiguration /usr/share/xdg-desktop-portal/x-querencia-portals.conf
-    ([preferred] default=gtk): xdg-desktop-portal wählt gtk nicht mehr als
-    letzten Ausweg (Pflichtprobe B6). Die Datei liegt in debian/, solange
-    session/ des Runtime-Repos (G2-AI) sie nicht liefert.
+    ([preferred] default=gtk;*, wie G2-AI live seit 14:08): xdg-desktop-portal
+    wählt gtk nicht mehr als letzten Ausweg (Pflichtprobe B6). Die Datei
+    liegt in debian/, bis der Port des G2-AI-Starters sie aus session/
+    übernimmt.
   * gschema-Override 20_querencia-session nur für XDG_CURRENT_DESKTOP=
     X-Querencia: GTK-Thema Querencia-Klassisch, Symbolthema Querencia,
     DejaVu Sans/Sans Mono 10, Zeiger DMZ-White 24, keine Overlay-Scrollbalken

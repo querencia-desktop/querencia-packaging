@@ -56,7 +56,7 @@ nachher)
         ok "Thema Querencia-Klassisch (GTK 4, labwc)" || nok "Thema Querencia-Klassisch unvollständig"
     n=$(ls /usr/share/querencia/hintergruende/*.png 2>/dev/null | wc -l)
     [ "$n" -eq 17 ] && ok "Hintergründe: 17" || nok "Hintergründe: $n statt 17"
-    grep -qx 'default=gtk' /usr/share/xdg-desktop-portal/x-querencia-portals.conf 2>/dev/null &&
+    grep -q '^default=gtk' /usr/share/xdg-desktop-portal/x-querencia-portals.conf 2>/dev/null &&
         ok "B6 Portal-Konfiguration X-Querencia" || nok "B6 x-querencia-portals.conf fehlt"
     [ "$(XDG_CURRENT_DESKTOP=X-Querencia GSETTINGS_BACKEND=memory gsettings get org.gnome.desktop.interface gtk-theme)" = "'Querencia-Klassisch'" ] &&
         ok "B7 Erscheinungsbild nur in X-Querencia" || nok "B7 gschema-Override wirkt nicht"
