@@ -9,7 +9,8 @@ Build-Depends: cargo (>= 1.92),
                libgtk-4-dev (>= 4.12),
                libglib2.0-dev,
                appstream,
-               desktop-file-utils
+               desktop-file-utils,
+               gettext
 Standards-Version: 4.7.2
 
 Package: querencia-systemmonitor
@@ -19,6 +20,7 @@ Depends: ${shlibs:Depends},
 Description: Querencia Desktop system monitor (alpha)
  Querencia Systemmonitor shows processes, resources (CPU, memory, network)
  and file systems, in the style of gnome-system-monitor from GNOME 2.
+ The interface is English with a German translation (gettext).
  .
  Querencia Desktop is developed with AI tools; every change is reviewed
  and accepted by the project owner.

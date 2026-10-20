@@ -1,0 +1,33 @@
+Source: querencia-dokumente
+Section: graphics
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libglib2.0-dev,
+               libcairo2-dev,
+               libpoppler-glib-dev,
+               appstream,
+               desktop-file-utils,
+               gettext
+Standards-Version: 4.7.2
+
+Package: querencia-dokumente
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Querencia Desktop document viewer (alpha)
+ Querencia Dokumente is the PDF viewer of Querencia Desktop, a classic
+ desktop in the style of GNOME 2, modelled on Evince 2.30: page view
+ with zoom and fit modes, thumbnails and outline in the side pane, search,
+ printing and document properties.
+ .
+ PDF files are read with the poppler library (libpoppler-glib); the
+ program as a whole is distributed under the GPL. The interface is
+ English with a German translation (gettext).
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

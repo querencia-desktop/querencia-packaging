@@ -3,10 +3,17 @@ QUERENCIA_KIND := data
 include debian/querencia.mk
 
 ICONS := integration/vorlage/icons/hicolor
+THEMA := integration/thema/vorlage/Querencia
 
 querencia-install:
 	# Symbolregel: nie 48x48 zusammen mit einem Scalable-Verzeichnis
 	test ! -e $(ICONS)/48x48
+	test ! -e $(THEMA)/48x48
 	set -e; cd $(ICONS) && for f in */apps/*; do \
 		install -D -m 0644 $$f $(DESTDIR)/usr/share/icons/hicolor/$$f; done
-	test $$(find $(DESTDIR)/usr/share/icons/hicolor -type f | wc -l) -eq 48
+	test $$(find $(DESTDIR)/usr/share/icons/hicolor -type f | wc -l) -eq 80
+	# Symbolthema Querencia (Thema-2): GNOME-2-Optik, erbt von gnome-human
+	# und hicolor; Panel, Desktop und labwc-Vorgabe wählen es, wenn es da ist.
+	set -e; cd $(THEMA) && find . -type f | LC_ALL=C sort | while read -r f; do \
+		install -D -m 0644 "$$f" "$(DESTDIR)/usr/share/icons/Querencia/$$f"; done
+	test $$(find $(DESTDIR)/usr/share/icons/Querencia -type f | wc -l) -eq 657

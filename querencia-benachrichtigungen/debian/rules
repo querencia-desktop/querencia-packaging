@@ -6,5 +6,6 @@ include debian/querencia.mk
 
 querencia-install:
 	install -D -m 0755 target/release/querencia-benachrichtigungen $(DESTDIR)/usr/bin/querencia-benachrichtigungen
+	$(call mo_install,po,querencia-benachrichtigungen)
 	$(call metainfo_install,org.querencia.Benachrichtigungen)
 	$(call doc_install,.)

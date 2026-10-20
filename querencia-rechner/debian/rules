@@ -9,5 +9,6 @@ querencia-install:
 	$(call desktop_install,data/org.querencia.Rechner.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Rechner.desktop)
 	install -D -m 0644 data/icons/hicolor/scalable/apps/org.querencia.Rechner.svg \
 		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Rechner.svg
+	$(call mo_install,po,querencia-rechner)
 	$(call metainfo_install,org.querencia.Rechner)
 	$(call doc_install,.)

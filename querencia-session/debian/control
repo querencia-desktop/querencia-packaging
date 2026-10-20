@@ -3,7 +3,7 @@ Section: x11
 Priority: optional
 Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
 Rules-Requires-Root: no
-Build-Depends: desktop-file-utils, python3
+Build-Depends: desktop-file-utils, python3, libglib2.0-bin, gsettings-desktop-schemas
 Standards-Version: 4.7.2
 
 Package: querencia-session
@@ -13,6 +13,7 @@ Depends: labwc (>= 0.9.4),
          procps,
          systemd,
          dbus-user-session,
+         gsettings-desktop-schemas,
          xdg-user-dirs
 Recommends: querencia-sitzung,
             querencia-benachrichtigungen,
@@ -33,8 +34,12 @@ Description: Querencia Desktop session (alpha)
  (/usr/share/wayland-sessions) and the session configuration in
  /etc/querencia/labwc. The session starts, when installed, the polkit agent
  and idle lock (querencia-sitzung), the notification service and the saved
- display layout (querencia-einstellungen). No display manager is installed, enabled or
- reconfigured, and nothing in home directories is changed.
+ display layout (querencia-einstellungen). It brings the portal
+ configuration of the session (xdg-desktop-portal-gtk) and appearance
+ defaults that apply only in the Querencia session: theme
+ Querencia-Klassisch, icon theme Querencia, DejaVu fonts and the DMZ-White
+ cursor. No display manager is installed, enabled or reconfigured, and
+ nothing in home directories is changed.
  .
  Needs labwc 0.9.4 or newer (Ubuntu 26.04 ships 0.9.3, whose menus get
  no keyboard focus; the Querencia APT repository provides a backport).

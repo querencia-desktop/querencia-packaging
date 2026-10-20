@@ -1,3 +1,16 @@
+querencia-software (0.1.2-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.1.2 (Tag software/0.1.2, 28b91f46; live seit
+    20.10. 13:00, e9bb9be9): dunkle Auswahlschrift #1a1a1a auf dem orangen Menüverlauf (CSS-Welle), Seitenleiste und Programmliste;
+    enthält 0.1.1 (gettext de/en, Statuszeile). Bausteine unverändert.
+  * Desktop-Datei aus dem Upstream (programm/data/), statt der Kopie in
+    debian/.
+  * Übersetzungen über gettext (englische msgids, po/de.po): die Kataloge
+    werden beim Bau mit msgfmt zu /usr/share/locale/<sprache>/LC_MESSAGES/
+    querencia-software.mo (ENTSCHEIDUNGEN Nr. 16).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 13:46:13 +0200
+
 querencia-software (0.1.0-1) resolute; urgency=medium
 
   * Erstes Paket (G2-F, nach der Vorlage von SW-5). Quelle:

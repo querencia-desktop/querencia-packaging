@@ -3,9 +3,24 @@ Upstream-Name: querencia-symbole
 
 Files: *
 Copyright: 2026 Querencia Desktop contributors
+License: CC-BY-SA-4.0
+Comment: Own icons and icon theme of Querencia Desktop (G2-V, Thema-2); SVG
+ masters in quellen/, the PNG sizes rendered from them by werkzeug/. No
+ third-party artwork; drive, network, volume and logo pictures come from
+ querencia-runtime (same copyright holders). Licence by ENTSCHEIDUNGEN
+ Nr. 19 (2026-10-20); the source tree does not carry the LICENSE file yet.
+ Works created with AI tools may not be protected by copyright in every
+ jurisdiction; the licence statement is then a notice. The name and the
+ Q logo are marks of Querencia Desktop and are not covered by the licence.
+
+Files: werkzeug/*
+Copyright: 2026 Querencia Desktop contributors
 License: GPL-3+
-Comment: Own icons of Querencia Desktop (G2-V); SVG masters in quellen/, the
- PNG sizes rendered from them. No third-party artwork.
+
+License: CC-BY-SA-4.0
+ Creative Commons Attribution-ShareAlike 4.0 International.
+ The full licence text is at
+ https://creativecommons.org/licenses/by-sa/4.0/legalcode
 
 License: GPL-3+
  This program is free software: you can redistribute it and/or modify it

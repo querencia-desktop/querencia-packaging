@@ -9,7 +9,8 @@ Build-Depends: cargo (>= 1.92),
                libgtk-4-dev (>= 4.12),
                libglib2.0-dev,
                appstream,
-               desktop-file-utils
+               desktop-file-utils,
+               gettext
 Standards-Version: 4.7.2
 
 Package: querencia-rechner
@@ -20,6 +21,7 @@ Description: Querencia Desktop calculator (alpha)
  desktop in the style of GNOME 2, modelled on gcalctool: basic and
  scientific mode, memory, keyboard input. Results are computed with full
  internal precision and rounded only for display.
+ The interface is English with a German translation (gettext).
  .
  Querencia Desktop is developed with AI tools; every change is reviewed
  and accepted by the project owner.

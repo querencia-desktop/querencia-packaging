@@ -50,7 +50,9 @@ QUERENCIA_RUST_BIN=$HOME/.rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/bin 
     bash werkzeuge/paket-bauen.sh querencia-files
 ```
 
-**labwc** auf einem Rechner ohne `scdoc` und `librsvg2-dev`:
+**labwc** baut `alle-bauen.sh` mit Manpages und SVG-Knöpfen, wenn `scdoc`
+und `librsvg2-dev` installiert sind (entwicklungs-vm seit 20.10.), sonst mit
+den Profilen unten. Von Hand auf einem Rechner ohne beides:
 
 ```bash
 DEB_BUILD_PROFILES="nodoc pkg.labwc.nosvg" bash werkzeuge/paket-bauen.sh labwc

@@ -1,0 +1,11 @@
+querencia-dokumente (0.1.0-1) resolute; urgency=medium
+
+  * Erstes Paket (G2-F2, QD-019): PDF-Betrachter nach Evince 2.30, Rust/GTK 4
+    mit poppler-rs. Quelle: querencia-dokumente, Tag dokumente/0.1.0
+    (Revision in quellen.conf eintragen, sobald der Tag existiert).
+  * Übersetzungen über gettext (englische msgids, po/de.po), Desktop-Datei
+    mit MimeType application/pdf und MetaInfo aus dem Upstream (data/).
+  * Programmsymbol aus dem Upstream (data/icons, PNG 16–256 und SVG, kein
+    48x48), bis querencia-symbole es führt.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 14:00:00 +0200

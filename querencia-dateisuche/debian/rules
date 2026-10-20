@@ -9,5 +9,6 @@ querencia-install:
 	$(call desktop_install,data/org.querencia.Dateisuche.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Dateisuche.desktop)
 	install -D -m 0644 data/icons/hicolor/scalable/apps/org.querencia.Dateisuche.svg \
 		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Dateisuche.svg
+	$(call mo_install,po,querencia-dateisuche)
 	$(call metainfo_install,org.querencia.Dateisuche)
 	$(call doc_install,.)

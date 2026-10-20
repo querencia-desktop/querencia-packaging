@@ -1,3 +1,12 @@
+querencia-editor (0.2.1-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.2.1 (Tag editor/0.2.1, bdcde50f; live seit
+    20.10. 11:43, 511ff2cc): dunkle Auswahlschrift #1a1a1a auf dem orangen Menüverlauf (CSS-Welle).
+  * Quelle jetzt das Haupt-Repository querencia-werkstatt-w5-editor/prototyp
+    (Tags gemeinsam mit den Worktrees).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 13:46:12 +0200
+
 querencia-editor (0.2.0-1) resolute; urgency=medium
 
   * Erstes Paket (G2-F). Quelle: querencia-editor, Tag editor/0.2.0

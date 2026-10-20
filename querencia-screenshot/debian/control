@@ -10,7 +10,8 @@ Build-Depends: cargo (>= 1.92),
                libglib2.0-dev,
                libwayland-dev,
                appstream,
-               desktop-file-utils
+               desktop-file-utils,
+               gettext
 Standards-Version: 4.7.2
 
 Package: querencia-screenshot
@@ -24,6 +25,7 @@ Description: Querencia Desktop screenshot tool (alpha)
  copies to the clipboard (wl-clipboard).
  .
  In Querencia Desktop the Print key opens it, Alt+Print captures a window.
+ The interface is English with a German translation (gettext).
  .
  Querencia Desktop is developed with AI tools; every change is reviewed
  and accepted by the project owner.

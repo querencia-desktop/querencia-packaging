@@ -6,14 +6,25 @@ include debian/querencia.mk
 
 PROGRAMME := querencia-panel querencia-desktop querencia-kuerzel querencia-lautstaerke querencia-netzwerk
 THEME := data/themes/Querencia-Klassisch/labwc
+GTKTHEMA := querencia-thema/Querencia-Klassisch
 
 querencia-install:
 	for p in $(PROGRAMME); do install -D -m 0755 target/release/$$p $(DESTDIR)/usr/bin/$$p; done
-	install -D -m 0644 data/hintergruende/querencia-blau.png \
-		$(DESTDIR)/usr/share/querencia/hintergruende/querencia-blau.png
+	# Standardhintergründe (Querencia Blau, G2-AF: vier Motive je 16:9/4:3,
+	# ohne/mit Q-Logo); Einstellungen und Desktop suchen in den
+	# XDG-Datenordnern unter querencia/hintergruende/.
+	install -d $(DESTDIR)/usr/share/querencia/hintergruende
+	install -m 0644 data/hintergruende/*.png $(DESTDIR)/usr/share/querencia/hintergruende/
+	test $$(ls $(DESTDIR)/usr/share/querencia/hintergruende/*.png | wc -l) -eq 17
 	# Fensterthema für labwc (<theme><name>Querencia-Klassisch</name> in rc.xml)
 	install -d $(DESTDIR)/usr/share/themes/Querencia-Klassisch/labwc
 	install -m 0644 $(THEME)/themerc $(THEME)/*.png $(DESTDIR)/usr/share/themes/Querencia-Klassisch/labwc/
+	# GTK-Thema (Komponente querencia-thema, Thema-1) im selben Themenordner
+	install -m 0644 $(GTKTHEMA)/index.theme $(DESTDIR)/usr/share/themes/Querencia-Klassisch/index.theme
+	set -e; for g in gtk-3.0 gtk-4.0; do \
+		install -d $(DESTDIR)/usr/share/themes/Querencia-Klassisch/$$g/assets; \
+		install -m 0644 $(GTKTHEMA)/$$g/gtk.css $(DESTDIR)/usr/share/themes/Querencia-Klassisch/$$g/gtk.css; \
+		install -m 0644 $(GTKTHEMA)/$$g/assets/*.svg $(DESTDIR)/usr/share/themes/Querencia-Klassisch/$$g/assets/; done
 	$(call desktop_install,crates/querencia-kuerzel/data/org.querencia.Kuerzel.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Kuerzel.desktop)
 	install -D -m 0644 crates/querencia-kuerzel/data/org.querencia.Kuerzel.svg \
 		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Kuerzel.svg

@@ -11,7 +11,8 @@ Build-Depends: cargo (>= 1.92),
                appstream,
                desktop-file-utils,
                libgtk4-layer-shell-dev,
-               libwayland-dev
+               libwayland-dev,
+               gettext
 Standards-Version: 4.7.2
 
 Package: querencia-benachrichtigungen
@@ -27,6 +28,7 @@ Description: Querencia Desktop notification service (alpha)
  It is started by the Querencia session (querencia-session); the package
  installs no D-Bus activation file, so other desktops keep their own
  notification service.
+ The interface is English with a German translation (gettext).
  .
  Querencia Desktop is developed with AI tools; every change is reviewed
  and accepted by the project owner.

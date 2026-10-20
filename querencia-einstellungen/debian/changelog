@@ -1,3 +1,16 @@
+querencia-einstellungen (0.0.8-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.0.8 (Tag einstellungen/0.0.8, 417bf967; live
+    seit 20.10. 10:57, 45259951): Tastatur, Maus, Fensterdesign und
+    Arbeitsflächen über die labwc-Benutzerkopie ~/.config/querencia/labwc
+    (G2-AG); enthält 0.0.7 (Galerie der Hintergründe, die querencia-shell
+    jetzt unter /usr/share/querencia/hintergruende mitbringt).
+  * debian/patches/0001-labwc-vorgabe-aus-etc.patch: die labwc-Vorgabe
+    kommt aus /etc/querencia/labwc (querencia-session) statt aus einem
+    festen Pfad der Entwicklungs-VM.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 13:46:13 +0200
+
 querencia-einstellungen (0.0.6-1) resolute; urgency=medium
 
   * Erstes Paket (G2-F). Quelle: querencia-einstellungen, Tag

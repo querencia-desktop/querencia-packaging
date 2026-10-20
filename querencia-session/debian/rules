@@ -10,3 +10,18 @@ endif
 	$(call doc_install,.)
 	install -d $(DESTDIR)/usr/share/doc/querencia-session/examples/greetd
 	install -m 0644 examples/greetd/* $(DESTDIR)/usr/share/doc/querencia-session/examples/greetd/
+	# Portale der Sitzung: alles über xdg-desktop-portal-gtk (Pflichtprobe B6;
+	# G2-AI liefert die Datei noch nicht in session/ des Runtime-Repos)
+	install -D -m 0644 debian/x-querencia-portals.conf \
+		$(DESTDIR)/usr/share/xdg-desktop-portal/x-querencia-portals.conf
+	# Erscheinungsbild nur für XDG_CURRENT_DESKTOP=X-Querencia (Pflichtprobe B7)
+	install -D -m 0644 debian/20_querencia-session.gschema.override \
+		$(DESTDIR)/usr/share/glib-2.0/schemas/20_querencia-session.gschema.override
+	# Override gegen das Schema aus gsettings-desktop-schemas prüfen (strikt:
+	# unbekannte Schlüssel oder Typfehler brechen den Bau ab)
+	rm -rf debian/schema-probe; mkdir -p debian/schema-probe
+	cp /usr/share/glib-2.0/schemas/org.gnome.desktop.interface.gschema.xml \
+		/usr/share/glib-2.0/schemas/org.gnome.desktop.enums.xml \
+		debian/20_querencia-session.gschema.override debian/schema-probe/
+	glib-compile-schemas --strict --targetdir=debian/schema-probe debian/schema-probe
+	rm -rf debian/schema-probe

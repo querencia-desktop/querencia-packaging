@@ -7,5 +7,6 @@ include debian/querencia.mk
 querencia-install:
 	install -D -m 0755 target/release/querencia-systemmonitor $(DESTDIR)/usr/bin/querencia-systemmonitor
 	$(call desktop_install,data/org.querencia.Systemmonitor.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Systemmonitor.desktop)
+	$(call mo_install,po,querencia-systemmonitor)
 	$(call metainfo_install,org.querencia.Systemmonitor)
 	$(call doc_install,.)

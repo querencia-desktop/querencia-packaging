@@ -1,3 +1,17 @@
+querencia-terminal (0.2.0-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.2.0 (querencia-terminal-dev, Tag terminal/0.2.0,
+    6fe04c50; live seit 20.10. 02:20, 90535aa6): Übersetzungen über gettext
+    (englische msgids, po/de.po), zweisprachiger Starter.
+  * Application-ID org.querencia.Terminal (ENTSCHEIDUNGEN Nr. 7, live seit
+    01:14): Desktop-Datei org.querencia.Terminal.desktop mit Programmsymbol
+    aus querencia-symbole, MetaInfo aus dem Upstream (data/), die alte ID
+    steht dort unter <provides>.
+  * Quelle jetzt das Entwicklungs-Repository querencia-terminal-dev statt
+    der W5-Momentaufnahme.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 13:45:24 +0200
+
 querencia-terminal (0.1.0~alpha2-1) resolute; urgency=medium
 
   * Unveränderter Programmcode (aec8a3b7 = Tag terminal/8bdb148e, live

@@ -1,3 +1,18 @@
+querencia-files (0.1.0~alpha3-1) resolute; urgency=medium
+
+  * Live-Stand QF-0o-2 (querencia-files-dev, Tag files/qf-0o-2-2 = 23355474;
+    live seit 20.10. 02:46, d298367338a1a406): Fingerabdruck in der
+    SFTP-Host-Key-Frage. qf-0o-2-2 = Release-Stand qf-0o-2 plus
+    SPDX-Copyright-Zeile am Ende der 13 eigenen Rust-Dateien und
+    docs/querencia-lizenz.md (G2-AH; Zeilennummern unverändert).
+  * Programmsymbol org.querencia.Files aus querencia-symbole (>= 0.5.2) wie
+    im Live-Starter, statt des Themensymbols „folder“.
+  * Lintian: embedded-library libyaml mit Begründung als Ausnahme
+    (unsafe-libyaml-norway ist eine Rust-Übersetzung von libyaml, keine
+    statisch gelinkte C-Bibliothek; Pflichtprobe §7).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 13:47:58 +0200
+
 querencia-files (0.1.0~alpha2-1) resolute; urgency=medium
 
   * Live-Stand QF-0o-1 (querencia-files-dev, Tag files/qf-0o-1 = fc5a8db1;

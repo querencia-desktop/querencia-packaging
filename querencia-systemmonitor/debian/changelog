@@ -1,3 +1,15 @@
+querencia-systemmonitor (0.1.2-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.1.2 (Tag systemmonitor/0.1.2, d353c4cc; live
+    seit 20.10. 12:36, 9bb44d69): dunkle Auswahlschrift #1a1a1a auf dem orangen Menüverlauf (CSS-Welle) und in der Prozessliste; enthält
+    0.1.1 (gettext de/en). Damit wieder aus einem Tag statt aus dem Zweig
+    g2v/symbol.
+  * Übersetzungen über gettext (englische msgids, po/de.po): die Kataloge
+    werden beim Bau mit msgfmt zu /usr/share/locale/<sprache>/LC_MESSAGES/
+    querencia-systemmonitor.mo (ENTSCHEIDUNGEN Nr. 16).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 13:46:13 +0200
+
 querencia-systemmonitor (0.1.0-1) resolute; urgency=medium
 
   * Erstes Paket (G2-F). Quelle: querencia-systemmonitor, Zweig

@@ -11,7 +11,8 @@ Build-Depends: cargo (>= 1.92),
                appstream,
                desktop-file-utils,
                libwayland-dev,
-               libxkbcommon-dev
+               libxkbcommon-dev,
+               gettext
 Standards-Version: 4.7.2
 
 Package: querencia-sitzung
@@ -33,6 +34,7 @@ Description: Querencia Desktop session dialog, screen lock and polkit agent (alp
     session (password dialog for administrative actions).
  .
  Both are started by the Querencia session (querencia-session).
+ The interface is English with a German translation (gettext).
  .
  Querencia Desktop is developed with AI tools; every change is reviewed
  and accepted by the project owner.

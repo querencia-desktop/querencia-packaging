@@ -1,0 +1,14 @@
+# Querencia Desktop appearance, only in the Querencia session
+# (XDG_CURRENT_DESKTOP=X-Querencia); other desktops keep their defaults.
+# Values as on the development system (Thema-1 GTK theme, Thema-2 icon
+# theme, Erscheinungsbild 0.1 variant A: DejaVu Sans/Mono 10, DMZ-White 24).
+# Users can still change every key with the settings centre or gsettings.
+[org.gnome.desktop.interface:X-Querencia]
+gtk-theme='Querencia-Klassisch'
+icon-theme='Querencia'
+font-name='DejaVu Sans 10'
+document-font-name='DejaVu Sans 10'
+monospace-font-name='DejaVu Sans Mono 10'
+cursor-theme='DMZ-White'
+cursor-size=24
+overlay-scrolling=false

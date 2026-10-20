@@ -1,3 +1,16 @@
+querencia-symbole (0.5.2-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.5.2 (Tag symbole/0.5.2, 3cda17d6; live seit
+    20.10. 11:01): Programmsymbole jetzt auch für Files (org.querencia.Files,
+    io.github.lgse.Strata), Terminal und Screenshot (10 Symbole, je SVG und
+    PNG 16–256, kein 48x48).
+  * Neu: Symbolthema Querencia (Thema-2, 657 Dateien) in
+    /usr/share/icons/Querencia, Inherits=gnome-human,hicolor;
+    Recommends: gnome-human-icon-theme.
+  * Lizenz CC-BY-SA-4.0 nach ENTSCHEIDUNGEN Nr. 19, werkzeug/ GPL-3+.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 13:44:15 +0200
+
 querencia-symbole (0.2-1) resolute; urgency=medium
 
   * Erstes Paket (G2-F). Quelle: querencia-symbole, Tag symbole/0.2

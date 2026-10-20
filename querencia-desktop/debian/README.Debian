@@ -14,6 +14,22 @@ die Sitzung nach der Anmeldung an einer lokalen Textkonsole mit
 oder richtet greetd als eigenen Schritt ein (Beispiele unter
 /usr/share/doc/querencia-session/examples/greetd/).
 
+GDM liest neue Sitzungsdateien nur beim Start: nach der Installation den
+Rechner einmal neu starten, dann steht „Querencia Desktop“ im Zahnrad unten
+rechts im Anmeldebildschirm.
+
+Netzwerk: Das Metapaket empfiehlt NetworkManager (Netzwerk-Applet,
+Querencia Software). Auf einer Server-Installation verwaltet netplan das Netz
+meist über systemd-networkd; NetworkManager meldet dann „nicht verbunden“,
+und PackageKit hält das System für offline (Software installiert nichts).
+Abhilfe: in /etc/netplan/*.yaml unter network: „renderer: NetworkManager“
+eintragen und „sudo netplan apply“, oder NetworkManager nicht installieren
+(apt --no-install-recommends).
+
+Umfang: Mit den empfohlenen Paketen holt apt auf einer Server-Installation
+rund 360 weitere Pakete aus dem Archiv (darunter Avahi, wsdd, PipeWire und
+die X-Hilfsprogramme für Xwayland), auf einem Ubuntu-Desktop nur wenige.
+
 Diagnose ohne Start:   querencia-session --check
 Logs:                  ~/.local/state/querencia/{labwc,panel,desktop,sitzung,polkit-agent,benachrichtigungen,bildschirm}.log
 

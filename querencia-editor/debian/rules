@@ -8,9 +8,6 @@ querencia-install:
 	install -D -m 0755 target/release/querencia-editor $(DESTDIR)/usr/bin/querencia-editor
 	$(call desktop_install,data/org.querencia.Editor.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Editor.desktop)
 	# Kataloge aus po/ (englische msgids, ENTSCHEIDUNGEN Nr. 16)
-	set -e; for l in $$(sed 's/#.*//' po/LINGUAS); do \
-	install -d $(DESTDIR)/usr/share/locale/$$l/LC_MESSAGES; \
-	msgfmt --check -o $(DESTDIR)/usr/share/locale/$$l/LC_MESSAGES/querencia-editor.mo po/$$l.po; done
-	test -s $(DESTDIR)/usr/share/locale/de/LC_MESSAGES/querencia-editor.mo
+	$(call mo_install,po,querencia-editor)
 	$(call metainfo_install,org.querencia.Editor)
 	$(call doc_install,.)

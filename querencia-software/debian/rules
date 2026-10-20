@@ -9,11 +9,12 @@ include debian/querencia.mk
 
 querencia-install:
 	install -D -m 0755 target/release/querencia-software $(DESTDIR)/usr/bin/querencia-software
-	$(call desktop_install,debian/org.querencia.Software.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Software.desktop)
+	$(call desktop_install,querencia-software/programm/data/org.querencia.Software.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Software.desktop)
 	grep -qx 'Exec=querencia-software' $(DESTDIR)/usr/share/applications/org.querencia.Software.desktop
 	# Nur SVG, nie 48x48 (GTK-4.22-Symbolabsturz, pakete-pruefen.sh).
 	install -D -m 0644 debian/org.querencia.Software.svg \
 		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Software.svg
+	$(call mo_install,querencia-software/programm/po,querencia-software)
 	$(call metainfo_install,org.querencia.Software)
 	# README nennt Arbeitsordner der Entwicklungs-VM (~/projects/...); nur das Änderungsprotokoll.
 	$(call doc_install,querencia-software/programm,-)

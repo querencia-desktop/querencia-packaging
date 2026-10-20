@@ -99,6 +99,19 @@ desktop_install = install -d $(dir $(2)) && \
 #   $(call metainfo_install,<component id> …)
 metainfo_install = DESTDIR=$(DESTDIR) QS_PAKETNAME=$(PKG) QS_METAINFO_QUELLE=debian/metainfo \
 	bash debian/metainfo/metainfo-paket-installieren.sh $(1)
+# The same for a MetaInfo file the upstream tree ships itself (preferred over
+# the copy in debian/metainfo/).
+#   $(call metainfo_install_from,<directory in the tree>,<component id> …)
+metainfo_install_from = DESTDIR=$(DESTDIR) QS_PAKETNAME=$(PKG) QS_METAINFO_QUELLE=$(1) \
+	bash debian/metainfo/metainfo-paket-installieren.sh $(2)
+# gettext catalogs: every language in <po dir>/LINGUAS as
+# /usr/share/locale/<lang>/LC_MESSAGES/<domain>.mo (English msgids,
+# ENTSCHEIDUNGEN Nr. 16); the German catalog must exist.
+#   $(call mo_install,<po dir>,<domain>)
+mo_install = set -e; for l in $$(sed 's/\#.*//' $(1)/LINGUAS); do \
+	install -d $(DESTDIR)/usr/share/locale/$$l/LC_MESSAGES; \
+	msgfmt --check -o $(DESTDIR)/usr/share/locale/$$l/LC_MESSAGES/$(2).mo $(1)/$$l.po; done; \
+	test -s $(DESTDIR)/usr/share/locale/de/LC_MESSAGES/$(2).mo
 # User documentation of the source tree: CHANGELOG.md (as changelog.gz) and
 # the files named in $(2) (default README.md), when present. BUILDING.md and
 # TESTING.md describe the development VM and stay out of the package.
@@ -121,6 +134,9 @@ debian/stamp-binary: debian/stamp-build
 	install -d $(DESTDIR)/usr/share/doc/$(PKG)
 	install -m 0644 debian/copyright $(DESTDIR)/usr/share/doc/$(PKG)/copyright
 	gzip -9nc debian/changelog >$(DESTDIR)/usr/share/doc/$(PKG)/changelog.Debian.gz
+	# Lintian-Ausnahmen mit Begründung (dh_lintian)
+	if [ -f debian/$(PKG).lintian-overrides ]; then \
+		install -D -m 0644 debian/$(PKG).lintian-overrides $(DESTDIR)/usr/share/lintian/overrides/$(PKG); fi
 	chmod 0644 $(DESTDIR)/usr/share/doc/$(PKG)/changelog.Debian.gz
 ifeq (,$(filter nostrip,$(DEB_BUILD_OPTIONS)))
 	for f in $$($(FIND_ELF)); do \

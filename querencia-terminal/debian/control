@@ -10,7 +10,8 @@ Build-Depends: cargo (>= 1.92),
                libvte-2.91-gtk4-dev (>= 0.76),
                libglib2.0-dev,
                appstream,
-               desktop-file-utils
+               desktop-file-utils,
+               gettext
 Standards-Version: 4.7.2
 
 Package: querencia-terminal
@@ -24,6 +25,7 @@ Description: Querencia Desktop terminal (alpha)
  .
  Copy and paste work as in GNOME Terminal 2.x (Ctrl+Shift+C/V,
  Shift+Insert, context menu). Tabs and profiles are not implemented yet.
+ The interface is English with a German translation (gettext).
  .
  Querencia Desktop is developed with AI tools; every change is reviewed
  and accepted by the project owner.

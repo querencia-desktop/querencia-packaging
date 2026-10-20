@@ -8,15 +8,22 @@
 # Umgebung wie paket-bauen.sh, dazu:
 #   QUERENCIA_FREMDRUST_BIN   Toolchain für querencia-files (rustc >= 1.98,
 #                             Ubuntu 26.04 hat 1.93); Standard: rustup 1.98.1
-#   QUERENCIA_LABWC_PROFILE   Bauprofile für labwc (Standard: nodoc pkg.labwc.nosvg,
-#                             solange scdoc und librsvg2-dev fehlen)
+#   QUERENCIA_LABWC_PROFILE   Bauprofile für labwc (Standard: keine, also mit
+#                             Manpages und SVG-Knöpfen; ohne scdoc bzw.
+#                             librsvg2-dev automatisch nodoc bzw. pkg.labwc.nosvg)
 #   QUERENCIA_NUR_BAUEN=1     Archive nicht neu erzeugen
 # Ergebnis je Paket: PASS/FAIL in $AUSGABE/bau-ergebnis.txt; Exit 1 bei einem FAIL.
 set -uo pipefail
 . "$(dirname "$(readlink -f "$0")")/gemeinsam.sh"
 W=$PK/werkzeuge
 FREMDRUST=${QUERENCIA_FREMDRUST_BIN:-$HOME/.rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/bin}
-LABWC_PROFILE=${QUERENCIA_LABWC_PROFILE:-nodoc pkg.labwc.nosvg}
+if [ -z "${QUERENCIA_LABWC_PROFILE+x}" ]; then
+    LABWC_PROFILE=
+    command -v scdoc >/dev/null || LABWC_PROFILE="nodoc"
+    pkg-config --exists librsvg-2.0 2>/dev/null || LABWC_PROFILE="${LABWC_PROFILE:+$LABWC_PROFILE }pkg.labwc.nosvg"
+else
+    LABWC_PROFILE=$QUERENCIA_LABWC_PROFILE
+fi
 
 if [ $# -gt 0 ]; then
     pakete=("$@")

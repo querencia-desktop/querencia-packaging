@@ -20,7 +20,7 @@ Standards-Version: 4.7.2
 
 Package: querencia-files
 Architecture: any
-Depends: ${shlibs:Depends}, bubblewrap
+Depends: ${shlibs:Depends}, bubblewrap, querencia-symbole (>= 0.5.2)
 Recommends: gvfs, gvfs-backends, gnome-human-icon-theme,
             gstreamer1.0-plugins-base, gstreamer1.0-plugins-good,
             xdg-utils
