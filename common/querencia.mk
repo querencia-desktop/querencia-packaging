@@ -94,6 +94,14 @@ endif
 desktop_install = install -d $(dir $(2)) && \
 	sed -E -e '/^[[:space:]]*\#/d' -e 's@^(Exec|TryExec)=/[^ ]*/@\1=@' $(1) >$(2) && \
 	chmod 0644 $(2) && desktop-file-validate $(2)
+# Restrict an installed desktop file to the Querencia session
+# (OnlyShowIn=X-Querencia;, QD-074 K3): session tools that only work under
+# labwc (screenshot, settings, shortcuts, volume, session dialog) stay out of
+# GNOME and other desktops; MimeType lines are kept.
+#   $(call desktop_nur_querencia,<installed path>)
+desktop_nur_querencia = desktop-file-edit --remove-key=NotShowIn \
+	--set-key=OnlyShowIn --set-value='X-Querencia;' $(1) && \
+	grep -qx 'OnlyShowIn=X-Querencia;' $(1) && desktop-file-validate $(1)
 # MetaInfo of one or more components from debian/metainfo/ (copied there by
 # werkzeuge/paket-bauen.sh), validated with appstreamcli, <pkgname> = $(PKG).
 #   $(call metainfo_install,<component id> …)

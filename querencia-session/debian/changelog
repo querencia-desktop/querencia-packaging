@@ -1,3 +1,11 @@
+querencia-session (0.1.0~alpha5-2) resolute; urgency=medium
+
+  * debian/patches/0001-mimeapps-archiv-svg.patch (DEP-3): in der
+    Querencia-Sitzung öffnen die 14 Archivtypen mit Querencia Archiv und
+    image/svg+xml mit Querencia Bilder (QD-074 K5, Befund KOEX-1).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 18:52:21 +0200
+
 querencia-session (0.1.0~alpha5-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.1.0~alpha5 (W5-Port g2f3 74b4147), nur

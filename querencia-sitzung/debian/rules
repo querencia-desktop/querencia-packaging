@@ -8,6 +8,7 @@ querencia-install:
 	install -D -m 0755 target/release/querencia-sitzung $(DESTDIR)/usr/bin/querencia-sitzung
 	install -D -m 0755 target/release/querencia-polkit-agent $(DESTDIR)/usr/bin/querencia-polkit-agent
 	$(call desktop_install,data/org.querencia.Sitzung.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Sitzung.desktop)
+	$(call desktop_nur_querencia,$(DESTDIR)/usr/share/applications/org.querencia.Sitzung.desktop)
 	grep -qx 'Exec=querencia-sitzung --dialog' $(DESTDIR)/usr/share/applications/org.querencia.Sitzung.desktop
 	$(call mo_install,po,querencia-sitzung)
 	$(call metainfo_install,org.querencia.Sitzung)

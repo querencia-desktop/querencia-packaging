@@ -48,6 +48,11 @@ nachher)
     fi
     grep -q '^Categories=.*Graphics' /usr/share/applications/org.querencia.Bilder.desktop &&
         ok "B3 Bilder im Menü Grafik" || echo "HINW B3 Bilder ohne Categories Graphics (unter Zubehör)"
+    # QD-074: Sitzungswerkzeuge nur in X-Querencia, keine nackte labwc-Sitzung
+    for d in org.querencia.Screenshot org.querencia.Einstellungen org.querencia.Kuerzel org.querencia.Lautstaerke org.querencia.Sitzung; do
+        grep -qx 'OnlyShowIn=X-Querencia;' /usr/share/applications/$d.desktop && ok "K3 $d nur in Querencia" || nok "K3 $d ohne OnlyShowIn"
+    done
+    [ ! -e /usr/share/wayland-sessions/labwc.desktop ] && ok "K6 keine labwc.desktop" || nok "K6 labwc.desktop vorhanden"
     grep -qx 'GSK_DEBUG=full-redraw' /etc/querencia/labwc/environment && ok "QD-070 GSK_DEBUG in der Vorgabe" || nok "QD-070 GSK_DEBUG fehlt"
     v=$(labwc --version | awk '{print $2}'); dpkg --compare-versions "$v" ge 0.9.4 && ok "labwc $v" || nok "labwc $v < 0.9.4"
     for d in io.github.lgse.Strata org.querencia.Terminal org.querencia.Screenshot org.querencia.Editor \
@@ -96,6 +101,8 @@ sitzung)
     [ "$(xdg-mime query default inode/directory)" = io.github.lgse.Strata.desktop ] && ok "Ordnerprogramm in der Sitzung" || nok "Ordnerprogramm"
     [ "$(xdg-mime query default text/plain)" = org.querencia.Editor.desktop ] && ok "Textprogramm in der Sitzung" || nok "Textprogramm"
     [ "$(xdg-mime query default image/png)" = org.querencia.Bilder.desktop ] && ok "Bildprogramm in der Sitzung" || nok "Bildprogramm"
+    [ "$(xdg-mime query default application/zip)" = org.querencia.Archiv.desktop ] && ok "K5 Archivprogramm in der Sitzung" || nok "K5 Archivprogramm: $(xdg-mime query default application/zip)"
+    [ "$(xdg-mime query default image/svg+xml)" = org.querencia.Bilder.desktop ] && ok "K5 SVG mit Bilder" || nok "K5 SVG: $(xdg-mime query default image/svg+xml)"
     for x in querencia-polkit-agent querencia-benachrichtigungen; do
         [ "$(pgrep -c -u "$(id -u)" -f "^(/usr/bin/)?$x( |\$)")" = 1 ] && ok "$x läuft" || nok "$x läuft nicht"
     done

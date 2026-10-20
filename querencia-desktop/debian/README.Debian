@@ -44,3 +44,13 @@ Logs:                  ~/.local/state/querencia/{labwc,panel,desktop,sitzung,pol
 
 Status: Alpha. Bekannte Einschränkungen und Fehlerberichte: siehe
 docs/TROUBLESHOOTING.md im Repository „querencia“.
+
+Neben GNOME (Ubuntu Desktop): Die Sitzungswerkzeuge (Bildschirmfoto,
+Einstellungen, Tastenkürzel, Lautstärke, Sitzungsdialog) erscheinen nur in
+der Querencia-Sitzung. Die übrigen Querencia-Programme sind auch in GNOME
+sichtbar. Für fünf Dateitypen, für die Ubuntu keinen Standard festlegt
+(text/markdown, application/json, application/xml, text/x-python,
+application/x-shellscript), öffnet GNOME dann Querencia Editor; ändern lässt
+sich das in GNOME unter Einstellungen → Apps → Standard-Apps oder per
+„Öffnen mit“. Nach dem Entfernen von Querencia gilt wieder der vorige
+Zustand.

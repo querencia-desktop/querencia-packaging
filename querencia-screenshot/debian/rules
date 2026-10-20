@@ -7,6 +7,7 @@ include debian/querencia.mk
 querencia-install:
 	install -D -m 0755 target/release/querencia-screenshot $(DESTDIR)/usr/bin/querencia-screenshot
 	$(call desktop_install,data/org.querencia.Screenshot.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Screenshot.desktop)
+	$(call desktop_nur_querencia,$(DESTDIR)/usr/share/applications/org.querencia.Screenshot.desktop)
 	$(call mo_install,po,querencia-screenshot)
 	$(call metainfo_install_from,data,org.querencia.Screenshot)
 	$(call doc_install,.)

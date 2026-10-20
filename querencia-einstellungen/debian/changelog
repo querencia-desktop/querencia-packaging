@@ -1,3 +1,11 @@
+querencia-einstellungen (0.0.9-2) resolute; urgency=medium
+
+  * Nur in der Querencia-Sitzung (OnlyShowIn=X-Querencia;, QD-074 K3,
+    Befund KOEX-1): die Einstellungen wirken auf labwc und Querencia, neben
+    GNOME stand „Systemeinstellungen“ doppelt.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 18:52:21 +0200
+
 querencia-einstellungen (0.0.9-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.0.9 (Tag einstellungen/0.0.9, 25eacf38; live

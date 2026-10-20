@@ -24,6 +24,11 @@ querencia-build:
 
 querencia-install:
 	DESTDIR=$(DESTDIR) meson install -C obj-querencia --no-rebuild
+	# Keine nackte labwc-Sitzung in GDM und im Anmelder (QD-074 K6): die
+	# Querencia-Sitzung kommt aus querencia-session
+	rm -f $(DESTDIR)/usr/share/wayland-sessions/labwc.desktop
+	rmdir --ignore-fail-on-non-empty $(DESTDIR)/usr/share/wayland-sessions 2>/dev/null || true
+	test ! -e $(DESTDIR)/usr/share/wayland-sessions/labwc.desktop
 	# the examples live in /usr/share/doc/labwc as in Ubuntu's package
 	test -d $(DESTDIR)/usr/share/doc/labwc
 	gzip -9nf $(DESTDIR)/usr/share/doc/labwc/rc.xml.all $(DESTDIR)/usr/share/doc/labwc/themerc 2>/dev/null || true

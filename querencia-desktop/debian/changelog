@@ -1,3 +1,11 @@
+querencia-desktop (0.1.0~alpha2-4) resolute; urgency=medium
+
+  * README.Debian: Verhalten neben GNOME (QD-074 K2/K3): Sitzungswerkzeuge
+    nur in Querencia, fünf Dateitypen ohne Ubuntu-Standard öffnen in GNOME
+    mit Querencia Editor.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 18:52:21 +0200
+
 querencia-desktop (0.1.0~alpha2-3) resolute; urgency=medium
 
   * Mindestversionen auf den Paketsatz G2-F3 (Live-Stand 20.10. ~17:15):

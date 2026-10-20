@@ -1,0 +1,31 @@
+Description: Archivtypen mit Querencia Archiv, SVG mit Querencia Bilder
+ In der Querencia-Sitzung öffneten ZIP und andere Archive mit GNOME File
+ Roller und SVG mit Loupe (Befund KOEX-1 K5). Die 14 MIME-Typen von
+ org.querencia.Archiv.desktop gehen jetzt an Querencia Archiv, image/svg+xml
+ an Querencia Bilder; andere Desktops sind nicht betroffen.
+Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Forwarded: not-needed
+Last-Update: 2026-10-20
+---
+--- a/share/applications/x-querencia-mimeapps.list
++++ b/share/applications/x-querencia-mimeapps.list
+@@ -15,3 +15,19 @@
+ image/bmp=org.querencia.Bilder.desktop
+ # PDF wie auf der Entwicklungs-VM (Dokumente 0.1.0, live seit 20.10.2026).
+ application/pdf=org.querencia.Dokumente.desktop
++image/svg+xml=org.querencia.Bilder.desktop
++# Archive mit Querencia Archiv (0.1.0, QD-074 K5).
++application/zip=org.querencia.Archiv.desktop
++application/x-zip-compressed=org.querencia.Archiv.desktop
++application/x-tar=org.querencia.Archiv.desktop
++application/x-compressed-tar=org.querencia.Archiv.desktop
++application/x-xz-compressed-tar=org.querencia.Archiv.desktop
++application/x-bzip2-compressed-tar=org.querencia.Archiv.desktop
++application/x-bzip-compressed-tar=org.querencia.Archiv.desktop
++application/x-zstd-compressed-tar=org.querencia.Archiv.desktop
++application/gzip=org.querencia.Archiv.desktop
++application/x-xz=org.querencia.Archiv.desktop
++application/x-bzip2=org.querencia.Archiv.desktop
++application/zstd=org.querencia.Archiv.desktop
++application/x-7z-compressed=org.querencia.Archiv.desktop
++application/vnd.rar=org.querencia.Archiv.desktop

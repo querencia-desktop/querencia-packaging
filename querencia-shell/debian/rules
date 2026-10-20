@@ -26,9 +26,11 @@ querencia-install:
 		install -m 0644 $(GTKTHEMA)/$$g/gtk.css $(DESTDIR)/usr/share/themes/Querencia-Klassisch/$$g/gtk.css; \
 		install -m 0644 $(GTKTHEMA)/$$g/assets/*.svg $(DESTDIR)/usr/share/themes/Querencia-Klassisch/$$g/assets/; done
 	$(call desktop_install,crates/querencia-kuerzel/data/org.querencia.Kuerzel.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Kuerzel.desktop)
+	$(call desktop_nur_querencia,$(DESTDIR)/usr/share/applications/org.querencia.Kuerzel.desktop)
 	install -D -m 0644 crates/querencia-kuerzel/data/org.querencia.Kuerzel.svg \
 		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Kuerzel.svg
 	# Symbol der Lautstärke kommt aus querencia-symbole (PNG-Stufen und SVG)
 	$(call desktop_install,crates/querencia-lautstaerke/data/org.querencia.Lautstaerke.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Lautstaerke.desktop)
+	$(call desktop_nur_querencia,$(DESTDIR)/usr/share/applications/org.querencia.Lautstaerke.desktop)
 	$(call metainfo_install,org.querencia.Panel org.querencia.Desktop)
 	# Kein README: das der Runtime beschreibt die Entwicklungs-VM.

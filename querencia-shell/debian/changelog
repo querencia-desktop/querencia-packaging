@@ -1,3 +1,11 @@
+querencia-shell (0.1.0~alpha4-2) resolute; urgency=medium
+
+  * Tastenkürzel und Lautstärkeregler nur in der Querencia-Sitzung
+    (OnlyShowIn=X-Querencia;, QD-074 K3, Befund KOEX-1): beide wirken nur auf
+    labwc und Querencia.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 18:52:21 +0200
+
 querencia-shell (0.1.0~alpha4-1) resolute; urgency=medium
 
   * Live-Stand 20.10. ~17:15 (G2-F3): Quelle querencia-runtime b10aedba
