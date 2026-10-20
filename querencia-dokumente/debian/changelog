@@ -1,3 +1,11 @@
+querencia-dokumente (0.1.0-2) resolute; urgency=medium
+
+  * Programmsymbol kommt jetzt aus querencia-symbole (>= 0.6) statt aus
+    data/icons des Upstreams (Depends); sonst unverändert (Tag
+    dokumente/0.1.0, 75e630e2).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 17:57:09 +0200
+
 querencia-dokumente (0.1.0-1) resolute; urgency=medium
 
   * Erstes Paket (G2-F2, QD-019): PDF-Betrachter nach Evince 2.30, Rust/GTK 4

@@ -6,6 +6,8 @@ include debian/querencia.mk
 
 querencia-install:
 	install -D -m 0755 target/release/querencia-einstellungen $(DESTDIR)/usr/bin/querencia-einstellungen
-	$(call desktop_install,debian/org.querencia.Einstellungen.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Einstellungen.desktop)
+	# Desktop-Datei mit Übersetzungen und Kataloge de/en aus dem Upstream (0.1.0)
+	$(call desktop_install,crates/querencia-einstellungen/data/org.querencia.Einstellungen.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Einstellungen.desktop)
 	$(call desktop_nur_querencia,$(DESTDIR)/usr/share/applications/org.querencia.Einstellungen.desktop)
+	$(call mo_install,crates/querencia-einstellungen/po,querencia-einstellungen)
 	$(call metainfo_install,org.querencia.Einstellungen)

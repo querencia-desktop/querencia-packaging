@@ -1,3 +1,12 @@
+querencia-desktop (0.1.0~alpha2-5) resolute; urgency=medium
+
+  * Mindestversionen auf den Paketsatz G2-F3 Phase 2 (Live-Stand 20.10.
+    ~19:50): Shell 0.1.0~alpha5, Session 0.1.0~alpha6, Symbole 0.6,
+    Benachrichtigungen 0.2.0, Einstellungen 0.1.0, Bilder 0.2.2, Software
+    0.1.3, Dokumente 0.1.0-2.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 19:53:55 +0200
+
 querencia-desktop (0.1.0~alpha2-4) resolute; urgency=medium
 
   * README.Debian: Verhalten neben GNOME (QD-074 K2/K3): Sitzungswerkzeuge

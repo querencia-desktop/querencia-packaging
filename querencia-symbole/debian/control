@@ -10,12 +10,13 @@ Package: querencia-symbole
 Architecture: all
 Depends: hicolor-icon-theme
 Recommends: gnome-human-icon-theme
-Breaks: querencia-bilder (<< 0.1.1-1)
-Replaces: querencia-bilder (<< 0.1.1-1)
+Breaks: querencia-bilder (<< 0.1.1-1), querencia-dokumente (<< 0.1.0-2)
+Replaces: querencia-bilder (<< 0.1.1-1), querencia-dokumente (<< 0.1.0-2)
 Description: Querencia Desktop icons and icon theme (alpha)
  Own icons of Querencia Desktop, a classic desktop in the style of GNOME 2:
-  * program icons for the hicolor theme: Bilder, Editor, Einstellungen,
-    Files, Lautstärke, Screenshot, Sitzung, Systemmonitor and Terminal;
+  * program icons for the hicolor theme: Bilder, Dokumente, Editor,
+    Einstellungen, Files, Lautstärke, Screenshot, Sitzung, Systemmonitor
+    and Terminal;
   * the icon theme "Querencia" (places, devices, status, categories and
     applications in a flat GNOME 2 look), inheriting from gnome-human and
     hicolor.

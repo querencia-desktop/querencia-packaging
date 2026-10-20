@@ -4,6 +4,7 @@ Priority: optional
 Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
 Rules-Requires-Root: no
 Build-Depends: cargo (>= 1.92),
+               gettext,
                rustc (>= 1.92),
                pkgconf,
                libgtk-4-dev (>= 4.12),

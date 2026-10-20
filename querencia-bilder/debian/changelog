@@ -1,3 +1,11 @@
+querencia-bilder (0.2.2-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.2.2 (Tag bilder/0.2.2, 437d273e; aktiviert nach
+    Werkstatt QREL-06, 21357cf8): Categories=GTK;Graphics;Viewer; – Bilder steht
+    im Menü „Grafik“ statt unter Zubehör (Pflichtprobe B3).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 17:57:09 +0200
+
 querencia-bilder (0.2.1-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.2.1 (Tag bilder/0.2.1, 5d964f88; live seit 20.10.

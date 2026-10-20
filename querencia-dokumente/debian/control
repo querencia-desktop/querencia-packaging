@@ -17,7 +17,8 @@ Standards-Version: 4.7.2
 
 Package: querencia-dokumente
 Architecture: any
-Depends: ${shlibs:Depends}
+Depends: ${shlibs:Depends},
+         querencia-symbole (>= 0.6)
 Description: Querencia Desktop document viewer (alpha)
  Querencia Dokumente is the PDF viewer of Querencia Desktop, a classic
  desktop in the style of GNOME 2, modelled on Evince 2.30: page view

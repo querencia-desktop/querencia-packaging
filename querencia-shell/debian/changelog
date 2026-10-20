@@ -1,3 +1,14 @@
+querencia-shell (0.1.0~alpha5-1) resolute; urgency=medium
+
+  * Live-Stand 20.10. ~19:50 (G2-F3 Phase 2): Quelle querencia-runtime main
+    548483ca (Merge g2ak-g2ai nach main; live Panel 5deb1e2e seit 19:47):
+    Panel G2-AK mit Programmsuche über PATH (QD-069: findet
+    querencia-sitzung in /usr/bin), „Bildschirm sperren“ im Menü, Fensterliste
+    je Arbeitsfläche, panel.ini neu laden; enthält G2-AI (Portal-Frist) und
+    G2-AD. Desktop wie live 4b45feac (Bau aus main verhaltensgleich).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 19:53:55 +0200
+
 querencia-shell (0.1.0~alpha4-2) resolute; urgency=medium
 
   * Tastenkürzel und Lautstärkeregler nur in der Querencia-Sitzung

@@ -1,5 +1,5 @@
 Description: labwc-Vorgabe aus /etc/querencia/labwc statt aus dem Runtime-Repo
- Querencia Einstellungen 0.0.8 und 0.0.9 lesen die Vorgabe der labwc-Konfiguration
+ Querencia Einstellungen 0.0.8 bis 0.1.0 lesen die Vorgabe der labwc-Konfiguration
  (Vergleich mit der Benutzerkopie ~/.config/querencia/labwc) aus einem festen
  Pfad der Entwicklungs-VM. Im Paketsystem liefert querencia-session die
  Vorgabe nach /etc/querencia/labwc. QE_LABWC_VORGABE wirkt weiter.
@@ -9,8 +9,8 @@ Last-Update: 2026-10-20
 ---
 --- a/crates/querencia-einstellungen/src/labwc_konfig.rs
 +++ b/crates/querencia-einstellungen/src/labwc_konfig.rs
-@@ -20,9 +20,9 @@
- 
+@@ -21,9 +21,9 @@
+ use crate::i18n::{gettext, gettext_f};
  use crate::labwc_xml;
  
 -/// Vorgaben im Runtime-Repo (nur lesen). Für Prüfungen: `QE_LABWC_VORGABE`.

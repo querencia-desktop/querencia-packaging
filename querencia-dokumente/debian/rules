@@ -4,17 +4,10 @@ QUERENCIA_TEST := yes
 CARGO_FEATURES :=
 include debian/querencia.mk
 
-ICONS := data/icons/hicolor
-
 querencia-install:
 	install -D -m 0755 target/release/querencia-dokumente $(DESTDIR)/usr/bin/querencia-dokumente
 	$(call desktop_install,data/org.querencia.Dokumente.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Dokumente.desktop)
-	# Programmsymbol aus dem Upstream, solange querencia-symbole es nicht
-	# führt (dann hier entfernen und Depends: querencia-symbole); nie 48x48
-	# neben Scalable (GTK-4.22-Symbolabsturz)
-	test ! -e $(ICONS)/48x48
-	set -e; cd $(ICONS) && for f in */apps/org.querencia.Dokumente.*; do \
-		install -D -m 0644 $$f $(DESTDIR)/usr/share/icons/hicolor/$$f; done
+	# Programmsymbol kommt seit querencia-symbole 0.6 von dort (Depends)
 	$(call mo_install,po,querencia-dokumente)
 	$(call metainfo_install_from,data,org.querencia.Dokumente)
 	$(call doc_install,.)

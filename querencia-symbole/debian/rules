@@ -11,9 +11,16 @@ querencia-install:
 	test ! -e $(THEMA)/48x48
 	set -e; cd $(ICONS) && for f in */apps/*; do \
 		install -D -m 0644 $$f $(DESTDIR)/usr/share/icons/hicolor/$$f; done
-	test $$(find $(DESTDIR)/usr/share/icons/hicolor -type f | wc -l) -eq 80
+	# Symbole 0.6: Programmsymbol von Querencia Dokumente (Blatt mit Lupe),
+	# in hicolor und im Thema Querencia (wie integration/symbole-integrieren-0.6.sh)
+	test ! -e integration/vorlage-0.6/neu/48x48
+	set -e; cd integration/vorlage-0.6/neu && for f in */apps/*; do \
+		install -D -m 0644 $$f $(DESTDIR)/usr/share/icons/hicolor/$$f; done
+	test $$(find $(DESTDIR)/usr/share/icons/hicolor -type f | wc -l) -eq 88
 	# Symbolthema Querencia (Thema-2): GNOME-2-Optik, erbt von gnome-human
 	# und hicolor; Panel, Desktop und labwc-Vorgabe wählen es, wenn es da ist.
 	set -e; cd $(THEMA) && find . -type f | LC_ALL=C sort | while read -r f; do \
 		install -D -m 0644 "$$f" "$(DESTDIR)/usr/share/icons/Querencia/$$f"; done
-	test $$(find $(DESTDIR)/usr/share/icons/Querencia -type f | wc -l) -eq 657
+	set -e; cd integration/vorlage-0.6/neu && for f in */apps/*; do \
+		install -D -m 0644 $$f $(DESTDIR)/usr/share/icons/Querencia/$$f; done
+	test $$(find $(DESTDIR)/usr/share/icons/Querencia -type f | wc -l) -eq 665

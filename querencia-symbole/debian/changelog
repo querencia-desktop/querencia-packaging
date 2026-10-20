@@ -1,3 +1,14 @@
+querencia-symbole (0.6-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.6 (Tag symbole/0.6, 6b6a5005; aktiviert nach
+    Werkstatt QREL-06): eigenes Programmsymbol org.querencia.Dokumente (Blatt
+    mit Lupe, SVG und PNG 16–256, kein 48x48) in hicolor und im Symbolthema
+    Querencia (integration/vorlage-0.6/neu).
+  * Breaks/Replaces: querencia-dokumente (<< 0.1.0-2), das bis dahin sein
+    eigenes hicolor-Symbol mitbrachte.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 17:57:09 +0200
+
 querencia-symbole (0.5.2-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.5.2 (Tag symbole/0.5.2, 3cda17d6; live seit

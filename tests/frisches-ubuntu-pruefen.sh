@@ -49,7 +49,7 @@ nachher)
     grep -q '^Categories=.*Graphics' /usr/share/applications/org.querencia.Bilder.desktop &&
         ok "B3 Bilder im Menü Grafik" || echo "HINW B3 Bilder ohne Categories Graphics (unter Zubehör)"
     # QD-074: Sitzungswerkzeuge nur in X-Querencia, keine nackte labwc-Sitzung
-    for d in org.querencia.Screenshot org.querencia.Einstellungen org.querencia.Kuerzel org.querencia.Lautstaerke org.querencia.Sitzung; do
+    for d in org.querencia.Screenshot org.querencia.Einstellungen org.querencia.Kuerzel org.querencia.Lautstaerke org.querencia.Sitzung org.querencia.Benachrichtigungen; do
         grep -qx 'OnlyShowIn=X-Querencia;' /usr/share/applications/$d.desktop && ok "K3 $d nur in Querencia" || nok "K3 $d ohne OnlyShowIn"
     done
     [ ! -e /usr/share/wayland-sessions/labwc.desktop ] && ok "K6 keine labwc.desktop" || nok "K6 labwc.desktop vorhanden"

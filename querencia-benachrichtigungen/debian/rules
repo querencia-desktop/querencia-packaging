@@ -6,6 +6,9 @@ include debian/querencia.mk
 
 querencia-install:
 	install -D -m 0755 target/release/querencia-benachrichtigungen $(DESTDIR)/usr/bin/querencia-benachrichtigungen
+	# Mitteilungszentrale (0.2.0), nur in der Querencia-Sitzung (QD-074 K3)
+	$(call desktop_install,data/org.querencia.Benachrichtigungen.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Benachrichtigungen.desktop)
+	$(call desktop_nur_querencia,$(DESTDIR)/usr/share/applications/org.querencia.Benachrichtigungen.desktop)
 	$(call mo_install,po,querencia-benachrichtigungen)
 	$(call metainfo_install,org.querencia.Benachrichtigungen)
 	$(call doc_install,.)

@@ -1,3 +1,17 @@
+querencia-einstellungen (0.1.0-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.1.0 (Tag einstellungen/0.1.0, dc030083; live seit
+    20.10. 19:4x, df0f666b): Sprache und Region, mehrere
+    Tastaturbelegungen, Oberfläche deutsch/englisch über gettext.
+  * Desktop-Datei mit Übersetzungen und Kataloge de/en aus dem Upstream
+    (crates/querencia-einstellungen/data, po/); debian/
+    org.querencia.Einstellungen.desktop entfällt. OnlyShowIn=X-Querencia;
+    bleibt (QD-074 K3). Build-Depends: gettext.
+  * debian/patches/0001-labwc-vorgabe-aus-etc.patch neu geschnitten
+    (Kontext verschoben; Inhalt gleich, QD-063).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 20 Oct 2026 19:53:55 +0200
+
 querencia-einstellungen (0.0.9-2) resolute; urgency=medium
 
   * Nur in der Querencia-Sitzung (OnlyShowIn=X-Querencia;, QD-074 K3,
