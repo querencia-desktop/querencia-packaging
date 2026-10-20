@@ -7,12 +7,20 @@ OUT=./querencia-test; mkdir -p "$OUT"
 p=0 f=0
 ok() { p=$((p + 1)); echo "PASS $*"; }
 nok() { f=$((f + 1)); echo "FAIL $*"; }
+# Anmeldebildschirm-Zustand: Dienst plus Prüfsummen der Konfigurationsdateien
+# (kein ls -la: dessen Zeile ".." ändert sich mit jeder Installation in /etc).
+dm_zustand() {
+    systemctl is-enabled display-manager 2>&1 || true
+    find /etc/greetd /etc/gdm3 -type f -exec sha256sum {} + 2>/dev/null | sort -k2 || true
+}
 case ${1-} in
 vorher)
     dpkg -l >"$OUT/dpkg-vorher.txt"
     systemctl get-default >"$OUT/target-vorher.txt"
-    (systemctl is-enabled display-manager 2>&1; ls -la /etc/greetd /etc/gdm3 2>&1) >"$OUT/dm-vorher.txt"
+    dm_zustand >"$OUT/dm-vorher.txt"
     ls /dev/dri/card* >/dev/null 2>&1 && ok "lokale Grafik vorhanden" || echo "HINW keine /dev/dri/card* (Prüfung Q)"
+    # vorher läuft mit sudo, die übrigen Schritte als Benutzer: Ablage zurückgeben.
+    [ -n "${SUDO_UID-}" ] && chown -R "$SUDO_UID:$SUDO_GID" "$OUT"
     ;;
 nachher)
     dpkg -l >"$OUT/dpkg-nachher.txt"
@@ -38,7 +46,7 @@ nachher)
     diff <(grep -E 'gdm|sddm|lightdm|greetd' "$OUT/dpkg-vorher.txt" | awk '{print $2}') \
          <(grep -E 'gdm|sddm|lightdm|greetd' "$OUT/dpkg-nachher.txt" | awk '{print $2}') >/dev/null &&
         ok "P kein Anmeldebildschirm hinzugefügt/entfernt" || nok "P Anmeldebildschirm verändert"
-    (systemctl is-enabled display-manager 2>&1; ls -la /etc/greetd /etc/gdm3 2>&1) | diff - "$OUT/dm-vorher.txt" >/dev/null &&
+    dm_zustand | diff - "$OUT/dm-vorher.txt" >/dev/null &&
         ok "P Anmeldebildschirm-Konfiguration unverändert" || nok "P Anmeldebildschirm-Konfiguration verändert"
     find /home -newer "$OUT/dpkg-vorher.txt" -path '*querencia*' 2>/dev/null | grep -v "$OUT" | grep -q . &&
         nok "N Paket hat in /home geschrieben" || ok "N nichts in /home angelegt"
@@ -46,7 +54,9 @@ nachher)
 sitzung)
     [ "$(pgrep -c -u "$(id -u)" -f "^(/usr/bin/)?querencia-panel( |\$)")" = 1 ] && ok "H genau ein Panel" || nok "H Panel-Anzahl"
     [ "$(pgrep -c -u "$(id -u)" -f "^(/usr/bin/)?querencia-desktop( |\$)")" = 1 ] && ok "I genau ein Desktop" || nok "I Desktop-Anzahl"
-    querencia-session 2>&1 | grep -q 'läuft bereits' && ok "H zweiter Start verweigert" || nok "zweiter Start"
+    # Ausgabe erst sammeln: unter pipefail zählte sonst der Exit 1 der Verweigerung.
+    zweit=$(querencia-session 2>&1)
+    grep -q 'läuft bereits' <<<"$zweit" && ok "H zweiter Start verweigert" || nok "zweiter Start"
     echo "$XDG_CURRENT_DESKTOP" | grep -q X-Querencia && ok "XDG_CURRENT_DESKTOP=X-Querencia" || nok "XDG_CURRENT_DESKTOP"
     [ "$(xdg-mime query default inode/directory)" = io.github.lgse.Strata.desktop ] && ok "Ordnerprogramm in der Sitzung" || nok "Ordnerprogramm"
     [ "$(xdg-mime query default text/plain)" = org.querencia.Editor.desktop ] && ok "Textprogramm in der Sitzung" || nok "Textprogramm"
