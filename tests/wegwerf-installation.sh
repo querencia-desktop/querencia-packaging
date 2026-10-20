@@ -41,21 +41,40 @@ if [ "${1-}" = --innen ]; then
     # 1 Installation
     pakete=()
     for deb in "$@"; do pakete+=("$(dpkg-deb -f "$deb" Package)"); done
-    if D --force-script-chrootless --no-triggers --log="$OUT/dpkg.log" -i "$@" \
-        >"$OUT/dpkg-i.txt" 2>&1; then
-        ok "dpkg -i: ${#pakete[@]} Pakete ohne Fehler"
+    D --force-script-chrootless --no-triggers --log="$OUT/dpkg.log" -i "$@" >"$OUT/dpkg-i.txt" 2>&1
+    rc=$?
+    # Abhängigkeiten außerhalb des Paketsatzes, die dieser Rechner nicht hat:
+    # apt holt sie auf der frischen VM aus dem Archiv; dpkg in der Probe kann
+    # das nicht (kein Netz). Sie sind nur ein Hinweis, wenn das Archiv sie kennt.
+    fehlend=$(sed -n -E 's/^ *[^ ]+ (hängt ab von|depends on) ([^ ;(]+).*/\2/p' "$OUT/dpkg-i.txt" | sort -u)
+    archiv=() kaputt=()
+    for x in $fehlend; do
+        if printf '%s\n' "${pakete[@]}" | grep -qx "$x"; then kaputt+=("$x (im Paketsatz)")
+        elif apt-cache show "$x" >/dev/null 2>&1; then archiv+=("$x")
+        else kaputt+=("$x (unbekannt)"); fi
+    done
+    [ ${#archiv[@]} -eq 0 ] || hinweis "aus dem Ubuntu-Archiv nachzuinstallieren (apt auf der VM): ${archiv[*]}"
+    if [ $rc -eq 0 ]; then ok "dpkg -i: ${#pakete[@]} Pakete ohne Fehler"
+    elif [ ${#kaputt[@]} -eq 0 ] && ! grep -q -E 'Fehler beim (Entpacken|Bearbeiten des Archivs)|trying to overwrite|versucht .* zu überschreiben' "$OUT/dpkg-i.txt"; then
+        ok "dpkg -i: alle Pakete entpackt; offen nur Abhängigkeiten aus dem Archiv"
     else
-        nok "dpkg -i: $(grep -E 'dpkg: (Fehler|error)|Abhängigkeitsprobleme|dependency problems' "$OUT/dpkg-i.txt" | head -5 | tr '\n' ' ')"
+        nok "dpkg -i: ${kaputt[*]} $(grep -E 'dpkg: (Fehler|error)' "$OUT/dpkg-i.txt" | head -3 | tr '\n' ' ')"
     fi
+    nur_archiv() { # Paket $1 wartet nur auf Archiv-Abhängigkeiten
+        [ ${#kaputt[@]} -eq 0 ] && grep -q "Konfiguration von $1:" "$OUT/dpkg-i.txt"
+    }
     for p in "${pakete[@]}"; do
         st=$(D -s "$p" 2>/dev/null | sed -n 's/^Status: //p')
-        [ "$st" = "install ok installed" ] && ok "$p: $st" || nok "$p: ${st:-nicht installiert}"
+        if [ "$st" = "install ok installed" ]; then ok "$p: $st"
+        elif [ "$st" = "install ok unpacked" ] && nur_archiv "$p"; then hinweis "$p: entpackt, Konfiguration wartet auf Archiv-Abhängigkeiten"
+        else nok "$p: ${st:-nicht installiert}"; fi
     done
     # 2 Paketdatenbank konsistent. Wartende Trigger sind erwartet (--no-triggers:
     # z. B. hicolor-icon-theme für den Symbol-Cache); jeder andere halbe
     # Zustand (entpackt, halb konfiguriert ...) ist ein Fehler.
     halb=$(dpkg-query --root="$R" -W -f='${db:Status-Abbrev} ${Package}\n' 2>/dev/null |
-        awk '$1 !~ /^(ii|iW|it|rc|un|pn)/ { print $2 "(" $1 ")" }' | tr '\n' ' ')
+        awk '$1 !~ /^(ii|iW|it|rc|un|pn)/ { print $2 }' | while read -r x; do
+            nur_archiv "$x" || printf '%s ' "$x"; done)
     [ -z "$halb" ] && ok "Paketdatenbank: kein Paket halb installiert" || nok "Paketdatenbank: $halb"
     trig=$(dpkg-query --root="$R" -W -f='${db:Status-Abbrev} ${Package}\n' 2>/dev/null |
         awk '$1 ~ /^i[Wt]/ { print $2 }' | tr '\n' ' ')
@@ -123,7 +142,25 @@ if [ "${1-}" = --innen ]; then
         QUERENCIA_BENACHRICHTIGUNGEN=$(opt querencia-benachrichtigungen) \
         QUERENCIA_EINSTELLUNGEN=$(opt querencia-einstellungen)
     export WLR_BACKENDS=headless WLR_RENDERER=pixman WLR_HEADLESS_OUTPUTS=1 WLR_LIBINPUT_NO_DEVICES=1
-    dbus-run-session -- sh -c '
+    # Privater Sitzungsbus ohne AppArmor-Abfrage (/sys ist in der Hülle nur
+    # lesbar; dbus-daemon verweigert sonst jede Namensübernahme).
+    cat >/tmp/q-bus.conf <<'BUS'
+<!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-Bus Bus Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+<busconfig>
+  <type>session</type>
+  <listen>unix:tmpdir=/tmp</listen>
+  <auth>EXTERNAL</auth>
+  <apparmor mode="disabled"/>
+  <standard_session_servicedirs/>
+  <policy context="default">
+    <allow send_destination="*" eavesdrop="true"/>
+    <allow eavesdrop="true"/>
+    <allow own="*"/>
+  </policy>
+</busconfig>
+BUS
+    dbus-run-session --config-file=/tmp/q-bus.conf -- sh -c '
         "$1" -C "$2" >"$3/labwc.log" 2>&1 &
         echo $! >"$3/labwc.probe.pid"
         wait' _ "$R/usr/bin/labwc" "$R/etc/querencia/labwc" "$S" &
@@ -140,6 +177,10 @@ if [ "${1-}" = --innen ]; then
         sleep 8
         for p in querencia-panel querencia-desktop querencia-polkit-agent querencia-benachrichtigungen; do
             [ -x "$R/usr/bin/$p" ] || continue
+            if [ $p = querencia-polkit-agent ] && grep -q 'System-D-Bus nicht erreichbar' "$S/polkit-agent.log" 2>/dev/null; then
+                hinweis "Sitzung: polkit-Agent gestartet, beendet sich ohne System-Bus (in der Hülle absichtlich verborgen; Prüfung auf der VM)"
+                continue
+            fi
             n=$(pgrep -c -f "^$R/usr/bin/$p( |\$)")
             [ "$n" = 1 ] && ok "Sitzung: $p läuft" || nok "Sitzung: $p läuft nicht ($n Prozesse, $S/*.log)"
         done
