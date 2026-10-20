@@ -23,8 +23,8 @@ querencia-install:
 	$(call desktop_install,debian/io.github.lgse.Strata.desktop,$(DESTDIR)/usr/share/applications/io.github.lgse.Strata.desktop)
 	$(call metainfo_install,io.github.lgse.Strata)
 	install -D -m 0644 debian/install-source.toml $(DESTDIR)/usr/share/strata/install-source.toml
-	install -D -m 0644 QUERENCIA.md $(DESTDIR)/usr/share/doc/querencia-files/QUERENCIA.md
+	install -D -m 0644 debian/README.Debian $(DESTDIR)/usr/share/doc/querencia-files/README.Debian
+	$(call doc_install,.)
 	install -D -m 0644 THIRD_PARTY_LICENSES.md $(DESTDIR)/usr/share/doc/querencia-files/THIRD_PARTY_LICENSES.md
 	install -d $(DESTDIR)/usr/share/doc/querencia-files/licenses
 	install -m 0644 data/licenses/*.txt $(DESTDIR)/usr/share/doc/querencia-files/licenses/
-	gzip -9nc CHANGELOG.md >$(DESTDIR)/usr/share/doc/querencia-files/changelog.gz

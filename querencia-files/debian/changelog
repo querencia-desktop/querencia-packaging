@@ -7,6 +7,9 @@ querencia-files (0.1.0~alpha2-1) resolute; urgency=medium
     Commit 09670432 im W5-Repository; der Live-Zweig hat ihn nicht).
   * MetaInfo io.github.lgse.Strata. Hinweis auf die GPL-Bibliothek
     libpoppler-glib in Beschreibung und copyright (ENTSCHEIDUNGEN Nr. 14 Q4).
+  * README.Debian mit Fork-Hinweis (ENTSCHEIDUNGEN Nr. 14 Q2/Q4) statt
+    QUERENCIA.md, das es im Live-Zweig nicht gibt; dazu README.md des
+    Upstreams.
   * Weiter mit Rust 1.98.1 außerhalb des Archivs gebaut
     (pkg.querencia.fremdrust).
   * Maintainer nach ENTSCHEIDUNGEN Nr. 3.

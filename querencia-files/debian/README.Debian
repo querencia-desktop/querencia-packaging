@@ -1,0 +1,21 @@
+Querencia Files – Hinweise zum Paket
+====================================
+
+Querencia Files ist ein Fork des Dateimanagers Strata von LGSE Ltd.
+(https://github.com/LGSE/strata, MIT-Lizenz) mit klassischem Aussehen im
+Stil von Nautilus 2 und dem Symbolthema GNOME Human. Programm, Desktop-ID
+und Konfiguration heißen deshalb noch "strata" bzw. io.github.lgse.Strata.
+
+- Lizenz: MIT (Strata und Querencia-Änderungen). Das Programm ist gegen die
+  GPL-Bibliothek libpoppler-glib gelinkt (PDF-Vorschau); als Ganzes wird
+  das Binary deshalb unter den Bedingungen der GPL weitergegeben.
+- Ohne RAR-Unterstützung gebaut: die UnRAR-Bibliothek hat eine nicht freie
+  Lizenz.
+- Die eingebaute Update-Prüfung (AUR, GitHub) ist abgeschaltet; Updates
+  kommen über apt.
+- Das Paket meldet sich nicht als systemweiter Dateimanager-Dienst
+  (org.freedesktop.FileManager1) und nicht als Dateiauswahl-Portal. Ordner
+  öffnet es als Standard nur in der Querencia-Sitzung
+  (x-querencia-mimeapps.list aus querencia-session).
+
+Lizenzen der Drittbestandteile: THIRD_PARTY_LICENSES.md und licenses/.
