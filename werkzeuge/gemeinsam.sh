@@ -78,7 +78,7 @@ komponenten() {
 # Dateiname des Archivs der Komponente $1.
 orig_komp() { echo "${SRC}_${VER}.orig-$1.tar.xz"; }
 
-# bauplatz <befehl…>: Befehl auf einem Bau-Platz (bau-platz.sh) bzw. unter
+# bauplatz <befehl ...>: Befehl auf einem Bau-Platz (bau-platz.sh) bzw. unter
 # der gemeinsamen Sperre, mit niedriger Priorität. Vor sauber() aufrufen:
 # bau-platz.sh findet seine Sperren über $HOME.
 bauplatz() {
