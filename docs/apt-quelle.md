@@ -9,7 +9,7 @@ Signierte Paketquelle für Ubuntu 26.04 („resolute“), aus der
 | Suite / Komponente | `resolute` / `main` |
 | Architekturen | `amd64` und `all` |
 | Schlüssel | `https://dl.querencialinux.org/apt/querencia.gpg` (auch `.asc`), beim Client `/etc/apt/keyrings/querencia.gpg` |
-| Fingerabdruck | steht nach dem Erzeugen in §4.3 und auf der Webseite |
+| Fingerabdruck | `63F6 C499 246E 3699 CA04  726D 342F 12D2 0CE7 1CBD` (erzeugt 20.10.2026, gültig bis 19.10.2028; öffentlicher Schlüssel `apt/querencia.gpg`/`apt/querencia.asc`) |
 
 **Stand:** vorbereitet, nicht veröffentlicht. Es gibt noch keinen echten
 Signierschlüssel (§4); geprüft ist der Ablauf mit einem Wegwerfschlüssel.
