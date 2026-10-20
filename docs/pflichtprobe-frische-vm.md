@@ -134,7 +134,7 @@ Von Hand, je Zeile PASS/FAIL mit Bildschirmfoto (Druck-Taste) notieren:
 
 | Nr. | Prüfung | Erwartet |
 |---|---|---|
-| 1 | Panel oben | Logo „Q“, Menüs Anwendungen / Orte / System, Uhr, Lautstärke- und Netzwerk-Symbol |
+| 1 | Panel oben | Logo „Q“, Menüs Anwendungen / Orte / System, Uhr. Lautstärke und Netzwerk sind auf einem frischen Profil nicht da: Rechtsklick aufs Panel → „Zum Panel hinzufügen …“ → beide hinzufügen |
 | 2 | Panel unten | Fensterliste, Arbeitsflächenumschalter mit 4 Flächen |
 | 3 | Arbeitsfläche | Hintergrund „Querencia Blau“, Symbole Rechner, Persönlicher Ordner, Papierkorb; Rechtsklick-Menü |
 | 4 | Fensterrahmen | Theme Querencia-Klassisch (klassische Knöpfe), Titelleiste mit Programmsymbol |

@@ -81,7 +81,7 @@ if [ "${1-}" = --innen ]; then
 
     # 4 Programme: Bibliotheken und Aufruf ohne Sitzung
     for b in "$R"/usr/bin/*; do
-        [ -f "$b" ] || continue
+        [ -f "$b" ] && [ ! -L "$b" ] || continue   # Alternativen zeigen ins echte System
         n=$(basename "$b")
         head -c 4 "$b" | grep -q ELF || continue
         fehlt=$(ldd "$b" 2>&1 | grep 'not found' | tr '\n' ' ')
@@ -110,7 +110,9 @@ if [ "${1-}" = --innen ]; then
         nok "kopflose Sitzung: labwc oder /etc/querencia/labwc fehlt"
         echo "Teil pruefen: $pass PASS, $fail FAIL"; exit 1
     }
-    export XDG_RUNTIME_DIR=$A/run
+    # Kurzer Pfad (Wayland-Socket höchstens 108 Zeichen); /tmp ist in der
+    # Hülle ein eigenes tmpfs.
+    export XDG_RUNTIME_DIR=/tmp/q-run
     mkdir -p -m 0700 "$XDG_RUNTIME_DIR"
     S=$XDG_STATE_HOME/querencia
     opt() { [ -x "$R/usr/bin/$1" ] && echo "$R/usr/bin/$1"; }
@@ -201,8 +203,7 @@ mkdir -p "$A/wurzel/var/lib/dpkg/updates" "$A/wurzel/var/lib/dpkg/triggers" "$A/
     "$A/wurzel/etc" "$A/home"
 cp /var/lib/dpkg/status "$A/wurzel/var/lib/dpkg/status"
 cp -a /var/lib/dpkg/info "$A/wurzel/var/lib/dpkg/info"
-cp -a /var/lib/dpkg/triggers/. "$A/wurzel/var/lib/dpkg/triggers/"
-rm -f "$A/wurzel/var/lib/dpkg/triggers/Lock"
+find /var/lib/dpkg/triggers -maxdepth 1 -type f ! -name Lock -exec cp -a {} "$A/wurzel/var/lib/dpkg/triggers/" \;
 cp -a /var/lib/dpkg/alternatives "$A/wurzel/var/lib/dpkg/alternatives" 2>/dev/null || mkdir -p "$A/wurzel/var/lib/dpkg/alternatives"
 cp -a /etc/alternatives "$A/wurzel/etc/alternatives"
 touch "$A/wurzel/var/lib/dpkg/available"
