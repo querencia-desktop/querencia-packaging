@@ -1,35 +1,41 @@
 # Änderungen – querencia-packaging
 
-## Alpha 2 – unveröffentlicht (Paketsatz 21.10.2026)
+## Alpha 2 – eingefroren 21.10.2026 22:07, unveröffentlicht
 
-Paketsatz auf dem Live-Stand von entwicklungs-vm vom 21.10.2026 18:52
-(Abschlusstabelle des Tages). Jede Quelle ist ein getaggter Stand; je
-Komponente geprüft, dass das Live-Binary byte-gleich mit der Vorlage im
-`-int`-Tag ist und der Code-Tag dessen Vorfahr ohne Codeänderung
-dazwischen (Bericht `alpha2-pakete-bericht.md`).
+21 Pakete auf dem Live-Stand von entwicklungs-vm vom 21.10.2026 abends
+(Abschlusstabelle 18:52, dazu Desktop 0.2.2, Einstellungen 0.1.4,
+Dokumente 0.1.3, Files QF-0r-1 und Hintergründe 0.2). Jede Quelle ist ein
+getaggter Stand; je Komponente geprüft, dass das Live-Binary byte-gleich mit
+der Vorlage im `-int`-Tag ist und der Code-Tag dessen Vorfahr ohne
+Codeänderung dazwischen; Panel und Kürzel aus `desktop/0.2.2` byte-gleich
+nachgebaut. SHA256SUMS des Satzes `5cbe6f81…` (Bericht
+`alpha2-pakete-bericht.md`).
 
-- Dunkles Thema: Querencia-Klassisch 0.2.1 mit `gtk-dark.css` (GTK 3/4,
-  prefer-dark), CSS-Welle dunkel in Panel 0.2.1, Desktop 0.2.0 und allen
-  Programmen (QD-081); Kontrast hell nach WCAG AA in Thema, Bilder 0.2.5,
-  Benachrichtigungen 0.2.2, Rechner 0.1.5, Einstellungen 0.1.3,
-  Systemmonitor 0.1.4 (QD-088, QD-089).
-- Terminal 0.3.0 mit Reitern (QD-079); Kürzelübersicht 0.2.0 kennt die
-  Reiterkürzel.
-- Files QF-0q-1: Stratas Update-Prüfer stillgelegt (QD-090), Patch 0001
-  entfällt; Recommends querencia-archiv.
-- Symbole 0.7: Knopf „Arbeitsfläche anzeigen“ und fünf Programmsymbole im
-  Thema, das Thema wird beim Bau aus `quellen/` gerendert (715 Dateien,
-  byte-gleich mit live).
-- Neue Versionen: Shell 0.1.0~alpha7 (Runtime 2e134c6), Screenshot 0.2.9,
-  Editor 0.2.3, Dateisuche 0.1.4, Software 0.1.4, Dokumente 0.1.2,
-  Archiv 0.1.1; Einstellungen 0.1.3 ohne Patch 0001 (findet
-  `/etc/querencia/labwc` selbst); Metapaket 0.1.0~alpha2-7.
-- CLEAN-1: changelog-Trailer nur noch mit dem Maintainer (B1, deshalb neue
-  Revisionen querencia-session 0.1.0~alpha7-2 und labwc
-  0.9.8-0querencia5), MetaInfo-Homepage https://querencialinux.org (B2,
-  querencia-sitzung 0.1.3-3, DEP-3-Patches für Archiv und Dokumente).
-- Unverändert aus Alpha 1: querencia-anmeldung 0.1.1-2 (byte-gleich).
-- Nicht im Satz: Hintergründe 0.2 (Lizenzprüfung offen).
+- Dunkles Thema: Querencia-Klassisch 0.2.1 mit `gtk-dark.css` (GTK 3/4),
+  CSS-Welle dunkel in Panel 0.2.1, Desktop und allen Programmen außer Files
+  (QD-081); Kontrast hell nach WCAG AA (QD-088, QD-089).
+- Neues Paket querencia-hintergruende 0.2-1: 16 Hintergründe (32 PNG),
+  Standardbild Tiefblau; Shell (Desktop 0.2.2: Beschriftung mit
+  Hinterlegung, Standardbild, leere Dateien) und Einstellungen 0.1.4
+  (Galerie) hängen davon ab.
+- Terminal 0.3.0 mit Reitern (QD-079); Kürzelübersicht 0.2.0.
+- Files QF-0r-1: Update-Prüfer still (QD-090), „Querencia Files“ überall;
+  Patch 0001 entfällt; Recommends querencia-archiv.
+- Symbole 0.7: Knopf „Arbeitsfläche anzeigen“ und fünf Programmsymbole, das
+  Thema wird beim Bau aus `quellen/` gerendert (715 Dateien = live).
+- Neue Versionen: Shell 0.1.0~alpha7, Screenshot 0.2.9, Editor 0.2.3,
+  Bilder 0.2.5, Benachrichtigungen 0.2.2, Rechner 0.1.5, Systemmonitor
+  0.1.4, Dateisuche 0.1.4, Software 0.1.4, Dokumente 0.1.3, Archiv 0.1.1,
+  Einstellungen 0.1.4 (Patch 0001 entfällt); Metapaket 0.1.0~alpha2-7.
+- CLEAN-1: changelog-Trailer nur mit dem Maintainer (B1), MetaInfo-Homepage
+  https://querencialinux.org (B2), APT-Werkzeuge verlangen genau einen
+  Schlüssel und vergleichen Valid-Until (B3), Doku ohne KI-Abschnitte und
+  ohne interne Pfade (Filter in `doc_install`, DEP-3-Patches). Deshalb neue
+  Revisionen auch für Session 0.1.0~alpha7-2, labwc 0.9.8-0querencia5,
+  Sitzung 0.1.3-3 und Anmeldung 0.1.1-3.
+- Prüfungen: Alpha-2-Punkte in `tests/frisches-ubuntu-pruefen.sh` und
+  `tests/wegwerf-installation.sh`; `werkzeuge/probe-wiederholen.sh` für eine
+  zweite Probe-VM (PROBE_VMID).
 
 ## [0.1.0~alpha2] – veröffentlicht als Alpha 1 (20.10.2026)
 
