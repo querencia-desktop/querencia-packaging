@@ -5,14 +5,20 @@ include debian/querencia.mk
 BILDER := data/hintergruende
 
 querencia-install:
-	# 32 PNG (16 Bilder je 2560x1440 und 4:3) gegen die SHA256SUMS des
-	# Upstream-Repos; die Namen (querencia-<stamm>[-4x3].png) überschneiden
-	# sich nicht mit den 17 Bildern von querencia-shell im selben Ordner.
-	cd $(BILDER) && sha256sum -c --quiet SHA256SUMS
-	test $$(ls $(BILDER)/*.png | wc -l) -eq 32
-	test $$(grep -c '\.png$$' $(BILDER)/SHA256SUMS) -eq 32
+	# 32 PNG (16 Bilder je 2560x1440 und 4:3) nach der Liste SHA256SUMS des
+	# Upstream-Repos (CLEAN-1: kein Glob, ungelistete PNG bricht ab); die
+	# Namen (querencia-<stamm>[-4x3].png) überschneiden sich nicht mit den
+	# 17 Bildern von querencia-shell im selben Ordner.
+	cd $(BILDER) && sha256sum -c --quiet --strict SHA256SUMS
+	# nur gelistete Dateien: jede PNG im Ordner muss in SHA256SUMS stehen
+	cd $(BILDER) && ls *.png | LC_ALL=C sort >../../debian/bilder-ordner.txt
+	awk '{sub(/^\*/, "", $$2); print $$2}' $(BILDER)/SHA256SUMS | LC_ALL=C sort >debian/bilder-liste.txt
+	cmp debian/bilder-ordner.txt debian/bilder-liste.txt
+	test $$(wc -l <debian/bilder-liste.txt) -eq 32
 	install -d $(DESTDIR)/usr/share/querencia/hintergruende
-	install -m 0644 $(BILDER)/*.png $(DESTDIR)/usr/share/querencia/hintergruende/
+	set -e; while read -r f; do \
+		install -m 0644 "$(BILDER)/$$f" "$(DESTDIR)/usr/share/querencia/hintergruende/$$f"; done <debian/bilder-liste.txt
+	rm -f debian/bilder-ordner.txt debian/bilder-liste.txt
 	for f in blau blau2 abend erde nacht; do \
 		test ! -e $(DESTDIR)/usr/share/querencia/hintergruende/querencia-$$f.png; done
 	# Doku: COPYRIGHT, Herkunft je Bild, Markenregel; CHANGELOG als changelog.gz
