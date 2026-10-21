@@ -6,6 +6,8 @@ querencia-archiv (0.1.1-1) resolute; urgency=medium
     alten privaten Repos (CLEAN-1 B2); als DEP-3-Patch
     debian/patches/0001-metainfo-homepage.patch, der Code-Tag bleibt
     unverändert.
+  * Doku: KI-Abschnitt aus README nicht mehr installiert (Vorgabe des
+    Besitzers, CLEAN-1 Nachtrag 2; Filter in querencia.mk).
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
 
