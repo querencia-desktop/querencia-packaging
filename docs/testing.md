@@ -17,6 +17,9 @@ python3 werkzeuge/veroeffentlichung-pruefen.py ../querencia-shell bericht.md
   manipuliert, falscher Schlüssel, unsigniert.
 - `veroeffentlichung-pruefen.py`: durchsucht die gesamte Git-Historie nach
   Geheimnissen, persönlichen Daten, Maschinenpfaden, Logs, großen Dateien.
+  Name und E-Mail des Besitzers stehen nicht im Repository; sie kommen als
+  Regex aus `QUERENCIA_PRIVAT_MUSTER` (ohne Variable: Hinweis, keine
+  Prüfung).
 
 Nichts davon installiert etwas oder braucht root.
 

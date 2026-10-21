@@ -17,6 +17,7 @@ Gibt nie den Inhalt eines Treffers aus, nur Pfad, Commit-Anzahl und Kategorie
 (sonst würde der Bericht selbst ein Geheimnis verbreiten).
 """
 import collections
+import os
 import re
 import subprocess
 import sys
@@ -30,12 +31,19 @@ PATTERNS = {
         (r"(?i)\b(?:password|passwd|passwort|secret|api[_-]?key|access[_-]?token)\s*[:=]\s*['\"][^'\"\s]{6,}['\"]", "Zuweisung Geheimnis"),
     ],
     "PERSON": [
-        (r"BESITZER_NAME_ODER_ADRESSE", "Name/E-Mail des Besitzers"),
-        (r"~\b", "Home-Pfad"),
+        # Name und E-Mail des Besitzers kommen aus QUERENCIA_PRIVAT_MUSTER (unten),
+        # damit sie selbst nicht im Repository stehen (CLEAN-1 B1).
+        (r"/home/user\b", "Home-Pfad"),
         (r"\bentwicklungs-vm\b|\bEntwicklungs-VM\b", "Rechnername der VM"),
         (r"\b(?:192\.168|10\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01]))\.\d{1,3}\.\d{1,3}\b", "private IP"),
     ],
 }
+# Weitere private Muster (Regex), z. B. Name und E-Mail des Besitzers, nur aus
+# der Umgebung: QUERENCIA_PRIVAT_MUSTER='<regex>'. Ohne Variable entfällt diese
+# Prüfung mit einem Hinweis.
+PRIVAT = os.environ.get("QUERENCIA_PRIVAT_MUSTER", "")
+if PRIVAT:
+    PATTERNS["PERSON"].insert(0, (PRIVAT, "Name/E-Mail des Besitzers"))
 AGENT = re.compile(r"(^|/)(CLAUDE\.md|AGENTS\.md|\.cursor/|skills-lock\.json)")
 LOG = re.compile(r"\.log$|-wl\.log$|WAYLAND_DEBUG")
 BIN = re.compile(r"\.(png|jpe?g|gif|webp|ico|xpm|ttf|otf|pdf|qcow2|gz|xz|zip|tar)$", re.I)
@@ -109,6 +117,8 @@ def main():
                   + (" …" if len(now) > 60 else ""), "",
                   "Nur Historie: " + (", ".join(f"`{p}`" for p in old[:30]) or "–") + (" …" if len(old) > 30 else ""), ""]
     print(f"== {repo}")
+    if not PRIVAT:
+        summary.append("HINWEIS QUERENCIA_PRIVAT_MUSTER nicht gesetzt: Name/E-Mail des Besitzers nicht geprüft")
     for s in summary:
         print("  " + s)
     if report:

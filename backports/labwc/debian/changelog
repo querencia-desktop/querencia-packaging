@@ -1,3 +1,11 @@
+labwc (0.9.8-0querencia5) resolute; urgency=medium
+
+  * Trailerzeilen älterer Einträge auf den Maintainer umgeschrieben (CLEAN-1
+    B1), Datum und Inhalt unverändert. Sonst unverändert gegenüber
+    0.9.8-0querencia4 (Upstream-Tag 0.9.8).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:30:00 +0200
+
 labwc (0.9.8-0querencia4) resolute; urgency=medium
 
   * wayland-sessions/labwc.desktop nicht mehr installiert (QD-074 K6,

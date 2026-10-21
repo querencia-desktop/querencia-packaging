@@ -17,6 +17,8 @@ querencia-shell (0.1.0~alpha7-1) resolute; urgency=medium
     geschnitten, Inhalt unverändert.
   * Depends: querencia-symbole (>= 0.7) für den Knopf „Arbeitsfläche
     anzeigen“ (user-desktop).
+  * Trailerzeilen älterer Einträge auf den Maintainer umgeschrieben (CLEAN-1
+    B1), Datum und Inhalt unverändert.
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
 
