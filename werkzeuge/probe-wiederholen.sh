@@ -15,7 +15,7 @@
 # Läuft auf entwicklungs-vm, braucht den SSH-Schlüssel für root@PROBE_HOST und
 # probe@<vm>. Fasst auf dem Host nur die eine VM an (Standard 115, sonst
 # PROBE_VMID/PROBE_NAME/PROBE_SNAP) und prüft vorher deren Namen.
-# Ergebnisse: $PROBE_AUSGABE/probe-<zeit>/ (Standard ;
+# Ergebnisse: $PROBE_AUSGABE/probe-<zeit>/ (Standardordner unten;
 # nie unter build/, das gehört dem Bau).
 # Rückfall: keiner nötig; der nächste Lauf rollt den Snapshot wieder zurück.
 set -euo pipefail

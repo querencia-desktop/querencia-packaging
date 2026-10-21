@@ -1,11 +1,19 @@
 # Querencia Packaging
 
-Debian-Paketierung, APT-Quelle und CI-Vorlagen für Querencia Desktop.
+Debian-Paketierung, APT-Quelle und CI-Vorlagen für
+[Querencia Desktop](https://github.com/querencia-desktop/querencia) – einer
+klassischen Desktopumgebung im GNOME-2-Stil für Wayland (labwc, Rust, GTK 4).
 
-> **Status: Alpha 2 (G2-F, 20.10.2026).** 17 Quellpakete auf dem Live-Stand
-> der Entwicklungs-VM bauen lokal mit `dpkg-buildpackage`; geprüft statisch
-> und in einer Wegwerf-Installation. Nichts ist veröffentlicht oder signiert;
-> die Pflichtprobe auf einer frischen VM steht aus.
+*English summary:* Debian packaging, APT repository tooling and CI templates of
+Querencia Desktop. Alpha software; documentation is in German.
+
+> **Alpha 2** (eingefroren am 21.10.2026, Tag `packaging/alpha-2`): 21
+> Quellpakete aus festen, getaggten Quellständen (`quellen.conf`), gebaut mit
+> `dpkg-buildpackage` und statisch sowie in einer Wegwerf-Installation geprüft;
+> die Probe auf einer frischen Ubuntu-26.04-VM beschreibt
+> [docs/pflichtprobe-frische-vm.md](docs/pflichtprobe-frische-vm.md). Die APT-Quelle beschreibt
+> [docs/apt-quelle.md](docs/apt-quelle.md). Keine Sicherheits- oder
+> Datenverlustgarantie.
 
 ## Inhalt
 
@@ -16,6 +24,10 @@ common/metainfo/             MetaInfo aller Komponenten (aus querencia-software-
 querencia-shell/             Panel, Desktop, Lautstärke, Netzwerk, Tastenkürzel, Theme
 querencia-session/           Sitzungsstarter und labwc-Konfiguration (Architecture: all)
 querencia-sitzung/           Sitzungsdialog, Bildschirmsperre, polkit-Agent
+querencia-anmeldung/         Anmeldebildschirm (greetd, ReGreet)
+querencia-archiv/            Archivverwaltung
+querencia-dokumente/         PDF-Betrachter
+querencia-hintergruende/     Hintergrundbilder (Architecture: all)
 querencia-benachrichtigungen/ Benachrichtigungsdienst
 querencia-einstellungen/     Einstellungen (Kontrollzentrum)
 querencia-files/             Dateimanager (ohne UnRAR, ohne Update-Prüfung)
@@ -30,22 +42,37 @@ querencia-software/          Software-Verwaltung (mit Bausteinen, komponenten.co
 querencia-symbole/           eigene Programmsymbole (Architecture: all)
 querencia-desktop/           Metapaket (zieht alles)
 backports/labwc/             labwc 0.9.8 für Ubuntu 26.04
+apt/                         Eintrag für die APT-Quelle (querencia.sources)
 werkzeuge/                   orig-erzeugen, paket-bauen, alle-bauen, pakete-pruefen,
                              copyright-erzeugen, apt-quelle-erzeugen/-testen,
                              veroeffentlichung-pruefen
 tests/                       Prüfskript frische VM, Wegwerf-Installation
 ci/                          GitHub-Actions-Vorlagen (nicht aktiv)
-docs/                        Bauen, Prüfen, Pflichtprobe
+docs/                        Bauen, Prüfen, Pflichtprobe, öffentliche Quellen
 ```
 
-Die Repositories der Komponenten liegen neben diesem Repository (Spalte
-`<repository>` in `quellen.conf`); Erzeugnisse gehen nach `build/` (nicht in
-Git).
+Erzeugnisse gehen nach `build/` (nicht in Git).
 
-Anleitung: [docs/building.md](docs/building.md),
-[docs/testing.md](docs/testing.md),
-[docs/pflichtprobe-frische-vm.md](docs/pflichtprobe-frische-vm.md).
+## Quellen der Pakete
+
+`quellen.conf` nennt die Commit-Hashes der Arbeitsrepos; die öffentlichen Repos
+tragen dieselben Tags, ihre Historie ist bereinigt, die Hashes weichen ab.
+Zuordnung Paket → öffentliches Repo → Tag:
+[docs/quellen-oeffentlich.md](docs/quellen-oeffentlich.md). `querencia-session`
+und das Metapaket `querencia-desktop` haben kein eigenes Repo; sie sind nur in
+diesem Packaging-Repo enthalten.
 
 ## Lizenz
 
 GPL-3.0-or-later (Paketierung und Werkzeuge), siehe [LICENSE](LICENSE).
+Copyright 2026 Querencia Desktop contributors; Urheberhinweis in
+[COPYRIGHT](COPYRIGHT). Die Lizenzen der paketierten Programme stehen in ihren
+`debian/copyright`.
+
+Name und Logo „Querencia“ sind keine freien Inhalte: [MARKE.md](MARKE.md).
+
+## Fehler melden
+
+Fehler, Wünsche und Fragen zu Querencia gehen an die gemeinsame Meldestelle:
+<https://github.com/querencia-desktop/querencia/issues/new/choose>.
+Sicherheitslücken bitte nicht öffentlich melden, siehe [SECURITY.md](SECURITY.md).

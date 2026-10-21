@@ -4,3 +4,6 @@
 __pycache__/
 # Erzeugnisse der Werkzeuge (Pakete, Archive, Logs, Nachweise)
 /build/
+# Ausgaben der isolierten Prüfung (nicht einchecken)
+/target
+/nachweis/
