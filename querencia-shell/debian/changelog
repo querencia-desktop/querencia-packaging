@@ -1,10 +1,15 @@
 querencia-shell (0.1.0~alpha7-1) resolute; urgency=medium
 
-  * Alpha 2: querencia-runtime main 2e134c67 (Tag welle-dunkel/0.2.1-int;
-    Code Panel/Desktop 1d40629, Tags panel/0.2.1, desktop/0.2.0,
-    kuerzel/0.2.0). Live: Panel 0.2.1 16081058 (seit 21.10. 10:27:08),
-    Desktop 0.2.0 f5270e83 (seit dem Neustart 21.10. 17:45), Kürzel 0.2.0
-    d433840a (seit 21.10. 01:36:10); Lautstärke und Netzwerk unverändert.
+  * Alpha 2: querencia-runtime Tag desktop/0.2.2 = 08dd41d2 (main 2e134c6 =
+    welle-dunkel/0.2.1-int plus Desktop 0.2.1 und 0.2.2). Live: Panel 0.2.1
+    16081058 (seit 21.10. 10:27:08), Desktop 0.2.2 0d687531, Kürzel 0.2.0
+    d433840a (seit 21.10. 01:36:10); Panel und Kürzel aus diesem Tag byte-
+    gleich nachgebaut. Lautstärke und Netzwerk unverändert.
+  * Desktop 0.2.1/0.2.2: Symbolbeschriftung auf dunkler Hinterlegung (lesbar
+    auf allen Hintergründen), Standardbild querencia-tiefblau.png mit
+    Rückfall auf querencia-blau.png, leere Dateien öffnen mit dem Programm
+    ihres Namens.
+  * Depends: querencia-hintergruende (>= 0.2) für das Standardbild Tiefblau.
   * CSS-Welle dunkel (QD-081): Panel und Desktop folgen dem Farbschema,
     Statussymbole auf dem dunklen Panel umgefärbt; Kürzelübersicht mit den
     Reiterkürzeln von Terminal 0.3.0.

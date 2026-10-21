@@ -17,7 +17,8 @@ Standards-Version: 4.7.2
 Package: querencia-shell
 Architecture: any
 Depends: ${shlibs:Depends},
-         querencia-symbole (>= 0.7)
+         querencia-symbole (>= 0.7),
+         querencia-hintergruende (>= 0.2)
 Recommends: querencia-session,
             gnome-human-icon-theme,
             gvfs,
