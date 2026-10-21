@@ -1,25 +1,24 @@
 # Änderungen – querencia-packaging
 
-## Alpha 2 – eingefroren 21.10.2026 22:07, unveröffentlicht
+## Alpha 2 – veröffentlicht 21.10.2026 22:25
 
-21 Pakete auf dem Live-Stand von entwicklungs-vm vom 21.10.2026 abends
+21 Pakete auf dem Stand der Entwicklungsumgebung vom 21.10.2026 abends
 (Abschlusstabelle 18:52, dazu Desktop 0.2.2, Einstellungen 0.1.4,
 Dokumente 0.1.3, Files QF-0r-1 und Hintergründe 0.2). Jede Quelle ist ein
 getaggter Stand; je Komponente geprüft, dass das Live-Binary byte-gleich mit
 der Vorlage im `-int`-Tag ist und der Code-Tag dessen Vorfahr ohne
 Codeänderung dazwischen; Panel und Kürzel aus `desktop/0.2.2` byte-gleich
-nachgebaut. SHA256SUMS des Satzes `5cbe6f81…` (Bericht
-`alpha2-pakete-bericht.md`).
+nachgebaut. SHA256SUMS des Satzes `5cbe6f81…`.
 
 - Dunkles Thema: Querencia-Klassisch 0.2.1 mit `gtk-dark.css` (GTK 3/4),
-  CSS-Welle dunkel in Panel 0.2.1, Desktop und allen Programmen außer Files
-  (QD-081); Kontrast hell nach WCAG AA (QD-088, QD-089).
+  CSS-Welle dunkel in Panel 0.2.1, Desktop und allen Programmen außer Files;
+  Kontrast hell nach WCAG AA.
 - Neues Paket querencia-hintergruende 0.2-1: 16 Hintergründe (32 PNG),
   Standardbild Tiefblau; Shell (Desktop 0.2.2: Beschriftung mit
   Hinterlegung, Standardbild, leere Dateien) und Einstellungen 0.1.4
   (Galerie) hängen davon ab.
-- Terminal 0.3.0 mit Reitern (QD-079); Kürzelübersicht 0.2.0.
-- Files QF-0r-1: Update-Prüfer still (QD-090), „Querencia Files“ überall;
+- Terminal 0.3.0 mit Reitern; Kürzelübersicht 0.2.0.
+- Files QF-0r-1: Update-Prüfer still, „Querencia Files“ überall;
   Patch 0001 entfällt; Recommends querencia-archiv.
 - Symbole 0.7: Knopf „Arbeitsfläche anzeigen“ und fünf Programmsymbole, das
   Thema wird beim Bau aus `quellen/` gerendert (715 Dateien = live).
@@ -48,14 +47,14 @@ nachgebaut. SHA256SUMS des Satzes `5cbe6f81…` (Bericht
   debconf-Datenbank). `common/querencia.mk` installiert jetzt auch
   `debian/<paket>.config` und `.templates`. Metapaket: Suggests
   querencia-anmeldung statt greetd.
-- Paketsatz auf dem Live-Stand von entwicklungs-vm (20.10.2026 ~13:00, G2-F2):
-  Runtime 348351c (main 8014df9 + G2-AD 0.1), Editor/Bilder 0.2.1,
+- Paketsatz auf dem Stand der Entwicklungsumgebung (20.10.2026 ~13:00):
+  Runtime 348351c, Editor/Bilder 0.2.1,
   Rechner 0.1.3, Systemmonitor 0.1.2, Dateisuche 0.1.3, Software 0.1.2,
   Screenshot 0.2.8, Terminal 0.2.0 (App-ID org.querencia.Terminal),
   Einstellungen 0.0.8, Symbole 0.5.2, Sitzung und Benachrichtigungen 0.1.2,
   Files qf-0o-2-2; siehe `quellen.conf`.
 - querencia-shell: GTK-Thema Querencia-Klassisch (Komponente
-  querencia-thema), Standardhintergründe G2-AF; querencia-symbole:
+  querencia-thema), Standardhintergründe; querencia-symbole:
   Symbolthema Querencia; gettext-Kataloge in allen übersetzten Programmen
   (Makro `mo_install`), MetaInfo aus dem Upstream (`metainfo_install_from`),
   Lintian-Ausnahmen aus `debian/<paket>.lintian-overrides`.
@@ -69,7 +68,7 @@ nachgebaut. SHA256SUMS des Satzes `5cbe6f81…` (Bericht
   für die Proxmox-VM 115; `tests/frisches-ubuntu-pruefen.sh` ohne
   Fehl-FAIL unter pipefail und mit Anmeldebildschirm-Vergleich über
   Prüfsummen.
-- Paketsatz auf dem Live-Stand von entwicklungs-vm (20.10.2026, G2-F):
+- Paketsatz auf dem Stand der Entwicklungsumgebung (20.10.2026):
   Quellen aus den Arbeits-Repositories (querencia-runtime main 52f177cd,
   Files QF-0o-1, Screenshot 0.2.4, Bilder 0.1.1, Editor 0.2.0 …), siehe
   `quellen.conf`.
@@ -85,12 +84,12 @@ nachgebaut. SHA256SUMS des Satzes `5cbe6f81…` (Bericht
   Upstream-Archive, Unterordner, Ausschlüsse), `alle-bauen.sh`, nice beim
   Bau, `tests/wegwerf-installation.sh` (dpkg -i in einer bubblewrap-Hülle,
   kopflose labwc-Sitzung).
-- Maintainer `pottrauschen`, Copyright „Querencia Desktop contributors“
-  (ENTSCHEIDUNGEN Nr. 3, 14); Doku nach `docs/` (Nr. 17).
+- Maintainer `pottrauschen`, Copyright „Querencia Desktop contributors“;
+  Doku nach `docs/`.
 
 ## [0.1.0~alpha1] – unveröffentlicht
 
-- Erste Paketierung aller Komponenten, Metapaket, labwc-Backport (QREL-01).
+- Erste Paketierung aller Komponenten, Metapaket, labwc-Backport.
 - Werkzeuge für reproduzierbare Quellarchive (git archive + cargo vendor),
   Paketbau ohne debhelper, Paketprüfung, DEP-5-Copyright aus
   Crate-Metadaten, signierte APT-Quelle und Veröffentlichungsprüfung.

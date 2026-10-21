@@ -7,7 +7,7 @@ klassischen Desktopumgebung im GNOME-2-Stil für Wayland (labwc, Rust, GTK 4).
 *English summary:* Debian packaging, APT repository tooling and CI templates of
 Querencia Desktop. Alpha software; documentation is in German.
 
-> **Alpha 2** (eingefroren am 21.10.2026, Tag `packaging/alpha-2`): 21
+> **Alpha 2** (veröffentlicht am 21.10.2026, Tag `packaging/alpha-2`): 21
 > Quellpakete aus festen, getaggten Quellständen (`quellen.conf`), gebaut mit
 > `dpkg-buildpackage` und statisch sowie in einer Wegwerf-Installation geprüft;
 > die Probe auf einer frischen Ubuntu-26.04-VM beschreibt
@@ -20,7 +20,7 @@ Querencia Desktop. Alpha software; documentation is in German.
 ```
 quellen.conf                 Quellpaket → Repository → Commit → Version
 common/querencia.mk          gemeinsames debian/rules-Fragment (ohne debhelper)
-common/metainfo/             MetaInfo aller Komponenten (aus querencia-software-paket)
+common/metainfo/             MetaInfo aller Komponenten (aus querencia-software)
 querencia-shell/             Panel, Desktop, Lautstärke, Netzwerk, Tastenkürzel, Theme
 querencia-session/           Sitzungsstarter und labwc-Konfiguration (Architecture: all)
 querencia-sitzung/           Sitzungsdialog, Bildschirmsperre, polkit-Agent
@@ -31,7 +31,7 @@ querencia-hintergruende/     Hintergrundbilder (Architecture: all)
 querencia-benachrichtigungen/ Benachrichtigungsdienst
 querencia-einstellungen/     Einstellungen (Kontrollzentrum)
 querencia-files/             Dateimanager (ohne UnRAR, ohne Update-Prüfung)
-querencia-terminal/          Terminal (noch alte App-ID)
+querencia-terminal/          Terminal
 querencia-screenshot/        Bildschirmfoto
 querencia-editor/            Texteditor (gettext, de)
 querencia-bilder/            Bildbetrachter

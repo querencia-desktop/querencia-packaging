@@ -7,7 +7,7 @@ include debian/querencia.mk
 querencia-install:
 	install -D -m 0755 target/release/querencia-editor $(DESTDIR)/usr/bin/querencia-editor
 	$(call desktop_install,data/org.querencia.Editor.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Editor.desktop)
-	# Kataloge aus po/ (englische msgids, ENTSCHEIDUNGEN Nr. 16)
+	# Kataloge aus po/ (englische msgids)
 	$(call mo_install,po,querencia-editor)
 	$(call metainfo_install,org.querencia.Editor)
 	$(call doc_install,.)

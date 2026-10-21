@@ -6,8 +6,8 @@ include debian/querencia.mk
 
 querencia-install:
 	install -D -m 0755 target/release/querencia-terminal $(DESTDIR)/usr/bin/querencia-terminal
-	# Application-ID org.querencia.Terminal (ENTSCHEIDUNGEN Nr. 7, live seit
-	# 20.10. 01:14); Programmsymbol aus querencia-symbole wie im Live-Starter.
+	# Application-ID org.querencia.Terminal (seit 20.10.2026);
+	# Programmsymbol aus querencia-symbole wie im Live-Starter.
 	$(call desktop_install,data/org.querencia.Terminal.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Terminal.desktop)
 	sed -i 's/^Icon=utilities-terminal$$/Icon=org.querencia.Terminal/' $(DESTDIR)/usr/share/applications/org.querencia.Terminal.desktop
 	grep -qx 'Icon=org.querencia.Terminal' $(DESTDIR)/usr/share/applications/org.querencia.Terminal.desktop

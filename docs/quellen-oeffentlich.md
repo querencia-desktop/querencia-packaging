@@ -14,7 +14,7 @@ Ihre Historie ist bereinigt, deshalb weichen die Commit-Hashes ab. Für Alpha 2
 | querencia-shell | `querencia-shell`, dazu `querencia-thema` | `desktop/0.2.2`; Thema gebaut aus `thema/gtk-0.2.1-int` (Integrationsstand), öffentlich `thema/gtk-0.2.1-1` = Vorlagen-Commit mit stimmiger `SHA256SUMS` |
 | querencia-terminal | `querencia-terminal` | `terminal/0.3.0` |
 | querencia-screenshot | `querencia-screenshot` | `screenshot/0.2.9` |
-| querencia-files | `querencia-files-intern` (später Fork `querencia-files` von Strata), Zweig `querencia` | `querencia/qf-0r-1` |
+| querencia-files | `querencia-files` (Fork von Strata), Zweig `querencia` | `querencia/qf-0r-1` |
 | querencia-bilder | `querencia-bilder` | `bilder/0.2.5` |
 | querencia-editor | `querencia-editor` | `editor/0.2.3` |
 | querencia-sitzung | `querencia-sitzung` | `sitzung/0.1.3` |

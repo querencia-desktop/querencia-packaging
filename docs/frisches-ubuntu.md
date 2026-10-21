@@ -1,9 +1,9 @@
 # Installationstest auf frischem Ubuntu 26.04
 
-Ausführlicher Ablauf: [pflichtprobe-frische-vm.md](pflichtprobe-frische-vm.md); Tabelle der Prüfungen A–Q: `docs/TESTING.md` im
-Repository `querencia`, Abschnitt „Frisches System“. Hier die Werkzeuge.
+Ausführlicher Ablauf: [pflichtprobe-frische-vm.md](pflichtprobe-frische-vm.md). Hier die
+Werkzeuge.
 
-**Niemals auf der Entwicklungs-VM ausführen** – nur auf einer neuen,
+**Niemals auf dem Entwicklungsrechner ausführen** – nur auf einer neuen,
 wegwerfbaren Test-VM (Snapshot vorher).
 
 1. Test-VM: Ubuntu Server 26.04.1, virtio-gpu, 4 GiB RAM; zweite VM mit

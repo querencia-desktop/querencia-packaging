@@ -1,9 +1,9 @@
 # Vorlage für .github/workflows/paket.yml in querencia-packaging.
 # Baut alle Pakete aus den in quellen.conf festgelegten Commits und prüft sie.
 # Die Quell-Repositories werden als Geschwisterordner ausgecheckt.
-# ACHTUNG (G2-F): quellen.conf nennt heute die lokalen Ordner auf entwicklungs-vm
-# (querencia-runtime, querencia-files-dev, …); vor dem Einschalten auf die
-# GitHub-Namen aus REPOS.md umstellen (querencia-shell, querencia-files, …).
+# quellen.conf nennt die öffentlichen Repo-Namen (querencia-shell,
+# querencia-files, …), aber Commits der Arbeitsrepos; vor dem Einschalten die
+# Spalte <git-revision> auf die Tags umstellen (docs/quellen-oeffentlich.md).
 # querencia-files braucht rustc >= 1.98 (Ubuntu 26.04: 1.93), querencia-software
 # zusätzlich die Bausteine aus querencia-software/komponenten.conf.
 # Kein Signieren, keine Veröffentlichung, keine Geheimnisse.

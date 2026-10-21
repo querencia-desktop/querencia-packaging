@@ -51,7 +51,7 @@ QUERENCIA_RUST_BIN=$HOME/.rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/bin 
 ```
 
 **labwc** baut `alle-bauen.sh` mit Manpages und SVG-Knöpfen, wenn `scdoc`
-und `librsvg2-dev` installiert sind (entwicklungs-vm seit 20.10.), sonst mit
+und `librsvg2-dev` installiert sind (in der Entwicklungsumgebung seit 20.10.), sonst mit
 den Profilen unten. Von Hand auf einem Rechner ohne beides:
 
 ```bash

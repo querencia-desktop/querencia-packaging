@@ -1,5 +1,5 @@
 #!/bin/bash
-# Prüfskript für die Test-VM (NICHT für die Entwicklungs-VM). Ändert nichts
+# Prüfskript für die Test-VM (NICHT für den Entwicklungsrechner). Ändert nichts
 # außer der Ablage seiner Ergebnisse in ./querencia-test/.
 #   vorher | nachher | sitzung | entfernt
 set -uo pipefail

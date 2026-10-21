@@ -12,7 +12,7 @@
 #                 Anleitung; ohne: Server-Weg, Anmeldung an tty1
 #   <debs-ordner> Standard build/debs (mindestens 17 .deb, alle in SHA256SUMS)
 #
-# Läuft auf entwicklungs-vm, braucht den SSH-Schlüssel für root@PROBE_HOST und
+# Läuft auf dem Entwicklungsrechner, braucht den SSH-Schlüssel für root@PROBE_HOST und
 # probe@<vm>. Fasst auf dem Host nur die eine VM an (Standard 115, sonst
 # PROBE_VMID/PROBE_NAME/PROBE_SNAP) und prüft vorher deren Namen.
 # Ergebnisse: $PROBE_AUSGABE/probe-<zeit>/ (Standardordner unten;

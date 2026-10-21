@@ -2,19 +2,16 @@
 
 **Zweck:** Beweisen, dass sich Querencia Desktop auf einem Rechner ohne
 Entwicklungsumgebung aus Paketen installieren lässt, als Sitzung startet und
-dass jedes Programm läuft (06 §7a, Stufe 1). Erst danach kommen die signierte
-APT-Quelle und die Veröffentlichung.
+dass jedes Programm läuft. Die Probe lief vor der Veröffentlichung der
+signierten APT-Quelle.
 
 **Wer:** pottrauschen (sudo, VM-Verwaltung). Dauer etwa 1 Stunde.
-**Nie auf `entwicklungs-vm` ausführen.** Nur auf einer neuen, wegwerfbaren VM mit
-Snapshot.
+**Nie auf dem Entwicklungsrechner ausführen.** Nur auf einer neuen,
+wegwerfbaren VM mit Snapshot.
 
 Paketsatz: `build/debs/` dieses Repositorys mit `SHA256SUMS` (Alpha 2: 20
-Pakete, ohne querencia-anmeldung 19 für die Wege ohne Anmeldebildschirm),
-gebaut im Worktree `~/projects/querencia-packaging-wt-alpha2`; Quellstände
-in [quellen.conf](../quellen.conf), Berichte
-, 
-(Alpha 1) und (erster Lauf) .
+Pakete, ohne querencia-anmeldung 19 für die Wege ohne Anmeldebildschirm);
+Quellstände in [quellen.conf](../quellen.conf).
 
 ## 1. VM anlegen
 
@@ -47,7 +44,7 @@ VM **115 `querencia-probe`** auf `192.0.2.40`: Ubuntu-26.04.1-Cloud-Image
 erledigt das Skript, ab einem frisch zurückgerollten Snapshot:
 
 ```bash
-cd ~/projects/querencia-packaging-wt-g2f2 && bash werkzeuge/probe-wiederholen.sh
+cd ~/querencia-packaging && bash werkzeuge/probe-wiederholen.sh
 ```
 
 Mit `--desktop` installiert es vorher `ubuntu-desktop-minimal` (GDM, wie
@@ -58,11 +55,11 @@ zurück, deshalb gibt es nur `frisch`. Danach weiter mit Abschnitt 6, am Ende
 
 ## 2. Pakete auf die VM bringen
 
-Auf `entwicklungs-vm` (der Ordner enthält nur die `.deb` und `SHA256SUMS`):
+Auf dem Entwicklungsrechner (der Ordner enthält nur die `.deb` und `SHA256SUMS`):
 
 ```bash
-scp -r ~/projects/querencia-packaging-wt-g2f2/build/debs probe@<vm-ip>:querencia-debs
-scp ~/projects/querencia-packaging-wt-g2f2/tests/frisches-ubuntu-pruefen.sh probe@<vm-ip>:
+scp -r ~/querencia-packaging/build/debs probe@<vm-ip>:querencia-debs
+scp ~/querencia-packaging/tests/frisches-ubuntu-pruefen.sh probe@<vm-ip>:
 ```
 
 Auf der VM:
@@ -98,15 +95,15 @@ sichern:
 cd ~/querencia-debs && sudo apt install ./*.deb 2>&1 | tee ~/apt-install.log
 ```
 
-**Weg B – signierte Testquelle (zweiter Durchlauf, optional).** Auf
-`entwicklungs-vm` eine Quelle mit Wegwerf-Schlüssel erzeugen:
+**Weg B – signierte Testquelle (zweiter Durchlauf, optional).** Auf dem
+Entwicklungsrechner eine Quelle mit Wegwerf-Schlüssel erzeugen:
 
 ```bash
-cd ~/projects/querencia-packaging-wt-g2f2 && mkdir -p -m 0700 build/probe-gnupg && gpg --homedir build/probe-gnupg --batch --passphrase '' --quick-gen-key 'Querencia Probe <probe@invalid>' ed25519 sign 30d
+cd ~/querencia-packaging && mkdir -p -m 0700 build/probe-gnupg && gpg --homedir build/probe-gnupg --batch --passphrase '' --quick-gen-key 'Querencia Probe <probe@invalid>' ed25519 sign 30d
 ```
 
 ```bash
-cd ~/projects/querencia-packaging-wt-g2f2 && FPR=$(gpg --homedir build/probe-gnupg --list-secret-keys --with-colons | awk -F: '/^fpr/ {print $10; exit}') && python3 werkzeuge/apt-quelle-erzeugen.py --ziel build/probe-apt --gnupghome build/probe-gnupg --schluessel "$FPR" build/debs/*.deb
+cd ~/querencia-packaging && FPR=$(gpg --homedir build/probe-gnupg --list-secret-keys --with-colons | awk -F: '/^fpr/ {print $10; exit}') && python3 werkzeuge/apt-quelle-erzeugen.py --ziel build/probe-apt --gnupghome build/probe-gnupg --schluessel "$FPR" build/debs/*.deb
 ```
 
 `build/probe-apt/` auf die VM kopieren (z. B. nach `/srv/querencia-apt`),
@@ -124,7 +121,7 @@ printf 'Types: deb\nURIs: file:/srv/querencia-apt/\nSuites: resolute\nComponents
 sudo apt update && sudo apt install querencia-desktop
 ```
 
-Nach der Probe den Wegwerf-Schlüssel auf `entwicklungs-vm` löschen
+Nach der Probe den Wegwerf-Schlüssel auf dem Entwicklungsrechner löschen
 (`rm -rf build/probe-gnupg`).
 
 **Server-Abbild und NetworkManager (Befund B2 der ersten Probe):** Das
@@ -236,6 +233,6 @@ Ubuntu-Sitzung wählen.
 ## 8. Ergebnis melden
 
 Ergebnisdateien `~/querencia-test/`, `~/querencia-probe-logs.tgz` und die
-Tabelle aus Abschnitt 6 an die Status-Session geben. Jede FAIL-Zeile mit
+Tabelle aus Abschnitt 6 im Prüfbericht festhalten. Jede FAIL-Zeile mit
 Bildschirmfoto und Log. Erst mit allen Zeilen PASS (oder einer Entscheidung
 je FAIL) gilt die Pflichtprobe als bestanden.

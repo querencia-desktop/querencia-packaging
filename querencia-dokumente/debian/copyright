@@ -2,8 +2,8 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: querencia-dokumente
 Comment: Generated from copyright.in by werkzeuge/copyright-erzeugen.py.
  The cargo-vendor/ stanzas come from the vendored crates' Cargo.toml.
- The program links the GPL library libpoppler-glib (ENTSCHEIDUNGEN Nr. 14
- Q4); poppler-rs itself is MIT.
+ The program links the GPL library libpoppler-glib; poppler-rs itself is
+ MIT.
 
 Files: *
 Copyright: 2026 Querencia Desktop contributors

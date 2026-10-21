@@ -12,14 +12,14 @@ VENDOR_CARGO_HOME=${QUERENCIA_VENDOR_CARGO_HOME:-$AUSGABE/cargo-home}
 # Quellstände; für Probebauten (z. B. ein Paket vor seinem Tag) eine Kopie.
 QUELLEN_CONF=${QUERENCIA_QUELLEN_CONF:-$PK/quellen.conf}
 BUILD_LOCK=${QUERENCIA_BUILD_LOCK:-$HOME/.local/state/querencia/bau.lock}
-# Bau-Plätze der Startsession (seit 20.10.2026 13:3x): zwei Plätze, nice 10,
+# Gemeinsame Bau-Plätze (seit 20.10.2026): zwei Plätze, nice 10,
 # 4 Jobs. Fehlt das Skript, gilt die alte gemeinsame Sperre $BUILD_LOCK.
 BAU_PLATZ=${QUERENCIA_BAU_PLATZ:-$HOME/.local/state/querencia/bau-platz.sh}
 JOBS=${QUERENCIA_JOBS:-2}
 # Niedrige CPU-Priorität für alle Bauläufe (mehrere Sitzungen bauen parallel).
 NICE=${QUERENCIA_NICE:-10}
-# Nie ins Quellarchiv: Arbeitsanweisungen, Nachweise, Integrationsskripte
-# (ENTSCHEIDUNGEN Nr. 9, 10, 13). komponenten.conf kann das abschalten.
+# Nie ins Quellarchiv: Arbeitsanweisungen, Nachweise, Integrationsskripte.
+# komponenten.conf kann das abschalten.
 ORIG_AUSSCHLUSS_STANDARD="CLAUDE.md nachweis integration"
 
 log() { printf '%s: %s\n' "$(basename "$0")" "$*"; }

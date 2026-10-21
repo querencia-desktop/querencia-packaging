@@ -13,8 +13,8 @@ Copyright: 2026 Querencia Desktop contributors
 License: GPL-3+
 Comment: Building blocks of Querencia Software (SW-1, SW-2, SW-4), own upstream
  archives of this source package. Their Cargo.toml say GPL-3.0-or-later;
- the planned relicensing to MIT OR Apache-2.0 (ENTSCHEIDUNGEN Nr. 1) is not
- done in these revisions.
+ the planned relicensing to MIT OR Apache-2.0 is not done in these
+ revisions.
 
 Files: debian/org.querencia.Software.svg
 Copyright: 2026 Querencia Desktop contributors

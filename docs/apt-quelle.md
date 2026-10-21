@@ -11,8 +11,7 @@ Signierte Paketquelle für Ubuntu 26.04 („resolute“), aus der
 | Schlüssel | `https://dl.querencialinux.org/apt/querencia.gpg` (auch `.asc`), beim Client `/etc/apt/keyrings/querencia.gpg` |
 | Fingerabdruck | `63F6 C499 246E 3699 CA04  726D 342F 12D2 0CE7 1CBD` (erzeugt 20.10.2026, gültig bis 19.10.2028; öffentlicher Schlüssel `apt/querencia.gpg`/`apt/querencia.asc`) |
 
-**Stand:** vorbereitet, nicht veröffentlicht. Es gibt noch keinen echten
-Signierschlüssel (§4); geprüft ist der Ablauf mit einem Wegwerfschlüssel.
+**Stand:** veröffentlicht seit 21.10.2026.
 
 ## 1. Einbinden (Anwender)
 
@@ -97,8 +96,8 @@ sudo rm -f /etc/apt/sources.list.d/querencia.sources /etc/apt/keyrings/querencia
 
 ## 4. Signierschlüssel (pottrauschen)
 
-Der private Schlüssel bleibt bei pottrauschen. Keine Session erzeugt, sieht oder
-benutzt ihn; die Werkzeuge bekommen nur den Ordner und den Fingerabdruck,
+Der private Schlüssel bleibt bei pottrauschen. Kein Werkzeug erzeugt oder
+speichert ihn; die Werkzeuge bekommen nur den Ordner und den Fingerabdruck,
 wenn pottrauschen selbst signiert.
 
 ### 4.1 Erzeugen
@@ -106,14 +105,13 @@ wenn pottrauschen selbst signiert.
 Eigenschaften: Ed25519, nur Signieren und Zertifizieren (kein
 Verschlüsselungsteil), Ablauf nach 2 Jahren, Kennung
 `Querencia Desktop Archive Signing Key <archive@querencialinux.org>`
-(ENTSCHEIDUNGEN Nr. 22; ein Postfach dahinter ist nicht nötig). Der
+(ein Postfach dahinter ist nicht nötig). Der
 Schlüssel liegt in einem eigenen GnuPG-Ordner, nicht in `~/.gnupg`, am
 besten auf einem verschlüsselten USB-Stick, der nur zum Signieren
 eingesteckt ist. `<ORDNER>` ist dieser Ordner (Beispiel
-`/media/user/<stick>/querencia-gnupg`). Auf entwicklungs-vm laufen
-Sessions als Benutzer user und können dessen Dateien lesen; deshalb
-den Stick nach dem Signieren wieder abziehen und den Schlüssel immer mit
-Passphrase schützen.
+`/media/user/<stick>/querencia-gnupg`). Andere Prozesse desselben
+Benutzers können die Dateien lesen; deshalb den Stick nach dem Signieren
+wieder abziehen und den Schlüssel immer mit Passphrase schützen.
 
 ```bash
 install -d -m 0700 <ORDNER>
@@ -138,8 +136,7 @@ gpg --homedir <ORDNER> --list-keys --with-colons | awk -F: '/^fpr/ {print $10; e
 - Den ganzen Ordner `<ORDNER>` auf ein zweites verschlüsseltes Medium
   kopieren. Ohne Sicherung lässt sich die Quelle nach einem Verlust nur mit
   einem neuen Schlüssel weiterführen, den jeder Client neu einspielen muss.
-- Nie ins Git, nie in `~/review`, nie in einen von Sessions gelesenen
-  Ordner, nie in eine Cloud ohne eigene Verschlüsselung.
+- Nie ins Git, nie in einen Ordner, den andere Programme lesen, nie in eine Cloud ohne eigene Verschlüsselung.
 
 ### 4.3 Öffentlichen Schlüssel verteilen
 
@@ -231,8 +228,8 @@ bash werkzeuge/apt/quelle-pruefen.sh --fingerabdruck <FINGERABDRUCK> https://dl.
   Agent-Dialog. Die Passphrase kommt aus `--passphrase-datei` oder wird am
   Terminal einmal abgefragt; ein eigener Agent für `<ORDNER>` wird am Ende
   beendet (vergisst die Passphrase).
-- **Werkzeuge:** reprepro, aptly und apt-utils (`apt-ftparchive`) sind auf
-  entwicklungs-vm nicht installiert. `Packages` erzeugt `dpkg-scanpackages`,
+- **Werkzeuge:** reprepro, aptly und apt-utils (`apt-ftparchive`) sind in der
+  Entwicklungsumgebung nicht installiert. `Packages` erzeugt `dpkg-scanpackages`,
   Contents und Release erzeugt `quelle-bauen.sh` selbst.
 
 ### Upload

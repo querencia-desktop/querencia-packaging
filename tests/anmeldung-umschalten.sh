@@ -64,7 +64,7 @@ gdm3_installieren() { # wie ein Ubuntu Desktop mit GDM (Vorlage und Wahl wie gdm
     ln -sf /usr/lib/systemd/system/gdm3.service "$W/etc/systemd/system/display-manager.service"
 }
 
-handgreetd() { # wie entwicklungs-vm: greetd.service von Hand als display-manager
+handgreetd() { # wie auf dem Entwicklungsrechner: greetd.service von Hand als display-manager
     : >"$W/usr/lib/systemd/system/greetd.service"
     ln -sf /usr/lib/systemd/system/greetd.service "$W/etc/systemd/system/display-manager.service"
 }
@@ -167,7 +167,7 @@ erwarte "D6 Entfernen nach erneutem Wechsel: GDM wieder Standard" "$G" "$GL"
 purgen
 erwarte "D7 purge: GDM bleibt" "$G" "$GL"
 
-# E: von Hand eingerichteter greetd (wie entwicklungs-vm)
+# E: von Hand eingerichteter greetd (wie auf dem Entwicklungsrechner)
 szene e-handgreetd
 handgreetd
 installieren
@@ -175,7 +175,7 @@ erwarte "E1 fremder greetd ohne debconf: bleibt" "" /usr/lib/systemd/system/gree
 rekonfigurieren
 erwarte "E2 dpkg-reconfigure: Querencia Anmeldung" "$Q" "$QL"
 rekonfigurieren QUERENCIA_ANMELDUNG=nein
-erwarte "E3 =nein: von Hand eingerichteter greetd wieder aktiv (Rückfall entwicklungs-vm)" "" /usr/lib/systemd/system/greetd.service
+erwarte "E3 =nein: von Hand eingerichteter greetd wieder aktiv (Rückfall Entwicklungsrechner)" "" /usr/lib/systemd/system/greetd.service
 rekonfigurieren QUERENCIA_ANMELDUNG=ja
 erwarte "E4 =ja: wieder Querencia Anmeldung" "$Q" "$QL"
 entfernen

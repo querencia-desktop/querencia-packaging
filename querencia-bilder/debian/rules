@@ -7,7 +7,7 @@ include debian/querencia.mk
 querencia-install:
 	install -D -m 0755 target/release/querencia-bilder $(DESTDIR)/usr/bin/querencia-bilder
 	$(call desktop_install,data/org.querencia.Bilder.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Bilder.desktop)
-	# Kataloge aus po/ (englische msgids, ENTSCHEIDUNGEN Nr. 16)
+	# Kataloge aus po/ (englische msgids)
 	$(call mo_install,po,querencia-bilder)
 	$(call metainfo_install,org.querencia.Bilder)
 	# README nennt Arbeitsordner der Entwicklungs-VM (~/projects/...); nur das Änderungsprotokoll.
