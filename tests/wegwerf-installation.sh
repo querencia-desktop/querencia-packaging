@@ -20,8 +20,8 @@
 # Panel, Desktop, polkit-Agent, Benachrichtigungen, Leerlaufsperre laufen,
 # Bildschirmfoto; 6 jedes Programm aus /usr/share/applications startet in
 # dieser Sitzung und läuft 4 s ohne Absturz (Bildschirmfoto je Programm);
-# 7 Alpha 2: gtk-dark.css, Symbole 0.7, Dunkelmodus (color-scheme) für ein
-# GTK-4- und ein GTK-3-Fenster über die Helligkeit der Bildmitte.
+# 7 Alpha 2: gtk-dark.css, Symbole 0.7, dunkle Fassung für ein GTK-4- und
+# ein GTK-3-Fenster über die Helligkeit der Bildmitte.
 # Ergebnis: PASS/FAIL je Prüfung, Exit 1 bei einem FAIL.
 set -uo pipefail
 HIER=$(readlink -f "$0")
@@ -222,8 +222,9 @@ BUS
                 fi
             fi
         done
-        # 7 Alpha 2: dunkle Fassung des Themas, Symbole 0.7, Dunkelmodus über
-        # color-scheme (GSettings, ohne Portal) für ein GTK-4- und ein GTK-3-Fenster
+        # 7 Alpha 2: dunkle Fassung des Themas, Symbole 0.7, dunkle Darstellung
+        # für ein GTK-4- und ein GTK-3-Fenster (color-scheme über das Portal
+        # prüft frisches-ubuntu-pruefen.sh sitzung auf der VM)
         T=$R/usr/share/themes/Querencia-Klassisch Q=$R/usr/share/icons/Querencia
         if [ -d "$T" ]; then
             [ -f "$T/gtk-3.0/gtk-dark.css" ] && [ -f "$T/gtk-4.0/gtk-dark.css" ] &&
@@ -243,7 +244,6 @@ BUS
                 '<child><object class="GtkLabel"><property name="label">Querencia</property></object></child></object></interface>' >/tmp/q-gtk4.ui
             printf '%s\n' '<interface><object class="GtkWindow"><property name="default-width">1920</property><property name="default-height">1080</property><property name="title">A2 GTK 3</property>' \
                 '<child><object class="GtkLabel"><property name="label">Querencia</property><property name="visible">1</property></object></child></object></interface>' >/tmp/q-gtk3.ui
-            mkdir -p "$XDG_CONFIG_HOME/glib-2.0/settings"
             hell() { # mittlere Helligkeit (0–255) der Bildmitte eines PPM
                 python3 -I -c 'import sys
 d=open(sys.argv[1],"rb").read(); t=d.split(maxsplit=4); w,h=int(t[1]),int(t[2]); px=t[4]
@@ -252,27 +252,36 @@ for y in range(h//3,2*h//3,4):
     for x in range(w//3,2*w//3,4):
         i=3*(y*w+x); s+=0.2126*px[i]+0.7152*px[i+1]+0.0722*px[i+2]; n+=1
 print(int(s/n))' "$1"; }
+            # Dunkel über die Toolkit-Einstellung (settings.ini): GTK 4
+            # gtk-interface-color-scheme=dark und gtk-application-prefer-dark-theme
+            # (was Portal/color-scheme in der Sitzung setzen), GTK 3 gtk-application-prefer-dark-theme (GTK 3
+            # wertet color-scheme nicht aus); Thema Querencia-Klassisch.
             for tk in gtk4 gtk3; do
                 werte=
-                for schema in default prefer-dark; do
-                    printf "[org/gnome/desktop/interface]\ngtk-theme='Querencia-Klassisch'\nicon-theme='Querencia'\ncolor-scheme='%s'\n" "$schema" \
-                        >"$XDG_CONFIG_HOME/glib-2.0/settings/keyfile"
-                    tool=gtk4-builder-tool; [ $tk = gtk3 ] && tool=gtk-builder-tool
-                    GSETTINGS_BACKEND=keyfile GDK_DEBUG=no-portals $tool preview /tmp/q-$tk.ui >"$S/a2-$tk-$schema.log" 2>&1 &
+                for modus in hell dunkel; do
+                    rm -rf "$XDG_CONFIG_HOME/gtk-4.0" "$XDG_CONFIG_HOME/gtk-3.0"
+                    if [ $tk = gtk4 ]; then
+                        tool=gtk4-builder-tool d=$XDG_CONFIG_HOME/gtk-4.0 k=gtk-interface-color-scheme v="dark\ngtk-application-prefer-dark-theme=1"
+                    else
+                        tool=gtk-builder-tool d=$XDG_CONFIG_HOME/gtk-3.0 k=gtk-application-prefer-dark-theme v=1
+                    fi
+                    mkdir -p "$d"
+                    { echo "[Settings]"; echo "gtk-theme-name=Querencia-Klassisch"; [ $modus = dunkel ] && printf "%b\n" "$k=$v"; } >"$d/settings.ini"
+                    GDK_DEBUG=no-portals $tool preview /tmp/q-$tk.ui >"$S/a2-$tk-$modus.log" 2>&1 &
                     pid=$!
                     sleep 3
-                    grim -t ppm "/tmp/q-$tk-$schema.ppm" 2>/dev/null && grim "$OUT/a2-$tk-$schema.png" 2>/dev/null
+                    grim -t ppm "/tmp/q-$tk-$modus.ppm" 2>/dev/null && grim "$OUT/a2-$tk-$modus.png" 2>/dev/null
                     kill "$pid" 2>/dev/null; wait "$pid" 2>/dev/null
-                    werte="$werte $(hell "/tmp/q-$tk-$schema.ppm" 2>/dev/null || echo ?)"
+                    werte="$werte $(hell "/tmp/q-$tk-$modus.ppm" 2>/dev/null || echo ?)"
                 done
                 set -- $werte
                 if [ "$1" != "?" ] && [ "$2" != "?" ] && [ "$1" -ge 150 ] && [ "$2" -le 100 ]; then
-                    ok "A2 Dunkelmodus $tk: color-scheme default → Helligkeit $1, prefer-dark → $2 ($OUT/a2-$tk-*.png)"
+                    ok "A2 Dunkle Fassung $tk: hell → Helligkeit $1, dunkel → $2 ($OUT/a2-$tk-*.png)"
                 else
-                    nok "A2 Dunkelmodus $tk: default $1, prefer-dark $2 (erwartet ≥150 / ≤100; $OUT/a2-$tk-*.png)"
+                    nok "A2 Dunkle Fassung $tk: hell $1, dunkel $2 (erwartet ≥150 / ≤100; $OUT/a2-$tk-*.png)"
                 fi
             done
-            rm -f "$XDG_CONFIG_HOME/glib-2.0/settings/keyfile"
+            rm -rf "$XDG_CONFIG_HOME/gtk-4.0" "$XDG_CONFIG_HOME/gtk-3.0"
         else
             hinweis "A2 Dunkelmodus nicht geprüft (Thema, grim, gtk4-builder-tool oder gtk-builder-tool fehlt)"
         fi

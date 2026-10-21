@@ -105,6 +105,10 @@ nachher)
         nok "N Paket hat in /home geschrieben" || ok "N nichts in /home angelegt"
     ;;
 sitzung)
+    # Startprotokoll vor dem Prüfpunkt „zweiter Start verweigert“ sichern: der
+    # verweigerte Zweitstart rotiert sitzung-start.log (F3-9).
+    START_LOG=$OUT/sitzung-start.vor-zweitstart.log
+    cp "$HOME/.local/state/querencia/sitzung-start.log" "$START_LOG" 2>/dev/null
     [ "$(pgrep -c -u "$(id -u)" -f "^(/usr/bin/)?querencia-panel( |\$)")" = 1 ] && ok "H genau ein Panel" || nok "H Panel-Anzahl"
     [ "$(pgrep -c -u "$(id -u)" -f "^(/usr/bin/)?querencia-desktop( |\$)")" = 1 ] && ok "I genau ein Desktop" || nok "I Desktop-Anzahl"
     # Ausgabe erst sammeln: unter pipefail zählte sonst der Exit 1 der Verweigerung.
@@ -130,10 +134,10 @@ sitzung)
     tr '\000' ' ' <"/proc/$labwc_pid/cmdline" | grep -q -- "-C $HOME/.config/querencia/labwc" &&
         ok "labwc liest die Benutzerkopie" || nok "labwc liest nicht die Benutzerkopie: $(tr '\000' ' ' <"/proc/$labwc_pid/cmdline")"
     [ -f "$HOME/.config/querencia/labwc/.vorgabe/stand" ] && ok "Benutzerkopie mit .vorgabe/stand" || nok "Benutzerkopie ohne .vorgabe"
-    grep -q 'Aktivierungsumgebung gesetzt' "$S/sitzung-start.log" && ok "Starter: Aktivierungsumgebung gesetzt" || nok "Starter: keine Aktivierungsumgebung"
-    grep -q 'Portale .*(vor dem Start' "$S/sitzung-start.log" && ok "Starter: Portale vor dem Start zurückgesetzt" || nok "Starter: kein Portal-Reset"
-    portal=$(grep -o 'Settings-Portal antwortet nach [0-9]* ms' "$S/sitzung-start.log" | tail -1)
-    [ -n "$portal" ] && ok "autostart: $portal" || nok "autostart: Portal antwortet nicht ($(grep 'Settings-Portal' "$S/sitzung-start.log" | tail -1))"
+    grep -q 'Aktivierungsumgebung gesetzt' "$START_LOG" && ok "Starter: Aktivierungsumgebung gesetzt" || nok "Starter: keine Aktivierungsumgebung"
+    grep -q 'Portale .*(vor dem Start' "$START_LOG" && ok "Starter: Portale vor dem Start zurückgesetzt" || nok "Starter: kein Portal-Reset"
+    portal=$(grep -o 'Settings-Portal antwortet nach [0-9]* ms' "$START_LOG" | tail -1)
+    [ -n "$portal" ] && ok "autostart: $portal" || nok "autostart: Portal antwortet nicht ($(grep 'Settings-Portal' "$START_LOG" | tail -1))"
     akt=$(systemctl --user show-environment)
     want_lang=$(tr '\000' '\n' <"/proc/$labwc_pid/environ" | sed -n 's/^LANG=//p')
     grep -qx "LANG=$want_lang" <<<"$akt" && ok "QD-064 Aktivierungsumgebung LANG=$want_lang" || nok "QD-064 LANG: $(grep '^LANG=' <<<"$akt") statt $want_lang"
@@ -157,7 +161,7 @@ sitzung)
         org.freedesktop.portal.Settings ReadOne ss org.freedesktop.appearance color-scheme 2>/dev/null)
     gsettings set org.gnome.desktop.interface color-scheme "$vorher_cs"
     [ "$d" = "v u 1" ] && [ "$h" = "v u 0" ] && ok "A2 Dunkelmodus umschaltbar (Portal: dunkel 1, Standard 0)" || nok "A2 Dunkelmodus: dunkel='$d' standard='$h'"
-    seit=$(sed -n '1s/^# Querencia-Sitzung \([0-9-]* [0-9:]*\).*/\1/p' "$S/sitzung-start.log")
+    seit=$(sed -n '1s/^# Querencia-Sitzung \([0-9-]* [0-9:]*\).*/\1/p' "$START_LOG")
     fb=$(journalctl --user -u xdg-desktop-portal.service --since "$seit" 2>/dev/null | grep -c 'last-resort fallback')
     [ "$fb" = 0 ] && ok "B6 xdg-desktop-portal ohne last-resort fallback seit $seit" || nok "B6 $fb× last-resort fallback"
     panel_pid=$(pgrep -u "$(id -u)" -f "^(/usr/bin/)?querencia-panel( |\$)" | head -1)
