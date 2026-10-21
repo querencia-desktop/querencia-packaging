@@ -1,0 +1,19 @@
+Description: MetaInfo-Homepage auf querencialinux.org
+ <url type="homepage"> nannte das alte private Repository. Das Paket nennt
+ die Projektseite; die Korrektur im Quell-Repository folgt nach Alpha 2,
+ der Code-Tag archiv/0.1.1 bleibt unverändert (CLEAN-1 B2).
+Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Forwarded: not-yet (Quellkorrektur in querencia-archiv nach Alpha 2)
+Last-Update: 2026-10-21
+---
+--- a/data/org.querencia.Archiv.metainfo.xml
++++ b/data/org.querencia.Archiv.metainfo.xml
+@@ -21,7 +21,7 @@
+     <p>Reading uses libarchive: zip (also password protected), tar with gzip, xz, bzip2 or zstd, 7z and RAR (read only). Entries with “..” or absolute paths are never extracted.</p>
+     <p xml:lang="de">Gelesen wird über libarchive: zip (auch mit Passwort), tar mit gzip, xz, bzip2 oder zstd, 7z und RAR (nur lesen). Einträge mit „..“ oder absolutem Pfad werden nie entpackt.</p>
+   </description>
+-  <url type="homepage">https://querencialinux.org</url>
++  <url type="homepage">https://querencialinux.org</url>
+   <launchable type="desktop-id">org.querencia.Archiv.desktop</launchable>
+   <provides>
+     <binary>querencia-archiv</binary>

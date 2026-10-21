@@ -4,6 +4,8 @@ querencia-editor (0.2.3-1) resolute; urgency=medium
     live 7ed5d302): dunkle Darstellung (CSS-Welle QD-081), Textfläche folgt
     dem Thema, eindeutige Zugriffstasten im deutschen Katalog; enthält 0.2.2
     (Suchen/Ersetzen behalten die Titelleiste, QD-076).
+  * MetaInfo: <url type="homepage"> https://querencialinux.org statt des
+    alten privaten Repos (CLEAN-1 B2).
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
 

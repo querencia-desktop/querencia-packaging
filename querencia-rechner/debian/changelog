@@ -3,6 +3,8 @@ querencia-rechner (0.1.5-1) resolute; urgency=medium
   * Neue Upstream-Version 0.1.5 (Tag rechner/0.1.5 = fa3c4920; live seit
     21.10. 18:01:41, 596ff565): Speichermarke hell lesbar (QD-089); enthält
     0.1.4 (dunkle Darstellung, CSS-Welle QD-081).
+  * MetaInfo: <url type="homepage"> https://querencialinux.org statt des
+    alten privaten Repos (CLEAN-1 B2).
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
 

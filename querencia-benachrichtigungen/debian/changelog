@@ -4,6 +4,8 @@ querencia-benachrichtigungen (0.2.2-1) resolute; urgency=medium
     live seit 21.10. 18:07:21, 036ab58b): Programmname und Hinweis im hellen
     Popup 5,05:1 (QD-089); enthält 0.2.1 (dunkle Darstellung, CSS-Welle
     QD-081).
+  * MetaInfo: <url type="homepage"> https://querencialinux.org statt des
+    alten privaten Repos (CLEAN-1 B2).
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
 

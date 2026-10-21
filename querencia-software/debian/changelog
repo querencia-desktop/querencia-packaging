@@ -4,6 +4,8 @@ querencia-software (0.1.4-1) resolute; urgency=medium
     3871b54c, Code c5fa32d; live seit 21.10. 10:26:31, 3aec4c20): dunkle
     Darstellung über Themenfarben (CSS-Welle QD-081). Bausteine paketkit,
     katalog, transaktion unverändert.
+  * MetaInfo: <url type="homepage"> https://querencialinux.org statt des
+    alten privaten Repos (CLEAN-1 B2).
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
 
