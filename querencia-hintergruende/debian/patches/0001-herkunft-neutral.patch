@@ -1,0 +1,70 @@
+Description: Herkunft ohne interne Arbeitspfade und Prozessrollen
+ docs/herkunft.md (installiert nach /usr/share/doc/querencia-hintergruende/)
+ nannte Arbeitsordner der Entwicklungs-VM und interne Rollen. Das Paket
+ nennt neutral den Wallpaper-Test vom 21.10.2026 und den Prüfbericht des
+ Projekts. Der Tag hintergruende/0.2 bleibt unverändert; die Quellkorrektur
+ folgt mit 0.2.1 (CLEAN-1).
+Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Forwarded: not-yet (Quellkorrektur in querencia-hintergruende 0.2.1)
+Last-Update: 2026-10-21
+---
+--- a/docs/herkunft.md
++++ b/docs/herkunft.md
+@@ -10,8 +10,8 @@
+ Bilder von 0.1 (Querencia Blau, Abend, Blau 2, Erde, Nacht) bleiben im
+ Runtime-Repo und sind hier nicht enthalten.
+ 
+-16 vom Besitzer gewählte Bilder aus dem Wallpaper-Test
+-(, Auswahl §11: A01, A04, A10, B09, C01,
++16 vom Besitzer gewählte Bilder aus dem Wallpaper-Test vom 21.10.2026
++(Prüfbericht des Projekts, Auswahl §11: A01, A04, A10, B09, C01,
+ C02, C04, C05, C08, C09, C10, D08 sowie die Logo-Fassungen L-A01-L1/L2/L3 und
+ L-B03-L1). Entscheidung des Besitzers 21.10.2026 19:50: alle 16 kommen in den
+ Alpha-2-Paketsatz, Standardbild ist `tiefblau` (A01), Ablage als eigenes
+@@ -19,8 +19,8 @@
+ 
+ ## Lizenz
+ 
+-**Freigegeben vom Besitzer am 21.10.2026 19:50** (08 QD-093). Befund der
+-Startsession zu den Nutzungsbedingungen: Black Forest Labs, Developer Terms
++**Freigegeben vom Besitzer am 21.10.2026 19:50.** Befund zu den
++Nutzungsbedingungen: Black Forest Labs, Developer Terms
+ vom 4.8.2026, §3(b) und §4(b): die Ausgaben gehören dem Nutzer, kommerzielle
+ Nutzung ist erlaubt; §6(i): Content Credentials (C2PA) nicht entfernen.
+ 
+@@ -36,8 +36,9 @@
+ - **Content Credentials:** Die bearbeiteten Ableitungen in
+   `data/hintergruende/` tragen keinen C2PA-Chunk mehr (Pillow schreibt nur
+   IHDR/IDAT/IEND). Die Originale liegen deshalb unverändert mit ihrem
+-  C2PA-Chunk `caBX` unter `quellen/` und gehören zur Quelle jeder
+-  Weitergabe; sie werden nicht installiert.
++  C2PA-Chunk `caBX` unter `quellen/` des Upstream-Repositorys
++  querencia-hintergruende und gehören zur Quelle jeder Weitergabe; sie
++  werden nicht installiert.
+ - `werkzeug/` (Skripte): GPL-3.0-or-later, Text in `werkzeug/LICENSE`.
+ 
+ ## Erzeuger
+@@ -47,10 +48,10 @@
+ | Dienst | fal.ai, Endpunkt `fal-ai/flux-pro/v1.1-ultra` |
+ | Modell | **FLUX1.1 [pro] Ultra** (Black Forest Labs) |
+ | Datum | 21.10.2026, 18:10:43 bis 18:12:54 Uhr (Zeitstempel der Antwortdateien) |
+-| Bediener | Worker-Session Wallpaper-Test im Auftrag der Startsession, Zugangsschlüssel des Besitzers |
++| Bediener | Wallpaper-Test des Projekts, Zugang des Besitzers |
+ | Parameter | `aspect_ratio 16:9`, `output_format png`, `num_images 1`, `enable_safety_checker true`, `safety_tolerance "2"`; `raw true` nur bei den Landschaften (C) |
+ | Ergebnis | 2752×1536 PNG je Bild, 0,06 USD je Bild |
+-| Prompts, Antworten | `~/projects/querencia-wallpaper-test/prompts.md`, `logs/<Bild>.json` (kein Repo); Grundprompt und Variation je Motiv unten |
++| Prompts, Antworten | Wallpaper-Test vom 21.10.2026 (Prompts und Antwortdateien, nicht veröffentlicht); Grundprompt und Variation je Motiv unten |
+ | Logo | nicht von der KI: aus `werkzeug/logo/querencia-logo-wortmarke.svg` (Kopie von `querencia-web/assets/querencia-logo.svg`, Commit `57a7697`, SHA256 `d96aebff8ce943de…`) mit `werkzeug/logo-rendern-02.py` gerendert und von `werkzeug/erzeugen-02.py` aufgeprägt |
+ 
+ Grundprompts (die Variation steht je Motiv in der Tabelle):
+@@ -76,8 +77,8 @@
+ 
+ ## Quellen
+ 
+-`quellen/<Familie>/<Bild>.png`: die 13 fal-Originale, byte-gleich aus
+-`~/projects/querencia-wallpaper-test/kandidaten/` kopiert (Chunks IHDR,
++`quellen/<Familie>/<Bild>.png`: die 13 fal-Originale, byte-gleich aus den
++Kandidaten des Wallpaper-Tests vom 21.10.2026 kopiert (Chunks IHDR,
+ IDAT, IEND und C2PA `caBX`). 13 statt 16, weil die vier Logo-Fassungen aus
+ A01 und B03 entstehen; die Testdateien `kandidaten/L/L-*.png` sind lokale
+ Ableitungen ohne C2PA und werden nicht verwendet.

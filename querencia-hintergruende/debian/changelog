@@ -7,5 +7,8 @@ querencia-hintergruende (0.2-1) resolute; urgency=medium
     /usr/share/querencia/hintergruende/ (SHA256SUMS d21b9692…), Standardbild
     tiefblau. Originale (quellen/) und Erzeuger (werkzeug/) bleiben im
     Upstream-Repo.
+  * DEP-3-Patches 0001-herkunft-neutral.patch (docs/herkunft.md) und
+    0002-changelog-neutral.patch (CHANGELOG.md): ohne interne Arbeitspfade
+    und Prozessrollen (CLEAN-1). Installation nach der Liste SHA256SUMS.
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 21:00:00 +0200

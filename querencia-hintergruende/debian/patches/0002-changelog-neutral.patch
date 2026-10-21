@@ -1,0 +1,19 @@
+Description: Änderungsprotokoll ohne Arbeitspfade der Entwicklungsumgebung
+ CHANGELOG.md (installiert als changelog.gz) nannte Ablage und Links des
+ Einbaus auf der Entwicklungs-VM mit Pfaden. Das Paket beschreibt den
+ Einbau ohne Pfade. Der Tag hintergruende/0.2 bleibt unverändert; die
+ Quellkorrektur folgt mit 0.2.1 (CLEAN-1).
+Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Forwarded: not-yet (Quellkorrektur in querencia-hintergruende 0.2.1)
+Last-Update: 2026-10-21
+---
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -14,5 +14,5 @@
+ - `quellen/`: die 13 fal-Originale unverändert mit C2PA.
+ - Lizenz CC-BY-SA-4.0 mit KI-Vorbehalt, Logo-Fassungen zusätzlich
+   Markenregel; Werkzeuge GPL-3.0-or-later.
+-- `integration/0.2/`: Ablage `~/opt/querencia/hintergruende/<sha16>/` und
+-  Links in `~/.local/share/querencia/hintergruende/` (ohne sudo), Probe.
++- `integration/0.2/`: Einbau auf der Entwicklungsumgebung ohne sudo
++  (Ablage und Links im Benutzerordner), Probe.
