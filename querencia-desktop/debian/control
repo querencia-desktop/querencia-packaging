@@ -24,7 +24,7 @@ Depends: labwc (>= 0.9.4),
          querencia-systemmonitor (>= 0.1.4),
          querencia-dateisuche (>= 0.1.4),
          querencia-software (>= 0.1.4),
-         querencia-dokumente (>= 0.1.2),
+         querencia-dokumente (>= 0.1.3),
          querencia-archiv (>= 0.1.1),
          dmz-cursor-theme,
          fonts-dejavu
