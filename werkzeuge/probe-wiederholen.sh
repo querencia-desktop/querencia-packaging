@@ -13,17 +13,20 @@
 #   <debs-ordner> Standard build/debs (mindestens 17 .deb, alle in SHA256SUMS)
 #
 # Läuft auf entwicklungs-vm, braucht den SSH-Schlüssel für root@PROBE_HOST und
-# probe@<vm>. Fasst auf dem Host nur VM 115 an und prüft vorher deren Namen.
+# probe@<vm>. Fasst auf dem Host nur die eine VM an (Standard 115, sonst
+# PROBE_VMID/PROBE_NAME/PROBE_SNAP) und prüft vorher deren Namen.
 # Ergebnisse: $PROBE_AUSGABE/probe-<zeit>/ (Standard ;
 # nie unter build/, das gehört dem Bau).
 # Rückfall: keiner nötig; der nächste Lauf rollt den Snapshot wieder zurück.
 set -euo pipefail
 
 HOST=${PROBE_HOST:-root@192.0.2.40}
-VMID=115
-NAME=querencia-probe
+# Zweite Probe-VM parallel (Alpha 2): PROBE_VMID=116 PROBE_NAME=ubuntu-probe
+# PROBE_SNAP=gnome-frisch (Ubuntu Desktop mit GDM, ohne --desktop).
+VMID=${PROBE_VMID:-115}
+NAME=${PROBE_NAME:-querencia-probe}
 # Einziger Snapshot: ZFS rollt nur auf den jüngsten zurück.
-SNAP=frisch
+SNAP=${PROBE_SNAP:-frisch}
 DESKTOP=0
 if [ "${1-}" = --desktop ]; then DESKTOP=1; shift; fi
 REPO=$(cd "$(dirname "$0")/.." && pwd)

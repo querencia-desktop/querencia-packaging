@@ -9,4 +9,5 @@ querencia-install:
 	$(call desktop_install,data/org.querencia.Systemmonitor.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Systemmonitor.desktop)
 	$(call mo_install,po,querencia-systemmonitor)
 	$(call metainfo_install,org.querencia.Systemmonitor)
-	$(call doc_install,.)
+	# README 0.1.4 nennt einen Arbeitsordner der Entwicklungs-VM; nur das Änderungsprotokoll.
+	$(call doc_install,.,-)

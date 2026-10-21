@@ -78,8 +78,13 @@ nachher)
         ok "A2 Symbolthema 0.7: $n Dateien, user-desktop" || nok "A2 Symbolthema: $n Dateien statt 715"
     ! grep -a -q 'api\.github\.com' /usr/bin/querencia-files && ok "A2 Files ohne GitHub-Update-Abfrage" || nok "A2 Files nennt api.github.com"
     dpkg --compare-versions "$(dpkg-query -W -f='${Version}' querencia-terminal)" ge 0.3.0 && ok "A2 Terminal mit Reitern (>= 0.3.0)" || nok "A2 Terminal < 0.3.0"
+    # 17 aus querencia-shell, dazu 32 aus querencia-hintergruende (Alpha 2)
+    soll=17; dpkg -s querencia-hintergruende >/dev/null 2>&1 && soll=49
     n=$(ls /usr/share/querencia/hintergruende/*.png 2>/dev/null | wc -l)
-    [ "$n" -eq 17 ] && ok "Hintergründe: 17" || nok "Hintergründe: $n statt 17"
+    [ "$n" -eq "$soll" ] && [ -f /usr/share/querencia/hintergruende/querencia-blau.png ] &&
+        ok "Hintergründe: $n" || nok "Hintergründe: $n statt $soll"
+    [ "$soll" = 17 ] || { [ -f /usr/share/querencia/hintergruende/querencia-tiefblau.png ] &&
+        ok "A2 Standardbild querencia-tiefblau.png" || nok "A2 querencia-tiefblau.png fehlt"; }
     pc=/usr/share/xdg-desktop-portal/x-querencia-portals.conf
     grep -qx 'default=gtk' "$pc" 2>/dev/null && grep -qx 'org.freedesktop.impl.portal.Secret=gnome-keyring' "$pc" &&
         ! grep -q '\*' <(grep -v '^#' "$pc") &&
