@@ -1,3 +1,19 @@
+querencia-symbole (0.7-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.7 (Tag symbole/0.7 = ac663d94; live seit 21.10.
+    01:03:30, 715 Dateien): Symbol für den Panel-Knopf „Arbeitsfläche
+    anzeigen“ (user-desktop, user-desktop-symbolic, Alias show-desktop) und
+    die Programmsymbole Archiv, Software, Dateisuche, Rechner und Kürzel im
+    Symbolthema Querencia; hicolor unverändert.
+  * debian/rules baut das Symbolthema aus quellen/ mit werkzeug/thema-
+    bauen.py (wie werkzeug/vorlage-erzeugen-0.7.sh); Build-Depends python3,
+    python3-gi, gir1.2-gdkpixbuf-2.0, librsvg2-common. Bau auf entwicklungs-vm
+    byte-gleich mit dem Live-Ordner.
+  * debian/copyright: Programmsymbole unter quellen/thema/programme/ stehen
+    wie ihre Programme unter GPL-3.0-or-later.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
+
 querencia-symbole (0.6-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.6 (Tag symbole/0.6, 6b6a5005; aktiviert nach

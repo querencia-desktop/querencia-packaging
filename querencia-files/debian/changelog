@@ -1,3 +1,19 @@
+querencia-files (0.1.0~alpha5-1) resolute; urgency=medium
+
+  * Live-Stand QF-0q-1 (querencia-files-dev, Tag files/qf-0q-1 = 58042734;
+    live seit 21.10. 16:17:03, d6311ea7): Stratas eigener Update-Prüfer
+    stillgelegt (QD-090, keine Verbindung zu GitHub/AUR, kein „Update
+    verfügbar“; die Seite „Updates“ nennt nur die Paketquelle).
+  * Enthält QF-0p (files/qf-0p): Querencia-Symbol im Info-Dialog,
+    known_hosts-Abgleich nach „Trotzdem anmelden“, FileManager1 per
+    RequestName, „Hier entpacken“ über Querencia Archiv, Farbschema beim
+    Start (QD-081).
+  * debian/patches/0001-update-pruefung-abschaltbar.patch entfällt: der
+    Upstream schaltet die Prüfung selbst ab (services::SELF_UPDATE).
+  * Recommends: querencia-archiv („Hier entpacken“).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
+
 querencia-files (0.1.0~alpha4-1) resolute; urgency=medium
 
   * Live-Stand QF-0o-3 (querencia-files-dev, Tag files/qf-0o-3 = aed87276;

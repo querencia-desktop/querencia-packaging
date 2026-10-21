@@ -1,3 +1,12 @@
+querencia-bilder (0.2.5-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.2.5 (Tag bilder/0.2.5 = d3b643e6; live seit
+    21.10. 18:00:25, e584a1ed): Leerhinweis-Kontrast 4,76:1 (QD-089);
+    enthält 0.2.4 (dunkle Darstellung, CSS-Welle QD-081) und 0.2.3 (Info-
+    Fenster behält die Titelleiste, QD-076).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
+
 querencia-bilder (0.2.2-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.2.2 (Tag bilder/0.2.2, 437d273e; aktiviert nach

@@ -19,11 +19,12 @@ querencia-install:
 	# Fensterthema für labwc (<theme><name>Querencia-Klassisch</name> in rc.xml)
 	install -d $(DESTDIR)/usr/share/themes/Querencia-Klassisch/labwc
 	install -m 0644 $(THEME)/themerc $(THEME)/*.png $(DESTDIR)/usr/share/themes/Querencia-Klassisch/labwc/
-	# GTK-Thema (Komponente querencia-thema, Thema-1) im selben Themenordner
+	# GTK-Thema (Komponente querencia-thema) im selben Themenordner; seit
+	# Thema 0.2 mit gtk-dark.css (dunkle Fassung, prefer-dark)
 	install -m 0644 $(GTKTHEMA)/index.theme $(DESTDIR)/usr/share/themes/Querencia-Klassisch/index.theme
 	set -e; for g in gtk-3.0 gtk-4.0; do \
 		install -d $(DESTDIR)/usr/share/themes/Querencia-Klassisch/$$g/assets; \
-		install -m 0644 $(GTKTHEMA)/$$g/gtk.css $(DESTDIR)/usr/share/themes/Querencia-Klassisch/$$g/gtk.css; \
+		install -m 0644 $(GTKTHEMA)/$$g/gtk.css $(GTKTHEMA)/$$g/gtk-dark.css $(DESTDIR)/usr/share/themes/Querencia-Klassisch/$$g/; \
 		install -m 0644 $(GTKTHEMA)/$$g/assets/*.svg $(DESTDIR)/usr/share/themes/Querencia-Klassisch/$$g/assets/; done
 	$(call desktop_install,crates/querencia-kuerzel/data/org.querencia.Kuerzel.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Kuerzel.desktop)
 	$(call desktop_nur_querencia,$(DESTDIR)/usr/share/applications/org.querencia.Kuerzel.desktop)

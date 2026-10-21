@@ -1,3 +1,25 @@
+querencia-shell (0.1.0~alpha7-1) resolute; urgency=medium
+
+  * Alpha 2: querencia-runtime main 2e134c67 (Tag welle-dunkel/0.2.1-int;
+    Code Panel/Desktop 1d40629, Tags panel/0.2.1, desktop/0.2.0,
+    kuerzel/0.2.0). Live: Panel 0.2.1 16081058 (seit 21.10. 10:27:08),
+    Desktop 0.2.0 f5270e83 (seit dem Neustart 21.10. 17:45), Kürzel 0.2.0
+    d433840a (seit 21.10. 01:36:10); Lautstärke und Netzwerk unverändert.
+  * CSS-Welle dunkel (QD-081): Panel und Desktop folgen dem Farbschema,
+    Statussymbole auf dem dunklen Panel umgefärbt; Kürzelübersicht mit den
+    Reiterkürzeln von Terminal 0.3.0.
+  * GTK-Thema Querencia-Klassisch 0.2.1 (Komponente querencia-thema, Tag
+    thema/gtk-0.2.1 = a130eec; live seit 21.10. 18:05:53, Ablage 22824d05):
+    dunkle Fassung gtk-dark.css für GTK 3 und 4 (prefer-dark), Fehlerschrift
+    dunkel, Tastenkürzel in Menüs 75 %, benannte Farben sidebar_*/menu_*.
+    debian/rules installiert gtk-dark.css.
+  * debian/patches/0001-desktop-quellbaum-nur-debug.patch: Zeilenversatz neu
+    geschnitten, Inhalt unverändert.
+  * Depends: querencia-symbole (>= 0.7) für den Knopf „Arbeitsfläche
+    anzeigen“ (user-desktop).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
+
 querencia-shell (0.1.0~alpha6-1) resolute; urgency=medium
 
   * Endsatz G2-F3: Quelle querencia-runtime main dce66e3 (G2-AL; live Panel

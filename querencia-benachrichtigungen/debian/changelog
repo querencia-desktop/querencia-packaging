@@ -1,3 +1,12 @@
+querencia-benachrichtigungen (0.2.2-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.2.2 (Tag benachrichtigungen/0.2.2 = d951eb3d;
+    live seit 21.10. 18:07:21, 036ab58b): Programmname und Hinweis im hellen
+    Popup 5,05:1 (QD-089); enthält 0.2.1 (dunkle Darstellung, CSS-Welle
+    QD-081).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
+
 querencia-benachrichtigungen (0.2.0-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.2.0 (Tag benachrichtigungen/0.2.0-2, c28d692f,

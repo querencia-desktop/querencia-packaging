@@ -1,3 +1,12 @@
+querencia-screenshot (0.2.9-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.2.9 (querencia-screenshot-dev, Tag
+    screenshot/0.2.9 = 1f2f62f3; live a14c6d50): das Auswahlfenster wird
+    nach einem Esc-Abbruch der Bereichswahl neu gebaut und behält seine
+    Titelleiste (QD-076).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
+
 querencia-screenshot (0.2.8-2) resolute; urgency=medium
 
   * Nur in der Querencia-Sitzung (OnlyShowIn=X-Querencia;, QD-074 K3,

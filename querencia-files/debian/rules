@@ -10,12 +10,12 @@ CARGO_FEATURES := --no-default-features
 # atomic_try_update; kstring 2.0.4 declares rust-version 1.96). Ubuntu 26.04
 # has 1.93.1, so prototypes build with DEB_BUILD_PROFILES=pkg.querencia.fremdrust
 # and QUERENCIA_RUST_BIN=<toolchain>/bin (querencia-packaging docs/building.md).
-# Update checks against GitHub/AUR are compiled out (services/update_check.rs).
-export QUERENCIA_DISABLE_UPDATE_CHECKS := 1
+# Update checks against GitHub/AUR: since QF-0q (files/qf-0q-1) the upstream
+# constant services::SELF_UPDATE (false) keeps Strata's own updater still (no
+# thread, no connection, no "update available"); the former build-time patch
+# 0001-update-pruefung-abschaltbar.patch is no longer needed.
 export STRATA_BUILD_KIND := alpha
 export STRATA_BUILD_COMMIT := $(shell head -n 1 debian/upstream-commit 2>/dev/null)
-# The update check is switched off by debian/patches/
-# 0001-update-pruefung-abschaltbar.patch (QUERENCIA_DISABLE_UPDATE_CHECKS above).
 include debian/querencia.mk
 
 querencia-install:

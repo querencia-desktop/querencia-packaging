@@ -3,7 +3,7 @@ Section: x11
 Priority: optional
 Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
 Rules-Requires-Root: no
-Build-Depends:
+Build-Depends: python3, python3-gi, gir1.2-gdkpixbuf-2.0, librsvg2-common
 Standards-Version: 4.7.2
 
 Package: querencia-symbole
@@ -18,8 +18,9 @@ Description: Querencia Desktop icons and icon theme (alpha)
     Einstellungen, Files, Lautstärke, Screenshot, Sitzung, Systemmonitor
     and Terminal;
   * the icon theme "Querencia" (places, devices, status, categories and
-    applications in a flat GNOME 2 look), inheriting from gnome-human and
-    hicolor.
+    applications in a flat GNOME 2 look, including the "show desktop"
+    button and the icons of Archiv, Software, Dateisuche, Rechner and
+    Kürzel), inheriting from gnome-human and hicolor.
  Every icon comes as SVG and as PNG in 16, 22, 24, 32, 64, 128 and 256
  pixels.
  .

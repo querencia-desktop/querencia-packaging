@@ -1,3 +1,10 @@
+querencia-dateisuche (0.1.4-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.1.4 (Tag dateisuche/0.1.4 = 73238ce6; live
+    dc86ea6a): dunkle Darstellung (CSS-Welle QD-081).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
+
 querencia-dateisuche (0.1.3-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.1.3 (Tag dateisuche/0.1.3, dc516960; live seit

@@ -8,7 +8,7 @@ Comment: Own icons and icon theme of Querencia Desktop (G2-V, Thema-2); SVG
  masters in quellen/, the PNG sizes rendered from them by werkzeug/. No
  third-party artwork; drive, network, volume and logo pictures come from
  querencia-runtime (same copyright holders). Licence by ENTSCHEIDUNGEN
- Nr. 19 (2026-10-20); the source tree does not carry the LICENSE file yet.
+ Nr. 19 (2026-10-20); full text in LICENSE of the source tree.
  Works created with AI tools may not be protected by copyright in every
  jurisdiction; the licence statement is then a notice. The name and the
  Q logo are marks of Querencia Desktop and are not covered by the licence.
@@ -16,6 +16,15 @@ Comment: Own icons and icon theme of Querencia Desktop (G2-V, Thema-2); SVG
 Files: werkzeug/*
 Copyright: 2026 Querencia Desktop contributors
 License: GPL-3+
+
+Files: quellen/thema/programme/*
+Copyright: 2026 Querencia Desktop contributors
+License: GPL-3+
+Comment: Program icons of Archiv, Software, Dateisuche, Rechner and Kürzel,
+ taken byte-identical from the repositories of these programs (Symbole 0.7,
+ quellen/thema/programme/HERKUNFT.txt). They keep the licence of their
+ program, also as the files org.querencia.{Archiv,Software,Dateisuche,
+ Rechner,Kuerzel}.* rendered from them in /usr/share/icons/Querencia.
 
 License: CC-BY-SA-4.0
  Creative Commons Attribution-ShareAlike 4.0 International.

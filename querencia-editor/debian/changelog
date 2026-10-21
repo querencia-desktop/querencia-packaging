@@ -1,3 +1,12 @@
+querencia-editor (0.2.3-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.2.3 (Tag editor/0.2.3 = 4d58699f, Code 47042ed;
+    live 7ed5d302): dunkle Darstellung (CSS-Welle QD-081), Textfläche folgt
+    dem Thema, eindeutige Zugriffstasten im deutschen Katalog; enthält 0.2.2
+    (Suchen/Ersetzen behalten die Titelleiste, QD-076).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
+
 querencia-editor (0.2.1-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.2.1 (Tag editor/0.2.1, bdcde50f; live seit 20.10.

@@ -3,12 +3,10 @@ QUERENCIA_KIND := data
 include debian/querencia.mk
 
 ICONS := integration/vorlage/icons/hicolor
-THEMA := integration/thema/vorlage/Querencia
 
 querencia-install:
 	# Symbolregel: nie 48x48 zusammen mit einem Scalable-Verzeichnis
 	test ! -e $(ICONS)/48x48
-	test ! -e $(THEMA)/48x48
 	set -e; cd $(ICONS) && for f in */apps/*; do \
 		install -D -m 0644 $$f $(DESTDIR)/usr/share/icons/hicolor/$$f; done
 	# Symbole 0.6: Programmsymbol von Querencia Dokumente (Blatt mit Lupe),
@@ -19,8 +17,16 @@ querencia-install:
 	test $$(find $(DESTDIR)/usr/share/icons/hicolor -type f | wc -l) -eq 88
 	# Symbolthema Querencia (Thema-2): GNOME-2-Optik, erbt von gnome-human
 	# und hicolor; Panel, Desktop und labwc-Vorgabe wählen es, wenn es da ist.
-	set -e; cd $(THEMA) && find . -type f | LC_ALL=C sort | while read -r f; do \
+	# Symbole 0.7: das ganze Thema aus quellen/thema/namen.txt mit
+	# werkzeug/thema-bauen.py (SVG -> PNG über GdkPixbuf/librsvg, ohne
+	# tEXt-Felder), wie werkzeug/vorlage-erzeugen-0.7.sh; = 0.6 plus
+	# user-desktop(-symbolic), Alias show-desktop(-symbolic) und die
+	# Programmsymbole Archiv, Software, Dateisuche, Rechner, Kürzel.
+	# hicolor bleibt wie 0.6.
+	rm -rf debian/thema-bau
+	python3 -I werkzeug/thema-bauen.py quellen debian/thema-bau
+	test -z "$$(find debian/thema-bau -path '*48x48*' -print -quit)"
+	set -e; cd debian/thema-bau/Querencia && find . -type f | LC_ALL=C sort | while read -r f; do \
 		install -D -m 0644 "$$f" "$(DESTDIR)/usr/share/icons/Querencia/$$f"; done
-	set -e; cd integration/vorlage-0.6/neu && for f in */apps/*; do \
-		install -D -m 0644 $$f $(DESTDIR)/usr/share/icons/Querencia/$$f; done
-	test $$(find $(DESTDIR)/usr/share/icons/Querencia -type f | wc -l) -eq 665
+	rm -rf debian/thema-bau
+	test $$(find $(DESTDIR)/usr/share/icons/Querencia -type f | wc -l) -eq 715

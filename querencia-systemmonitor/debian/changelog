@@ -1,3 +1,12 @@
+querencia-systemmonitor (0.1.4-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.1.4 (Tag systemmonitor/0.1.4 = ef818d37; live
+    seit 21.10. 18:48:11, ca0603c6): Diagrammfarben hell mindestens 3:1
+    (QD-089); enthält 0.1.3 (Themenfarben, dunkeltauglich, CSS-Welle
+    QD-081).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
+
 querencia-systemmonitor (0.1.2-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.1.2 (Tag systemmonitor/0.1.2, d353c4cc; live seit
