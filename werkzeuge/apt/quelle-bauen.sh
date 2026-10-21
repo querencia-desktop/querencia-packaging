@@ -26,7 +26,8 @@
 #     Signatur). Sonst gilt als Datum SOURCE_DATE_EPOCH oder die jetzige Zeit;
 #     es muss später als das vorhandene Datum liegen (apt lehnt ältere ab).
 #   - Kein Valid-Until (die Quelle wird von Hand signiert; ein Ablauf würde
-#     Clients ohne Neusignatur aussperren). --gueltig-tage setzt eines.
+#     Clients ohne Neusignatur aussperren). --gueltig-tage setzt eines; dann
+#     wird bei jedem Lauf neu signiert (neues Datum, neues Valid-Until).
 #   - Signatur mit gpg --batch und --pinentry-mode loopback, nie ein
 #     Agent-Dialog. Passphrase aus --passphrase-datei, sonst (nur an einem
 #     Terminal) einmal abgefragt; ein ungeschützter Schlüssel braucht keine.
@@ -190,7 +191,9 @@ release_rumpf() { # $1 Datum (Unixzeit)
         printf ' %s %16d %s\n' "$(sha256sum <"$N/$f" | cut -d' ' -f1)" "$(stat -c %s "$N/$f")" "$f"
     done
 }
-ohne_datum() { grep -v -E '^(Date|Valid-Until):' "$1"; }
+# Gleichheit ohne Date, aber mit Valid-Until: eine geänderte oder weggefallene
+# --gueltig-tage-Angabe signiert neu (CLEAN-1).
+ohne_datum() { grep -v -E '^Date:' "$1"; }
 
 ALT_DATUM=
 if [ -f "$DIST/Release" ]; then
@@ -215,7 +218,9 @@ fi
 "${G[@]}" --export-options export-minimal --armor --export "$FPR" >"$T/querencia.asc"
 
 release_neu=1
-if [ -n "$ALT_DATUM" ] && [ -f "$DIST/InRelease" ] && [ -f "$DIST/Release.gpg" ]; then
+# Mit --gueltig-tage immer neu signieren, sonst liefe die Quelle trotz
+# regelmäßiger Läufe ab (Valid-Until bliebe auf dem ersten Datum).
+if [ -z "$GUELTIG" ] && [ -n "$ALT_DATUM" ] && [ -f "$DIST/InRelease" ] && [ -f "$DIST/Release.gpg" ]; then
     release_rumpf "$ALT_DATUM" >"$T/Release.vergleich"
     if ohne_datum "$T/Release.vergleich" | cmp -s - <(ohne_datum "$DIST/Release") &&
         gpgv --quiet --keyring "$T/querencia.gpg" "$DIST/InRelease" 2>/dev/null &&

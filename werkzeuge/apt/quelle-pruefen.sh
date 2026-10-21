@@ -83,8 +83,14 @@ if [ -z "$KEYFILE" ]; then
     KEYFILE=$T/meta/querencia.gpg
     hinweis "Schlüssel aus der Quelle selbst (nur Konsistenz); unabhängig prüfen mit --schluessel oder --fingerabdruck"
 fi
-FPR_IST=$(gpg --batch --no-tty --with-colons --show-keys "$KEYFILE" 2>/dev/null | awk -F: '/^fpr/ {print $10; exit}')
-echo "Schlüssel: $FPR_IST ($KEYFILE)"
+# Genau ein Hauptschlüssel im Keyring: gpgv nimmt jeden Schlüssel darin an,
+# ein zusätzlicher fremder Schlüssel würde sonst unbemerkt mitgelten (CLEAN-1 B3).
+SCHLUESSEL=$(gpg --batch --no-tty --with-colons --show-keys "$KEYFILE" 2>/dev/null)
+ANZAHL=$(grep -c '^pub:' <<<"$SCHLUESSEL")
+FPR_IST=$(awk -F: '/^pub:/ {p=1; next} p && /^fpr:/ {print $10; exit}' <<<"$SCHLUESSEL")
+echo "Schlüssel: $FPR_IST ($KEYFILE, $ANZAHL Hauptschlüssel)"
+[ "$ANZAHL" = 1 ] || die "Keyring $KEYFILE enthält $ANZAHL Hauptschlüssel, erwartet genau einen"
+[ -z "$FPR_SOLL" ] || [ "$FPR_IST" = "$FPR_SOLL" ] || die "Keyring hat $FPR_IST, erwartet $FPR_SOLL"
 
 # ---- 1 Struktur (nur lokal)
 if [ -z "$FERN" ]; then
@@ -126,17 +132,20 @@ if [ -z "$FERN" ]; then
 fi
 
 # ---- 2 Signatur
-if gpgv --keyring "$KEYFILE" "$T/meta/InRelease" >"$T/gpgv1.log" 2>&1 &&
-    gpgv --keyring "$KEYFILE" "$T/meta/Release.gpg" "$T/meta/Release" >"$T/gpgv2.log" 2>&1; then
-    ok "Signatur: InRelease und Release.gpg gültig"
+# VALIDSIG nennt als letztes Feld den Hauptschlüssel, der signiert hat.
+signierer() { awk '$2 == "VALIDSIG" {print $NF}' "$1"; }
+if gpgv --status-fd 3 --keyring "$KEYFILE" "$T/meta/InRelease" >"$T/gpgv1.log" 2>&1 3>"$T/gpgv1.status" &&
+    gpgv --status-fd 3 --keyring "$KEYFILE" "$T/meta/Release.gpg" "$T/meta/Release" >"$T/gpgv2.log" 2>&1 3>"$T/gpgv2.status" &&
+    [ "$(signierer "$T/gpgv1.status")" = "$FPR_IST" ] && [ "$(signierer "$T/gpgv2.status")" = "$FPR_IST" ]; then
+    ok "Signatur: InRelease und Release.gpg gültig, signiert von $FPR_IST"
 else
     nok "Signatur ungültig"; sed 's/^/     /' "$T/gpgv1.log" "$T/gpgv2.log" | tail -6
 fi
 gpgv --quiet --keyring "$KEYFILE" --output "$T/meta/InRelease.text" "$T/meta/InRelease" 2>/dev/null
 cmp -s "$T/meta/InRelease.text" "$T/meta/Release" && ok "InRelease enthält genau Release" || nok "InRelease weicht von Release ab"
 if [ -n "$FPR_SOLL" ]; then
-    grep -q "$FPR_SOLL" <(sed -n 's/.*using [A-Za-z0-9]* key \([0-9A-F]*\).*/\1/p' "$T/gpgv1.log"; echo "$FPR_IST") &&
-        [ "$FPR_IST" = "$FPR_SOLL" ] && ok "Schlüssel ist $FPR_SOLL" || nok "Schlüssel $FPR_IST, erwartet $FPR_SOLL"
+    [ "$(signierer "$T/gpgv1.status")" = "$FPR_SOLL" ] && [ "$FPR_IST" = "$FPR_SOLL" ] &&
+        ok "Schlüssel ist $FPR_SOLL (einziger im Keyring, signiert InRelease)" || nok "Schlüssel $FPR_IST, erwartet $FPR_SOLL"
 fi
 ablauf=$(gpg --batch --no-tty --with-colons --show-keys "$KEYFILE" 2>/dev/null | awk -F: '/^pub/ {print $7; exit}')
 if [ -n "$ablauf" ]; then

@@ -214,7 +214,13 @@ bash werkzeuge/apt/quelle-pruefen.sh --fingerabdruck <FINGERABDRUCK> https://dl.
   `SOURCE_DATE_EPOCH` setzen.
 - **Kein Valid-Until:** Die Quelle wird von Hand signiert; ein Ablaufdatum
   würde Clients aussperren, sobald eine Neusignatur ausbleibt.
-  `--gueltig-tage <n>` setzt eines, wenn später automatisch signiert wird.
+  `--gueltig-tage <n>` setzt eines, wenn später automatisch signiert wird;
+  dann signiert jeder Lauf neu (neues Datum und Valid-Until), auch bei
+  gleichem Satz.
+- **Genau ein Schlüssel:** `quelle-pruefen.sh` und `quelle-hochladen.sh`
+  brechen ab, wenn `querencia.gpg` mehr als einen Hauptschlüssel enthält
+  oder InRelease/Release.gpg nicht vom erwarteten Fingerabdruck signiert
+  sind (gpgv nähme jeden Schlüssel im Keyring an).
 - **Nur SHA256 in Release, Acquire-By-Hash:** apt lädt Indexdateien über
   `by-hash/SHA256/<hash>` (immer mit dem stärksten Hash aus Release). Alte
   by-hash-Dateien bleiben liegen, damit Clients während eines Uploads

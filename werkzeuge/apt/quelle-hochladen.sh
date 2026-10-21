@@ -54,10 +54,19 @@ D=$REPO/dists/$SUITE
 command -v curl >/dev/null || die "curl fehlt"
 
 # ---- 1 Vorprüfung
-FPR_IST=$(gpg --batch --no-tty --with-colons --show-keys "$REPO/querencia.gpg" 2>/dev/null | awk -F: '/^fpr/ {print $10; exit}')
+# Genau ein Hauptschlüssel, und er muss der erwartete sein: gpgv nimmt jeden
+# Schlüssel im Keyring an, und hochgeladen würde der ganze Keyring (CLEAN-1 B3).
+SCHLUESSEL=$(gpg --batch --no-tty --with-colons --show-keys "$REPO/querencia.gpg" 2>/dev/null)
+ANZAHL=$(grep -c '^pub:' <<<"$SCHLUESSEL")
+[ "$ANZAHL" = 1 ] || die "querencia.gpg enthält $ANZAHL Hauptschlüssel, erwartet genau einen"
+FPR_IST=$(awk -F: '/^pub:/ {p=1; next} p && /^fpr:/ {print $10; exit}' <<<"$SCHLUESSEL")
 [ "$FPR_IST" = "$FPR_SOLL" ] || die "querencia.gpg hat $FPR_IST, erwartet $FPR_SOLL"
+signierer() { awk '$2 == "VALIDSIG" {print $NF}'; }
 INHALT=$(gpgv --quiet --keyring "$REPO/querencia.gpg" --output - "$D/InRelease" 2>/dev/null) || die "InRelease nicht gültig signiert"
-gpgv --quiet --keyring "$REPO/querencia.gpg" "$D/Release.gpg" "$D/Release" 2>/dev/null || die "Release.gpg nicht gültig"
+[ "$(gpgv --quiet --status-fd 1 --keyring "$REPO/querencia.gpg" --output /dev/null "$D/InRelease" 2>/dev/null | signierer)" = "$FPR_SOLL" ] ||
+    die "InRelease nicht von $FPR_SOLL signiert"
+[ "$(gpgv --quiet --status-fd 1 --keyring "$REPO/querencia.gpg" "$D/Release.gpg" "$D/Release" 2>/dev/null | signierer)" = "$FPR_SOLL" ] ||
+    die "Release.gpg nicht gültig oder nicht von $FPR_SOLL"
 [ "$INHALT" = "$(cat "$D/Release")" ] || die "InRelease und Release weichen ab"
 while read -r h size f; do
     [ "$(sha256sum <"$D/$f" | cut -d' ' -f1)" = "$h" ] || die "Hash stimmt nicht: dists/$SUITE/$f (neu bauen)"
