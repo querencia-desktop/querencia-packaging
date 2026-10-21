@@ -1,6 +1,37 @@
 # Änderungen – querencia-packaging
 
-## [0.1.0~alpha2] – unveröffentlicht
+## Alpha 2 – unveröffentlicht (Paketsatz 21.10.2026)
+
+Paketsatz auf dem Live-Stand von entwicklungs-vm vom 21.10.2026 18:52
+(Abschlusstabelle des Tages). Jede Quelle ist ein getaggter Stand; je
+Komponente geprüft, dass das Live-Binary byte-gleich mit der Vorlage im
+`-int`-Tag ist und der Code-Tag dessen Vorfahr ohne Codeänderung
+dazwischen (Bericht `alpha2-pakete-bericht.md`).
+
+- Dunkles Thema: Querencia-Klassisch 0.2.1 mit `gtk-dark.css` (GTK 3/4,
+  prefer-dark), CSS-Welle dunkel in Panel 0.2.1, Desktop 0.2.0 und allen
+  Programmen (QD-081); Kontrast hell nach WCAG AA in Thema, Bilder 0.2.5,
+  Benachrichtigungen 0.2.2, Rechner 0.1.5, Einstellungen 0.1.3,
+  Systemmonitor 0.1.4 (QD-088, QD-089).
+- Terminal 0.3.0 mit Reitern (QD-079); Kürzelübersicht 0.2.0 kennt die
+  Reiterkürzel.
+- Files QF-0q-1: Stratas Update-Prüfer stillgelegt (QD-090), Patch 0001
+  entfällt; Recommends querencia-archiv.
+- Symbole 0.7: Knopf „Arbeitsfläche anzeigen“ und fünf Programmsymbole im
+  Thema, das Thema wird beim Bau aus `quellen/` gerendert (715 Dateien,
+  byte-gleich mit live).
+- Neue Versionen: Shell 0.1.0~alpha7 (Runtime 2e134c6), Screenshot 0.2.9,
+  Editor 0.2.3, Dateisuche 0.1.4, Software 0.1.4, Dokumente 0.1.2,
+  Archiv 0.1.1; Einstellungen 0.1.3 ohne Patch 0001 (findet
+  `/etc/querencia/labwc` selbst); Metapaket 0.1.0~alpha2-7.
+- CLEAN-1: changelog-Trailer nur noch mit dem Maintainer (B1, deshalb neue
+  Revisionen querencia-session 0.1.0~alpha7-2 und labwc
+  0.9.8-0querencia5), MetaInfo-Homepage https://querencialinux.org (B2,
+  querencia-sitzung 0.1.3-3, DEP-3-Patches für Archiv und Dokumente).
+- Unverändert aus Alpha 1: querencia-anmeldung 0.1.1-2 (byte-gleich).
+- Nicht im Satz: Hintergründe 0.2 (Lizenzprüfung offen).
+
+## [0.1.0~alpha2] – veröffentlicht als Alpha 1 (20.10.2026)
 
 - Neues Paket querencia-anmeldung (ANM-1, Zweig anm-1): Anmeldebildschirm
   aus greetd und ReGreet 0.5.0 (Upstream, Spiegel

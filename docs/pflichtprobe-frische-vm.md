@@ -9,11 +9,12 @@ APT-Quelle und die Veröffentlichung.
 **Nie auf `entwicklungs-vm` ausführen.** Nur auf einer neuen, wegwerfbaren VM mit
 Snapshot.
 
-Paketsatz: `build/debs/` dieses Repositorys (17 Pakete, mit
-querencia-dokumente 18, `SHA256SUMS`), zuletzt gebaut von G2-F2 im Worktree
-`~/projects/querencia-packaging-wt-g2f2`; Quellstände in
-[quellen.conf](../quellen.conf), Berichte 
-und (erster Lauf) .
+Paketsatz: `build/debs/` dieses Repositorys mit `SHA256SUMS` (Alpha 2: 20
+Pakete, ohne querencia-anmeldung 19 für die Wege ohne Anmeldebildschirm),
+gebaut im Worktree `~/projects/querencia-packaging-wt-alpha2`; Quellstände
+in [quellen.conf](../quellen.conf), Berichte
+, 
+(Alpha 1) und (erster Lauf) .
 
 ## 1. VM anlegen
 
@@ -144,8 +145,9 @@ bash ~/frisches-ubuntu-pruefen.sh nachher
 Erwartet: alle 17 Pakete installiert (dazu querencia-dokumente, wenn im
 Satz), labwc ≥ 0.9.4, alle Desktop-Dateien gültig, mindestens 14
 MetaInfo-Dateien, kein 48×48-Symbol neben SVG, mindestens zehn deutsche
-Kataloge, Symbolthema Querencia, Thema Querencia-Klassisch (GTK 4 und
-labwc), 17 Hintergründe, Portal-Konfiguration `x-querencia-portals.conf`
+Kataloge, Symbolthema Querencia (ab Alpha 2: 715 Dateien mit
+`user-desktop`), Thema Querencia-Klassisch (GTK 4 und labwc, ab Alpha 2 mit
+`gtk-dark.css`), Files ohne `api.github.com`, Terminal ≥ 0.3.0, 17 Hintergründe, Portal-Konfiguration `x-querencia-portals.conf`
 (B6), Erscheinungsbild nur in der Querencia-Sitzung (B7), notify-send (B5),
 `querencia-session --check` ohne `FEHLT`, kein Anmeldebildschirm verändert,
 nichts in `/home` angelegt.
@@ -190,6 +192,10 @@ Von Hand, je Zeile PASS/FAIL mit Bildschirmfoto (Druck-Taste) notieren:
 | 21 | Sitzungsdialog | Strg+Alt+Entf öffnet „Abmelden, Bildschirm sperren, Neu starten, Herunterfahren“ |
 | 22 | Abmelden | System → Abmelden …; zurück im Anmeldebildschirm bzw. an tty1 |
 | 23 | Zweite Anmeldung | erneut anmelden: alles startet wieder, Logs in `~/.local/state/querencia/` ohne `panicked` |
+| 24 | Dunkelmodus (Alpha 2) | System → Einstellungen → Erscheinungsbild: „Dunkle Darstellung bevorzugen“ ein; Panel, Desktop-Kontextmenü und neu gestartete Programme (Terminal, Editor, Bilder, Rechner, Systemmonitor, Dateisuche, Software, Einstellungen, Archiv, Dokumente, Screenshot, Benachrichtigungen) erscheinen dunkel; Files und die labwc-Rahmen bleiben hell (bekannt); wieder aus → hell. Das Prüfskript `sitzung` prüft das Portal (`A2 Dunkelmodus umschaltbar`) |
+| 25 | Terminal-Reiter (Alpha 2) | Strg+Umschalt+T öffnet einen zweiten Reiter, Reiterleiste erscheint; Strg+Bild ab wechselt; Strg+Umschalt+W schließt; Super+? nennt die Reiterkürzel |
+| 26 | Files ohne Update-Hinweis (Alpha 2) | Files → Einstellungen → „Updates“ nennt nur die Paketquelle, unten in der Seitenleiste kein „Update verfügbar“ |
+| 27 | Kontrast hell (Alpha 2) | im hellen Modus: Tastenkürzel in Menüs, Rechner-Speichermarke „M“, Leerhinweis in Bilder, Popup-Text der Benachrichtigung und Diagrammfarben im Systemmonitor gut lesbar |
 
 Logs für den Bericht:
 

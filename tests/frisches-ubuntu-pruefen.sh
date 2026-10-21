@@ -70,6 +70,14 @@ nachher)
     [ -f /usr/share/icons/Querencia/index.theme ] && ok "Symbolthema Querencia" || nok "Symbolthema Querencia fehlt"
     [ -f /usr/share/themes/Querencia-Klassisch/gtk-4.0/gtk.css ] && [ -f /usr/share/themes/Querencia-Klassisch/labwc/themerc ] &&
         ok "Thema Querencia-Klassisch (GTK 4, labwc)" || nok "Thema Querencia-Klassisch unvollständig"
+    # Alpha 2: dunkle Fassung des Themas, Symbole 0.7, Files ohne Update-Prüfer, Terminal mit Reitern
+    [ -f /usr/share/themes/Querencia-Klassisch/gtk-3.0/gtk-dark.css ] && [ -f /usr/share/themes/Querencia-Klassisch/gtk-4.0/gtk-dark.css ] &&
+        ok "A2 Thema mit gtk-dark.css (GTK 3, 4)" || nok "A2 gtk-dark.css fehlt"
+    n=$(find /usr/share/icons/Querencia -type f 2>/dev/null | wc -l)
+    [ "$n" -eq 715 ] && [ -f /usr/share/icons/Querencia/scalable/places/user-desktop.svg ] &&
+        ok "A2 Symbolthema 0.7: $n Dateien, user-desktop" || nok "A2 Symbolthema: $n Dateien statt 715"
+    ! grep -a -q 'api\.github\.com' /usr/bin/querencia-files && ok "A2 Files ohne GitHub-Update-Abfrage" || nok "A2 Files nennt api.github.com"
+    dpkg --compare-versions "$(dpkg-query -W -f='${Version}' querencia-terminal)" ge 0.3.0 && ok "A2 Terminal mit Reitern (>= 0.3.0)" || nok "A2 Terminal < 0.3.0"
     n=$(ls /usr/share/querencia/hintergruende/*.png 2>/dev/null | wc -l)
     [ "$n" -eq 17 ] && ok "Hintergründe: 17" || nok "Hintergründe: $n statt 17"
     pc=/usr/share/xdg-desktop-portal/x-querencia-portals.conf
@@ -134,6 +142,16 @@ sitzung)
         org.freedesktop.portal.Settings ReadOne ss org.gnome.desktop.interface gtk-theme >/dev/null 2>&1; rc=$?
     ms=$((($(date +%s%N) - t0) / 1000000))
     [ "$rc" = 0 ] && [ "$ms" -lt 1000 ] && ok "QD-077 Settings.ReadOne antwortet in $ms ms" || nok "QD-077 Settings.ReadOne rc=$rc nach $ms ms"
+    # Alpha 2: Dunkelmodus über das Settings-Portal umschaltbar (wie Einstellungen → dunkle Darstellung)
+    vorher_cs=$(gsettings get org.gnome.desktop.interface color-scheme)
+    gsettings set org.gnome.desktop.interface color-scheme prefer-dark; sleep 1
+    d=$(busctl --user --timeout=10 call org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop \
+        org.freedesktop.portal.Settings ReadOne ss org.freedesktop.appearance color-scheme 2>/dev/null)
+    gsettings set org.gnome.desktop.interface color-scheme default; sleep 1
+    h=$(busctl --user --timeout=10 call org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop \
+        org.freedesktop.portal.Settings ReadOne ss org.freedesktop.appearance color-scheme 2>/dev/null)
+    gsettings set org.gnome.desktop.interface color-scheme "$vorher_cs"
+    [ "$d" = "v u 1" ] && [ "$h" = "v u 0" ] && ok "A2 Dunkelmodus umschaltbar (Portal: dunkel 1, Standard 0)" || nok "A2 Dunkelmodus: dunkel='$d' standard='$h'"
     seit=$(sed -n '1s/^# Querencia-Sitzung \([0-9-]* [0-9:]*\).*/\1/p' "$S/sitzung-start.log")
     fb=$(journalctl --user -u xdg-desktop-portal.service --since "$seit" 2>/dev/null | grep -c 'last-resort fallback')
     [ "$fb" = 0 ] && ok "B6 xdg-desktop-portal ohne last-resort fallback seit $seit" || nok "B6 $fb× last-resort fallback"
