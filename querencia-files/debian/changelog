@@ -1,6 +1,10 @@
-querencia-files (0.1.0~alpha5-1) resolute; urgency=medium
+querencia-files (0.1.0~alpha6-1) resolute; urgency=medium
 
-  * Live-Stand QF-0q-1 (querencia-files-dev, Tag files/qf-0q-1 = 58042734;
+  * Live-Stand QF-0r-1 (querencia-files-dev, Tag files/qf-0r-1 = 1ca5c0a9;
+    Vorlage im Tag files/qf-0r-1-int a6cc41d5): Querencia Files heißt im
+    Programm überall Querencia Files (Fenstertitel, Info-Dialog, 11
+    Sprachen).
+  * Enthält QF-0q-1 (querencia-files-dev, Tag files/qf-0q-1 = 58042734;
     live seit 21.10. 16:17:03, d6311ea7): Stratas eigener Update-Prüfer
     stillgelegt (QD-090, keine Verbindung zu GitHub/AUR, kein „Update
     verfügbar“; die Seite „Updates“ nennt nur die Paketquelle).
