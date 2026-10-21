@@ -56,11 +56,13 @@ Erzeugnisse gehen nach `build/` (nicht in Git).
 ## Quellen der Pakete
 
 `quellen.conf` nennt die Commit-Hashes der Arbeitsrepos; die öffentlichen Repos
-tragen dieselben Tags, ihre Historie ist bereinigt, die Hashes weichen ab.
-Zuordnung Paket → öffentliches Repo → Tag:
-[docs/quellen-oeffentlich.md](docs/quellen-oeffentlich.md). `querencia-session`
-und das Metapaket `querencia-desktop` haben kein eigenes Repo; sie sind nur in
-diesem Packaging-Repo enthalten.
+tragen dieselben Tags, ihre Historie ist bereinigt, die Hashes weichen ab. Die
+Spalte `<repository>` nennt die öffentlichen Repo-Namen: Ein Bau aus diesem Repo
+setzt die Quellrepos als Geschwisterordner unter diesen Namen voraus und braucht
+statt der Hashes die Tags. Zuordnung Paket → öffentliches Repo → Tag:
+[docs/quellen-oeffentlich.md](docs/quellen-oeffentlich.md). Das Metapaket
+`querencia-desktop` hat kein eigenes Repo; seine Paketierung ist nur in diesem
+Packaging-Repo enthalten.
 
 ## Lizenz
 
