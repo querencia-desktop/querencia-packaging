@@ -17,7 +17,8 @@ Standards-Version: 4.7.2
 Package: querencia-einstellungen
 Architecture: any
 Depends: ${shlibs:Depends},
-         querencia-symbole (>= 0.2)
+         querencia-symbole (>= 0.2),
+         querencia-hintergruende (>= 0.2)
 Recommends: querencia-shell
 Description: Querencia Desktop settings centre (alpha)
  Querencia Einstellungen is the control centre of Querencia Desktop, a
