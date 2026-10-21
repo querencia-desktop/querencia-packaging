@@ -21,6 +21,6 @@ Last-Update: 2026-10-21
      let source_tree = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
 +    #[cfg(not(debug_assertions))]
 +    let source_tree = PathBuf::from("/nonexistent");
-     config::built_in_candidates(&data_dirs, &source_tree)
+     let path = config::built_in_candidates(&data_dirs, &source_tree)
          .into_iter()
-         .find(|path| path.is_file())
+         .find(|path| path.is_file())?;

@@ -19,8 +19,8 @@ querencia-shell (0.1.0~alpha7-1) resolute; urgency=medium
     GTK 3 und 4 (prefer-dark), Fehlerschrift dunkel, Tastenkürzel in Menüs
     75 %, benannte Farben sidebar_*/menu_*. debian/rules installiert gtk-
     dark.css.
-  * debian/patches/0001-desktop-quellbaum-nur-debug.patch: Zeilenversatz neu
-    geschnitten, Inhalt unverändert.
+  * debian/patches/0001-desktop-quellbaum-nur-debug.patch: auf Desktop 0.2.2
+    neu geschnitten (Kontext geändert), Inhalt unverändert.
   * Depends: querencia-symbole (>= 0.7) für den Knopf „Arbeitsfläche
     anzeigen“ (user-desktop).
   * Trailerzeilen älterer Einträge auf den Maintainer umgeschrieben (CLEAN-1
