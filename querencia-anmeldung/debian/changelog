@@ -1,3 +1,11 @@
+querencia-anmeldung (0.1.1-3) resolute; urgency=medium
+
+  * Doku: KI-Abschnitt aus README bzw. COPYRIGHT nicht mehr installiert
+    (Vorgabe des Besitzers, CLEAN-1 Nachtrag 2; Filter in querencia.mk).
+    Sonst unverändert gegenüber 0.1.1-2 (Alpha 1).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 21:00:00 +0200
+
 querencia-anmeldung (0.1.1-2) resolute; urgency=medium
 
   * Depends: accountsservice. ReGreet liest Benutzer und Sitzungen über

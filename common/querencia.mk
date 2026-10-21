@@ -124,9 +124,13 @@ mo_install = set -e; for l in $$(sed 's/\#.*//' $(1)/LINGUAS); do \
 # the files named in $(2) (default README.md), when present. BUILDING.md and
 # TESTING.md describe the development VM and stay out of the package.
 #   $(call doc_install,<directory in the tree>[,<files>])
+# KI-Abschnitte (README „## KI-Hinweis“, COPYRIGHT-Absatz „KI-Hinweis:“)
+# kommen nicht ins Paket (Vorgabe des Besitzers 21.10.2026, CLEAN-1
+# Nachtrag 2; debian/doku/ki-abschnitt-entfernen.awk).
 doc_install = set -e; d=$(DESTDIR)/usr/share/doc/$(PKG); install -d $$d; \
 	for f in $(if $(2),$(2),README.md); do \
-		if [ -f $(1)/$$f ]; then install -m 0644 $(1)/$$f $$d/$$f; fi; done; \
+		if [ -f $(1)/$$f ]; then awk -f debian/doku/ki-abschnitt-entfernen.awk $(1)/$$f >$$d/$$f; \
+			chmod 0644 $$d/$$f; fi; done; \
 	if [ -f $(1)/CHANGELOG.md ]; then gzip -9nc $(1)/CHANGELOG.md >$$d/changelog.gz; fi
 
 # --- generic binary package ---------------------------------------------

@@ -4,6 +4,8 @@ querencia-dateisuche (0.1.4-1) resolute; urgency=medium
     dc86ea6a): dunkle Darstellung (CSS-Welle QD-081).
   * MetaInfo: <url type="homepage"> https://querencialinux.org statt des
     alten privaten Repos (CLEAN-1 B2).
+  * Doku: KI-Abschnitt aus README bzw. COPYRIGHT nicht mehr installiert
+    (Vorgabe des Besitzers, CLEAN-1 Nachtrag 2; Filter in querencia.mk).
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 20:00:00 +0200
 

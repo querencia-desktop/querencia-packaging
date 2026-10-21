@@ -36,6 +36,8 @@ cp "$PK/common/querencia.mk" "$BAU/$DIR/debian/querencia.mk"
 # MetaInfo aller Querencia-Komponenten (SW-5); debian/rules installiert die
 # eigene mit debian/metainfo/metainfo-paket-installieren.sh.
 cp -a "$PK/common/metainfo" "$BAU/$DIR/debian/metainfo"
+# Filter für installierte Doku (doc_install in querencia.mk)
+cp -a "$PK/common/doku" "$BAU/$DIR/debian/doku"
 chmod 0755 "$BAU/$DIR/debian/rules"
 LOGF=$NACHWEIS/logs/bau-$SRC.log
 log "dpkg-buildpackage $SRC (Log: $LOGF)"
