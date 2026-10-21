@@ -1,0 +1,11 @@
+querencia-hintergruende (0.2-1) resolute; urgency=medium
+
+  * Erstes Paket (Alpha 2, QD-093). Quelle: querencia-hintergruende, Tag
+    hintergruende/0.2 (dce398a), Entscheidung des Besitzers 21.10.2026
+    19:50: 16 Flux-Bilder (12 Motive, dazu tiefblau-logo, -wortmarke,
+    -wasserzeichen und bernstein-logo) je 2560x1440 und 4:3, 32 PNG nach
+    /usr/share/querencia/hintergruende/ (SHA256SUMS d21b9692…), Standardbild
+    tiefblau. Originale (quellen/) und Erzeuger (werkzeug/) bleiben im
+    Upstream-Repo.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 21 Oct 2026 21:00:00 +0200

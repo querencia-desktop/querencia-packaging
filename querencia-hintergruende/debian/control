@@ -1,0 +1,24 @@
+Source: querencia-hintergruende
+Section: x11
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends:
+Standards-Version: 4.7.2
+
+Package: querencia-hintergruende
+Architecture: all
+Description: Querencia Desktop backgrounds (alpha)
+ Sixteen desktop backgrounds of Querencia Desktop, a classic desktop in the
+ style of GNOME 2: twelve motifs (deep blue, blue-green, blue glow, ember,
+ hills, coast, dunes, lake, desert, mountains, beach, glass) and four
+ variants with the Querencia logo, each as 2560x1440 and as 4:3 picture.
+ Deep blue ("tiefblau") is the default background of the desktop.
+ .
+ The pictures were generated with FLUX1.1 [pro] Ultra through fal.ai and
+ are licensed CC-BY-SA-4.0; the logo variants carry the Querencia logo,
+ which is not covered by the licence.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.
