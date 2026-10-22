@@ -1,3 +1,11 @@
+querencia-sitzung (0.1.7-1) resolute; urgency=medium
+
+  * Neue Version 0.1.7.
+  * „Ausschalten …“ bietet wie unter GNOME 2 auch „Neu starten“ an:
+    Abbrechen, Neu starten, Herunterfahren.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Fri, 23 Oct 2026 00:20:00 +0200
+
 querencia-sitzung (0.1.6-1) resolute; urgency=medium
 
   * Neue Version 0.1.6.

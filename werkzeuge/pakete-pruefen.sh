@@ -17,13 +17,15 @@
 #     ein launchable desktop-id liegt im Paketsatz. Ausnahmen (Metapaket,
 #     Sitzungsstarter, Backports) in QUERENCIA_METAINFO_AUSNAHMEN.
 #   - keine Datei in zwei Paketen des Satzes (G2-F)
-#   - QD-139: gebündelte Fremdarchive in den Quellarchiven des Pakets
-#     (<quelle>_<upstream>.orig*.tar.* in QUERENCIA_ORIG_DIRS, Doppelpunkt-
-#     Liste, Standard build/orig) haben im installierten copyright einen
-#     eigenen Files:-Absatz, der das Archiv selbst nennt; „*“ oder der Absatz
-#     des ganzen Ordners („…/*“) genügt nicht. Kleine Archive (< 1 MiB) unter tests/, fixtures/, examples/ …
-#     zählen als Testdaten; Archive im eigenen Quellbaum (Hauptarchiv) werden
-#     nur als Hinweis gelistet. Pakete in
+#   - QD-139: in den Quellarchiven des Pakets (<quelle>_<upstream>.orig*.tar.*
+#     in QUERENCIA_ORIG_DIRS, Doppelpunkt-Liste, Standard build/orig) liegt in
+#     cargo-vendor kein gebündeltes Fremdarchiv (sie werden beim Vendoren
+#     entfernt, common/fremdarchive.conf). In anderen Komponenten braucht ein
+#     Fremdarchiv im installierten copyright einen eigenen Files:-Absatz, der
+#     das Archiv selbst nennt („*“ oder „…/*“ genügt nicht). Kleine Archive
+#     (< 1 MiB) unter tests/, fixtures/, examples/ … zählen als Testdaten;
+#     Archive im eigenen Quellbaum (Hauptarchiv) werden nur als Hinweis
+#     gelistet. Pakete in
 #     QUERENCIA_FREMDARCHIV_AUSNAHMEN bekommen statt FAIL einen Hinweis.
 #   - Abhängigkeiten: apt-get --simulate gegen das laufende System
 #     (schreibt nichts, braucht kein root)
@@ -147,11 +149,14 @@ for deb in "${debs[@]}"; do
             while read -r groesse pfad; do
                 rel=${pfad#*/}; [ -n "$komp" ] && rel=$komp/$rel
                 m=$(copyright_muster "$cr" "$rel")
-                # eigener Absatz = Muster nennt das Archiv selbst, nicht „*“ oder „…/*“
-                if [ -n "$m" ] && [[ $m != *\* ]]; then
-                    n_fremd=$((n_fremd + 1))
-                elif [[ $rel =~ $TESTDATEN_RE ]] && [ "$groesse" -lt 1048576 ]; then
+                if [[ $rel =~ $TESTDATEN_RE ]] && [ "$groesse" -lt 1048576 ]; then
                     n_test=$((n_test + 1))
+                elif [ "$komp" = cargo-vendor ]; then
+                    # in cargo-vendor nie, auch nicht mit eigenem Absatz
+                    fehlend+=" $rel ($groesse B)"
+                # eigener Absatz = Muster nennt das Archiv selbst, nicht „*“ oder „…/*“
+                elif [ -n "$m" ] && [[ $m != *\* ]]; then
+                    n_fremd=$((n_fremd + 1))
                 elif [ -z "$komp" ]; then
                     # im eigenen Quellbaum: Material des Projekts, kein Fremdarchiv
                     eigen+=" $rel ($groesse B)"
@@ -162,11 +167,11 @@ for deb in "${debs[@]}"; do
         done
         [ -z "$eigen" ] || hinweis "$p: Archive im eigenen Quellbaum (keine Fremdarchive, prüfen):$eigen"
         if [ -z "$fehlend" ]; then
-            ok "$p: Fremdarchive in den Quellarchiven mit eigenem copyright-Absatz: $n_fremd (Testarchive: $n_test)"
+            ok "$p: keine gebündelten Fremdarchive in cargo-vendor; mit eigenem copyright-Absatz: $n_fremd (Testarchive: $n_test)"
         elif [[ " $FREMD_AUSNAHMEN " == *" $p "* ]]; then
-            hinweis "$p: Fremdarchive ohne eigenen copyright-Absatz (Ausnahme bis zur nächsten Revision):$fehlend"
+            hinweis "$p: gebündelte Fremdarchive (bekannte Grenze bis zum nächsten Neubau):$fehlend"
         else
-            nok "$p: Fremdarchive ohne eigenen copyright-Absatz (QD-139):$fehlend"
+            nok "$p: gebündelte Fremdarchive (QD-139):$fehlend"
         fi
     fi
 

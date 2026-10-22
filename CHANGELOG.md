@@ -1,15 +1,20 @@
 # Änderungen – querencia-packaging
 
-## Vorarbeit für Alpha 2.2 Kandidat 2 (QD-139), unveröffentlicht
+## Alpha 2.2 – Kandidat 2 vom 23.10.2026, unveröffentlicht
 
-- `common/fremdarchive.conf`: gebündelte Fremdarchive in vendorten Crates mit ihren Lizenzen;
-  heute das Quellarchiv von GNU gettext in `gettext-sys` (GPL-3+, LGPL-2.1+, MIT, Unicode).
-- `werkzeuge/copyright-erzeugen.py` schreibt für jedes solche Archiv einen eigenen `Files:`-Absatz
-  nach dem Absatz des Crates und bricht bei einem unbekannten Archiv ab, das keine kleine
-  Testdatei ist.
-- `werkzeuge/pakete-pruefen.sh` prüft die Quellarchive jedes Pakets (`QUERENCIA_ORIG_DIRS`): Ein
-  Fremdarchiv ohne eigenen Absatz im installierten copyright ist FAIL, Archive im eigenen
-  Quellbaum ein Hinweis.
+Kandidat 1 plus Sitzung 0.1.7 und QD-139.
+
+- querencia-sitzung 0.1.7-1 aus main `3775597` (Code wie Tag `sitzung/0.1.7` = `e63e935`):
+  „Ausschalten …“ mit „Neu starten“. Metapaket verlangt querencia-sitzung (>= 0.1.7).
+- QD-139: Das Quellarchiv von GNU gettext, das der Crate `gettext-sys` mitbringt, wird beim
+  Vendoren entfernt (`common/fremdarchive.conf`, `werkzeuge/fremdarchive-entfernen.py`, Eintrag in
+  `.cargo-checksum.json` gestrichen, Paketprüfsumme bleibt). Die Pakete bauen gettext-sys mit
+  `gettext-system` und brauchen es nie. Das copyright nennt die Entfernung am Absatz des Crates,
+  `debian/README.source` (Shell, Einstellungen, Sitzung) erklärt sie.
+- `werkzeuge/copyright-erzeugen.py` bricht bei einem unbekannten gebündelten Archiv ab, das
+  keine kleine Testdatei ist; `werkzeuge/pakete-pruefen.sh` öffnet die Quellarchive jedes Pakets
+  (`QUERENCIA_ORIG_DIRS`) und meldet ein Fremdarchiv in `cargo-vendor` als FAIL.
+- Ablauf: erzeugte `upstream-commit`/`copyright` werden vor dem Tag committet.
 
 ## Alpha 2.2 – Kandidat 1 vom 22.10.2026, unveröffentlicht
 

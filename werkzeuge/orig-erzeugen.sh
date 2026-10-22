@@ -3,7 +3,9 @@
 #   <src>_<ver>.orig.tar.xz              git archive des Commits (deterministisch)
 #   <src>_<ver>.orig-cargo-vendor.tar.xz alle Crates aus Cargo.lock (cargo vendor),
 #                                        die in quellen.conf ausgeschlossenen nur als
-#                                        entkernte Platzhalter (Manifest ohne Code)
+#                                        entkernte Platzhalter (Manifest ohne Code),
+#                                        ohne die gebündelten Fremdarchive aus
+#                                        common/fremdarchive.conf (QD-139)
 #   <src>_<ver>.orig-<name>.tar.xz       je Komponente aus <src>/komponenten.conf
 #                                        (z. B. Bausteine, die als Pfad-Abhängigkeit
 #                                        neben dem Haupt-Workspace liegen)
@@ -68,6 +70,9 @@ if [ "$VENDOR" = ja ]; then
             done
         done
     fi
+    # Gebündelte Fremdarchive (QD-139, common/fremdarchive.conf, Aktion
+    # "entfernen"): Datei löschen, aus .cargo-checksum.json streichen.
+    python3 -I "$PK/werkzeuge/fremdarchive-entfernen.py" "$TMP/cargo-vendor" | while read -r z; do log "$z"; done
     n=$(find "$TMP/cargo-vendor" -mindepth 1 -maxdepth 1 -type d | wc -l)
     tar --sort=name --mtime="@$EPOCH" --owner=0 --group=0 --numeric-owner \
         --pax-option=exthdr.name=%d/PaxHeaders/%f,delete=atime,delete=ctime \
