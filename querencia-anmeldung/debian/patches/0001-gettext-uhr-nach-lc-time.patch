@@ -1,0 +1,227 @@
+Description: Visible texts through gettext, clock locale from LC_TIME
+ The login screen of Querencia Desktop shows ReGreet in the system
+ language. Visible texts (labels, buttons, tooltips, error messages and the
+ PAM prompts that greetd passes on) go through glib::dgettext with the
+ domain "querencia-anmeldung"; the catalog comes from po/de.po of the
+ Querencia part of this source package. Untranslated texts stay English.
+ A rejected password (PAM AUTH_ERR) gets a plain message instead of
+ "Login failed: Pam_authenticate: AUTH_ERR".
+ .
+ The clock takes its locale from LC_ALL, LC_TIME or LANG ("de_DE.UTF-8"
+ -> de_DE). sys-locale ignores LC_TIME and returns "de-DE", which
+ chrono::Locale does not parse, so the clock fell back to en_US.
+ .
+ No new crates; Cargo.lock is unchanged (glib comes with gtk4/relm4).
+Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Origin: vendor
+Forwarded: no
+Last-Update: 2026-10-22
+---
+diff -ru '--exclude=.cargo' a/src/gui/model.rs b/src/gui/model.rs
+--- a/src/gui/model.rs	2026-07-17 20:33:05.000000000 +0200
++++ b/src/gui/model.rs	2026-10-22 03:18:41.715171952 +0200
+@@ -28,6 +28,7 @@
+ 
+ use super::{
+     messages::{CommandMsg, UserSessInfo},
++    tr,
+     widget::clock::Clock,
+ };
+ 
+@@ -260,7 +261,7 @@
+                 // This must be an invalid command.
+                 self.display_error(
+                     sender,
+-                    "Invalid session command",
++                    &tr("Invalid session command"),
+                     &format!("Invalid session command: {}", info.sess_text),
+                 );
+                 return;
+@@ -338,8 +339,7 @@
+                         info!("greetd asks for a secret auth input: {auth_message}");
+                         self.updates.set_input_mode(InputMode::Secret);
+                         self.updates.set_input(String::new());
+-                        self.updates
+-                            .set_input_prompt(auth_message.trim_end().to_string());
++                        self.updates.set_input_prompt(tr(auth_message.trim_end()));
+                         if let Some(msg) = auto_select_msg {
+                             self.display_info(sender, &msg, "Skipped user/session selection");
+                         }
+@@ -350,8 +350,7 @@
+                         info!("greetd asks for a visible auth input: {auth_message}");
+                         self.updates.set_input_mode(InputMode::Visible);
+                         self.updates.set_input(String::new());
+-                        self.updates
+-                            .set_input_prompt(auth_message.trim_end().to_string());
++                        self.updates.set_input_prompt(tr(auth_message.trim_end()));
+                         if let Some(msg) = auto_select_msg {
+                             self.display_info(sender, &msg, "Skipped user/session selection");
+                         }
+@@ -384,9 +383,15 @@
+                 error_type,
+             } => {
+                 // some general response error. This can be an authentication failure or a general error
++                // A rejected password (PAM AUTH_ERR) gets a plain message.
++                let display_text = if description.ends_with("AUTH_ERR") {
++                    tr("Wrong password. Please try again.")
++                } else {
++                    format!("{} {}", tr("Login failed:"), capitalize(&description))
++                };
+                 self.display_error(
+                     sender,
+-                    &format!("Login failed: {}", capitalize(&description)),
++                    &display_text,
+                     &format!("Error from greetd: {description}"),
+                 );
+ 
+@@ -523,7 +528,7 @@
+                 // This must be an invalid command.
+                 self.display_error(
+                     sender,
+-                    "Invalid session command",
++                    &tr("Invalid session command"),
+                     &format!("Invalid session command: {}", info.sess_text),
+                 );
+                 (None, None)
+@@ -536,7 +541,7 @@
+             } else {
+                 // Shouldn't happen, unless there are no sessions available.
+                 let error_msg = format!("Session '{session}' not found");
+-                self.display_error(sender, &error_msg, &error_msg);
++                self.display_error(sender, &tr("Session not found"), &error_msg);
+                 (None, None)
+             }
+         } else {
+@@ -558,7 +563,7 @@
+             } else {
+                 // No login shell exists.
+                 let error_msg = "No session or login shell found";
+-                self.display_error(sender, error_msg, error_msg);
++                self.display_error(sender, &tr(error_msg), error_msg);
+                 (None, None)
+             }
+         }
+@@ -626,7 +631,7 @@
+                 self.cancel_click_handler().await;
+                 self.display_error(
+                     sender,
+-                    "Failed to start session",
++                    &tr("Failed to start session"),
+                     &format!("Failed to start session; error: {description}"),
+                 );
+             }
+diff -ru '--exclude=.cargo' a/src/gui/mod.rs b/src/gui/mod.rs
+--- a/src/gui/mod.rs	2026-07-17 20:33:05.000000000 +0200
++++ b/src/gui/mod.rs	2026-10-22 03:18:34.316064101 +0200
+@@ -13,4 +13,10 @@
+ }
+ 
+ pub use component::GreeterInit;
++
++/// Translate a visible text through the gettext catalog of the
++/// `querencia-anmeldung` package; untranslated texts stay unchanged.
++pub(crate) fn tr(msgid: &str) -> String {
++    relm4::gtk::glib::dgettext(Some("querencia-anmeldung"), msgid).into()
++}
+ pub use model::Greeter;
+diff -ru '--exclude=.cargo' a/src/gui/templates.rs b/src/gui/templates.rs
+--- a/src/gui/templates.rs	2026-07-17 20:33:05.000000000 +0200
++++ b/src/gui/templates.rs	2026-10-22 03:18:34.318105369 +0200
+@@ -8,6 +8,8 @@
+ use gtk::prelude::*;
+ use relm4::{RelmWidgetExt, WidgetTemplate, gtk};
+ 
++use super::tr;
++
+ /// Button that ends the greeter (eg. Reboot)
+ #[relm4::widget_template(pub)]
+ impl WidgetTemplate for EndButton {
+@@ -72,7 +74,7 @@
+ 
+                     #[template]
+                     attach[0, 1, 1, 1] = &EntryLabel {
+-                        set_label: "User:",
++                        set_label: &tr("User:"),
+                         set_height_request: 45,
+                     },
+ 
+@@ -80,7 +82,7 @@
+                     #[name = "session_label"]
+                     #[template]
+                     attach[0, 2, 1, 1] = &EntryLabel {
+-                        set_label: "Session:",
++                        set_label: &tr("Session:"),
+                         set_height_request: 45,
+                     },
+ 
+@@ -119,14 +121,14 @@
+                     #[name = "user_toggle"]
+                     attach[2, 1, 1, 1] = &gtk::ToggleButton {
+                         set_icon_name: "document-edit-symbolic",
+-                        set_tooltip_text: Some("Manually enter username"),
++                        set_tooltip_text: Some(&tr("Manually enter username")),
+                     },
+ 
+                     /// Button to toggle manual session entry
+                     #[name = "sess_toggle"]
+                     attach[2, 2, 1, 1] = &gtk::ToggleButton {
+                         set_icon_name: "document-edit-symbolic",
+-                        set_tooltip_text: Some("Manually enter session command"),
++                        set_tooltip_text: Some(&tr("Manually enter session command")),
+                     },
+ 
+                     /// Collection of action buttons (eg. Login)
+@@ -138,14 +140,14 @@
+                         #[name = "cancel_button"]
+                         gtk::Button {
+                             set_focusable: true,
+-                            set_label: "Cancel",
++                            set_label: &tr("Cancel"),
+                         },
+ 
+                         /// Button to enter the password and login
+                         #[name = "login_button"]
+                         gtk::Button {
+                             set_focusable: true,
+-                            set_label: "Login",
++                            set_label: &tr("Login"),
+                             set_receives_default: true,
+                             add_css_class: "suggested-action",
+                         },
+@@ -212,12 +214,12 @@
+                     /// Button to reboot
+                     #[name = "reboot_button"]
+                     #[template]
+-                    EndButton { set_label: "Reboot" },
++                    EndButton { set_label: &tr("Reboot") },
+ 
+                     /// Button to power-off
+                     #[name = "poweroff_button"]
+                     #[template]
+-                    EndButton { set_label: "Power Off" },
++                    EndButton { set_label: &tr("Power Off") },
+                 },
+             },
+         }
+diff -ru '--exclude=.cargo' a/src/gui/widget/clock.rs b/src/gui/widget/clock.rs
+--- a/src/gui/widget/clock.rs	2026-07-17 20:33:05.000000000 +0200
++++ b/src/gui/widget/clock.rs	2026-10-22 03:18:34.319869567 +0200
+@@ -74,6 +74,18 @@
+ }
+ 
+ fn system_locale() -> Locale {
++    // The time locale as POSIX resolves it (LC_ALL, LC_TIME, LANG), e.g.
++    // "de_DE.UTF-8" -> de_DE; `sys_locale` ignores LC_TIME and returns
++    // "de-DE", which `Locale` does not parse.
++    let time_locale = ["LC_ALL", "LC_TIME", "LANG"]
++        .iter()
++        .find_map(|var| std::env::var(var).ok().filter(|v| !v.is_empty()));
++    if let Some(name) = time_locale {
++        let name = name.split(['.', '@']).next().unwrap_or_default();
++        if let Ok(locale) = name.parse::<Locale>() {
++            return locale;
++        }
++    }
+     if let Some(locale) = sys_locale::get_locale() {
+         debug!("Local system timezone: {locale}");
+         locale.parse::<Locale>().unwrap_or_else(|_| {
