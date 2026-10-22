@@ -1,0 +1,19 @@
+Description: MetaInfo-Homepage auf querencialinux.org
+ <url type="homepage"> nannte das Quell-Repository. Das Paket nennt die
+ Projektseite wie alle anderen Querencia-Programme; die nächste Upstream-
+ Version bringt die Änderung selbst mit, dann entfällt dieser Patch.
+Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Forwarded: not-needed (Upstream übernimmt die Projektseite in der nächsten Version)
+Last-Update: 2026-10-22
+---
+--- a/data/org.querencia.Screenshot.metainfo.xml
++++ b/data/org.querencia.Screenshot.metainfo.xml
+@@ -21,7 +21,7 @@
+     <p>The Print key of the Querencia session starts the program through the session's launcher.</p>
+     <p xml:lang="de">Die Druck-Taste der Querencia-Sitzung startet das Programm über den Starter der Sitzung.</p>
+   </description>
+-  <url type="homepage">https://github.com/querencia-desktop/querencia-screenshot</url>
++  <url type="homepage">https://querencialinux.org</url>
+   <launchable type="desktop-id">org.querencia.Screenshot.desktop</launchable>
+   <provides>
+     <binary>querencia-screenshot</binary>
