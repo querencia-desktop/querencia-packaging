@@ -10,7 +10,7 @@ Package: querencia-desktop
 Architecture: all
 Depends: labwc (>= 0.9.4),
          querencia-session (>= 0.1.0~alpha7),
-         querencia-shell (>= 0.1.0~alpha7),
+         querencia-shell (>= 0.1.0~alpha8),
          querencia-symbole (>= 0.7),
          querencia-sitzung (>= 0.1.3),
          querencia-benachrichtigungen (>= 0.2.2),

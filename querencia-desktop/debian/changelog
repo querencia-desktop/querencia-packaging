@@ -1,3 +1,14 @@
+querencia-desktop (0.1.0~alpha2.1-1) resolute; urgency=medium
+
+  * Querencia Desktop Alpha 2.1.
+  * Neu: /usr/share/querencia/version und /usr/share/querencia/release
+    nennen die installierte Ausgabe (Alpha 2.1) mit Projektseite,
+    Fehlermeldung und Dokumentation; die Info-Dialoge zeigen sie an.
+  * Mindestversion der Shell 0.1.0~alpha8 (Dateioperationen auf der
+    Arbeitsfläche).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 03:15:00 +0200
+
 querencia-desktop (0.1.0~alpha2-7) resolute; urgency=medium
 
   * Alpha 2 (Live-Stand entwicklungs-vm 21.10.2026 18:52): Mindestversionen
