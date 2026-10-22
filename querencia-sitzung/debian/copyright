@@ -471,6 +471,11 @@ Copyright: Elinor Berger <elinor@safaradeg.net>
 License: Expat
 Comment: Rust crate wayland-protocols 0.32.13, vendored from crates.io (checksum in cargo-vendor/wayland-protocols-0.32.13/.cargo-checksum.json).
 
+Files: cargo-vendor/wayland-protocols-wlr-0.3.12/*
+Copyright: Elinor Berger <elinor@safaradeg.net>
+License: Expat
+Comment: Rust crate wayland-protocols-wlr 0.3.12, vendored from crates.io (checksum in cargo-vendor/wayland-protocols-wlr-0.3.12/.cargo-checksum.json).
+
 Files: cargo-vendor/wayland-scanner-0.31.11/*
 Copyright: Elinor Berger <elinor@safaradeg.net>
 License: Expat
