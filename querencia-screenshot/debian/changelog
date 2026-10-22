@@ -1,3 +1,13 @@
+querencia-screenshot (0.2.10-1) resolute; urgency=medium
+
+  * Neue Version 0.2.10.
+  * Auswahlfenster und Bearbeitungsfenster folgen der dunklen Darstellung;
+    hell nehmen sie die Farben des Themas.
+  * Die Softwareverwaltung nennt querencialinux.org als Webseite (bisher
+    per Patch, jetzt im Programm selbst).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 04:50:00 +0200
+
 querencia-screenshot (0.2.9-2) resolute; urgency=medium
 
   * Softwareverwaltung: als Webseite des Programms erscheint jetzt die

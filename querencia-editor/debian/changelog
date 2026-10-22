@@ -1,3 +1,15 @@
+querencia-editor (0.2.4-1) resolute; urgency=medium
+
+  * Neue Version 0.2.4.
+  * Info-Dialog wie in allen Querencia-Programmen: Hinweis „Alpha – nicht
+    für den Alltag freigegeben“, Website querencialinux.org, Copyright und
+    Lizenz.
+  * Hilfe-Menü mit „Online-Hilfe“ (Dokumentation auf querencialinux.org in
+    der Sprache der Oberfläche) und „Fehler melden“; beides öffnet den
+    Browser.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 04:50:00 +0200
+
 querencia-editor (0.2.3-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.2.3 (Tag editor/0.2.3 = 4d58699f, Code 47042ed;

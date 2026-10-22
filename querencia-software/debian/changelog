@@ -1,3 +1,15 @@
+querencia-software (0.1.5-1) resolute; urgency=medium
+
+  * Neue Version 0.1.5.
+  * Info-Dialog wie in allen Querencia-Programmen: Hinweis „Alpha – nicht
+    für den Alltag freigegeben“, Website querencialinux.org, Copyright und
+    Lizenz.
+  * Hilfe-Menü: „Online-Hilfe“ öffnet die Anleitung „Software installieren“
+    auf querencialinux.org, „Fehler melden“ die Fehlerseite des Projekts.
+  * Verständlichere Meldung, wenn der Berechtigungsdialog fehlt.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 04:50:00 +0200
+
 querencia-software (0.1.4-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.1.4, Fassung 2 (Tag software/0.1.4-f2 =

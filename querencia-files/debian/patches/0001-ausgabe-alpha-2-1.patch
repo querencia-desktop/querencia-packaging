@@ -1,0 +1,20 @@
+Description: Info-Dialog nennt die Ausgabe Alpha 2.1
+ QF-0s schreibt die Ausgabe von Querencia Desktop fest als "Alpha 2" in den
+ Info-Dialog. Das Paket gehört zu Alpha 2.1; die Paketversion selbst setzt
+ debian/rules über QUERENCIA_PACKAGE_VERSION. Entfällt, sobald Files die
+ Ausgabe aus /usr/share/querencia/release liest.
+Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Forwarded: not-yet (Vorschlag: Ausgabe aus der Versionsdatei lesen)
+Last-Update: 2026-10-22
+---
+--- a/src/build_info.rs
++++ b/src/build_info.rs
+@@ -27,7 +27,7 @@
+     None => "0.1.0~alpha6",
+ };
+ /// Querencia: the Querencia Desktop release this build belongs to.
+-pub const QUERENCIA_RELEASE: &str = "Alpha 2";
++pub const QUERENCIA_RELEASE: &str = "Alpha 2.1";
+ /// Querencia: the author shown in the About page; Strata's authors stay in
+ /// [`AUTHOR`] and are named in the origin notice.
+ pub const QUERENCIA_AUTHOR: &str = "Querencia Desktop contributors";

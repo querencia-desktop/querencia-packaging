@@ -16,6 +16,8 @@ CARGO_FEATURES := --no-default-features
 # 0001-update-pruefung-abschaltbar.patch is no longer needed.
 export STRATA_BUILD_KIND := alpha
 export STRATA_BUILD_COMMIT := $(shell head -n 1 debian/upstream-commit 2>/dev/null)
+# Paketversion im Info-Dialog (build_info::QUERENCIA_PACKAGE_VERSION)
+export QUERENCIA_PACKAGE_VERSION := $(shell dpkg-parsechangelog -S Version)
 include debian/querencia.mk
 
 querencia-install:

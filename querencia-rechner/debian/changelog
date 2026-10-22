@@ -1,3 +1,15 @@
+querencia-rechner (0.1.6-1) resolute; urgency=medium
+
+  * Neue Version 0.1.6.
+  * Info-Dialog wie in allen Querencia-Programmen: Hinweis „Alpha – nicht
+    für den Alltag freigegeben“, Website querencialinux.org, Copyright und
+    Lizenz.
+  * Hilfe-Menü mit „Online-Hilfe“ (Dokumentation auf querencialinux.org in
+    der Sprache der Oberfläche) und „Fehler melden“; beides öffnet den
+    Browser.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 04:50:00 +0200
+
 querencia-rechner (0.1.5-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.1.5 (Tag rechner/0.1.5 = fa3c4920; live seit

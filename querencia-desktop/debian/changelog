@@ -4,8 +4,13 @@ querencia-desktop (0.1.0~alpha2.1-1) resolute; urgency=medium
   * Neu: /usr/share/querencia/version und /usr/share/querencia/release
     nennen die installierte Ausgabe (Alpha 2.1) mit Projektseite,
     Fehlermeldung und Dokumentation; die Info-Dialoge zeigen sie an.
-  * Mindestversion der Shell 0.1.0~alpha8 (Dateioperationen auf der
-    Arbeitsfläche).
+  * Schriften für asiatische Zeichen in Fenstertiteln empfohlen
+    (fonts-noto-core, fonts-noto-cjk).
+  * Mindestversionen der Programme von Alpha 2.1: Shell 0.1.0~alpha8,
+    Sitzung 0.1.4, Einstellungen 0.1.5, Files 0.1.0~alpha7, Terminal 0.3.2,
+    Bildschirmfoto 0.2.10, Editor 0.2.4, Bilder 0.2.6, Rechner 0.1.6,
+    Systemmonitor 0.1.5, Dateisuche 0.1.5, Software 0.1.5, Dokumente 0.1.4,
+    Archiv 0.1.2.
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 03:15:00 +0200
 

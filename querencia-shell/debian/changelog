@@ -1,7 +1,6 @@
 querencia-shell (0.1.0~alpha8-1) resolute; urgency=medium
 
-  * Neue Version der Arbeitsfläche (Desktop 0.2.3): Dateien auf der
-    Arbeitsfläche arbeiten mit anderen Programmen zusammen.
+  * Arbeitsfläche (Desktop 0.2.4):
     - Kontextmenü wie unter GNOME 2: Öffnen, Öffnen mit, Ausschneiden,
       Kopieren, Einfügen, Umbenennen, In den Papierkorb verschieben und
       Eigenschaften.
@@ -10,7 +9,18 @@ querencia-shell (0.1.0~alpha8-1) resolute; urgency=medium
       löscht nach einer Rückfrage endgültig.
     - Dateien lassen sich zwischen Arbeitsfläche, Querencia Files und dem
       Papierkorb ziehen.
-  * Panel, Lautstärke, Netzwerk, Tastenkürzel und Thema unverändert.
+    - Die Beschriftung der Symbole steht wieder ohne dunkle Platte auf dem
+      Hintergrundbild, weiß mit Schatten wie unter GNOME 2.
+  * Panel (0.2.3):
+    - „Informationen über Querencia“ nennt die installierte Ausgabe von
+      Querencia Desktop; das Systemmenü hat „Online-Hilfe“ und „Fehler
+      melden“.
+    - Das Netzwerksymbol öffnet die neue Netzwerkseite der Einstellungen.
+    - Das Panel liest das Symbolthema seltener neu ein; das behebt einen
+      Absturz nach dem Installieren oder Ändern von Programmen.
+    - Neuer Schutzmodus „--ueberwacht“, der das Panel nach einem Absturz
+      neu startet (noch nicht eingeschaltet).
+  * Tastenkürzel-Übersicht (0.2.1) folgt der dunklen Darstellung.
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 03:15:00 +0200
 
