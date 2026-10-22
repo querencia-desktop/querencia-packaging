@@ -1,3 +1,19 @@
+querencia-shell (0.1.0~alpha8-1) resolute; urgency=medium
+
+  * Neue Version der Arbeitsfläche (Desktop 0.2.3): Dateien auf der
+    Arbeitsfläche arbeiten mit anderen Programmen zusammen.
+    - Kontextmenü wie unter GNOME 2: Öffnen, Öffnen mit, Ausschneiden,
+      Kopieren, Einfügen, Umbenennen, In den Papierkorb verschieben und
+      Eigenschaften.
+    - Strg+X, Strg+C und Strg+V über die Zwischenablage, im selben Format
+      wie Querencia Files; Entf verschiebt in den Papierkorb, Umschalt+Entf
+      löscht nach einer Rückfrage endgültig.
+    - Dateien lassen sich zwischen Arbeitsfläche, Querencia Files und dem
+      Papierkorb ziehen.
+  * Panel, Lautstärke, Netzwerk, Tastenkürzel und Thema unverändert.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 03:15:00 +0200
+
 querencia-shell (0.1.0~alpha7-1) resolute; urgency=medium
 
   * Alpha 2: querencia-runtime Tag desktop/0.2.2 = 08dd41d2 (main 2e134c6 =
