@@ -22,9 +22,20 @@ include debian/querencia.mk
 
 querencia-install:
 	install -D -m 0755 target/release/strata $(DESTDIR)/usr/bin/querencia-files
+	# Starter of the program itself (desktop ID = application ID
+	# org.querencia.Files); the package binary is querencia-files, not strata.
+	sed -e 's/^Exec=strata /Exec=querencia-files /' -e '/^Exec=/a TryExec=querencia-files' \
+		data/org.querencia.Files.desktop >debian/org.querencia.Files.desktop.paket
+	$(call desktop_install,debian/org.querencia.Files.desktop.paket,$(DESTDIR)/usr/share/applications/org.querencia.Files.desktop)
+	grep -qx 'Exec=querencia-files %U' $(DESTDIR)/usr/share/applications/org.querencia.Files.desktop
+	grep -qx 'StartupWMClass=org.querencia.Files' $(DESTDIR)/usr/share/applications/org.querencia.Files.desktop
+	# Old desktop ID as a hidden bridge without MIME types (desktop icons,
+	# panel launchers and user files that still name it); see the file.
 	$(call desktop_install,debian/io.github.lgse.Strata.desktop,$(DESTDIR)/usr/share/applications/io.github.lgse.Strata.desktop)
-	$(call metainfo_install,io.github.lgse.Strata)
-	install -D -m 0644 debian/install-source.toml $(DESTDIR)/usr/share/strata/install-source.toml
+	grep -qx 'NoDisplay=true' $(DESTDIR)/usr/share/applications/io.github.lgse.Strata.desktop
+	! grep -q '^MimeType=' $(DESTDIR)/usr/share/applications/io.github.lgse.Strata.desktop
+	$(call metainfo_install,org.querencia.Files)
+	install -D -m 0644 debian/install-source.toml $(DESTDIR)/usr/share/querencia-files/install-source.toml
 	install -D -m 0644 debian/README.Debian $(DESTDIR)/usr/share/doc/querencia-files/README.Debian
 	$(call doc_install,.)
 	install -D -m 0644 THIRD_PARTY_LICENSES.md $(DESTDIR)/usr/share/doc/querencia-files/THIRD_PARTY_LICENSES.md

@@ -1,3 +1,4 @@
 52b2dfbec0cbdf5fca1c93b53061ee8c78f1ef0a  querencia-software-paket, Tag software-paket/0.1.1
 7d263f4ab7319bb49c49d0fff47977758b6dc8af  org.querencia.Screenshot.metainfo.xml aus querencia-screenshot-dev, Tag screenshot/0.2.6 (GPL-3.0-or-later)
 Abweichung (21.10.2026, CLEAN-1 B2): <url type="homepage"> in allen Dateien https://querencialinux.org statt des alten privaten Repos.
+org.querencia.Files.metainfo.xml aus querencia-files-dev, Tag querencia/qf-0t-3-int (integration/qf-0t/vorlage), ersetzt io.github.lgse.Strata.metainfo.xml (alte ID unter <provides>).

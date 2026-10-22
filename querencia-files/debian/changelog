@@ -1,3 +1,18 @@
+querencia-files (0.1.0~alpha8-1) resolute; urgency=medium
+
+  * Neue Version (Querencia Files für Alpha 2.2).
+  * Info-Dialog und Hilfe-Menü lesen die installierte Ausgabe von Querencia
+    Desktop selbst (Alpha 2.2); der Paket-Patch dafür entfällt.
+  * Dunkle Darstellung: Unter dem dunklen Querencia-Thema wird auch Files
+    dunkel und wechselt im laufenden Betrieb mit.
+  * Neue Kennung org.querencia.Files für Starter, Fenster und Softwarekatalog.
+    Der alte Starter bleibt vorerst unsichtbar erhalten, damit ältere
+    Verknüpfungen weiter funktionieren.
+  * Eigene Einstellungen liegen jetzt in Ordnern namens querencia-files; ein
+    vorhandener Ordner strata wird beim ersten Start verschoben.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 23:40:00 +0200
+
 querencia-files (0.1.0~alpha7-1) resolute; urgency=medium
 
   * Neue Version (Querencia Files für Alpha 2.1).

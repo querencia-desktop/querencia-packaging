@@ -1,5 +1,5 @@
-# Marks this installation as managed by APT (read by Strata's
-# services/install_source.rs): the built-in self-update stays disabled and
+# Marks this installation as managed by APT (read by
+# services/install_source.rs, /usr/share/querencia-files/): the built-in self-update stays disabled and
 # points the user to the package manager instead.
 manager = "APT"
 package = "querencia-files"

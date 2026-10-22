@@ -11,7 +11,8 @@ Build-Depends: cargo (>= 1.92),
                libglib2.0-dev,
                libwayland-dev,
                appstream,
-               desktop-file-utils
+               desktop-file-utils,
+               gettext
 Standards-Version: 4.7.2
 
 Package: querencia-shell
@@ -40,8 +41,9 @@ Description: Querencia Desktop panel, desktop, themes and backgrounds (alpha)
   * querencia-netzwerk: network state for the applet (NetworkManager,
     read-only fallback for systemd-networkd);
   * querencia-kuerzel: overview of the keyboard shortcuts (Super+?);
- the theme Querencia-Klassisch for labwc, GTK 4 and GTK 3, and the
- default desktop backgrounds.
+ the theme Querencia-Klassisch for labwc, GTK 4 and GTK 3 (with the dark
+ window frame Querencia-Klassisch-Dunkel for labwc), the default desktop
+ backgrounds and the German translations of panel and desktop.
  .
  They need a wlroots compositor with the layer-shell protocol and are
  normally started by querencia-session.

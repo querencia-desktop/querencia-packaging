@@ -5,8 +5,10 @@ CARGO_FEATURES :=
 include debian/querencia.mk
 
 PROGRAMME := querencia-panel querencia-desktop querencia-kuerzel querencia-lautstaerke querencia-netzwerk
-THEME := data/themes/Querencia-Klassisch/labwc
 GTKTHEMA := querencia-thema/Querencia-Klassisch
+# labwc-Themen hell und dunkel (seit Thema 0.2.2 im Thema-Repo; Einstellungen
+# schalten <theme><name> in rc.xml mit der dunklen Darstellung um)
+LABWCTHEMEN := querencia-thema/labwc
 
 querencia-install:
 	for p in $(PROGRAMME); do install -D -m 0755 target/release/$$p $(DESTDIR)/usr/bin/$$p; done
@@ -16,9 +18,12 @@ querencia-install:
 	install -d $(DESTDIR)/usr/share/querencia/hintergruende
 	install -m 0644 data/hintergruende/*.png $(DESTDIR)/usr/share/querencia/hintergruende/
 	test $$(ls $(DESTDIR)/usr/share/querencia/hintergruende/*.png | wc -l) -eq 17
-	# Fensterthema für labwc (<theme><name>Querencia-Klassisch</name> in rc.xml)
-	install -d $(DESTDIR)/usr/share/themes/Querencia-Klassisch/labwc
-	install -m 0644 $(THEME)/themerc $(THEME)/*.png $(DESTDIR)/usr/share/themes/Querencia-Klassisch/labwc/
+	# Fensterthemen für labwc (<theme><name>Querencia-Klassisch</name> in
+	# rc.xml, dunkel Querencia-Klassisch-Dunkel); je themerc und 16 Knöpfe
+	set -e; for t in Querencia-Klassisch Querencia-Klassisch-Dunkel; do \
+		install -d $(DESTDIR)/usr/share/themes/$$t/labwc; \
+		install -m 0644 $(LABWCTHEMEN)/$$t/themerc $(LABWCTHEMEN)/$$t/*.png $(DESTDIR)/usr/share/themes/$$t/labwc/; \
+		test $$(ls $(DESTDIR)/usr/share/themes/$$t/labwc | wc -l) -eq 17; done
 	# GTK-Thema (Komponente querencia-thema) im selben Themenordner; seit
 	# Thema 0.2 mit gtk-dark.css (dunkle Fassung, prefer-dark)
 	install -m 0644 $(GTKTHEMA)/index.theme $(DESTDIR)/usr/share/themes/Querencia-Klassisch/index.theme
@@ -34,4 +39,11 @@ querencia-install:
 	$(call desktop_install,crates/querencia-lautstaerke/data/org.querencia.Lautstaerke.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Lautstaerke.desktop)
 	$(call desktop_nur_querencia,$(DESTDIR)/usr/share/applications/org.querencia.Lautstaerke.desktop)
 	$(call metainfo_install,org.querencia.Panel org.querencia.Desktop)
+	# Übersetzungen (gettext, msgid englisch): Panel mit den Textdomänen
+	# seiner Applets Lautstärke und Netzwerk, Arbeitsfläche; gesucht in
+	# /usr/share/locale (i18n.rs der Crates)
+	$(call mo_install,crates/querencia-panel/po,querencia-panel)
+	$(call mo_install,crates/querencia-lautstaerke/po,querencia-lautstaerke)
+	$(call mo_install,crates/querencia-netzwerk/po,querencia-netzwerk)
+	$(call mo_install,crates/querencia-desktop/po,querencia-desktop)
 	# Kein README: das der Runtime beschreibt die Entwicklungs-VM.

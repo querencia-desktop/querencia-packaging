@@ -1,3 +1,34 @@
+querencia-shell (0.1.0~alpha9-1) resolute; urgency=medium
+
+  * Panel (0.3.0):
+    - Behebt die Abstürze beim Öffnen der Menüs und im Betrieb: Das Panel
+      lädt seine Symbole jetzt selbst, statt GTK im Hintergrund vorladen zu
+      lassen.
+    - Nach einem Absturz startet das Panel schneller neu; nur vom ersten
+      Absturz wird ein Fehlerbericht angelegt.
+    - Englische Oberfläche: Bei englischer Spracheinstellung erscheinen
+      alle Texte englisch, Deutsch bleibt im Wortlaut wie bisher.
+    - Neue Kennung org.querencia.Panel; der alte Name funktioniert weiter.
+    - Die Fenster des Panels zeigen das Querencia-Logo.
+    - Fensterliste und Orte kennen die neue Kennung von Querencia Files.
+  * Arbeitsfläche (0.2.6):
+    - Die Symbolraster richten sich nach der Schrift der Sitzung; lange
+      Namen werden nicht mehr abgeschnitten, ein ausgewähltes Symbol zeigt
+      seinen ganzen Namen.
+    - Ein später angelegter Ordner Arbeitsfläche erscheint sofort.
+    - Gibt es für eine Datei kein Programm, erscheint ein Hinweis mit der
+      Programmauswahl.
+    - Englische Oberfläche wie beim Panel.
+    - Öffnet Ordner in Querencia Files unter dessen neuer Kennung.
+  * Thema Querencia-Klassisch 0.2.2:
+    - Neuer dunkler Fensterrahmen Querencia-Klassisch-Dunkel mit dunklen
+      Titelknöpfen; die Einstellungen wählen ihn mit der dunklen
+      Darstellung.
+    - Schieberegler-Werte, Untermenüpfeile und Schließknöpfe auf Reitern
+      sind etwas kräftiger.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 23:40:00 +0200
+
 querencia-shell (0.1.0~alpha8-1) resolute; urgency=medium
 
   * Arbeitsfläche (Desktop 0.2.4):

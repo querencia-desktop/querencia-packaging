@@ -3,8 +3,15 @@ Querencia Files – Hinweise zum Paket
 
 Querencia Files ist ein Fork des Dateimanagers Strata von LGSE Ltd.
 (https://github.com/LGSE/strata, MIT-Lizenz) mit klassischem Aussehen im
-Stil von Nautilus 2 und dem Symbolthema GNOME Human. Programm, Desktop-ID
-und Konfiguration heißen deshalb noch "strata" bzw. io.github.lgse.Strata.
+Stil von Nautilus 2 und dem Symbolthema GNOME Human.
+
+- Kennung (App-ID, Desktop-ID) ist seit Alpha 2.2 org.querencia.Files. Der
+  alte Starter io.github.lgse.Strata.desktop bleibt vorerst als unsichtbare
+  Brücke ohne MIME-Typen, damit ältere Verknüpfungen weiter starten.
+- Eigene Einstellungen und Zustände liegen unter ~/.config/querencia-files,
+  ~/.local/state/querencia-files, ~/.local/share/querencia-files und
+  ~/.cache/querencia-files. Ein vorhandener Ordner "strata" wird beim ersten
+  Start dorthin verschoben und bleibt als Verweis stehen.
 
 - Lizenz: MIT (Strata und Querencia-Änderungen). Das Programm ist gegen die
   GPL-Bibliothek libpoppler-glib gelinkt (PDF-Vorschau); als Ganzes wird

@@ -1,3 +1,13 @@
+querencia-session (0.1.0~alpha8-1) resolute; urgency=medium
+
+  * Neue Version 0.1.0~alpha8.
+  * Super+D spricht das Panel unter seinem neuen Namen an.
+  * Ordner öffnen in der Querencia-Sitzung mit Querencia Files unter seiner
+    neuen Kennung.
+  * Braucht querencia-shell 0.1.0~alpha9 oder neuer.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 23:40:00 +0200
+
 querencia-session (0.1.0~alpha7-3) resolute; urgency=medium
 
   * Das Panel wird bei einem Absturz automatisch neu gestartet, höchstens
