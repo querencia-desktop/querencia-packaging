@@ -1,5 +1,11 @@
 # Änderungen – querencia-packaging
 
+## Alpha 2.1 – Kandidat 3b vom 22.10.2026, unveröffentlicht
+
+Wie Kandidat 3, querencia-session 0.1.0~alpha7-3 aber aus der Quelle
+`session/alpha7-3` (`1c200ad`, Autostart-Block gleich runtime `388cff8`, Tests
+erwarten den Wachhund) statt aus den Paket-Patches 0002/0003.
+
 ## Alpha 2.1 – Kandidat 3 vom 22.10.2026, unveröffentlicht
 
 Kandidat 2 plus Panel-Überwachung im Sitzungsstart.

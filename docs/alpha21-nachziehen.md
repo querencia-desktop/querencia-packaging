@@ -33,7 +33,7 @@ den Stand von Kandidat 1 an.
 | Terminal 0.3.1 | querencia-terminal | querencia-terminal-dev | 0.3.0-2 | Patch `0001-metainfo-homepage` und `series` löschen, falls die Homepage im Repo stimmt, sonst neu schneiden |
 | Screenshot (neue Version) | querencia-screenshot | querencia-screenshot-dev | 0.2.9-2 | wie Terminal |
 | Sitzung 0.1.4 | querencia-sitzung | querencia-sitzung | 0.1.3-3 | – |
-| Panel-Überwachung (Autostart) | querencia-session | querencia-werkstatt-w5-release/quellen/querencia-session | **0.1.0~alpha7-3 in Kandidat 3** (Patches 0002 Autostart aus runtime `7ad985a`, 0003 Testanpassung) | Ändert runtime `session/querencia/labwc/autostart` sich wieder: Hunk prüfen und übertragen, `tests/run.sh` muss mit 0002/0003 grün bleiben. Kommt ein neuer Stand der Session-Quelle mit beidem, entfallen die Patches |
+| Panel-Überwachung (Autostart) | querencia-session | querencia-werkstatt-w5-release/quellen/querencia-session | **0.1.0~alpha7-3 aus `session/alpha7-3` = `1c200ad`** (Kandidat 3b) | Ändert runtime `session/querencia/labwc/autostart` sich wieder: im Zweig `session-ueberwacht` nachziehen, `tests/run.sh` grün, neuer Tag; Hash des Panel-Blocks mit runtime vergleichen |
 | Anmeldung | querencia-anmeldung | ReGreet + Komponente `querencia` (`komponenten.conf`) | **0.1.2-1 in Kandidat 1** (Komponente c489a15, Tag `anmeldung/0.1.2-int`) | nächste Version: Komponenten-Commit in `querencia-anmeldung/komponenten.conf` |
 
 ## 2. Eintragen
