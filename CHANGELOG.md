@@ -1,5 +1,23 @@
 # Änderungen – querencia-packaging
 
+## Alpha 2.1 – Kandidat 1 vom 22.10.2026, unveröffentlicht
+
+Alpha 2 plus Desktop 0.2.3 und Versionsdatei; die übrigen Tags der Welle
+folgen nach [docs/alpha21-nachziehen.md](docs/alpha21-nachziehen.md).
+
+- Shell 0.1.0~alpha8-1: Desktop 0.2.3 (`desktop/0.2.3` = e38f402):
+  Kontextmenü, Zwischenablage, Papierkorb und Ziehen auf der Arbeitsfläche.
+- Metapaket 0.1.0~alpha2.1-1: `/usr/share/querencia/version` und
+  `/usr/share/querencia/release` ([docs/versionsdatei.md](docs/versionsdatei.md));
+  verlangt Shell >= 0.1.0~alpha8.
+- Terminal 0.3.0-2, Screenshot 0.2.9-2: MetaInfo-Homepage
+  https://querencialinux.org per Patch (bis die neuen Upstream-Versionen sie
+  selbst mitbringen).
+- Neue debian/changelog-Einträge ohne interne Kennungen, Rollen oder
+  Rechnernamen. Der Filter für KI-Abschnitte (`common/doku/`) bleibt, solange
+  die READMEs der Quellen den Abschnitt noch haben.
+- Die übrigen 17 Pakete sind unverändert (gleiche Version, byte-gleich mit Alpha 2).
+
 ## Alpha 2 – eingefroren 21.10.2026 22:07, unveröffentlicht
 
 21 Pakete auf dem Live-Stand von entwicklungs-vm vom 21.10.2026 abends
