@@ -1,7 +1,7 @@
 # Alpha 2.1 nachziehen – Checkliste je fertigem Tag
 
 Grundlage ist Kandidat 1 (Tag `packaging/alpha-2.1-kandidat-1`): Alpha 2 plus
-Desktop 0.2.3 und Versionsdatei. Für jeden Tag, den die Welle Alpha 2.1 fertig
+Desktop 0.2.3, Versionsdatei und Anmeldung 0.1.2-1. Für jeden Tag, den die Welle Alpha 2.1 fertig
 meldet, gehen diese Schritte im Worktree `~/projects/querencia-packaging-wt-alpha21`
 (Zweig `alpha21`) einmal durch. Mehrere Tags dürfen in einem Durchgang landen.
 
@@ -18,6 +18,10 @@ meldet, gehen diese Schritte im Worktree `~/projects/querencia-packaging-wt-alph
 
 ## 1. Zuordnung Tag → Quellpaket
 
+Stand 22.10. 04:10 laut Startsession schon live, Tags über die Status-Session bzw. 00:
+Rechner 0.1.6, Editor 0.2.4, Bilder 0.2.6, Dateisuche 0.1.5, Software 0.1.5,
+Terminal 0.3.1. Das sind die Kandidaten für den nächsten Durchgang.
+
 | Welle | Quellpaket | Repository | heute (Kandidat 1) | beachten |
 |---|---|---|---|---|
 | Panel 0.2.2/0.2.3, Desktop 0.2.4, Kürzel 0.2.1 | querencia-shell | querencia-runtime | `desktop/0.2.3` e38f402, 0.1.0~alpha8 | ein Commit für alle drei; Patch 0001 (Quellbaum-Rückfall) prüfen |
@@ -28,7 +32,7 @@ meldet, gehen diese Schritte im Worktree `~/projects/querencia-packaging-wt-alph
 | Terminal 0.3.1 | querencia-terminal | querencia-terminal-dev | 0.3.0-2 | Patch `0001-metainfo-homepage` und `series` löschen, falls die Homepage im Repo stimmt, sonst neu schneiden |
 | Screenshot (neue Version) | querencia-screenshot | querencia-screenshot-dev | 0.2.9-2 | wie Terminal |
 | Sitzung 0.1.4 | querencia-sitzung | querencia-sitzung | 0.1.3-3 | – |
-| Anmeldung | querencia-anmeldung | ReGreet + Komponente `querencia` (`komponenten.conf`) | 0.1.1-3 | Komponenten-Commit in `querencia-anmeldung/komponenten.conf` |
+| Anmeldung | querencia-anmeldung | ReGreet + Komponente `querencia` (`komponenten.conf`) | **0.1.2-1 in Kandidat 1** (Komponente c489a15, Tag `anmeldung/0.1.2-int`) | nächste Version: Komponenten-Commit in `querencia-anmeldung/komponenten.conf` |
 
 ## 2. Eintragen
 
@@ -68,8 +72,14 @@ cd ~/projects/querencia-packaging-wt-alpha21 && TMPDIR=$PWD/build/tmp QUERENCIA_
 
 - Ergebnis je Paket in `build/bau-ergebnis.txt` (PASS/FAIL mit Sekunden), Logs in
   `build/nachweis/logs/`. `build/debs/SHA256SUMS` wird neu geschrieben.
-- Unveränderte Pakete nicht neu bauen. Wer doch alles baut, muss für sie byte-gleiche
-  Dateien wie in Alpha 2 bekommen (Prüfung unten).
+- Unveränderte Pakete (gleiche Version wie in Alpha 2) kommen **immer als Alpha-2-Datei**
+  in den Satz, nie als Neubau, weil der Pool unveränderlich ist. Ein Neubau ist nicht immer
+  byte-gleich: Bei Session, Symbole und Hintergründe weichen die Zeitstempel ab, bei
+  Software die Reihenfolge im Binary.
+- Satz zusammenstellen (nach `inhalt-vergleich.sh`, liegt nicht in Git, siehe Bericht):
+  `GLEICH`/`INHALT-GLEICH` → Datei aus `~/projects/querencia-packaging-wt-alpha2/build/debs-final`,
+  `NEU` → `build/debs`, `ANDERS` → nur nach Prüfung (heute nur Software, Alpha-2-Datei).
+  Ziel `build/debs-kandidat-<n>` mit eigener `SHA256SUMS`.
 - Läuft der Bau auf einen Fehler im Quellcode, zurück an die Session des Tags, nicht
   im Paket flicken. Ausnahme sind Paketfragen (Pfade, MetaInfo, Doku), die per DEP-3-Patch
   gelöst werden.
@@ -77,7 +87,7 @@ cd ~/projects/querencia-packaging-wt-alpha21 && TMPDIR=$PWD/build/tmp QUERENCIA_
 ## 4. Prüfen
 
 ```bash
-cd ~/projects/querencia-packaging-wt-alpha21 && TMPDIR=$PWD/build/tmp bash build/nachweis/pruef-alles.sh 
+cd ~/projects/querencia-packaging-wt-alpha21 && PRUEF_DEBS=$PWD/build/debs-kandidat-<n> TMPDIR=$PWD/build/tmp bash build/nachweis/pruef-alles.sh 
 ```
 
 Erwartung (Kandidat 1 als Maßstab, Bericht ):

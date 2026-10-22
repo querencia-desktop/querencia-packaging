@@ -2,8 +2,8 @@
 
 ## Alpha 2.1 – Kandidat 1 vom 22.10.2026, unveröffentlicht
 
-Alpha 2 plus Desktop 0.2.3 und Versionsdatei; die übrigen Tags der Welle
-folgen nach [docs/alpha21-nachziehen.md](docs/alpha21-nachziehen.md).
+Alpha 2 plus Desktop 0.2.3, Versionsdatei und Anmeldung 0.1.2; die übrigen
+Tags der Welle folgen nach [docs/alpha21-nachziehen.md](docs/alpha21-nachziehen.md).
 
 - Shell 0.1.0~alpha8-1: Desktop 0.2.3 (`desktop/0.2.3` = e38f402):
   Kontextmenü, Zwischenablage, Papierkorb und Ziehen auf der Arbeitsfläche.
@@ -13,10 +13,19 @@ folgen nach [docs/alpha21-nachziehen.md](docs/alpha21-nachziehen.md).
 - Terminal 0.3.0-2, Screenshot 0.2.9-2: MetaInfo-Homepage
   https://querencialinux.org per Patch (bis die neuen Upstream-Versionen sie
   selbst mitbringen).
+- Anmeldung 0.1.2-1 (Zweig `anmeldung-de`, Komponente c489a15): übersetzter
+  Anmeldebildschirm, Uhr nach Systemsprache, Ausgabe aus der Versionsdatei.
+- labwc: `GIT_CEILING_DIRECTORIES` im Bau, sonst landete `git describe` des
+  Packaging-Repos als Version im Binary. Mit der Grenze ist der Neubau
+  byte-gleich mit Alpha 2.
 - Neue debian/changelog-Einträge ohne interne Kennungen, Rollen oder
   Rechnernamen. Der Filter für KI-Abschnitte (`common/doku/`) bleibt, solange
   die READMEs der Quellen den Abschnitt noch haben.
-- Die übrigen 17 Pakete sind unverändert (gleiche Version, byte-gleich mit Alpha 2).
+- 16 Pakete sind unverändert. Der Kandidat enthält für sie die Alpha-2-Dateien
+  aus der Quelle (Pool unveränderlich). Ihr Neubau ist bei 12 Paketen byte-gleich.
+  Bei Session, Symbole und Hintergründe weichen nur die Zeitstempel ab (der
+  Alpha-2-Bau lief vor dem Changelog-Datum). Bei Software liegen im Binary die
+  Konstanten in anderer Reihenfolge, bei gleichen Quellen.
 
 ## Alpha 2 – eingefroren 21.10.2026 22:07, unveröffentlicht
 
