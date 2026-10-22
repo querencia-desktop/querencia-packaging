@@ -4,7 +4,8 @@
 
 Welle Alpha 2.1 bis 05:00: alles, was live, nachkontrolliert und gemergt ist.
 
-- Shell 0.1.0~alpha8-1 aus querencia-runtime main `a2eebc8`: Panel 0.2.3
+- Shell 0.1.0~alpha8-1 aus querencia-runtime main `388cff8` (Tag zeigt auf
+  `a2eebc8`, gleiche Crates, Paket byte-gleich): Panel 0.2.3
   (Info mit Ausgabe, Online-Hilfe/Fehler melden, Netzwerkseite, seltener
   Symbolthema neu einlesen, Schutzmodus `--ueberwacht` noch aus), Desktop 0.2.4
   (Beschriftung ohne Platte), Kürzel 0.2.1 (dunkel).
@@ -17,6 +18,8 @@ Welle Alpha 2.1 bis 05:00: alles, was live, nachkontrolliert und gemergt ist.
   0.1.4, Archiv 0.1.2 (Homepage-Patch bleibt bei Archiv und Dokumente).
 - Metapaket: Mindestversionen der Welle, `Recommends: fonts-noto-core,
   fonts-noto-cjk` (asiatische Zeichen in Fenstertiteln).
+- Panel-Überwachung (`--ueberwacht`) im Autostart von querencia-session: offen,
+  die Testsuite der Session-Quelle erwartet den alten Autostart.
 - Unverändert aus Alpha 2: labwc, Session, Benachrichtigungen, Symbole,
   Hintergründe; Anmeldung 0.1.2-1 wie Kandidat 1.
 
