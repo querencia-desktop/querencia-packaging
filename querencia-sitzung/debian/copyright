@@ -171,6 +171,16 @@ Copyright: The gtk-rs Project Developers
 License: Expat
 Comment: Rust crate glib-sys 0.22.9, vendored from crates.io (checksum in cargo-vendor/glib-sys-0.22.9/.cargo-checksum.json).
 
+Files: cargo-vendor/glib-unix-0.22.8/*
+Copyright: The gtk-rs Project Developers
+License: Expat
+Comment: Rust crate glib-unix 0.22.8, vendored from crates.io (checksum in cargo-vendor/glib-unix-0.22.8/.cargo-checksum.json).
+
+Files: cargo-vendor/glib-unix-sys-0.22.9/*
+Copyright: The gtk-rs Project Developers
+License: Expat
+Comment: Rust crate glib-unix-sys 0.22.9, vendored from crates.io (checksum in cargo-vendor/glib-unix-sys-0.22.9/.cargo-checksum.json).
+
 Files: cargo-vendor/gobject-sys-0.22.9/*
 Copyright: The gtk-rs Project Developers
 License: Expat

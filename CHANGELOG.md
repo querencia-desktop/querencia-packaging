@@ -1,5 +1,25 @@
 # Änderungen – querencia-packaging
 
+## Alpha 2.1 – Kandidat 2 vom 22.10.2026, unveröffentlicht
+
+Welle Alpha 2.1 bis 05:00: alles, was live, nachkontrolliert und gemergt ist.
+
+- Shell 0.1.0~alpha8-1 aus querencia-runtime main `a2eebc8`: Panel 0.2.3
+  (Info mit Ausgabe, Online-Hilfe/Fehler melden, Netzwerkseite, seltener
+  Symbolthema neu einlesen, Schutzmodus `--ueberwacht` noch aus), Desktop 0.2.4
+  (Beschriftung ohne Platte), Kürzel 0.2.1 (dunkel).
+- Files 0.1.0~alpha7-1 (QF-0s, `files/qf-0s`): Papierkorb-Ziehen stellt wieder
+  her, Info mit Paketversion (`QUERENCIA_PACKAGE_VERSION` aus debian/rules),
+  Ausgabe „Alpha 2.1“ per Patch.
+- Sitzung 0.1.4, Einstellungen 0.1.5, Software 0.1.5, Terminal 0.3.2,
+  Screenshot 0.2.10 (Homepage-Patches von Terminal und Screenshot entfallen),
+  Rechner 0.1.6, Editor 0.2.4, Bilder 0.2.6, Dateisuche 0.1.5, Dokumente
+  0.1.4, Archiv 0.1.2 (Homepage-Patch bleibt bei Archiv und Dokumente).
+- Metapaket: Mindestversionen der Welle, `Recommends: fonts-noto-core,
+  fonts-noto-cjk` (asiatische Zeichen in Fenstertiteln).
+- Unverändert aus Alpha 2: labwc, Session, Benachrichtigungen, Symbole,
+  Hintergründe; Anmeldung 0.1.2-1 wie Kandidat 1.
+
 ## Alpha 2.1 – Kandidat 1 vom 22.10.2026, unveröffentlicht
 
 Alpha 2 plus Desktop 0.2.3, Versionsdatei und Anmeldung 0.1.2; die übrigen

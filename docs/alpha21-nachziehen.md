@@ -18,14 +18,15 @@ meldet, gehen diese Schritte im Worktree `~/projects/querencia-packaging-wt-alph
 
 ## 1. Zuordnung Tag → Quellpaket
 
-Stand 22.10. 04:10 laut Startsession schon live, Tags über die Status-Session bzw. 00:
-Rechner 0.1.6, Editor 0.2.4, Bilder 0.2.6, Dateisuche 0.1.5, Software 0.1.5,
-Terminal 0.3.1. Das sind die Kandidaten für den nächsten Durchgang.
+**Stand Kandidat 2 (Tag `packaging/alpha-2.1-kandidat-2`):** Alle Zeilen der Tabelle sind
+eingetragen, die Shell aus runtime main `a2eebc8` mit Panel 0.2.3, Desktop 0.2.4 und
+Kürzel 0.2.1. Weitere Tags gehen über diese Liste in Kandidat 3. Die Spalte „heute“ gibt
+den Stand von Kandidat 1 an.
 
 | Welle | Quellpaket | Repository | heute (Kandidat 1) | beachten |
 |---|---|---|---|---|
 | Panel 0.2.2/0.2.3, Desktop 0.2.4, Kürzel 0.2.1 | querencia-shell | querencia-runtime | `desktop/0.2.3` e38f402, 0.1.0~alpha8 | ein Commit für alle drei; Patch 0001 (Quellbaum-Rückfall) prüfen |
-| Files QF-0s | querencia-files | querencia-files-dev | qf-0r-1 1ca5c0a, 0.1.0~alpha6 | Upstream 0.1.0~alpha7; Fremd-Toolchain 1.98.1 (alle-bauen setzt sie) |
+| Files QF-0s | querencia-files | querencia-files-dev | qf-0r-1 1ca5c0a, 0.1.0~alpha6 | Upstream 0.1.0~alpha7; Fremd-Toolchain 1.98.1 (alle-bauen setzt sie); Patch `0001-ausgabe-alpha-2-1` (fester Text „Alpha 2“ in `src/build_info.rs`) prüfen, er entfällt, wenn Files die Versionsdatei liest |
 | Einstellungen 0.1.5 | querencia-einstellungen | querencia-einstellungen | 0.1.4 | liest `/usr/share/querencia/release` (docs/versionsdatei.md) |
 | Software 0.1.5 | querencia-software | querencia-software (+ Bausteine in `komponenten.conf`) | 0.1.4 | Baustein-Commits in `querencia-software/komponenten.conf` mitziehen |
 | Editor, Bilder, Dateisuche, Dokumente, Archiv, Rechner, Systemmonitor | je eigenes Paket | je eigenes Repo | Alpha 2 | bringt das Repo eine eigene MetaInfo mit, `metainfo_install` → `metainfo_install_from,data,…` umstellen; Patch `0001-metainfo-homepage` (Archiv, Dokumente) entfällt, wenn die Homepage im Repo stimmt |
@@ -59,10 +60,14 @@ Terminal 0.3.1. Das sind die Kandidaten für den nächsten Durchgang.
 - [ ] Metapaket `querencia-desktop`: Mindestversion in `debian/control` anheben und den
       changelog-Eintrag `0.1.0~alpha2.1-1` ergänzen, solange nichts veröffentlicht ist.
       `AUSGABE` in `debian/rules` bleibt `Alpha 2.1`.
+- [ ] Ältere changelog-Einträge nicht umschreiben (Entscheidung 22.10.): nur der neue Eintrag ist kennungsfrei.
+- [ ] Metapaket: `Recommends: fonts-noto-core, fonts-noto-cjk` (seit Kandidat 2; Schriften für asiatische Zeichen
+      in Fenstertiteln) bleibt Recommends, nicht Depends, damit Server-Installationen klein bleiben können.
 - [ ] KI-Filter: `git -C ~/projects/<repo> grep -n -E '^#+ +Lizenzvermerk|^Lizenzvermerk:' <commit> -- README.md COPYRIGHT`.
       Ist das für **alle** Quellen in `quellen.conf` leer, entfallen
       `common/doku/ki-abschnitt-entfernen.awk` und der awk-Aufruf in `doc_install`
-      (`common/querencia.mk`; dann wieder `install -m 0644`). Sonst bleibt beides.
+      (`common/querencia.mk`; dann wieder `install -m 0644`). Sonst bleibt beides (Entscheidung 22.10.: bis die
+      16 Quellen bereinigt sind).
 
 ## 3. Bauen
 
