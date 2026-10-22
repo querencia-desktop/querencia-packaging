@@ -10,7 +10,7 @@ querencia-anmeldung (0.1.2-1) resolute; urgency=medium
     Crates, Cargo.lock unverändert. Build-Depends: gettext.
   * Uhr "%x %H:%M" (deutsch 22.10.2026 02:54) und Info-Zeile mit der
     Ausgabe aus /usr/share/querencia/release bzw. version im Grußtext
-    (querencia-anmeldung aa06859).
+    (querencia-anmeldung c489a15).
   * Bau prüft die Übersetzung (tests/uebersetzung-pruefen.sh) und dass der
     Patch im Binary steht.
 
