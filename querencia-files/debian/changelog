@@ -11,7 +11,7 @@ querencia-files (0.1.0~alpha8-1) resolute; urgency=medium
   * Eigene Einstellungen liegen jetzt in Ordnern namens querencia-files; ein
     vorhandener Ordner strata wird beim ersten Start verschoben.
 
- -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 23:40:00 +0200
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 23:20:00 +0200
 
 querencia-files (0.1.0~alpha7-1) resolute; urgency=medium
 

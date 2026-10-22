@@ -6,7 +6,7 @@ querencia-session (0.1.0~alpha8-1) resolute; urgency=medium
     neuen Kennung.
   * Braucht querencia-shell 0.1.0~alpha9 oder neuer.
 
- -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 23:40:00 +0200
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 23:20:00 +0200
 
 querencia-session (0.1.0~alpha7-3) resolute; urgency=medium
 

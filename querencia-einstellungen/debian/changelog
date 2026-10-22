@@ -9,7 +9,7 @@ querencia-einstellungen (0.1.6-1) resolute; urgency=medium
   * Zurückgestellte Einstellungen hinterlassen die labwc-Konfiguration
     wieder unverändert.
 
- -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 23:40:00 +0200
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 23:20:00 +0200
 
 querencia-einstellungen (0.1.5-1) resolute; urgency=medium
 
