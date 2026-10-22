@@ -1,0 +1,40 @@
+Description: Tests: Fake-Panel beantwortet --faehigkeiten, neuer Fall Überwachung
+ Seit Patch 0002 fragt der Autostart das Panel mit --faehigkeiten. Die
+ Fake-Programme der Tests protokollieren jeden Aufruf; das Fake-Panel
+ beantwortet die Frage jetzt ohne Protokoll und nennt "ueberwacht" nur,
+ wenn $FAKE/panel-ueberwacht existiert. Damit bleiben die bisherigen
+ Erwartungen gleich. Ein neuer Fall prüft, dass ein Panel mit der Fähigkeit
+ mit --ueberwacht startet und die Record-Datei geschrieben wird (mit dem
+ alten Autostart schlägt genau dieser Fall fehl).
+Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Forwarded: not-yet (für den nächsten Stand der Session-Quelle)
+Last-Update: 2026-10-22
+---
+--- a/tests/run.sh
++++ b/tests/run.sh
+@@ -92,6 +92,10 @@
+ for p in panel desktop sitzung polkit benach einst; do
+     printf '#!/bin/sh\necho "%s $*" >>"$FAKE/autostart.txt"\necho "%s ${GDK_DEBUG-}" >>"$FAKE/gdk.txt"\n' "$p" "$p" >"$A/$p"; chmod 755 "$A/$p"
+ done
++# The autostart asks the panel for its capabilities (--faehigkeiten); the
++# fake answers without recording and names "ueberwacht" only when
++# $FAKE/panel-ueberwacht exists, so the cases below see the old start line.
++printf '#!/bin/sh\nif [ "${1-}" = --faehigkeiten ]; then [ -e "$FAKE/panel-ueberwacht" ] && echo ueberwacht; exit 0; fi\necho "panel $*" >>"$FAKE/autostart.txt"\necho "panel ${GDK_DEBUG-}" >>"$FAKE/gdk.txt"\n' >"$A/panel"; chmod 755 "$A/panel"
+ run QUERENCIA_PANEL="$A/panel" QUERENCIA_STATE_DIR="$A/state" QUERENCIA_PANEL_RECORD="$A/state/panel.pid" \
+     QUERENCIA_DESKTOP="$A/desktop" QUERENCIA_DESKTOP_RECORD="$A/state/desktop.pid" \
+     QUERENCIA_SITZUNG="$A/sitzung" QUERENCIA_LEERLAUF_MINUTEN=7 QUERENCIA_POLKIT_AGENT="$A/polkit" \
+@@ -106,6 +110,14 @@
+ sleep 0.5
+ got=$(cat "$T/autostart.txt" 2>/dev/null | tr '\n' '|')
+ [ "$got" = "panel |" ] && ok "autostart ohne optionale Programme: nur Panel" || nok "autostart ohne optionale Programme" "$got"
++# a panel that names the capability starts under its watchdog
++rm -f "$T/autostart.txt" "$A/state/panel.pid"; touch "$T/panel-ueberwacht"
++run QUERENCIA_PANEL="$A/panel" QUERENCIA_STATE_DIR="$A/state" QUERENCIA_PANEL_RECORD="$A/state/panel.pid" \
++    QUERENCIA_DESKTOP= QUERENCIA_SITZUNG= QUERENCIA_POLKIT_AGENT= QUERENCIA_BENACHRICHTIGUNGEN= QUERENCIA_EINSTELLUNGEN= sh "$ROOT/labwc/autostart"
++sleep 0.5
++got=$(cat "$T/autostart.txt" 2>/dev/null | tr '\n' '|')
++[ "$got" = "panel --ueberwacht|" ] && [ -s "$A/state/panel.pid" ] && ok "autostart: Panel mit Fähigkeit unter Überwachung" || nok "autostart: Panel unter Überwachung" "$got"
++rm -f "$T/panel-ueberwacht" "$T/autostart.txt"
+ case $(cat "$A/state/sitzung-start.log" 2>/dev/null) in *"Settings-Portal antwortet nach"*) ok "autostart: Portal-Wächter, Portal antwortet" ;; *) nok "autostart: Portal antwortet" ;; esac
+ [ -z "$(grep -v ' $' "$T/gdk.txt")" ] && ok "autostart: ohne no-portals, wenn das Portal antwortet" || nok "autostart: GDK_DEBUG" "$(cat "$T/gdk.txt")"
+ # 3c portal does not answer: GTK programs without the portal, portals
