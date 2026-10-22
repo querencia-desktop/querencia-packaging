@@ -11,7 +11,8 @@ Build-Depends: cargo (>= 1.85),
                liblcms2-dev,
                libseccomp-dev,
                libfontconfig-dev,
-               python3:any
+               python3:any,
+               gettext
 Standards-Version: 4.7.2
 Homepage: https://github.com/rharish101/ReGreet
 
@@ -48,8 +49,9 @@ Description: Querencia Desktop login screen (greetd with ReGreet, alpha)
  manager. A running display manager is never stopped.
  .
  ReGreet 0.5.0 is built from the upstream release with its own paths
- (/etc/querencia/greetd); the configuration of the greetd package is not
- touched.
+ (/etc/querencia/greetd) and one small patch that shows its texts in the
+ system language (German translation included) and the clock in the time
+ locale (LC_TIME); the configuration of the greetd package is not touched.
  .
  Querencia Desktop is developed with AI tools; every change is reviewed
  and accepted by the project owner.

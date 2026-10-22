@@ -1,7 +1,10 @@
 #!/usr/bin/make -f
-# Quellbaum: ReGreet 0.5.0 (Upstream, unverändert) im Hauptordner, die
-# Querencia-Teile (Konfiguration, Startskripte, Doku) aus dem Repository
-# querencia-anmeldung als Komponente unter querencia/.
+# Quellbaum: ReGreet 0.5.0 (Upstream) im Hauptordner, die Querencia-Teile
+# (Konfiguration, Startskripte, Doku, Übersetzung) aus dem Repository
+# querencia-anmeldung als Komponente unter querencia/. Einziger Patch an
+# ReGreet: debian/patches/0001-gettext-uhr-nach-lc-time.patch (sichtbare
+# Texte über gettext, Uhr nach LC_TIME; Entscheidung der Startsession vom
+# 22.10.2026).
 QUERENCIA_KIND := rust
 QUERENCIA_TEST := yes
 CARGO_FEATURES :=
@@ -26,7 +29,10 @@ DOC := $(DESTDIR)/usr/share/doc/$(PKG)
 querencia-install:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	sh $(Q)/tests/konfig-pruefen.sh $(Q)
+	sh $(Q)/tests/uebersetzung-pruefen.sh . $(Q)/po/de.po
 endif
+	# der Patch ist angewendet (Text, den es nur mit ihm gibt)
+	grep -q 'Wrong password. Please try again.' target/release/regreet
 	# die eingebauten Pfade müssen im Binary stehen
 	grep -q /etc/querencia/greetd target/release/regreet
 	grep -q /var/lib/querencia-anmeldung target/release/regreet
@@ -47,6 +53,8 @@ endif
 		$(DESTDIR)/usr/lib/systemd/system/querencia-anmeldung.service
 	install -D -m 0644 $(Q)/tmpfiles/querencia-anmeldung.conf \
 		$(DESTDIR)/usr/lib/tmpfiles.d/querencia-anmeldung.conf
+	install -d $(DESTDIR)/usr/share/locale/de/LC_MESSAGES
+	msgfmt -c -o $(DESTDIR)/usr/share/locale/de/LC_MESSAGES/querencia-anmeldung.mo $(Q)/po/de.po
 	install -D -m 0644 $(Q)/man/querencia-anmeldung.8 $(DESTDIR)/usr/share/man/man8/querencia-anmeldung.8
 	$(call doc_install,$(Q))
 	install -m 0644 $(Q)/docs/umschalten.md $(DOC)/umschalten.md
