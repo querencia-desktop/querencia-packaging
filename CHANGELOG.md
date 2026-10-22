@@ -1,5 +1,29 @@
 # Änderungen – querencia-packaging
 
+## Alpha 2.2 – Kandidat 1 vom 22.10.2026, unveröffentlicht
+
+Welle Alpha 2.2 aus den Hauptzweigen (Stand der Entwicklungsumgebung).
+
+- querencia-desktop 0.1.0~alpha2.2-1: Versionsdatei „Alpha 2.2“, Mindestversionen.
+- querencia-shell 0.1.0~alpha9-1 aus querencia-runtime main `a1b3e53` (Panel 0.3.0,
+  Arbeitsfläche 0.2.6, Kürzel 0.2.1) mit Thema main `3f4a95b` (0.2.2): beide labwc-Themen
+  Querencia-Klassisch und Querencia-Klassisch-Dunkel unter `/usr/share/themes`, die
+  gettext-Kataloge von Panel, Lautstärke, Netzwerk und Arbeitsfläche.
+- querencia-files 0.1.0~alpha8-1 aus `files/qf-0t-3` (`ab79d99e`): Starter
+  `org.querencia.Files.desktop`, alter Starter als unsichtbare Brücke ohne MIME-Typen,
+  MetaInfo `org.querencia.Files`, Paketmarke unter `/usr/share/querencia-files`; der
+  Patch für die Ausgabe entfällt (Files liest die Versionsdatei).
+- querencia-session 0.1.0~alpha8-1 aus `session/alpha8` (`9d337b1`): Super+D an
+  `org.querencia.Panel`, Ordner mit `org.querencia.Files`; Depends
+  querencia-shell (>= 0.1.0~alpha9).
+- querencia-einstellungen 0.1.6-1 (`888bc2e`), querencia-sitzung 0.1.6-1 (`316f52e`).
+- Neue changelog-Einträge mit einem Datum vor dem Bau, damit alle Dateien auf
+  SOURCE_DATE_EPOCH geklemmt werden.
+- `tests/frisches-ubuntu-pruefen.sh`: N (nichts in /home) nur im Zeitfenster des letzten
+  apt-Laufs (QD-131); Prüfpunkte für Alpha 2.2.
+- `docs/alpha21-nachziehen.md`: Upgrade-Probe vor dem Hochladen aus einer lokalen Kopie
+  der Quelle (QD-132).
+
 ## Alpha 2.1 – Kandidat 3b vom 22.10.2026, unveröffentlicht
 
 Wie Kandidat 3, querencia-session 0.1.0~alpha7-3 aber aus der Quelle

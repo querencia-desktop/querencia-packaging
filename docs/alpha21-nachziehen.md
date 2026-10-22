@@ -130,5 +130,13 @@ Erwartung (Kandidat 1 als Maßstab, Bericht ):
 - [ ] `build/debs` → `build/debs-final`, `chmod -R a-w`, Summe von `SHA256SUMS` melden
 - [ ] Pflichtprobe auf frischer VM (`docs/pflichtprobe-frische-vm.md`), Upgrade Alpha 2 → 2.1
       (`apt full-upgrade`) in der Wegwerf-VM
+- [ ] **Upgrade-Probe immer vor dem Hochladen** (QD-132, seit Alpha 2.2): Der Index der
+      veröffentlichten Quelle führt nur die neueste Fassung eines Pakets; nach dem Upload ist
+      die Vorversion per apt nicht mehr auflösbar. Deshalb in der Wegwerf-VM die Vorversion
+      aus der **echten** Quelle installieren (Befehle der Website), dann auf eine lokale,
+      signierte Kopie der Quelle mit dem neuen Satz umstellen (Pool-Simulation aus
+      `pruef-alles.sh`, Wegwerf-Schlüssel) und `apt full-upgrade` messen. Diese Messung ist
+      die Upgrade-Zahl für Release Notes und Website. Nach dem Upload nur noch eine
+      Neuinstallation aus der echten Quelle.
 - [ ] Quelle bauen, signieren und hochladen nur durch die Startsession mit dem Besitzer
       (Befehle wie in der Alpha-2-Übergabe §5)
