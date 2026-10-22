@@ -1,18 +1,12 @@
 querencia-anmeldung (0.1.2-1) resolute; urgency=medium
 
-  * Anmeldebildschirm in der Systemsprache (QD-107): Beschriftungen,
-    Knöpfe, Tooltips, Passwortabfrage und Fehlermeldungen über gettext,
-    deutscher Katalog aus querencia/po/de.po nach
-    /usr/share/locale/de/LC_MESSAGES/querencia-anmeldung.mo.
-  * Einziger Patch an ReGreet 0.5.0 (DEP-3, Entscheidung der Startsession
-    vom 22.10.2026): 0001-gettext-uhr-nach-lc-time.patch, sichtbare Texte
-    über glib::dgettext und Sprache der Uhr aus LC_TIME; keine neuen
-    Crates, Cargo.lock unverändert. Build-Depends: gettext.
-  * Uhr "%x %H:%M" (deutsch 22.10.2026 02:54) und Info-Zeile mit der
-    Ausgabe aus /usr/share/querencia/release bzw. version im Grußtext
-    (querencia-anmeldung c489a15).
-  * Bau prüft die Übersetzung (tests/uebersetzung-pruefen.sh) und dass der
-    Patch im Binary steht.
+  * Der Anmeldebildschirm spricht die Systemsprache: Beschriftungen,
+    Knöpfe, Tooltips, Passwortabfrage und Fehlermeldungen sind übersetzt
+    (Deutsch mitgeliefert).
+  * Die Uhr zeigt Datum und Zeit im Format der Systemsprache, z. B.
+    „22.10.2026 02:54“.
+  * Der Grußtext nennt die installierte Ausgabe von Querencia Desktop
+    (aus /usr/share/querencia/release).
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 03:45:00 +0200
 
