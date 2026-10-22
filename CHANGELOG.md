@@ -1,5 +1,21 @@
 # Änderungen – querencia-packaging
 
+## Alpha 2.1 – Kandidat 3 vom 22.10.2026, unveröffentlicht
+
+Kandidat 2 plus Panel-Überwachung im Sitzungsstart.
+
+- querencia-session 0.1.0~alpha7-3: Der Autostart startet Panel 0.2.3 unter
+  seinem Wachhund (`--ueberwacht`); Patch 0002 aus runtime `panel/ueberwacht-1`
+  (`7ad985a`), Patch 0003 passt `tests/run.sh` an (Fake-Panel beantwortet
+  `--faehigkeiten`, neuer Fall „Panel unter Überwachung“).
+- Metapaket verlangt querencia-session (>= 0.1.0~alpha7-3).
+- Shell-Quelle runtime `388cff8` (gleiche Crates wie `a2eebc8`, Paket byte-gleich).
+- Tests: Wegwerf-Hülle und `frisches-ubuntu-pruefen.sh sitzung` kennen Wachhund
+  plus Panel; die Hülle prüft den Neustart nach SIGSEGV (zweimal geschickt, Rusts
+  Stapelüberlauf-Handler fängt das erste).
+- Weg-B-Probe in VM 115: Neuinstallation aus lokaler Quelle und Upgrade Alpha 2 →
+  Kandidat 3 bestanden.
+
 ## Alpha 2.1 – Kandidat 2 vom 22.10.2026, unveröffentlicht
 
 Welle Alpha 2.1 bis 05:00: alles, was live, nachkontrolliert und gemergt ist.
@@ -18,8 +34,8 @@ Welle Alpha 2.1 bis 05:00: alles, was live, nachkontrolliert und gemergt ist.
   0.1.4, Archiv 0.1.2 (Homepage-Patch bleibt bei Archiv und Dokumente).
 - Metapaket: Mindestversionen der Welle, `Recommends: fonts-noto-core,
   fonts-noto-cjk` (asiatische Zeichen in Fenstertiteln).
-- Panel-Überwachung (`--ueberwacht`) im Autostart von querencia-session: offen,
-  die Testsuite der Session-Quelle erwartet den alten Autostart.
+- Panel-Überwachung (`--ueberwacht`) im Autostart von querencia-session: in
+  Kandidat 2 offen, mit Kandidat 3 erledigt.
 - Unverändert aus Alpha 2: labwc, Session, Benachrichtigungen, Symbole,
   Hintergründe; Anmeldung 0.1.2-1 wie Kandidat 1.
 
