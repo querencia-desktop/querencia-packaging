@@ -17,6 +17,10 @@ MESON_OPTS := --prefix=/usr --libdir=lib/$(shell dpkg-architecture -qDEB_HOST_MU
 export CFLAGS := $(shell dpkg-buildflags --get CFLAGS)
 export CPPFLAGS := $(shell dpkg-buildflags --get CPPFLAGS)
 export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+# meson.build nimmt die Version aus "git describe"; ohne Grenze fände git
+# das Repository um den Bauordner (z. B. querencia-packaging) und schriebe
+# dessen Beschreibung als labwc-Version ins Binary.
+export GIT_CEILING_DIRECTORIES := $(abspath $(CURDIR)/..)
 
 querencia-build:
 	meson setup obj-querencia $(MESON_OPTS)
