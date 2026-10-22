@@ -17,6 +17,14 @@
 #     ein launchable desktop-id liegt im Paketsatz. Ausnahmen (Metapaket,
 #     Sitzungsstarter, Backports) in QUERENCIA_METAINFO_AUSNAHMEN.
 #   - keine Datei in zwei Paketen des Satzes (G2-F)
+#   - QD-139: gebündelte Fremdarchive in den Quellarchiven des Pakets
+#     (<quelle>_<upstream>.orig*.tar.* in QUERENCIA_ORIG_DIRS, Doppelpunkt-
+#     Liste, Standard build/orig) haben im installierten copyright einen
+#     eigenen Files:-Absatz, der das Archiv selbst nennt; „*“ oder der Absatz
+#     des ganzen Ordners („…/*“) genügt nicht. Kleine Archive (< 1 MiB) unter tests/, fixtures/, examples/ …
+#     zählen als Testdaten; Archive im eigenen Quellbaum (Hauptarchiv) werden
+#     nur als Hinweis gelistet. Pakete in
+#     QUERENCIA_FREMDARCHIV_AUSNAHMEN bekommen statt FAIL einen Hinweis.
 #   - Abhängigkeiten: apt-get --simulate gegen das laufende System
 #     (schreibt nichts, braucht kein root)
 # Ausgabe: PASS/FAIL je Prüfung, Exit 1 bei einem FAIL.
@@ -32,6 +40,21 @@ hinweis() { warn=$((warn + 1)); echo "HINW $*"; }
 ALLOWED_SCRIPTS='^(postinst|prerm)$'   # nur update-alternatives (querencia-terminal)
 # Pakete, die den Standard-Display-Manager per debconf wählen (ANM-1)
 DM_PAKETE=${QUERENCIA_DM_PAKETE:-querencia-anmeldung}
+ORIG_DIRS=${QUERENCIA_ORIG_DIRS:-$(dirname "$(readlink -f "$0")")/../build/orig}
+FREMD_AUSNAHMEN=${QUERENCIA_FREMDARCHIV_AUSNAHMEN:-}
+ARCHIV_RE='\.(tar|tgz|tbz2?|txz|tar\.(gz|xz|bz2|zst|lz|lzma)|zip|7z|jar|rar|whl|crate|gem)$'
+TESTDATEN_RE='(^|/)(tests?|testdata|test-data|fixtures|examples?|resources|benches)/'
+
+# Letzter Files:-Absatz des copyright, dessen Muster auf den Pfad passt
+# (DEP-5: der spätere gilt); Ausgabe: das passende Muster.
+copyright_muster() {
+    local cr=$1 pfad=$2 letztes="" muster
+    while IFS= read -r muster; do
+        # shellcheck disable=SC2053
+        [[ $pfad == $muster ]] && letztes=$muster
+    done < <(sed -n 's/^Files: *//p' "$cr" | tr ' ' '\n' | grep .)
+    printf '%s' "$letztes"
+}
 debs=()
 for deb in "$@"; do debs+=("$(readlink -f "$deb")"); done
 
@@ -101,8 +124,51 @@ for deb in "${debs[@]}"; do
     # Bau setzt die Flags über dpkg-buildflags, geprüft wird hier jedes Paket.)
     # /home/<name>/<ordner> statt /home/[a-z]: Rust legt String-Literale ohne
     # Trenner hintereinander ("/home" "/root" ergibt "/home/root/...").
-    hits=$(grep -r -l -a -E '/home/user|/home/[a-z][a-z0-9_-]*/(projects|opt|src|\.cargo|\.rustup|\.local|build)/|/projects/querencia|claude-w5|pakete/bau|build/bau/|[^.!*]/target/(debug|release)/|/\.cargo/registry/src' "$R" 2>/dev/null | sed "s|^$R||")
+    hits=$(grep -r -l -a -E '~|/home/[a-z][a-z0-9_-]*/(projects|opt|src|\.cargo|\.rustup|\.local|build)/|/projects/querencia|claude-w5|pakete/bau|build/bau/|[^.!*]/target/(debug|release)/|/\.cargo/registry/src' "$R" 2>/dev/null | sed "s|^$R||")
     [ -z "$hits" ] && ok "$p: keine Entwicklerpfade" || nok "$p: Entwicklerpfade in: $hits"
+
+    # QD-139: gebündelte Fremdarchive in den Quellarchiven
+    src=$(dpkg-deb -f "$deb" Source | awk '{print $1}'); [ -n "$src" ] || src=$p
+    up=${v#*:}; [[ $up == *-* ]] && up=${up%-*}
+    origs=()
+    IFS=: read -r -a odirs <<<"$ORIG_DIRS"
+    for od in "${odirs[@]}"; do
+        if ls "$od/${src}_${up}".orig.tar.* >/dev/null 2>&1; then
+            origs=("$od/${src}_${up}".orig*.tar.*); break
+        fi
+    done
+    if [ ${#origs[@]} -eq 0 ]; then
+        hinweis "$p: Quellarchive ${src}_${up}.orig* nicht gefunden (QUERENCIA_ORIG_DIRS), Fremdarchive nicht geprüft"
+    else
+        cr=$R/usr/share/doc/$p/copyright
+        n_test=0 n_fremd=0 fehlend="" eigen=""
+        for o in "${origs[@]}"; do
+            komp=$(basename "$o" | sed -n 's/.*\.orig-\([^.]*\)\.tar\..*/\1/p')
+            while read -r groesse pfad; do
+                rel=${pfad#*/}; [ -n "$komp" ] && rel=$komp/$rel
+                m=$(copyright_muster "$cr" "$rel")
+                # eigener Absatz = Muster nennt das Archiv selbst, nicht „*“ oder „…/*“
+                if [ -n "$m" ] && [[ $m != *\* ]]; then
+                    n_fremd=$((n_fremd + 1))
+                elif [[ $rel =~ $TESTDATEN_RE ]] && [ "$groesse" -lt 1048576 ]; then
+                    n_test=$((n_test + 1))
+                elif [ -z "$komp" ]; then
+                    # im eigenen Quellbaum: Material des Projekts, kein Fremdarchiv
+                    eigen+=" $rel ($groesse B)"
+                else
+                    fehlend+=" $rel ($groesse B)"
+                fi
+            done < <(tar -tvf "$o" 2>/dev/null | awk '$1 !~ /^d/ {print $3, $6}' | grep -E "$ARCHIV_RE")
+        done
+        [ -z "$eigen" ] || hinweis "$p: Archive im eigenen Quellbaum (keine Fremdarchive, prüfen):$eigen"
+        if [ -z "$fehlend" ]; then
+            ok "$p: Fremdarchive in den Quellarchiven mit eigenem copyright-Absatz: $n_fremd (Testarchive: $n_test)"
+        elif [[ " $FREMD_AUSNAHMEN " == *" $p "* ]]; then
+            hinweis "$p: Fremdarchive ohne eigenen copyright-Absatz (Ausnahme bis zur nächsten Revision):$fehlend"
+        else
+            nok "$p: Fremdarchive ohne eigenen copyright-Absatz (QD-139):$fehlend"
+        fi
+    fi
 
     # md5sums vollständig
     (cd "$R" && md5sum --quiet -c "$C/md5sums" >/dev/null 2>&1) && ok "$p: md5sums stimmen" || nok "$p: md5sums"

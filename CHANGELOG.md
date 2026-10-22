@@ -1,5 +1,16 @@
 # Änderungen – querencia-packaging
 
+## Vorarbeit für Alpha 2.2 Kandidat 2 (QD-139), unveröffentlicht
+
+- `common/fremdarchive.conf`: gebündelte Fremdarchive in vendorten Crates mit ihren Lizenzen;
+  heute das Quellarchiv von GNU gettext in `gettext-sys` (GPL-3+, LGPL-2.1+, MIT, Unicode).
+- `werkzeuge/copyright-erzeugen.py` schreibt für jedes solche Archiv einen eigenen `Files:`-Absatz
+  nach dem Absatz des Crates und bricht bei einem unbekannten Archiv ab, das keine kleine
+  Testdatei ist.
+- `werkzeuge/pakete-pruefen.sh` prüft die Quellarchive jedes Pakets (`QUERENCIA_ORIG_DIRS`): Ein
+  Fremdarchiv ohne eigenen Absatz im installierten copyright ist FAIL, Archive im eigenen
+  Quellbaum ein Hinweis.
+
 ## Alpha 2.2 – Kandidat 1 vom 22.10.2026, unveröffentlicht
 
 Welle Alpha 2.2 aus den Hauptzweigen (Stand der Entwicklungsumgebung).

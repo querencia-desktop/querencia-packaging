@@ -11,7 +11,9 @@ python3 werkzeuge/veroeffentlichung-pruefen.py ../querencia-shell bericht.md
   vorhanden, Symbolregel (nie 48×48 neben einem Scalable-Verzeichnis),
   MetaInfo je Programmpaket (Regel M, `appstreamcli validate --no-net`),
   keine Datei in zwei Paketen, Abhängigkeiten auflösbar (Simulation gegen
-  das System).
+  das System), gebündelte Fremdarchive in den Quellarchiven mit eigenem
+  copyright-Absatz (QD-139; Quellarchive aus `QUERENCIA_ORIG_DIRS`, Standard
+  `build/orig`, Liste in `common/fremdarchive.conf`).
 - `apt-quelle-testen.sh`: erzeugt eine Quelle mit Wegwerf-Testschlüssel und
   prüft sie mit apt in einer abgeschotteten Umgebung (`-o Dir=…`): gültig,
   manipuliert, falscher Schlüssel, unsigniert.

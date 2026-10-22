@@ -56,6 +56,12 @@ den Stand von Kandidat 1 an.
         an Tag und `SHA256SUMS`.
 - [ ] `debian/control`: Depends/Recommends prüfen (neue Bibliotheken, Mindestversionen
       anderer Querencia-Pakete). `dpkg-checkbuilddeps` im Bauordner meldet Fehlendes.
+- [ ] Gebündelte Fremdarchive (QD-139): Bringt ein vendorter Crate den Quelltext eines anderen
+      Projekts als Archiv mit (heute `gettext-sys` mit GNU gettext), steht es mit Lizenzen in
+      `common/fremdarchive.conf`; `copyright-erzeugen.py` schreibt daraus einen eigenen Absatz und
+      bricht bei einem unbekannten Archiv ab. Neue Einträge nur nach Lesen der Lizenzdateien im Archiv.
+- [ ] Erzeugte Dateien (`debian/upstream-commit`, `debian/copyright`) nach dem Bau **vor dem Tag**
+      committen: Der Kandidaten-Tag muss den Satz allein reproduzieren (seit Alpha 2.2).
 - [ ] `debian/patches/`: jeder Patch muss sauber anwenden, sonst bricht der Bau ab. Entfällt
       ein Patch, ihn aus `series` löschen. Ist `series` dann leer, den Ordner löschen.
 - [ ] Metapaket `querencia-desktop`: Mindestversion in `debian/control` anheben und den
@@ -99,7 +105,8 @@ cd ~/projects/querencia-packaging-wt-alpha21 && PRUEF_DEBS=$PWD/build/debs-kandi
 Erwartung (Kandidat 1 als Maßstab, Bericht ):
 
 - [ ] SHA256SUMS OK, 21 Pakete
-- [ ] pakete-pruefen 0 FAIL, Lintian 0 E
+- [ ] pakete-pruefen 0 FAIL, Lintian 0 E; mit `QUERENCIA_ORIG_DIRS` (Doppelpunkt-Liste der `build/orig`
+      der Worktrees, aus denen die Pakete stammen) prüft es auch die Fremdarchive der Quellarchive
 - [ ] APT-Testquelle 0 FAIL
 - [ ] Home-Pfade nur die bekannten Fehlalarme
 - [ ] B1/B2 je 0, MetaInfo ungültig 0 in installierter Doku 0
