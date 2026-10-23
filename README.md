@@ -18,7 +18,8 @@ querencia-session/           Sitzungsstarter und labwc-Konfiguration (Architectu
 querencia-sitzung/           Sitzungsdialog, Bildschirmsperre, polkit-Agent
 querencia-benachrichtigungen/ Benachrichtigungsdienst
 querencia-einstellungen/     Einstellungen (Kontrollzentrum)
-querencia-files/             Dateimanager (ohne UnRAR, ohne Update-Prüfung)
+querencia-dateien/           Dateimanager Querencia Dateien (aus querencia-runtime)
+querencia-files/             früherer Dateimanager, Übergang zu Dateien (ohne UnRAR)
 querencia-terminal/          Terminal (noch alte App-ID)
 querencia-screenshot/        Bildschirmfoto
 querencia-editor/            Texteditor (gettext, de)
@@ -33,7 +34,7 @@ backports/labwc/             labwc 0.9.8 für Ubuntu 26.04
 werkzeuge/                   orig-erzeugen, paket-bauen, alle-bauen, pakete-pruefen,
                              copyright-erzeugen, apt-quelle-erzeugen/-testen,
                              veroeffentlichung-pruefen
-tests/                       Prüfskript frische VM, Wegwerf-Installation
+tests/                       Prüfskript frische VM, Wegwerf-Installation und -Upgrade
 ci/                          GitHub-Actions-Vorlagen (nicht aktiv)
 docs/                        Bauen, Prüfen, Pflichtprobe
 ```

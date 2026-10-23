@@ -283,7 +283,9 @@ print(int(s/n))' "$1"; }
             for tk in gtk4 gtk3; do
                 werte=
                 for modus in hell dunkel; do
-                    rm -rf "$XDG_CONFIG_HOME/gtk-4.0" "$XDG_CONFIG_HOME/gtk-3.0"
+                    # nur settings.ini: gtk-3.0/bookmarks im Probe-Home bleibt
+                    # (Lesezeichen-Probe in tests/wegwerf-upgrade.sh)
+                    rm -f "$XDG_CONFIG_HOME/gtk-4.0/settings.ini" "$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
                     if [ $tk = gtk4 ]; then
                         tool=gtk4-builder-tool d=$XDG_CONFIG_HOME/gtk-4.0 k=gtk-interface-color-scheme v="dark\ngtk-application-prefer-dark-theme=1"
                     else
@@ -305,7 +307,7 @@ print(int(s/n))' "$1"; }
                     nok "A2 Dunkle Fassung $tk: hell $1, dunkel $2 (erwartet ≥150 / ≤100; $OUT/a2-$tk-*.png)"
                 fi
             done
-            rm -rf "$XDG_CONFIG_HOME/gtk-4.0" "$XDG_CONFIG_HOME/gtk-3.0"
+            rm -f "$XDG_CONFIG_HOME/gtk-4.0/settings.ini" "$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
         else
             hinweis "A2 Dunkelmodus nicht geprüft (Thema, grim, gtk4-builder-tool oder gtk-builder-tool fehlt)"
         fi

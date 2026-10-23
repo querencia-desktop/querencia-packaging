@@ -1,5 +1,37 @@
 # Änderungen – querencia-packaging
 
+## Welle C „Dateien“ – Satz vom 23.10.2026 (Zweig dateien-beta), unveröffentlicht
+
+Querencia Dateien als Paket und Ablösung von Querencia Files (Migration M2, M4, M5, M7).
+Grundlage Alpha 2.2 Kandidat 2; 22 Pakete, davon 6 neu gebaut.
+
+- Neu: querencia-dateien 0.1.0-1 aus querencia-runtime `dateien/0.1.0-2` (`f9a3cda`), gebaut
+  mit `cargo -p` für Dateien und seine Bibliotheken querencia-dateiarbeit und
+  querencia-oberflaeche (167 Tests beim Bau). Starter mit `MimeType=inode/directory`,
+  hicolor-SVG, drei gettext-Kataloge (dateien, oberflaeche, dateiarbeit), MetaInfo
+  `org.querencia.Dateien` (`<replaces>` org.querencia.Files), Handbuchseite
+  querencia-dateien(1), copyright mit den MIT-Teilen aus Files.
+- querencia-symbole 0.8-1 (`symbole/0.8` = `26c830b`): Programmsymbol Dateien im Thema
+  (723 Dateien), byte-gleich mit der geprüften Vorlage.
+- querencia-files 0.1.0~alpha8-2 (Quelle unverändert): beide Starter sind versteckte Brücken
+  ohne MIME-Typen auf `querencia-dateien %U` (M4, M5), Depends querencia-dateien,
+  Übergangstext in Beschreibung, README.Debian und MetaInfo (ohne inode/directory).
+- querencia-session 0.1.0~alpha8-2: Patch 0002, `inode/directory=org.querencia.Dateien.desktop`
+  in x-querencia-mimeapps.list, Test der Quelle angepasst (75/0); Recommends querencia-dateien
+  statt querencia-files.
+- querencia-dateisuche 0.1.5-2 (Quelle unverändert): Recommends querencia-dateien statt
+  querencia-files, damit eine Neuinstallation Files nicht mehr über Empfehlungen zieht; neu
+  vendort ohne das gettext-Archiv (QD-139), Binary bis auf die eingebaute Paketversion gleich.
+- querencia-desktop 0.1.0~alpha3-1: Depends querencia-dateien statt querencia-files (M7),
+  Symbole ≥ 0.8, Session ≥ 0.1.0~alpha8-2, Versionsdatei „Alpha 3“.
+- `tests/wegwerf-upgrade.sh`: Upgrade-Probe in der Wegwerf-Hülle (alter Satz, Probe-Benutzer,
+  apt-Simulation von Upgrade und Neuinstallation, dpkg-Upgrade, Ordnerprogramm, Files-Starter,
+  Lesezeichen, autoremove, danach die volle Sitzungsprüfung).
+- `tests/wegwerf-installation.sh`: der Dunkeltest löscht nur noch `settings.ini` statt der
+  ganzen Ordner `~/.config/gtk-3.0` und `gtk-4.0` (Lesezeichen im Probe-Home bleiben).
+- `docs/dateien-nachziehen.md`: Nachzieh-Weg für den Beta-Stand von Dateien, geteilte Kataloge
+  bei einem Shell-Neubau aus runtime main, Entfernen von Files.
+
 ## Alpha 2.2 – Kandidat 2 vom 23.10.2026, unveröffentlicht
 
 Kandidat 1 plus Sitzung 0.1.7 und QD-139.

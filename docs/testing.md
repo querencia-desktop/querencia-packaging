@@ -34,6 +34,13 @@ eine Wegwerf-Kopie des Systems (bubblewrap, Overlay über `/usr`, `/etc`,
 Programm mit `--version`/`--help` auf und startet eine kopflose
 labwc-Sitzung mit Panel und Desktop. Das echte System bleibt unverändert.
 
+`tests/wegwerf-upgrade.sh <nachweis> <alter satz> <neuer satz>` misst in derselben Hülle ein
+Upgrade: alter Satz mit `dpkg -i`, Probe-Benutzer (Lesezeichen, Files-Einstellungen, eigene
+Ordnerwahl auf die alte Strata-ID), `apt-get -s full-upgrade` gegen eine Datei-Quelle, neuer
+Satz darüber, Ordnerprogramm (`gio mime inode/directory` wie in der Querencia-Sitzung),
+Files-Starter, unveränderte Benutzerdaten, `apt-get -s autoremove`, danach die volle
+Sitzungsprüfung von `wegwerf-installation.sh` auf dem neuen Stand.
+
 ## Pflichtprobe auf frischem Ubuntu
 
 [pflichtprobe-frische-vm.md](pflichtprobe-frische-vm.md), Werkzeug
