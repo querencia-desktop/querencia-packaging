@@ -1,0 +1,67 @@
+.TH QUERENCIA-DATEIEN 1 "October 2026" "querencia-dateien 0.1.0" "Querencia Desktop"
+.SH NAME
+querencia-dateien \- file manager of Querencia Desktop
+.SH SYNOPSIS
+.B querencia-dateien
+.RI [ GTK-OPTION ...]
+.RI [ FOLDER | URI ...]
+.SH DESCRIPTION
+.B querencia-dateien
+(Querencia Dateien, shown as \(lqFiles\(rq in English) is the file manager
+of Querencia Desktop, modelled on the browser mode of Nautilus 2.30: menu
+bar, toolbar, path bar, side pane \(lqPlaces\(rq with bookmarks and drives,
+icon and list view and a status bar.
+.PP
+Without arguments it opens a window with the home folder. Each
+.I FOLDER
+or
+.I URI
+opens in a window of its own. A running instance takes over new requests
+(one GTK application with the ID
+.BR org.querencia.Dateien ).
+.PP
+In the Querencia session it is the default program for folders
+.RI ( inode/directory ).
+It replaces Querencia Files
+.RB ( querencia-files ),
+whose starters lead to Querencia Dateien during the transition.
+.SH OPTIONS
+Only the standard options of GTK applications, e.g.
+.BR \-\-help .
+.SH KEYS
+.TP
+.B Ctrl+1 / Ctrl+2
+icon view / list view (Querencia Files used Ctrl+1 for its column view)
+.TP
+.B Ctrl+L
+type a location
+.TP
+.B Ctrl+H
+show or hide hidden files
+.TP
+.B Ctrl+N, Ctrl+W, Shift+Ctrl+W
+new window, close window, close all windows
+.SH FILES
+.TP
+.I ~/.config/querencia/dateien.ini
+settings (dialog Edit \(-> Preferences); written on change
+.TP
+.I ~/.config/gtk-3.0/bookmarks
+bookmarks, shared with GTK file dialogs
+.TP
+.I ~/.config/querencia-files/settings.toml
+read once on the first start without
+.IR dateien.ini :
+six settings of Querencia Files are taken over; the file is never changed
+.TP
+.I /usr/share/querencia/release
+release shown in the About dialog (package querencia-desktop)
+.SH ENVIRONMENT
+.TP
+.B LANGUAGE, LC_ALL, LC_MESSAGES, LANG
+language of the interface (English, German)
+.SH SEE ALSO
+.BR xdg-mime (1),
+.BR gio (1)
+.PP
+https://querencialinux.org

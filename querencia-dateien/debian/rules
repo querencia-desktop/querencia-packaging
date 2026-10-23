@@ -1,0 +1,40 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+# Nur das Crate querencia-dateien und seine Bibliotheken querencia-dateiarbeit
+# und querencia-oberflaeche aus dem Workspace querencia-runtime (Bau und
+# Tests, ~170 Tests); Panel, Desktop und die übrigen Shell-Programme baut
+# querencia-shell.
+CARGO_FEATURES := -p querencia-dateien -p querencia-dateiarbeit -p querencia-oberflaeche
+include debian/querencia.mk
+
+D := crates/querencia-dateien
+STARTER := $(DESTDIR)/usr/share/applications/org.querencia.Dateien.desktop
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-dateien $(DESTDIR)/usr/bin/querencia-dateien
+	$(call desktop_install,$(D)/data/org.querencia.Dateien.desktop,$(STARTER))
+	# Ordnerprogramm (M2, Ablösung von Files): der Starter nennt
+	# inode/directory; die Vorgabe der Querencia-Sitzung setzt
+	# x-querencia-mimeapps.list aus querencia-session. Bis Dateien 0.1.0-2
+	# fehlt die Zeile upstream; desktop-file-edit fügt sie nur einmal ein.
+	desktop-file-edit --add-mime-type=inode/directory $(STARTER)
+	grep -qx 'MimeType=inode/directory;' $(STARTER)
+	grep -qx 'Exec=querencia-dateien %U' $(STARTER)
+	grep -qx 'StartupWMClass=org.querencia.Dateien' $(STARTER)
+	desktop-file-validate $(STARTER)
+	# Programmsymbol: im Thema Querencia aus querencia-symbole 0.8, hier die
+	# hicolor-Fassung für andere Themen (byte-gleich mit
+	# quellen/org.querencia.Dateien.svg in Symbole 0.8)
+	install -D -m 0644 $(D)/data/icons/org.querencia.Dateien.svg \
+		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Dateien.svg
+	# Übersetzungen: das Programm bindet seine Domäne und die der beiden
+	# Bibliotheken an dasselbe Verzeichnis (src/i18n.rs).
+	$(call mo_install,$(D)/po,querencia-dateien)
+	$(call mo_install,crates/querencia-oberflaeche/po,querencia-oberflaeche)
+	$(call mo_install,crates/querencia-dateiarbeit/po,querencia-dateiarbeit)
+	$(call metainfo_install,org.querencia.Dateien)
+	install -D -m 0644 debian/querencia-dateien.1 $(DESTDIR)/usr/share/man/man1/querencia-dateien.1
+	# CHANGELOG des Crates; kein README (das der Runtime beschreibt die
+	# Entwicklungs-VM).
+	$(call doc_install,$(D),-)

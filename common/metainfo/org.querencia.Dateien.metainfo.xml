@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Querencia Dateien 0.1.0 (Welle B, QD-140; runtime Tag dateien/0.1.0-2): Komponenten-ID
+     org.querencia.Dateien = GApplication-ID = Desktop-ID. Geschrieben für querencia-packaging
+     nach dem Muster von org.querencia.Files.metainfo.xml; löst Querencia Files ab (<replaces>).
+     Name in allen Sprachen „Querencia Dateien“, damit Kataloge ihn in der Brückenausgabe nicht mit
+     „Querencia Files“ verwechseln (der englische Menüname des Programms ist „Files“).
+     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
+<component type="desktop-application">
+  <id>org.querencia.Dateien</id>
+  <name>Querencia Dateien</name>
+  <name xml:lang="de">Querencia Dateien</name>
+  <summary>Browse folders and manage files</summary>
+  <summary xml:lang="de">Ordner durchsuchen und Dateien verwalten</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later AND MIT</project_license>
+  <developer id="org.querencia">
+    <name>Querencia Desktop</name>
+    <name xml:lang="de">Querencia Desktop</name>
+  </developer>
+  <project_group>Querencia</project_group>
+  <description>
+    <p>Querencia Dateien is the file manager of Querencia Desktop (in English its menu entry is called Files). It follows the classic browser mode of Nautilus 2: menu bar, toolbar, path bar, a side pane with places, bookmarks and drives, icon and list view and a status bar.</p>
+    <p xml:lang="de">Querencia Dateien ist der Dateimanager von Querencia Desktop. Er folgt dem klassischen Browser-Modus von Nautilus 2: Menüleiste, Werkzeugleiste, Knopfpfad, Seitenleiste mit Orten, Lesezeichen und Laufwerken, Symbol- und Listenansicht und Statusleiste.</p>
+    <p>It copies, moves and deletes with progress, cancel and conflict questions, manages the trash and opens files with their programs. It replaces the earlier Querencia Files based on Strata.</p>
+    <p xml:lang="de">Er kopiert, verschiebt und löscht mit Fortschritt, Abbruch und Konfliktfrage, verwaltet den Papierkorb und öffnet Dateien mit ihren Programmen. Er löst das frühere, auf Strata beruhende Querencia Files ab.</p>
+  </description>
+  <url type="homepage">https://querencialinux.org</url>
+  <url type="bugtracker">https://github.com/querencia-desktop/querencia/issues</url>
+  <launchable type="desktop-id">org.querencia.Dateien.desktop</launchable>
+  <replaces>
+    <id>org.querencia.Files</id>
+  </replaces>
+  <provides>
+    <binary>querencia-dateien</binary>
+    <mediatype>inode/directory</mediatype>
+  </provides>
+  <pkgname>querencia-dateien</pkgname>
+  <categories>
+    <category>Utility</category>
+    <category>FileTools</category>
+    <category>FileManager</category>
+  </categories>
+  <keywords>
+    <keyword>files</keyword>
+    <keyword>folders</keyword>
+    <keyword>file manager</keyword>
+    <keyword>explorer</keyword>
+    <keyword xml:lang="de">Dateien</keyword>
+    <keyword xml:lang="de">Ordner</keyword>
+    <keyword xml:lang="de">Dateimanager</keyword>
+  </keywords>
+  <content_rating type="oars-1.1"/>
+  <branding>
+    <color type="primary" scheme_preference="light">#F07746</color>
+    <color type="primary" scheme_preference="dark">#B8532B</color>
+  </branding>
+  <releases>
+    <release version="0.1.0" date="2026-10-23"/>
+  </releases>
+</component>

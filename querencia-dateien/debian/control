@@ -1,0 +1,44 @@
+Source: querencia-dateien
+Section: utils
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libglib2.0-dev,
+               appstream,
+               desktop-file-utils,
+               gettext
+Standards-Version: 4.7.2
+
+Package: querencia-dateien
+Architecture: any
+Depends: ${shlibs:Depends},
+         querencia-symbole (>= 0.8)
+Recommends: gvfs,
+            gvfs-backends,
+            gnome-human-icon-theme,
+            querencia-archiv
+Suggests: querencia-terminal
+Description: Querencia Desktop file manager (alpha)
+ Querencia Dateien is the file manager of Querencia Desktop, a classic
+ desktop in the style of GNOME 2. It follows the browser mode of
+ Nautilus 2.30: menu bar, toolbar, path bar, side pane with places and
+ bookmarks, icon and list view and a status bar. Files are copied, moved
+ and deleted with progress, cancel and conflict questions; the trash,
+ drives and the "Open with" list are part of it.
+ .
+ In the Querencia session it opens folders (inode/directory). Bookmarks
+ are shared with GTK (~/.config/gtk-3.0/bookmarks); on its first start it
+ takes over six settings of Querencia Files once.
+ .
+ Querencia Dateien replaces Querencia Files (querencia-files), which stays
+ installable for one more release and then goes away.
+ .
+ The interface is English with a German translation (gettext).
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

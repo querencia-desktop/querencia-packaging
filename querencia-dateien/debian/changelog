@@ -1,0 +1,16 @@
+querencia-dateien (0.1.0-1) resolute; urgency=medium
+
+  * Erstes Paket von Querencia Dateien 0.1.0, dem neuen Dateimanager von
+    Querencia Desktop nach dem Vorbild von Nautilus 2.30: Menüleiste,
+    Werkzeugleiste, Knopfpfad, Seitenleiste „Orte“ mit Lesezeichen,
+    Symbol- und Listenansicht, Statusleiste, Dateioperationen mit
+    Fortschritt und Konfliktfrage, Papierkorb, Laufwerke, Eigenschaften.
+  * Öffnet in der Querencia-Sitzung Ordner und löst damit Querencia Files
+    ab; Files bleibt eine Ausgabe lang installierbar.
+  * Ansichten: Symbole mit Strg+1, Liste mit Strg+2 (in Files waren es
+    Spalten, Symbole und Liste).
+  * Lesezeichen teilt Dateien mit GTK; sechs Einstellungen von Files
+    übernimmt es beim ersten Start einmal.
+  * Englisch mit deutscher Übersetzung, Handbuchseite querencia-dateien(1).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Fri, 23 Oct 2026 21:20:00 +0200
