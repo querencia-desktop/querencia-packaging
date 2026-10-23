@@ -23,10 +23,13 @@ querencia-install:
 	# user-desktop(-symbolic), Alias show-desktop(-symbolic) und die
 	# Programmsymbole Archiv, Software, Dateisuche, Rechner, Kürzel.
 	# hicolor bleibt wie 0.6.
+	# Symbole 0.8: dazu das Programmsymbol org.querencia.Dateien (PNG 16–256
+	# und SVG, kein 48x48) = 0.7 plus genau 8 Dateien; die hicolor-Fassung
+	# liefert querencia-dateien selbst.
 	rm -rf debian/thema-bau
 	python3 -I werkzeug/thema-bauen.py quellen debian/thema-bau
 	test -z "$$(find debian/thema-bau -path '*48x48*' -print -quit)"
 	set -e; cd debian/thema-bau/Querencia && find . -type f | LC_ALL=C sort | while read -r f; do \
 		install -D -m 0644 "$$f" "$(DESTDIR)/usr/share/icons/Querencia/$$f"; done
 	rm -rf debian/thema-bau
-	test $$(find $(DESTDIR)/usr/share/icons/Querencia -type f | wc -l) -eq 715
+	test $$(find $(DESTDIR)/usr/share/icons/Querencia -type f | wc -l) -eq 723

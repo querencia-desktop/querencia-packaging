@@ -2,7 +2,9 @@
 <!-- Querencia Files QF-0t: Komponenten-ID org.querencia.Files = GApplication-ID = Desktop-ID (QD-059).
      Abgeleitet aus io.github.lgse.Strata.metainfo.xml (SW-5, Querencia Software, 2026-10-18);
      die alte ID steht unter <provides>, damit Kataloge und Software den Eintrag weiter zuordnen.
-     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen. -->
+     Metadaten unter FSFAP, damit Kataloge sie frei übernehmen dürfen.
+     Übergang zu Querencia Dateien (querencia-files 0.1.0~alpha8-2, Welle C): ohne inode/directory; der
+     Launchable ist die versteckte Brücke org.querencia.Files.desktop und startet Querencia Dateien. -->
 <component type="desktop-application">
   <id>org.querencia.Files</id>
   <name>Querencia Files</name>
@@ -21,6 +23,8 @@
     <p xml:lang="de">Querencia Files ist der Dateimanager von Querencia Desktop. Er zeigt Ordner und Dateien im klassischen Aussehen von Nautilus 2 mit dem Symbolthema GNOME Human, öffnet Dateien mit ihren Programmen, verwaltet den Papierkorb und verbindet sich über GVfs mit Netzwerkfreigaben.</p>
     <p>Querencia Files is derived from the Strata file manager by LGSE Ltd. (MIT license).</p>
     <p xml:lang="de">Querencia Files ist eine Weiterentwicklung des Dateimanagers Strata von LGSE Ltd. (MIT-Lizenz).</p>
+    <p>Querencia Files is replaced by Querencia Dateien and will be dropped after this release; its starters open Querencia Dateien.</p>
+    <p xml:lang="de">Querencia Files wird durch Querencia Dateien abgelöst und entfällt nach dieser Ausgabe; seine Starter öffnen Querencia Dateien.</p>
   </description>
   <url type="homepage">https://querencialinux.org</url>
   <url type="bugtracker">https://github.com/querencia-desktop/querencia/issues</url>
@@ -29,7 +33,6 @@
   <provides>
     <id>io.github.lgse.Strata</id>
     <binary>querencia-files</binary>
-    <mediatype>inode/directory</mediatype>
   </provides>
   <pkgname>querencia-files</pkgname>
   <categories>

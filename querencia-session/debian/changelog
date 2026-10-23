@@ -1,3 +1,12 @@
+querencia-session (0.1.0~alpha8-2) resolute; urgency=medium
+
+  * Ordner öffnen in der Querencia-Sitzung jetzt mit Querencia Dateien
+    (org.querencia.Dateien) statt mit Querencia Files; eine eigene Vorgabe
+    in ~/.config/mimeapps.list gilt weiter.
+  * Empfiehlt Querencia Dateien statt Querencia Files.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Fri, 23 Oct 2026 21:20:00 +0200
+
 querencia-session (0.1.0~alpha8-1) resolute; urgency=medium
 
   * Neue Version 0.1.0~alpha8.

@@ -5,9 +5,18 @@ Querencia Files ist ein Fork des Dateimanagers Strata von LGSE Ltd.
 (https://github.com/LGSE/strata, MIT-Lizenz) mit klassischem Aussehen im
 Stil von Nautilus 2 und dem Symbolthema GNOME Human.
 
-- Kennung (App-ID, Desktop-ID) ist seit Alpha 2.2 org.querencia.Files. Der
-  alte Starter io.github.lgse.Strata.desktop bleibt vorerst als unsichtbare
-  Brücke ohne MIME-Typen, damit ältere Verknüpfungen weiter starten.
+- Übergang: Querencia Dateien (Paket querencia-dateien) löst Files ab und
+  öffnet in der Querencia-Sitzung die Ordner. Dieses Paket bleibt eine
+  Ausgabe lang installierbar und entfällt danach. Beide Starter von Files,
+  org.querencia.Files.desktop und das ältere io.github.lgse.Strata.desktop,
+  sind unsichtbare Brücken ohne MIME-Typen, die Querencia Dateien starten;
+  Verknüpfungen im Panel, auf der Arbeitsfläche oder in einer eigenen
+  mimeapps.list, die sie nennen, funktionieren so weiter. Files selbst
+  startet nur noch aus dem Terminal (querencia-files).
+- Lesezeichen (~/.config/gtk-3.0/bookmarks) teilen Files und Dateien; sechs
+  Einstellungen übernimmt Dateien beim ersten Start einmal. Die Ordner von
+  Files unten bleiben beim Entfernen des Pakets liegen.
+- Kennung (App-ID) von Files ist seit Alpha 2.2 org.querencia.Files.
 - Eigene Einstellungen und Zustände liegen unter ~/.config/querencia-files,
   ~/.local/state/querencia-files, ~/.local/share/querencia-files und
   ~/.cache/querencia-files. Ein vorhandener Ordner "strata" wird beim ersten
@@ -21,8 +30,8 @@ Stil von Nautilus 2 und dem Symbolthema GNOME Human.
 - Die eingebaute Update-Prüfung (AUR, GitHub) ist abgeschaltet; Updates
   kommen über apt.
 - Das Paket meldet sich nicht als systemweiter Dateimanager-Dienst
-  (org.freedesktop.FileManager1) und nicht als Dateiauswahl-Portal. Ordner
-  öffnet es als Standard nur in der Querencia-Sitzung
-  (x-querencia-mimeapps.list aus querencia-session).
+  (org.freedesktop.FileManager1) und nicht als Dateiauswahl-Portal und ist
+  seit dieser Fassung auch in der Querencia-Sitzung nicht mehr das
+  Ordnerprogramm.
 
 Lizenzen der Drittbestandteile: THIRD_PARTY_LICENSES.md und licenses/.

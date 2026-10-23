@@ -1,3 +1,10 @@
+querencia-dateisuche (0.1.5-2) resolute; urgency=medium
+
+  * Empfiehlt Querencia Dateien statt Querencia Files; „Ordner öffnen“ nimmt
+    wie bisher das Ordnerprogramm der Sitzung. Sonst unverändert.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Fri, 23 Oct 2026 21:20:00 +0200
+
 querencia-dateisuche (0.1.5-1) resolute; urgency=medium
 
   * Neue Version 0.1.5.

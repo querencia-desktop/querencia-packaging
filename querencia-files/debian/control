@@ -20,14 +20,27 @@ Standards-Version: 4.7.2
 
 Package: querencia-files
 Architecture: any
-Depends: ${shlibs:Depends}, bubblewrap, querencia-symbole (>= 0.5.2)
+Depends: ${shlibs:Depends}, bubblewrap, querencia-symbole (>= 0.5.2),
+         querencia-dateien (>= 0.1.0)
 Recommends: gvfs, gvfs-backends, gnome-human-icon-theme,
             gstreamer1.0-plugins-base, gstreamer1.0-plugins-good,
             xdg-utils, querencia-archiv
 Suggests: gstreamer1.0-libav, ffmpegthumbnailer
 Conflicts: strata
-Description: Querencia Desktop file manager (alpha)
- Querencia Files is the file manager of Querencia Desktop, a classic
+Description: Querencia Files, replaced by Querencia Dateien (transitional, alpha)
+ Querencia Files was the file manager of Querencia Desktop up to Alpha 2.2.
+ It is replaced by Querencia Dateien (package querencia-dateien), which now
+ opens folders in the Querencia session. This package stays installable
+ for one more release and will then be dropped; it can be removed once
+ nothing needs the old program any more.
+ .
+ Its two starters (org.querencia.Files and the older
+ io.github.lgse.Strata) are hidden from the menus and start Querencia
+ Dateien, so panel launchers, desktop icons and links that name them keep
+ working. The program itself is still installed as querencia-files and can
+ be started from a terminal.
+ .
+ Querencia Files was the file manager of Querencia Desktop, a classic
  desktop in the style of GNOME 2. It is derived from the Strata file
  manager by LGSE Ltd. (MIT license) and adds a classic Nautilus 2 like
  look with the GNOME Human icon theme.

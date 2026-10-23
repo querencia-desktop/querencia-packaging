@@ -6,3 +6,8 @@
 embedded-library libyaml [usr/bin/querencia-files]
 # German word in the German README.Debian, not an English misspelling.
 spelling-error-in-readme-debian Programm Program [usr/share/doc/querencia-files/README.Debian]
+# Both desktop files of Files are hidden bridges to Querencia Dateien (the
+# replacement of Files, package querencia-dateien, a dependency of this
+# package): their Exec is querencia-dateien on purpose.
+desktop-command-not-in-package querencia-dateien [usr/share/applications/org.querencia.Files.desktop]
+desktop-command-not-in-package querencia-dateien [usr/share/applications/io.github.lgse.Strata.desktop]

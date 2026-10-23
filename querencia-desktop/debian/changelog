@@ -1,3 +1,17 @@
+querencia-desktop (0.1.0~alpha3-1) resolute; urgency=medium
+
+  * Querencia Desktop Alpha 3.
+  * Neuer Dateimanager Querencia Dateien (querencia-dateien) statt Querencia
+    Files; Files wird nicht mehr mitinstalliert, bleibt aber eine Ausgabe
+    lang installierbar und startet über seine Starter Querencia Dateien.
+  * In der Querencia-Sitzung öffnen Ordner mit Querencia Dateien (Session
+    0.1.0~alpha8-2).
+  * /usr/share/querencia/version und /usr/share/querencia/release nennen
+    Alpha 3.
+  * Mindestversionen: Dateien 0.1.0, Symbole 0.8, Session 0.1.0~alpha8-2.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Fri, 23 Oct 2026 21:20:00 +0200
+
 querencia-desktop (0.1.0~alpha2.2-1) resolute; urgency=medium
 
   * Querencia Desktop Alpha 2.2.

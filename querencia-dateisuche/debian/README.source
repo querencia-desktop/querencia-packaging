@@ -1,0 +1,24 @@
+Quellarchive dieses Pakets
+==========================
+
+<quelle>_<version>.orig.tar.xz ist ein "git archive" des Commits in
+debian/upstream-commit (ohne Arbeitsanweisungen, Nachweise und
+Integrationsskripte). <quelle>_<version>.orig-cargo-vendor.tar.xz enthält die
+Rust-Crates aus Cargo.lock, erzeugt mit "cargo vendor --locked
+--versioned-dirs" (werkzeuge/orig-erzeugen.sh im Paketierungs-Repository).
+
+Änderung gegenüber crates.io: gettext-sys
+-----------------------------------------
+
+Der Crate gettext-sys bringt den Quelltext von GNU gettext als Archiv mit
+(cargo-vendor/gettext-sys-*/gettext-*.tar.xz; GPL-3+, LGPL-2.1+, MIT,
+Unicode). gettext-sys baut daraus nur ohne das Feature gettext-system eine
+eigene libintl. Dieses Paket schaltet gettext-system ein und nimmt die
+gettext-Funktionen der C-Bibliothek; das Archiv wird nie gebraucht.
+
+Es ist deshalb aus dem Vendor-Archiv entfernt und aus
+cargo-vendor/gettext-sys-*/.cargo-checksum.json gestrichen (Liste der
+Dateien); die Paketprüfsumme aus Cargo.lock bleibt, cargo nimmt den Crate
+offline weiter an. Würde gettext-sys ohne gettext-system gebaut, bricht der
+Bau ab, weil das Archiv fehlt. Grundlage: common/fremdarchive.conf,
+werkzeuge/fremdarchive-entfernen.py.

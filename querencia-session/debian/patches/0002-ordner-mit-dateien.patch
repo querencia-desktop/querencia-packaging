@@ -1,0 +1,39 @@
+Description: Ordner in der Querencia-Sitzung mit Querencia Dateien
+ Querencia Dateien (org.querencia.Dateien) löst Querencia Files als
+ Ordnerprogramm ab (Migration M2, Welle C). x-querencia-mimeapps.list nennt
+ für inode/directory jetzt org.querencia.Dateien.desktop; die Starter von
+ Files sind eine Ausgabe lang versteckte Brücken auf Dateien
+ (querencia-files 0.1.0~alpha8-2). Der Test der Quelle prüft die neue Zeile.
+ Die Benutzer-mimeapps.list bleibt unberührt und gewinnt weiterhin.
+Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Forwarded: not-yet (für die Session-Quelle, nach session/alpha8)
+Last-Update: 2026-10-23
+---
+--- a/share/applications/x-querencia-mimeapps.list
++++ b/share/applications/x-querencia-mimeapps.list
+@@ -3,9 +3,11 @@
+ # (GNOME, KDE, …) are not affected; the user's ~/.config/mimeapps.list
+ # always wins.
+ [Default Applications]
+-# Folders with Querencia Files (application ID org.querencia.Files; the old
+-# io.github.lgse.Strata.desktop is a hidden bridge without MIME types).
+-inode/directory=org.querencia.Files.desktop
++# Folders with Querencia Dateien (application ID org.querencia.Dateien). The
++# starters of Querencia Files (org.querencia.Files.desktop and the old
++# io.github.lgse.Strata.desktop) are hidden bridges to Querencia Dateien
++# without MIME types for one release.
++inode/directory=org.querencia.Dateien.desktop
+ # Texte und Bilder wie auf der Entwicklungs-VM (Editor 0.2.0, Bilder 0.1.1);
+ # fehlt ein Programm, nimmt GIO das nächste passende.
+ text/plain=org.querencia.Editor.desktop
+--- a/tests/run.sh
++++ b/tests/run.sh
+@@ -209,7 +209,7 @@
+ grep -q '<name>Querencia-Klassisch</name>' "$ROOT/labwc/rc.xml" && ok "rc.xml: Theme Querencia-Klassisch" || nok "rc.xml: Theme"
+ grep -A2 '<keybind key="W-d">' "$ROOT/labwc/rc.xml" | grep -q 'org.querencia.Panel.ArbeitsflaecheUmschalten' && ok "rc.xml: W-d Arbeitsfläche anzeigen (QD-078)" || nok "rc.xml: W-d"
+ grep -A2 '<keybind key="W-d">' "$ROOT/labwc/rc.xml" | grep -q -- '--dest org.querencia.Panel --object-path /org/querencia/Panel ' && ok "rc.xml: W-d an org.querencia.Panel" || nok "rc.xml: W-d Busname"
+-grep -qx 'inode/directory=org.querencia.Files.desktop' "$ROOT/share/applications/x-querencia-mimeapps.list" && ok "mimeapps: Ordner mit org.querencia.Files" || nok "mimeapps: inode/directory"
++grep -qx 'inode/directory=org.querencia.Dateien.desktop' "$ROOT/share/applications/x-querencia-mimeapps.list" && ok "mimeapps: Ordner mit org.querencia.Dateien" || nok "mimeapps: inode/directory"
+ ! grep -v '^#' "$ROOT/share/applications/x-querencia-mimeapps.list" | grep -q 'io.github.lgse.Strata' && ok "mimeapps: alte Files-ID nicht mehr genannt" || nok "mimeapps: alte Files-ID"
+ for k in W-f A-F11; do
+     grep -A1 "<keybind key=\"$k\">" "$ROOT/labwc/rc.xml" | grep -q 'ToggleFullscreen' && ok "rc.xml: $k Vollbild (QD-065)" || nok "rc.xml: $k Vollbild"

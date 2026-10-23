@@ -1,0 +1,22 @@
+[Desktop Entry]
+# Bridge for the desktop ID org.querencia.Files (Querencia Files, Alpha 2.2):
+# since Querencia Dateien replaces Files (Welle C, M5) this starter is hidden,
+# has no MIME types and starts Querencia Dateien. Panel launchers, desktop
+# icons and user files that name the ID keep working; the bridge stays for
+# one release and goes away with the package querencia-files.
+Type=Application
+Version=1.5
+Name[de]=Querencia Dateien
+Name=Files
+GenericName[de]=Dateimanager
+GenericName=File Manager
+Comment[de]=Ordner durchsuchen und Dateien verwalten
+Comment=Browse folders and manage files
+Exec=querencia-dateien %U
+TryExec=querencia-dateien
+Icon=org.querencia.Dateien
+Terminal=false
+Categories=GTK;Utility;FileTools;FileManager;
+StartupNotify=true
+StartupWMClass=org.querencia.Dateien
+NoDisplay=true

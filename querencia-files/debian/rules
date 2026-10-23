@@ -22,18 +22,18 @@ include debian/querencia.mk
 
 querencia-install:
 	install -D -m 0755 target/release/strata $(DESTDIR)/usr/bin/querencia-files
-	# Starter of the program itself (desktop ID = application ID
-	# org.querencia.Files); the package binary is querencia-files, not strata.
-	sed -e 's/^Exec=strata /Exec=querencia-files /' -e '/^Exec=/a TryExec=querencia-files' \
-		data/org.querencia.Files.desktop >debian/org.querencia.Files.desktop.paket
-	$(call desktop_install,debian/org.querencia.Files.desktop.paket,$(DESTDIR)/usr/share/applications/org.querencia.Files.desktop)
-	grep -qx 'Exec=querencia-files %U' $(DESTDIR)/usr/share/applications/org.querencia.Files.desktop
-	grep -qx 'StartupWMClass=org.querencia.Files' $(DESTDIR)/usr/share/applications/org.querencia.Files.desktop
-	# Old desktop ID as a hidden bridge without MIME types (desktop icons,
-	# panel launchers and user files that still name it); see the file.
-	$(call desktop_install,debian/io.github.lgse.Strata.desktop,$(DESTDIR)/usr/share/applications/io.github.lgse.Strata.desktop)
-	grep -qx 'NoDisplay=true' $(DESTDIR)/usr/share/applications/io.github.lgse.Strata.desktop
-	! grep -q '^MimeType=' $(DESTDIR)/usr/share/applications/io.github.lgse.Strata.desktop
+	# Querencia Dateien replaces Files (Welle C): both desktop IDs of Files
+	# are hidden bridges without MIME types that start querencia-dateien
+	# (M5 org.querencia.Files, M4 io.github.lgse.Strata; see the files). The
+	# program querencia-files itself has no visible starter any more and is
+	# started from a terminal; the package goes away after this release.
+	install -d $(DESTDIR)/usr/share/applications
+	set -e; for id in org.querencia.Files io.github.lgse.Strata; do \
+		f=$(DESTDIR)/usr/share/applications/$$id.desktop; \
+		$(call desktop_install,debian/$$id.desktop,$$f); \
+		grep -qx 'NoDisplay=true' $$f; \
+		grep -qx 'Exec=querencia-dateien %U' $$f; \
+		! grep -q '^MimeType=' $$f; done
 	$(call metainfo_install,org.querencia.Files)
 	install -D -m 0644 debian/install-source.toml $(DESTDIR)/usr/share/querencia-files/install-source.toml
 	install -D -m 0644 debian/README.Debian $(DESTDIR)/usr/share/doc/querencia-files/README.Debian

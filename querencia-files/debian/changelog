@@ -1,3 +1,17 @@
+querencia-files (0.1.0~alpha8-2) resolute; urgency=medium
+
+  * Querencia Dateien löst Querencia Files ab. Files bleibt eine Ausgabe
+    lang installierbar und entfällt danach; das Paket kann entfernt werden,
+    sobald Files selbst nicht mehr gebraucht wird.
+  * Die Starter von Files sind jetzt im Menü versteckt und starten Querencia
+    Dateien, damit Verknüpfungen im Panel, auf der Arbeitsfläche und in
+    eigenen Einstellungen weiter funktionieren. Ordner öffnet Files nicht
+    mehr als Standard.
+  * Files selbst ist unverändert und lässt sich als querencia-files im
+    Terminal starten.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Fri, 23 Oct 2026 21:20:00 +0200
+
 querencia-files (0.1.0~alpha8-1) resolute; urgency=medium
 
   * Neue Version (Querencia Files für Alpha 2.2).
