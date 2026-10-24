@@ -285,3 +285,22 @@ Am 24.10.2026 um 12:18:49 (MESZ) ging der Index von Alpha 3 auf den Server: Satz
   bloß Clients, die Alpha 3 noch nicht geholt haben. Ein Client mit dem
   Alpha-3-Index übernimmt die ältere Release-Datei nicht und behält Alpha 3,
   ohne Fehlermeldung (Wegwerf-apt-Probe am 24.10.2026).
+
+## Nachtrag 24.10.2026: Alpha 3.1
+
+Am 24.10.2026 um 14:48:53 (MESZ) ging der Index von Alpha 3.1 auf den Server: Satz
+`debs-alpha31-1` (Tag `packaging/alpha31-1`, 23 Pakete, `SHA256SUMS` mit der Summe
+`f87a4a5f…`). Neu gegenüber Alpha 3 sind `querencia-desktop 0.1.0~alpha3.1-1`,
+`querencia-dateien 0.2.1-1` und `querencia-webhuelle 0.2.0-1`. Die übrigen 20 Pakete
+lagen byte-gleich im Pool.
+
+| Was | Wert |
+|---|---|
+| Release-Datum | Sat, 24 Oct 2026 12:04:07 UTC |
+| InRelease (SHA256) | `9e25de04ed44a6d9125d44c8ff2e284782fdd04bea65abe1a3698e0bfa67b9f9` |
+| Index | binary-amd64 23, binary-all 5; Pool 70 Dateien, davon 3 neu |
+| Upload | 29 Dateien (1594 KiB), 107 lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal 22/1 (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server 10/0 |
+
+`querencia-webhuelle` steht im Index, aber kein Paket hängt davon ab, auch das
+Metapaket nicht. `apt install querencia-desktop` installiert sie deshalb nicht mit.
