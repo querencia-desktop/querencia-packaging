@@ -1,37 +1,24 @@
-Querencia Files – Hinweise zum Paket
-====================================
+Querencia Files – Übergangspaket
+================================
 
-Querencia Files ist ein Fork des Dateimanagers Strata von LGSE Ltd.
-(https://github.com/LGSE/strata, MIT-Lizenz) mit klassischem Aussehen im
-Stil von Nautilus 2 und dem Symbolthema GNOME Human.
+Querencia Dateien (Paket querencia-dateien) hat Querencia Files als
+Dateimanager von Querencia Desktop abgelöst. Files, ein Fork des
+Dateimanagers Strata, wird seit Alpha 3 nicht mehr ausgeliefert; beim
+Upgrade entfernt dieses Übergangspaket das alte Files.
 
-- Übergang: Querencia Dateien (Paket querencia-dateien) löst Files ab und
-  öffnet in der Querencia-Sitzung die Ordner. Dieses Paket bleibt eine
-  Ausgabe lang installierbar und entfällt danach. Beide Starter von Files,
-  org.querencia.Files.desktop und das ältere io.github.lgse.Strata.desktop,
-  sind unsichtbare Brücken ohne MIME-Typen, die Querencia Dateien starten;
-  Verknüpfungen im Panel, auf der Arbeitsfläche oder in einer eigenen
-  mimeapps.list, die sie nennen, funktionieren so weiter. Files selbst
-  startet nur noch aus dem Terminal (querencia-files).
-- Lesezeichen (~/.config/gtk-3.0/bookmarks) teilen Files und Dateien; sechs
-  Einstellungen übernimmt Dateien beim ersten Start einmal. Die Ordner von
-  Files unten bleiben beim Entfernen des Pakets liegen.
-- Kennung (App-ID) von Files ist seit Alpha 2.2 org.querencia.Files.
-- Eigene Einstellungen und Zustände liegen unter ~/.config/querencia-files,
-  ~/.local/state/querencia-files, ~/.local/share/querencia-files und
-  ~/.cache/querencia-files. Ein vorhandener Ordner "strata" wird beim ersten
-  Start dorthin verschoben und bleibt als Verweis stehen.
+Geblieben sind die beiden Starter von Files, org.querencia.Files.desktop
+und das ältere io.github.lgse.Strata.desktop. Sie sind im Menü versteckt,
+nennen keine Dateitypen und starten Querencia Dateien. Verknüpfungen im
+Panel, auf der Arbeitsfläche oder in einer eigenen ~/.config/mimeapps.list,
+die noch einen dieser Starter nennen, öffnen so weiter einen Dateimanager.
 
-- Lizenz: MIT (Strata und Querencia-Änderungen). Das Programm ist gegen die
-  GPL-Bibliothek libpoppler-glib gelinkt (PDF-Vorschau); als Ganzes wird
-  das Binary deshalb unter den Bedingungen der GPL weitergegeben.
-- Ohne RAR-Unterstützung gebaut: die UnRAR-Bibliothek hat eine nicht freie
-  Lizenz.
-- Die eingebaute Update-Prüfung (AUR, GitHub) ist abgeschaltet; Updates
-  kommen über apt.
-- Das Paket meldet sich nicht als systemweiter Dateimanager-Dienst
-  (org.freedesktop.FileManager1) und nicht als Dateiauswahl-Portal und ist
-  seit dieser Fassung auch in der Querencia-Sitzung nicht mehr das
-  Ordnerprogramm.
+Lesezeichen (~/.config/gtk-3.0/bookmarks) teilt Dateien mit GTK; sechs
+Einstellungen von Files übernimmt Dateien beim ersten Start einmal. Die
+Ordner von Files (~/.config/querencia-files, ~/.local/state/querencia-files,
+~/.local/share/querencia-files, ~/.cache/querencia-files) bleiben liegen
+und können gelöscht werden.
 
-Lizenzen der Drittbestandteile: THIRD_PARTY_LICENSES.md und licenses/.
+Das Paket lässt sich entfernen, sobald keine Verknüpfung mehr auf Files
+zeigt:
+
+    sudo apt remove querencia-files

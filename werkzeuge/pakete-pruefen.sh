@@ -126,7 +126,7 @@ for deb in "${debs[@]}"; do
     # Bau setzt die Flags über dpkg-buildflags, geprüft wird hier jedes Paket.)
     # /home/<name>/<ordner> statt /home/[a-z]: Rust legt String-Literale ohne
     # Trenner hintereinander ("/home" "/root" ergibt "/home/root/...").
-    hits=$(grep -r -l -a -E '~|/home/[a-z][a-z0-9_-]*/(projects|opt|src|\.cargo|\.rustup|\.local|build)/|/projects/querencia|claude-w5|pakete/bau|build/bau/|[^.!*]/target/(debug|release)/|/\.cargo/registry/src' "$R" 2>/dev/null | sed "s|^$R||")
+    hits=$(grep -r -l -a -E '/home/user|/home/[a-z][a-z0-9_-]*/(projects|opt|src|\.cargo|\.rustup|\.local|build)/|/projects/querencia|claude-w5|pakete/bau|build/bau/|[^.!*]/target/(debug|release)/|/\.cargo/registry/src' "$R" 2>/dev/null | sed "s|^$R||")
     [ -z "$hits" ] && ok "$p: keine Entwicklerpfade" || nok "$p: Entwicklerpfade in: $hits"
 
     # QD-139: gebündelte Fremdarchive in den Quellarchiven
@@ -218,8 +218,11 @@ for deb in "${debs[@]}"; do
     done
     # Regel M (SW-5, Querencia Software): Ohne MetaInfo-Datei ist ein
     # Querencia-Programm im eigenen Installer unsichtbar (G2-I 5.5, 06 §3).
-    case " ${QUERENCIA_METAINFO_AUSNAHMEN:-querencia-desktop querencia-session querencia-symbole querencia-hintergruende querencia-anmeldung labwc} " in
-    *" $p "*) hinweis "$p: ohne MetaInfo-Pflicht (Ausnahme: Metapaket/Sitzungsstarter/Symbole/Anmeldebildschirm/Backport)" ;;
+    # querencia-files ist seit Alpha 3 ein Übergangspaket ohne Programm (nur
+    # die Brücken-Starter auf Querencia Dateien, dessen MetaInfo
+    # org.querencia.Files unter <replaces> nennt).
+    case " ${QUERENCIA_METAINFO_AUSNAHMEN:-querencia-desktop querencia-session querencia-symbole querencia-hintergruende querencia-anmeldung querencia-files labwc} " in
+    *" $p "*) hinweis "$p: ohne MetaInfo-Pflicht (Ausnahme: Metapaket/Sitzungsstarter/Symbole/Anmeldebildschirm/Übergangspaket/Backport)" ;;
     *)
         case $p in
         querencia-*)

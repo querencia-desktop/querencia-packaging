@@ -18,7 +18,7 @@ Standards-Version: 4.7.2
 Package: querencia-shell
 Architecture: any
 Depends: ${shlibs:Depends},
-         querencia-symbole (>= 0.7),
+         querencia-symbole (>= 0.8),
          querencia-hintergruende (>= 0.2)
 Recommends: querencia-session,
             gnome-human-icon-theme,
@@ -26,7 +26,13 @@ Recommends: querencia-session,
             libpulse0,
             pipewire-pulse,
             network-manager
+# querencia-files ist ab Alpha 3 ein Übergangspaket mit den Brücken-Startern
+# auf Querencia Dateien; unter Suggests schützt apt es nach einem Upgrade vor
+# autoremove (APT::AutoRemove::SuggestsImportant), damit alte Verknüpfungen
+# weiter funktionieren.
 Suggests: querencia-files, querencia-terminal, querencia-einstellungen
+Replaces: querencia-dateien (<< 0.2.0)
+Breaks: querencia-dateien (<< 0.2.0)
 Description: Querencia Desktop panel, desktop, themes and backgrounds (alpha)
  Querencia Desktop is a classic desktop in the style of GNOME 2 /
  Ubuntu 10.04, written in Rust with GTK 4 for Wayland (labwc).
@@ -43,7 +49,9 @@ Description: Querencia Desktop panel, desktop, themes and backgrounds (alpha)
   * querencia-kuerzel: overview of the keyboard shortcuts (Super+?);
  the theme Querencia-Klassisch for labwc, GTK 4 and GTK 3 (with the dark
  window frame Querencia-Klassisch-Dunkel for labwc), the default desktop
- backgrounds and the German translations of panel and desktop.
+ backgrounds and the German translations of panel and desktop, including
+ those of the libraries querencia-oberflaeche and querencia-dateiarbeit,
+ which the file manager Querencia Dateien shares.
  .
  They need a wlroots compositor with the layer-shell protocol and are
  normally started by querencia-session.

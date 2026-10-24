@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Querencia Dateien 0.1.0 (Welle B, QD-140; runtime Tag dateien/0.1.0-2): Komponenten-ID
+<!-- Querencia Dateien 0.2.0 (Beta, Welle C; runtime Tag dateien/0.2.0; zuerst 0.1.0, Welle B, Tag dateien/0.1.0-2): Komponenten-ID
      org.querencia.Dateien = GApplication-ID = Desktop-ID. Geschrieben für querencia-packaging
      nach dem Muster von org.querencia.Files.metainfo.xml; löst Querencia Files ab (<replaces>).
      Name in allen Sprachen „Querencia Dateien“, damit Kataloge ihn in der Brückenausgabe nicht mit
@@ -23,6 +23,8 @@
     <p xml:lang="de">Querencia Dateien ist der Dateimanager von Querencia Desktop. Er folgt dem klassischen Browser-Modus von Nautilus 2: Menüleiste, Werkzeugleiste, Knopfpfad, Seitenleiste mit Orten, Lesezeichen und Laufwerken, Symbol- und Listenansicht und Statusleiste.</p>
     <p>It copies, moves and deletes with progress, cancel and conflict questions, manages the trash and opens files with their programs. It replaces the earlier Querencia Files based on Strata.</p>
     <p xml:lang="de">Er kopiert, verschiebt und löscht mit Fortschritt, Abbruch und Konfliktfrage, verwaltet den Papierkorb und öffnet Dateien mit ihren Programmen. Er löst das frühere, auf Strata beruhende Querencia Files ab.</p>
+    <p>Folders open in tabs and in an icon, list or compact view with thumbnails. Network places (SFTP, SMB, FTP, WebDAV) are reached through “Connect to Server”, and a search finds files by name below the shown folder.</p>
+    <p xml:lang="de">Ordner öffnen in Reitern und in der Symbol-, Listen- oder Kompaktansicht mit Vorschaubildern. Netzwerkorte (SFTP, SMB, FTP, WebDAV) erreicht man über „Mit Server verbinden“, und eine Suche findet Dateien nach ihrem Namen unterhalb des gezeigten Ordners.</p>
   </description>
   <url type="homepage">https://querencialinux.org</url>
   <url type="bugtracker">https://github.com/querencia-desktop/querencia/issues</url>
@@ -55,6 +57,7 @@
     <color type="primary" scheme_preference="dark">#B8532B</color>
   </branding>
   <releases>
+    <release version="0.2.0" date="2026-10-24"/>
     <release version="0.1.0" date="2026-10-23"/>
   </releases>
 </component>

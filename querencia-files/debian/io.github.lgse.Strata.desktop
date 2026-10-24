@@ -3,7 +3,7 @@
 # Alpha 2.1): hidden, without MIME types; since Querencia Dateien replaces
 # Files (Welle C, M4) it starts Querencia Dateien. Links, panel launchers and
 # user files (also a mimeapps.list) that still name the old ID keep working;
-# the bridge goes away with the package querencia-files.
+# the bridge stays in the transitional package querencia-files.
 Type=Application
 Version=1.5
 Name[de]=Querencia Dateien

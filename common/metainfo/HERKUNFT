@@ -4,3 +4,4 @@ Abweichung (21.10.2026, CLEAN-1 B2): <url type="homepage"> in allen Dateien http
 org.querencia.Files.metainfo.xml aus querencia-files-dev, Tag querencia/qf-0t-3-int (integration/qf-0t/vorlage), ersetzt io.github.lgse.Strata.metainfo.xml (alte ID unter <provides>).
 org.querencia.Dateien.metainfo.xml für querencia-packaging geschrieben (Welle C, 23.10.2026) nach dem Muster von org.querencia.Files; <replaces> nennt org.querencia.Files.
 Abweichung (23.10.2026, Welle C): org.querencia.Files.metainfo.xml ohne inode/directory, Übergangstext (Files → Dateien).
+Entfernt (24.10.2026, Alpha 3): org.querencia.Files.metainfo.xml – Files wird nicht mehr ausgeliefert, querencia-files ist ein Übergangspaket ohne Programm; org.querencia.Dateien nennt org.querencia.Files unter <replaces>.

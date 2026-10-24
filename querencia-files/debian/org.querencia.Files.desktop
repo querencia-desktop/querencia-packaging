@@ -1,9 +1,9 @@
 [Desktop Entry]
 # Bridge for the desktop ID org.querencia.Files (Querencia Files, Alpha 2.2):
-# since Querencia Dateien replaces Files (Welle C, M5) this starter is hidden,
-# has no MIME types and starts Querencia Dateien. Panel launchers, desktop
-# icons and user files that name the ID keep working; the bridge stays for
-# one release and goes away with the package querencia-files.
+# Querencia Dateien replaces Files (Welle C, M5). In the transitional package
+# querencia-files this starter is hidden, has no MIME types and starts
+# Querencia Dateien. Panel launchers, desktop icons and user files that name
+# the ID keep working until the transitional package is removed.
 Type=Application
 Version=1.5
 Name[de]=Querencia Dateien

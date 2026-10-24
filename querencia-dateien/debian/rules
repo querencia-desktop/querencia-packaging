@@ -15,10 +15,9 @@ querencia-install:
 	install -D -m 0755 target/release/querencia-dateien $(DESTDIR)/usr/bin/querencia-dateien
 	$(call desktop_install,$(D)/data/org.querencia.Dateien.desktop,$(STARTER))
 	# Ordnerprogramm (M2, Ablösung von Files): der Starter nennt
-	# inode/directory; die Vorgabe der Querencia-Sitzung setzt
-	# x-querencia-mimeapps.list aus querencia-session. Bis Dateien 0.1.0-2
-	# fehlt die Zeile upstream; desktop-file-edit fügt sie nur einmal ein.
-	desktop-file-edit --add-mime-type=inode/directory $(STARTER)
+	# inode/directory (upstream seit Dateien 0.2.0; 0.1.0 bekam die Zeile
+	# hier mit desktop-file-edit); die Vorgabe der Querencia-Sitzung setzt
+	# x-querencia-mimeapps.list aus querencia-session.
 	grep -qx 'MimeType=inode/directory;' $(STARTER)
 	grep -qx 'Exec=querencia-dateien %U' $(STARTER)
 	grep -qx 'StartupWMClass=org.querencia.Dateien' $(STARTER)
@@ -29,10 +28,11 @@ querencia-install:
 	install -D -m 0644 $(D)/data/icons/org.querencia.Dateien.svg \
 		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Dateien.svg
 	# Übersetzungen: das Programm bindet seine Domäne und die der beiden
-	# Bibliotheken an dasselbe Verzeichnis (src/i18n.rs).
+	# Bibliotheken an dasselbe Verzeichnis (src/i18n.rs). Die Kataloge
+	# querencia-oberflaeche und querencia-dateiarbeit nutzen Panel und
+	# Arbeitsfläche auch; sie gehören seit Alpha 3 zu querencia-shell
+	# (Depends in debian/control), hier nur die eigene Domäne.
 	$(call mo_install,$(D)/po,querencia-dateien)
-	$(call mo_install,crates/querencia-oberflaeche/po,querencia-oberflaeche)
-	$(call mo_install,crates/querencia-dateiarbeit/po,querencia-dateiarbeit)
 	$(call metainfo_install,org.querencia.Dateien)
 	install -D -m 0644 debian/querencia-dateien.1 $(DESTDIR)/usr/share/man/man1/querencia-dateien.1
 	# CHANGELOG des Crates; kein README (das der Runtime beschreibt die

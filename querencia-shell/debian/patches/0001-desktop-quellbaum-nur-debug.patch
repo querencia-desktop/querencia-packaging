@@ -6,11 +6,11 @@ Description: Quellbaum-Rückfall des Hintergrundbilds nur in Debug-Builds
  (/usr/share/querencia/hintergruende).
 Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
 Forwarded: not-yet (Vorschlag für querencia-runtime, G2-F)
-Last-Update: 2026-10-21
+Last-Update: 2026-10-24
 ---
 --- a/crates/querencia-desktop/src/main.rs
 +++ b/crates/querencia-desktop/src/main.rs
-@@ -226,7 +226,13 @@
+@@ -245,7 +245,13 @@
  fn built_in_texture() -> Option<gdk::Texture> {
      let mut data_dirs = vec![glib::user_data_dir()];
      data_dirs.extend(glib::system_data_dirs());

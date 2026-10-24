@@ -1,3 +1,16 @@
+querencia-files (0.2.0-1) resolute; urgency=medium
+
+  * Übergangspaket: Querencia Dateien hat Querencia Files abgelöst; Files
+    wird nicht mehr ausgeliefert und entfällt mit diesem Upgrade samt dem
+    Befehl querencia-files.
+  * Die beiden Starter von Files bleiben im Menü versteckt und öffnen
+    Querencia Dateien, damit Verknüpfungen im Panel, auf der Arbeitsfläche
+    und in eigenen Einstellungen weiter funktionieren.
+  * Das Paket kann entfernt werden, sobald keine Verknüpfung mehr auf Files
+    zeigt.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 01:34:29 +0200
+
 querencia-files (0.1.0~alpha8-2) resolute; urgency=medium
 
   * Querencia Dateien löst Querencia Files ab. Files bleibt eine Ausgabe

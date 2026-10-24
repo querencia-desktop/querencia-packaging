@@ -1,3 +1,0 @@
-# Querencia Dateien is packaged for the Querencia APT repository, not for
-# Debian: there is no ITP bug to close.
-initial-upload-closes-no-bugs [usr/share/doc/querencia-dateien/changelog.Debian.gz:1]
