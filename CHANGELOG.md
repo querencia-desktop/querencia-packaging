@@ -1,6 +1,18 @@
 # Änderungen – querencia-packaging
 
-## Alpha 3 – Beta-Satz debs-beta-1 vom 24.10.2026 (Zweig dateien-beta), unveröffentlicht
+## Alpha 3 – Beta-Satz debs-beta-2 vom 24.10.2026 (Zweig dateien-beta), unveröffentlicht
+
+Ersetzt debs-beta-1 (Tag `packaging/alpha3-1`, nicht veröffentlichen). Dazu gegenüber debs-beta-1:
+
+- querencia-session 0.1.0~alpha10-1 aus `session/alpha10` (`0fc200f`): das Ordnerprogramm Dateien steht
+  in der Quelle (seit alpha9), Patch 0002 entfällt; Software-OpenGL bei zink auf NVK (QD-169), Conffile
+  `autostart` geändert; Recommends querencia-sitzung (>= 0.1.8); Patch 0001 (Archiv/SVG) auf die neue
+  Zeile gesetzt.
+- querencia-sitzung 0.1.8-1 aus `sitzung/0.1.8` (`27fd8ac`): polkit-Agent nach einem Neustart von
+  polkitd, `--grafik-pruefen`.
+- querencia-desktop 0.1.0~alpha3-1 neu gebaut: Session ≥ 0.1.0~alpha10, Sitzung ≥ 0.1.8.
+
+### Beta-Satz debs-beta-1 (ersetzt)
 
 Querencia Dateien 0.2.0 ins System, Querencia Files ausgemustert. Grundlage: Vorbau vom
 23.10. (`build/debs`); 22 Pakete, davon 4 neu gebaut, 18 unverändert übernommen.

@@ -11,12 +11,14 @@ querencia-desktop (0.1.0~alpha3-1) resolute; urgency=medium
     (querencia-shell 0.1.0~alpha10) kennen Querencia Dateien.
   * Sitzungsdialog 0.1.8: Die Rechteabfrage übersteht einen Neustart des
     polkit-Dienstes.
+  * Sitzung 0.1.0~alpha10: Software-OpenGL bei NVIDIA-Grafik mit nouveau
+    und zink.
   * /usr/share/querencia/version und /usr/share/querencia/release nennen
     Alpha 3.
   * Mindestversionen: Shell 0.1.0~alpha10, Dateien 0.2.0, Symbole 0.8,
-    Session 0.1.0~alpha9, Sitzung 0.1.8.
+    Session 0.1.0~alpha10, Sitzung 0.1.8.
 
- -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 02:22:16 +0200
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 02:37:22 +0200
 
 querencia-desktop (0.1.0~alpha2.2-1) resolute; urgency=medium
 

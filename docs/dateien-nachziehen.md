@@ -2,8 +2,8 @@
 
 Stand Alpha 3 (Zweig `dateien-beta`, 24.10.2026): `querencia-dateien` 0.2.0-1 aus runtime
 `dateien/0.2.0`, Shell 0.1.0~alpha10-1 aus runtime main `801a016` (besitzt die gemeinsamen
-Kataloge), `querencia-files` 0.2.0-1 als Übergangspaket, Session mit Ordnerprogramm Dateien
-(0.1.0~alpha8-2), Symbole 0.8, Metapaket 0.1.0~alpha3-1. Davor (Vorbau 23.10.): Dateien 0.1.0-1
+Kataloge), `querencia-files` 0.2.0-1 als Übergangspaket, Session 0.1.0~alpha10 (Ordnerprogramm Dateien in der
+Quelle seit `session/alpha9`), Sitzung 0.1.8, Symbole 0.8, Metapaket 0.1.0~alpha3-1 (Satz `debs-beta-2`). Davor (Vorbau 23.10.): Dateien 0.1.0-1
 aus `dateien/0.1.0-2` (`f9a3cda`), Files als Brücke (0.1.0~alpha8-2). Diese Liste beschreibt, wie ein
 späterer Stand von Dateien (Beta der Welle C: Netzwerk, Miniaturen/Suche, Reiter/Kompakt,
 Migration) ohne Umbau nachgezogen wird, und was beim Entfernen von Files zu tun ist.

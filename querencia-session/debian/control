@@ -18,7 +18,7 @@ Depends: labwc (>= 0.9.4),
          libglib2.0-bin,
          gsettings-desktop-schemas,
          xdg-user-dirs
-Recommends: querencia-sitzung,
+Recommends: querencia-sitzung (>= 0.1.8),
             querencia-benachrichtigungen,
             querencia-einstellungen,
             querencia-screenshot,

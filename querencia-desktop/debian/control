@@ -9,7 +9,7 @@ Standards-Version: 4.7.2
 Package: querencia-desktop
 Architecture: all
 Depends: labwc (>= 0.9.4),
-         querencia-session (>= 0.1.0~alpha9),
+         querencia-session (>= 0.1.0~alpha10),
          querencia-shell (>= 0.1.0~alpha10),
          querencia-symbole (>= 0.8),
          querencia-sitzung (>= 0.1.8),
