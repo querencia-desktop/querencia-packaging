@@ -1,0 +1,90 @@
+.TH QUERENCIA-DATEIEN 1 "October 2026" "querencia-dateien 0.2.0" "Querencia Desktop"
+.SH NAME
+querencia-dateien \- file manager of Querencia Desktop
+.SH SYNOPSIS
+.B querencia-dateien
+.RI [ GTK-OPTION ...]
+.RI [ FOLDER | URI ...]
+.SH DESCRIPTION
+.B querencia-dateien
+(Querencia Dateien, shown as \(lqFiles\(rq in English) is the file manager
+of Querencia Desktop, modelled on the browser mode of Nautilus 2.30: menu
+bar, toolbar, path bar, side pane \(lqPlaces\(rq with bookmarks, drives and
+network places, tabs, icon, list and compact view, thumbnails, a search by
+name and a status bar.
+.PP
+Without arguments it opens a window with the home folder. Each
+.I FOLDER
+or
+.I URI
+opens in a window of its own. A running instance takes over new requests
+(one GTK application with the ID
+.BR org.querencia.Dateien ).
+.PP
+In the Querencia session it is the default program for folders
+.RI ( inode/directory ).
+It replaces Querencia Files; the transitional package
+.B querencia-files
+keeps only its starters, which lead to Querencia Dateien.
+.SH OPTIONS
+Only the standard options of GTK applications, e.g.
+.BR \-\-help .
+.SH KEYS
+.TP
+.B Ctrl+1 / Ctrl+2 / Ctrl+3
+icon view / list view / compact view (Querencia Files used Ctrl+1 for its
+column view)
+.TP
+.B Ctrl+T, Ctrl+W
+new tab, close tab (the last one closes the window)
+.TP
+.B Ctrl+Page_Up / Ctrl+Page_Down, Alt+1 ... Alt+0
+previous / next tab, tab 1 to 10
+.TP
+.B Ctrl+F
+search by name from the shown folder
+.TP
+.B Ctrl+D
+bookmark the shown folder (Querencia Files: duplicate)
+.TP
+.B F9
+show or hide the side pane (Querencia Files: Ctrl+B)
+.TP
+.B Ctrl+L
+type a location
+.TP
+.B Ctrl+H
+show or hide hidden files
+.TP
+.B Ctrl+N, Shift+Ctrl+W
+new window, close all windows
+.SH FILES
+.TP
+.I ~/.config/querencia/dateien.ini
+settings (dialog Edit \(-> Preferences); written on change
+.TP
+.I ~/.config/gtk-3.0/bookmarks
+bookmarks, shared with GTK file dialogs
+.TP
+.I ~/.cache/thumbnails
+thumbnails (freedesktop cache, shared with other programs); thumbnailers of
+other programs run only inside
+.BR bwrap (1)
+.TP
+.I ~/.config/querencia-files/settings.toml
+read once on the first start without
+.IR dateien.ini :
+six settings of Querencia Files are taken over; the file is never changed
+.TP
+.I /usr/share/querencia/release
+release shown in the About dialog (package querencia-desktop)
+.SH ENVIRONMENT
+.TP
+.B LANGUAGE, LC_ALL, LC_MESSAGES, LANG
+language of the interface (English, German)
+.SH SEE ALSO
+.BR xdg-mime (1),
+.BR gio (1),
+.BR bwrap (1)
+.PP
+https://querencialinux.org

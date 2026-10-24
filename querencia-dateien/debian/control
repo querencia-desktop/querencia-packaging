@@ -1,0 +1,53 @@
+Source: querencia-dateien
+Section: utils
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libglib2.0-dev,
+               appstream,
+               desktop-file-utils,
+               gettext
+Standards-Version: 4.7.2
+
+Package: querencia-dateien
+Architecture: any
+Depends: ${shlibs:Depends},
+         querencia-shell (>= 0.1.0~alpha10),
+         querencia-symbole (>= 0.8)
+Recommends: gvfs,
+            gvfs-backends,
+            bubblewrap,
+            gnome-human-icon-theme,
+            querencia-archiv
+Suggests: querencia-terminal,
+          querencia-dateisuche
+Description: Querencia Desktop file manager (beta)
+ Querencia Dateien is the file manager of Querencia Desktop, a classic
+ desktop in the style of GNOME 2. It follows the browser mode of
+ Nautilus 2.30: menu bar, toolbar, path bar, side pane with places and
+ bookmarks, tabs, icon, list and compact view and a status bar. Files are
+ copied, moved and deleted with progress, cancel and conflict questions;
+ the trash, drives, network places ("Connect to Server" for SFTP, SMB,
+ FTP and WebDAV), thumbnails and a search by name are part of it.
+ .
+ In the Querencia session it opens folders (inode/directory). Bookmarks
+ are shared with GTK (~/.config/gtk-3.0/bookmarks); on its first start it
+ takes over six settings of Querencia Files once.
+ .
+ Thumbnails of other file types than images come from the installed
+ thumbnailers, which run only in a sandbox (bubblewrap, recommended).
+ Network places need GVfs (gvfs-backends, recommended).
+ .
+ Querencia Dateien replaces Querencia Files; the package querencia-files
+ now only keeps the old starters, which open Querencia Dateien.
+ .
+ The interface is English with a German translation (gettext); the
+ translations of the shared libraries come with querencia-shell.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is a beta release.

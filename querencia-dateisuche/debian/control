@@ -16,7 +16,7 @@ Standards-Version: 4.7.2
 Package: querencia-dateisuche
 Architecture: any
 Depends: ${shlibs:Depends}
-Recommends: querencia-files
+Recommends: querencia-dateien
 Description: Querencia Desktop file search (alpha)
  Querencia Dateisuche is the "Search for Files" tool of Querencia Desktop,
  a classic desktop in the style of GNOME 2, modelled on

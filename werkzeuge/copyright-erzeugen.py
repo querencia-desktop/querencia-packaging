@@ -13,12 +13,25 @@ the text itself, taken from a vendored crate's license file.
 
 The optional TSV inventory (crate, version, license, authors, license files)
 goes to the evidence directory; it is what docs/LICENSING.md summarises.
-Exits 1 if a crate has neither "license" nor "license-file", or if no text
-can be found for a license that needs one.
+
+Bundled foreign archives (QD-139): a crate that ships the source of another
+project as an archive (gettext-sys: GNU gettext) is listed in
+common/fremdarchive.conf (QUERENCIA_FREMDARCHIVE_CONF). Action "entfernen":
+orig-erzeugen.sh has removed the archive (werkzeuge/fremdarchive-entfernen.py)
+and the crate's stanza gets the comment of the entry. Action "absatz": the
+archive stays and gets one more stanza "Files: cargo-vendor/<crate>/<archive>"
+right after the crate's own. Small archives under tests/, fixtures/,
+examples/ ... are the crate's own test data and stay under the crate's stanza.
+
+Exits 1 if a crate has neither "license" nor "license-file", if no text can
+be found for a license that needs one, or if a crate holds an archive that is
+neither test data nor listed in fremdarchive.conf.
 """
+import fnmatch
 import os
 import re
 import sys
+import tarfile
 import tomllib
 
 COMMON = {  # SPDX id -> file in /usr/share/common-licenses
@@ -51,6 +64,37 @@ TEXT_FILES = {
     "OFL-1.1": ["license-ofl", "ofl.txt", "license"],
     "bzip2-1.0.6": ["license", "license.txt", "copying"],
 }
+
+
+# Archives inside a vendored crate, and where small ones count as test data.
+ARCHIV = re.compile(r"\.(tar|tgz|tbz2?|txz|tar\.(gz|xz|bz2|zst|lz|lzma)|zip|7z|jar|rar|whl|crate|gem)$", re.I)
+TESTDATEN = re.compile(r"(^|/)(tests?|testdata|test-data|fixtures|examples?|resources|benches)/")
+TESTDATEN_MAX = 1024 * 1024
+FREMD_CONF = os.environ.get("QUERENCIA_FREMDARCHIVE_CONF") or os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "common", "fremdarchive.conf")
+
+
+def fremdarchive():
+    """Entries of fremdarchive.conf: (pattern, action, spdx, copyright, {spdx: member}, comment)."""
+    out = []
+    if not os.path.isfile(FREMD_CONF):
+        return out
+    for line in open(FREMD_CONF, encoding="utf-8"):
+        if not line.strip() or line.startswith("#"):
+            continue
+        muster, aktion, spdx, holder, texte, comment = line.rstrip("\n").split("\t")
+        members = {}
+        if texte != "-":
+            for item in texte.split(","):
+                k, v = item.split("=", 1)
+                members[k.strip()] = v.strip()
+        out.append((muster, aktion, spdx, holder, members, comment))
+    return out
+
+
+def archive_member(path, member):
+    with tarfile.open(path) as tf:
+        return tf.extractfile(member).read().decode("utf-8", errors="replace")
 
 
 def spdx_ids(expr):
@@ -104,6 +148,9 @@ def main():
     stanzas, rows, problems = [], [], []
     texts = {}  # license id -> (text, source)
     customs = {}
+    fremd = fremdarchive()
+    pending = {}  # license id -> (archive path, member, shown source) for texts from a bundled archive
+    n_fremd = n_test = 0
     if vendor != "-":
         for name in sorted(os.listdir(vendor)):
             d = os.path.join(vendor, name)
@@ -141,11 +188,42 @@ def main():
                 problems.append(f"{name}: weder license noch license-file")
                 lic, dep5 = "?", "UNKNOWN"
             copyright_line = "; ".join(authors) if authors else f"the {crate} authors (see crate metadata)"
+            # removed bundled archives of this crate (action "entfernen")
+            entfernt = [e[5] for e in fremd if e[1] == "entfernen"
+                        and fnmatch.fnmatch(name, e[0].split("/")[0])]
             stanzas.append(
                 f"Files: cargo-vendor/{name}/*\nCopyright: {copyright_line}\nLicense: {dep5}\n"
                 f"Comment: Rust crate {crate} {version}, vendored from crates.io "
-                f"(checksum in cargo-vendor/{name}/.cargo-checksum.json).\n")
+                f"(checksum in cargo-vendor/{name}/.cargo-checksum.json)."
+                + "".join(f" {c}" for c in entfernt) + "\n")
             rows.append([crate, version, lic, copyright_line, ",".join(files) or "-"])
+            for root, _dirs, names in os.walk(d):
+                for f in sorted(names):
+                    if not ARCHIV.search(f):
+                        continue
+                    full = os.path.join(root, f)
+                    rel = os.path.relpath(full, vendor)
+                    inner = os.path.relpath(full, d)
+                    hit = [e for e in fremd if fnmatch.fnmatch(rel, e[0])]
+                    if hit and hit[0][1] == "entfernen":
+                        problems.append(f"{rel}: steht in {os.path.basename(FREMD_CONF)} als entfernen, ist aber noch da")
+                    elif hit:
+                        muster, _aktion, spdx, holder, members, comment = hit[0]
+                        for i in spdx_ids(spdx):
+                            used.add(i)
+                        for k, m in members.items():
+                            pending.setdefault(k, (full, m, f"{rel}:{m}"))
+                        stanzas.append(
+                            f"Files: cargo-vendor/{rel}\nCopyright: {holder}\nLicense: {dep5_expr(spdx)}\n"
+                            f"Comment: {comment}\n")
+                        n_fremd += 1
+                    elif TESTDATEN.search(inner) and os.path.getsize(full) < TESTDATEN_MAX:
+                        n_test += 1
+                    else:
+                        problems.append(f"{rel}: gebündeltes Archiv, weder Testdatei noch in {os.path.basename(FREMD_CONF)}")
+    for k, (path, member, src) in pending.items():
+        if k not in COMMON and k not in texts:
+            texts[k] = (archive_member(path, member), src)
     body = header.replace("@CARGO_VENDOR@\n", "\n".join(stanzas))
     paras = []
     for i in sorted({dep5_name(x.split(" WITH ")[0]) + "\0" + x.split(" WITH ")[0] for x in used if x}):
@@ -176,7 +254,8 @@ def main():
                 fh.write("\t".join(x.replace("\t", " ") for x in r) + "\n")
     for p in problems:
         print(f"copyright-erzeugen: {p}", file=sys.stderr)
-    print(f"copyright-erzeugen: {len(rows)} Crates, {len(paras)} Lizenzabsätze -> {output}")
+    print(f"copyright-erzeugen: {len(rows)} Crates, {n_fremd} gebündelte Fremdarchive, "
+          f"{n_test} Testarchive, {len(paras)} Lizenzabsätze -> {output}")
     sys.exit(1 if problems else 0)
 
 

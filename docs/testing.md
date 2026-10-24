@@ -11,7 +11,9 @@ python3 werkzeuge/veroeffentlichung-pruefen.py ../querencia-shell bericht.md
   vorhanden, Symbolregel (nie 48×48 neben einem Scalable-Verzeichnis),
   MetaInfo je Programmpaket (Regel M, `appstreamcli validate --no-net`),
   keine Datei in zwei Paketen, Abhängigkeiten auflösbar (Simulation gegen
-  das System).
+  das System), keine gebündelten Fremdarchive in `cargo-vendor` der
+  Quellarchive (QD-139; Quellarchive aus `QUERENCIA_ORIG_DIRS`, Standard
+  `build/orig`; entfernt werden sie nach `common/fremdarchive.conf`).
 - `apt-quelle-testen.sh`: erzeugt eine Quelle mit Wegwerf-Testschlüssel und
   prüft sie mit apt in einer abgeschotteten Umgebung (`-o Dir=…`): gültig,
   manipuliert, falscher Schlüssel, unsigniert.
@@ -31,6 +33,21 @@ eine Wegwerf-Kopie des Systems (bubblewrap, Overlay über `/usr`, `/etc`,
 `dpkg -i`, führt die Maintainer-Skripte aus, prüft `dpkg --audit`, ruft jedes
 Programm mit `--version`/`--help` auf und startet eine kopflose
 labwc-Sitzung mit Panel und Desktop. Das echte System bleibt unverändert.
+
+`tests/wegwerf-upgrade.sh <nachweis> <alter satz> <neuer satz>` misst in derselben Hülle ein
+Upgrade: alter Satz mit `dpkg -i`, Probe-Benutzer (Lesezeichen, Files-Einstellungen, eigene
+Ordnerwahl auf die alte Strata-ID), `apt-get -s full-upgrade` gegen eine Datei-Quelle, neuer
+Satz darüber, Ordnerprogramm (`gio mime inode/directory` wie in der Querencia-Sitzung),
+Files-Starter, unveränderte Benutzerdaten, `apt-get -s autoremove`, danach die volle
+Sitzungsprüfung von `wegwerf-installation.sh` auf dem neuen Stand. Seit Alpha 3 zusätzlich
+`apt-get -s upgrade --with-new-pkgs` (wie `apt upgrade`: nichts zurückgehalten, nichts entfernt),
+das Übergangspaket `querencia-files` ohne Reste von Files und keine Starter oder
+mimeapps-Einträge, die ins Leere zeigen. Alter Satz Alpha 2.1:
+`UPGRADE_VORHER_ORDNER=io.github.lgse.Strata.desktop`.
+
+Beide Proben legen ihre Wegwerf-Wurzel unter `$TMPDIR` an und geben der Hülle einen eigenen
+`TMPDIR` darin; `TMPDIR=$PWD/build/tmp` hält sie auf der Platte (`/tmp` ist auf der
+Entwicklungs-VM ein tmpfs). Paketpfade absolut angeben.
 
 ## Pflichtprobe auf frischem Ubuntu
 

@@ -56,6 +56,15 @@ den Stand von Kandidat 1 an.
         an Tag und `SHA256SUMS`.
 - [ ] `debian/control`: Depends/Recommends prüfen (neue Bibliotheken, Mindestversionen
       anderer Querencia-Pakete). `dpkg-checkbuilddeps` im Bauordner meldet Fehlendes.
+- [ ] Gebündelte Fremdarchive (QD-139): Bringt ein vendorter Crate den Quelltext eines anderen
+      Projekts als Archiv mit (heute `gettext-sys` mit GNU gettext), steht es mit Lizenzen in
+      `common/fremdarchive.conf`. Aktion `entfernen` (gettext, Entscheidung 23.10.): `orig-erzeugen.sh`
+      löscht es beim Vendoren (`fremdarchive-entfernen.py`, Eintrag in `.cargo-checksum.json`
+      gestrichen), das copyright nennt es am Absatz des Crates, `debian/README.source` erklärt es.
+      `copyright-erzeugen.py` bricht bei einem unbekannten Archiv ab. Neue Einträge nur nach Lesen
+      der Lizenzdateien im Archiv und nur, wenn der Bau das Archiv nicht braucht.
+- [ ] Erzeugte Dateien (`debian/upstream-commit`, `debian/copyright`) nach dem Bau **vor dem Tag**
+      committen: Der Kandidaten-Tag muss den Satz allein reproduzieren (seit Alpha 2.2).
 - [ ] `debian/patches/`: jeder Patch muss sauber anwenden, sonst bricht der Bau ab. Entfällt
       ein Patch, ihn aus `series` löschen. Ist `series` dann leer, den Ordner löschen.
 - [ ] Metapaket `querencia-desktop`: Mindestversion in `debian/control` anheben und den
@@ -99,7 +108,8 @@ cd ~/projects/querencia-packaging-wt-alpha21 && PRUEF_DEBS=$PWD/build/debs-kandi
 Erwartung (Kandidat 1 als Maßstab, Bericht ):
 
 - [ ] SHA256SUMS OK, 21 Pakete
-- [ ] pakete-pruefen 0 FAIL, Lintian 0 E
+- [ ] pakete-pruefen 0 FAIL, Lintian 0 E; mit `QUERENCIA_ORIG_DIRS` (Doppelpunkt-Liste der `build/orig`
+      der Worktrees, aus denen die Pakete stammen) prüft es auch die Fremdarchive der Quellarchive
 - [ ] APT-Testquelle 0 FAIL
 - [ ] Home-Pfade nur die bekannten Fehlalarme
 - [ ] B1/B2 je 0, MetaInfo ungültig 0 in installierter Doku 0
@@ -130,5 +140,13 @@ Erwartung (Kandidat 1 als Maßstab, Bericht ):
 - [ ] `build/debs` → `build/debs-final`, `chmod -R a-w`, Summe von `SHA256SUMS` melden
 - [ ] Pflichtprobe auf frischer VM (`docs/pflichtprobe-frische-vm.md`), Upgrade Alpha 2 → 2.1
       (`apt full-upgrade`) in der Wegwerf-VM
+- [ ] **Upgrade-Probe immer vor dem Hochladen** (QD-132, seit Alpha 2.2): Der Index der
+      veröffentlichten Quelle führt nur die neueste Fassung eines Pakets; nach dem Upload ist
+      die Vorversion per apt nicht mehr auflösbar. Deshalb in der Wegwerf-VM die Vorversion
+      aus der **echten** Quelle installieren (Befehle der Website), dann auf eine lokale,
+      signierte Kopie der Quelle mit dem neuen Satz umstellen (Pool-Simulation aus
+      `pruef-alles.sh`, Wegwerf-Schlüssel) und `apt full-upgrade` messen. Diese Messung ist
+      die Upgrade-Zahl für Release Notes und Website. Nach dem Upload nur noch eine
+      Neuinstallation aus der echten Quelle.
 - [ ] Quelle bauen, signieren und hochladen nur durch die Startsession mit dem Besitzer
       (Befehle wie in der Alpha-2-Übergabe §5)

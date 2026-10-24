@@ -1,3 +1,34 @@
+querencia-sitzung (0.1.8-1) resolute; urgency=medium
+
+  * Neue Version 0.1.8.
+  * Startet der polkit-Dienst neu (etwa nach einem Update), meldet sich die
+    Rechteabfrage dort erneut an; Abfragen nach Kennwort funktionieren
+    danach wieder, ohne neu anzumelden.
+  * Neue Option --grafik-pruefen: zeigt den OpenGL-Renderer, mit dem die
+    Sitzung bei Bedarf auf Software-Darstellung umschalten kann.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 02:22:16 +0200
+
+querencia-sitzung (0.1.7-1) resolute; urgency=medium
+
+  * Neue Version 0.1.7.
+  * „Ausschalten …“ bietet wie unter GNOME 2 auch „Neu starten“ an:
+    Abbrechen, Neu starten, Herunterfahren.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Fri, 23 Oct 2026 00:20:00 +0200
+
+querencia-sitzung (0.1.6-1) resolute; urgency=medium
+
+  * Neue Version 0.1.6.
+  * Ist die Sitzung gesperrt, schaltet sie den Bildschirm nach zwei Minuten
+    ohne Eingabe ab; Maus oder Tastatur schalten ihn wieder an. Die Zeit
+    lässt sich einstellen (BildschirmAus in ~/.config/querencia/sitzung.ini,
+    0 = nie), ein laufendes Video hält den Bildschirm an.
+  * Bei dunkler Darstellung erscheinen auch neu gestartete GTK-3-Programme
+    dunkel.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 23:20:00 +0200
+
 querencia-sitzung (0.1.4-1) resolute; urgency=medium
 
   * Neue Version 0.1.4.

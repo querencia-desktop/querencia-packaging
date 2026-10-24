@@ -1,3 +1,45 @@
+querencia-files (0.2.0-1) resolute; urgency=medium
+
+  * Übergangspaket: Querencia Dateien hat Querencia Files abgelöst; Files
+    wird nicht mehr ausgeliefert und entfällt mit diesem Upgrade samt dem
+    Befehl querencia-files.
+  * Die beiden Starter von Files bleiben im Menü versteckt und öffnen
+    Querencia Dateien, damit Verknüpfungen im Panel, auf der Arbeitsfläche
+    und in eigenen Einstellungen weiter funktionieren.
+  * Das Paket kann entfernt werden, sobald keine Verknüpfung mehr auf Files
+    zeigt.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 01:34:29 +0200
+
+querencia-files (0.1.0~alpha8-2) resolute; urgency=medium
+
+  * Querencia Dateien löst Querencia Files ab. Files bleibt eine Ausgabe
+    lang installierbar und entfällt danach; das Paket kann entfernt werden,
+    sobald Files selbst nicht mehr gebraucht wird.
+  * Die Starter von Files sind jetzt im Menü versteckt und starten Querencia
+    Dateien, damit Verknüpfungen im Panel, auf der Arbeitsfläche und in
+    eigenen Einstellungen weiter funktionieren. Ordner öffnet Files nicht
+    mehr als Standard.
+  * Files selbst ist unverändert und lässt sich als querencia-files im
+    Terminal starten.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Fri, 23 Oct 2026 21:20:00 +0200
+
+querencia-files (0.1.0~alpha8-1) resolute; urgency=medium
+
+  * Neue Version (Querencia Files für Alpha 2.2).
+  * Info-Dialog und Hilfe-Menü lesen die installierte Ausgabe von Querencia
+    Desktop selbst (Alpha 2.2); der Paket-Patch dafür entfällt.
+  * Dunkle Darstellung: Unter dem dunklen Querencia-Thema wird auch Files
+    dunkel und wechselt im laufenden Betrieb mit.
+  * Neue Kennung org.querencia.Files für Starter, Fenster und Softwarekatalog.
+    Der alte Starter bleibt vorerst unsichtbar erhalten, damit ältere
+    Verknüpfungen weiter funktionieren.
+  * Eigene Einstellungen liegen jetzt in Ordnern namens querencia-files; ein
+    vorhandener Ordner strata wird beim ersten Start verschoben.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 23:20:00 +0200
+
 querencia-files (0.1.0~alpha7-1) resolute; urgency=medium
 
   * Neue Version (Querencia Files für Alpha 2.1).

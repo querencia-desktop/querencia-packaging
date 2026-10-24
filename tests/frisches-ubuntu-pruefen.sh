@@ -25,7 +25,7 @@ vorher)
 nachher)
     dpkg -l >"$OUT/dpkg-nachher.txt"
     for x in querencia-desktop querencia-session querencia-shell querencia-symbole querencia-sitzung \
-        querencia-benachrichtigungen querencia-einstellungen querencia-files querencia-terminal \
+        querencia-benachrichtigungen querencia-einstellungen querencia-dateien querencia-terminal \
         querencia-screenshot querencia-editor querencia-bilder querencia-rechner querencia-systemmonitor \
         querencia-dateisuche querencia-software labwc; do
         dpkg -s "$x" >/dev/null 2>&1 && ok "installiert: $x $(dpkg-query -W -f='${Version}' $x)" || nok "fehlt: $x"
@@ -55,7 +55,7 @@ nachher)
     [ ! -e /usr/share/wayland-sessions/labwc.desktop ] && ok "K6 keine labwc.desktop" || nok "K6 labwc.desktop vorhanden"
     grep -qx 'GSK_DEBUG=full-redraw' /etc/querencia/labwc/environment && ok "QD-070 GSK_DEBUG in der Vorgabe" || nok "QD-070 GSK_DEBUG fehlt"
     v=$(labwc --version | awk '{print $2}'); dpkg --compare-versions "$v" ge 0.9.4 && ok "labwc $v" || nok "labwc $v < 0.9.4"
-    for d in io.github.lgse.Strata org.querencia.Terminal org.querencia.Screenshot org.querencia.Editor \
+    for d in org.querencia.Dateien org.querencia.Terminal org.querencia.Screenshot org.querencia.Editor \
         org.querencia.Bilder org.querencia.Rechner org.querencia.Systemmonitor org.querencia.Dateisuche \
         org.querencia.Einstellungen org.querencia.Software org.querencia.Sitzung org.querencia.Kuerzel \
         org.querencia.Lautstaerke; do
@@ -70,13 +70,42 @@ nachher)
     [ -f /usr/share/icons/Querencia/index.theme ] && ok "Symbolthema Querencia" || nok "Symbolthema Querencia fehlt"
     [ -f /usr/share/themes/Querencia-Klassisch/gtk-4.0/gtk.css ] && [ -f /usr/share/themes/Querencia-Klassisch/labwc/themerc ] &&
         ok "Thema Querencia-Klassisch (GTK 4, labwc)" || nok "Thema Querencia-Klassisch unvollständig"
-    # Alpha 2: dunkle Fassung des Themas, Symbole 0.7, Files ohne Update-Prüfer, Terminal mit Reitern
+    # Alpha 2.2: dunkler labwc-Rahmen, Files unter neuer ID mit Brücke, Kataloge
+    # von Panel und Arbeitsfläche, Versionsdatei
+    n=$(ls /usr/share/themes/Querencia-Klassisch-Dunkel/labwc 2>/dev/null | wc -l)
+    [ "$n" = 17 ] && grep -q '^window.active.title.bg.color:' /usr/share/themes/Querencia-Klassisch-Dunkel/labwc/themerc &&
+        ok "A22 labwc-Thema Querencia-Klassisch-Dunkel (themerc und 16 Knöpfe)" || nok "A22 Querencia-Klassisch-Dunkel: $n Dateien"
+    # Alpha 3: Querencia Dateien statt Files. Eine Neuinstallation bringt
+    # querencia-files nicht mit; nach einem Upgrade ist es das Übergangspaket
+    # mit zwei unsichtbaren Brücken auf Dateien (ohne Strata-Programm).
+    grep -qx 'MimeType=inode/directory;' /usr/share/applications/org.querencia.Dateien.desktop 2>/dev/null &&
+        grep -qx 'StartupWMClass=org.querencia.Dateien' /usr/share/applications/org.querencia.Dateien.desktop &&
+        ok "A3 Starter org.querencia.Dateien (Ordner)" || nok "A3 Starter org.querencia.Dateien"
+    [ -f /usr/share/metainfo/org.querencia.Dateien.metainfo.xml ] && [ ! -e /usr/share/metainfo/org.querencia.Files.metainfo.xml ] &&
+        [ ! -e /usr/share/metainfo/io.github.lgse.Strata.metainfo.xml ] && ok "A3 MetaInfo org.querencia.Dateien, keine von Files" || nok "A3 MetaInfo Dateien/Files"
+    [ ! -e /usr/bin/querencia-files ] && [ ! -e /usr/share/querencia-files ] && ok "A3 Files ausgemustert (kein Programm, keine Paketmarke)" || nok "A3 Reste von Files"
+    if dpkg -s querencia-files >/dev/null 2>&1; then
+        for b in org.querencia.Files io.github.lgse.Strata; do
+            b=/usr/share/applications/$b.desktop
+            [ -f "$b" ] && grep -qx 'NoDisplay=true' "$b" && ! grep -q '^MimeType=' "$b" && grep -qx 'Exec=querencia-dateien %U' "$b" &&
+                desktop-file-validate "$b" >/dev/null 2>&1 && ok "A3 Brücke $(basename "$b") auf Dateien" || nok "A3 Brücke $(basename "$b")"
+        done
+    else
+        echo "HINW querencia-files nicht installiert (Neuinstallation: richtig)"
+    fi
+    for k in querencia-panel querencia-lautstaerke querencia-netzwerk querencia-desktop querencia-oberflaeche querencia-dateiarbeit querencia-dateien; do
+        [ -s /usr/share/locale/de/LC_MESSAGES/$k.mo ] && ok "A3 Katalog $k.mo" || nok "A3 Katalog $k.mo fehlt"
+    done
+    grep -A2 '<keybind key="W-d">' /etc/querencia/labwc/rc.xml | grep -q -- '--dest org.querencia.Panel ' &&
+        ok "A22 Super+D an org.querencia.Panel" || nok "A22 Super+D"
+    echo "HINW Ausgabe: $(cat /usr/share/querencia/version 2>/dev/null || echo fehlt)"
+    # Alpha 2: dunkle Fassung des Themas, Terminal mit Reitern; Symbole seit Alpha 3: 0.8
     [ -f /usr/share/themes/Querencia-Klassisch/gtk-3.0/gtk-dark.css ] && [ -f /usr/share/themes/Querencia-Klassisch/gtk-4.0/gtk-dark.css ] &&
         ok "A2 Thema mit gtk-dark.css (GTK 3, 4)" || nok "A2 gtk-dark.css fehlt"
     n=$(find /usr/share/icons/Querencia -type f 2>/dev/null | wc -l)
-    [ "$n" -eq 715 ] && [ -f /usr/share/icons/Querencia/scalable/places/user-desktop.svg ] &&
-        ok "A2 Symbolthema 0.7: $n Dateien, user-desktop" || nok "A2 Symbolthema: $n Dateien statt 715"
-    ! grep -a -q 'api\.github\.com' /usr/bin/querencia-files && ok "A2 Files ohne GitHub-Update-Abfrage" || nok "A2 Files nennt api.github.com"
+    [ "$n" -eq 723 ] && [ -f /usr/share/icons/Querencia/scalable/places/user-desktop.svg ] &&
+        [ -f /usr/share/icons/Querencia/scalable/apps/org.querencia.Dateien.svg ] &&
+        ok "A3 Symbolthema 0.8: $n Dateien, user-desktop, Dateien" || nok "A3 Symbolthema: $n Dateien statt 723"
     dpkg --compare-versions "$(dpkg-query -W -f='${Version}' querencia-terminal)" ge 0.3.0 && ok "A2 Terminal mit Reitern (>= 0.3.0)" || nok "A2 Terminal < 0.3.0"
     # 17 aus querencia-shell, dazu 32 aus querencia-hintergruende (Alpha 2)
     soll=17; dpkg -s querencia-hintergruende >/dev/null 2>&1 && soll=49
@@ -101,8 +130,20 @@ nachher)
         ok "P kein Anmeldebildschirm hinzugefügt/entfernt" || nok "P Anmeldebildschirm verändert"
     dm_zustand | diff - "$OUT/dm-vorher.txt" >/dev/null &&
         ok "P Anmeldebildschirm-Konfiguration unverändert" || nok "P Anmeldebildschirm-Konfiguration verändert"
-    find /home -newer "$OUT/dpkg-vorher.txt" -path '*querencia*' 2>/dev/null | grep -v "$OUT" | grep -q . &&
-        nok "N Paket hat in /home geschrieben" || ok "N nichts in /home angelegt"
+    # N: nur das Zeitfenster des letzten apt-Laufs (history.log), sonst
+    # zählen Sitzungslogs späterer Anmeldungen mit (QD-131, Upgrade-Läufe).
+    hist=/var/log/apt/history.log
+    a_start=$(awk '/^Start-Date:/ {s = $2 " " $3} END {print s}' "$hist" 2>/dev/null)
+    a_ende=$(awk '/^End-Date:/ {e = $2 " " $3} END {print e}' "$hist" 2>/dev/null)
+    if s_ep=$(date -d "$a_start" +%s 2>/dev/null) && e_ep=$(date -d "$a_ende" +%s 2>/dev/null) && [ "$e_ep" -ge "$s_ep" ]; then
+        treffer=$(find /home -newermt "@$s_ep" ! -newermt "@$((e_ep + 1))" -path '*querencia*' 2>/dev/null | grep -v "$OUT")
+        [ -z "$treffer" ] && ok "N nichts in /home angelegt (apt $a_start – $a_ende)" ||
+            { nok "N Paket hat in /home geschrieben (apt $a_start – $a_ende)"; printf '%s\n' "$treffer" | head -5 | sed 's/^/     /'; }
+    else
+        echo "HINW N: $hist ohne lesbaren Lauf, Fenster seit vorher"
+        find /home -newer "$OUT/dpkg-vorher.txt" -path '*querencia*' 2>/dev/null | grep -v "$OUT" | grep -q . &&
+            nok "N Paket hat in /home geschrieben" || ok "N nichts in /home angelegt"
+    fi
     ;;
 sitzung)
     # Startprotokoll vor dem Prüfpunkt „zweiter Start verweigert“ sichern: der
@@ -124,7 +165,7 @@ sitzung)
     zweit=$(querencia-session 2>&1)
     grep -q 'läuft bereits' <<<"$zweit" && ok "H zweiter Start verweigert" || nok "zweiter Start"
     echo "$XDG_CURRENT_DESKTOP" | grep -q X-Querencia && ok "XDG_CURRENT_DESKTOP=X-Querencia" || nok "XDG_CURRENT_DESKTOP"
-    [ "$(xdg-mime query default inode/directory)" = io.github.lgse.Strata.desktop ] && ok "Ordnerprogramm in der Sitzung" || nok "Ordnerprogramm"
+    [ "$(xdg-mime query default inode/directory)" = org.querencia.Dateien.desktop ] && ok "Ordnerprogramm in der Sitzung (org.querencia.Dateien)" || nok "Ordnerprogramm: $(xdg-mime query default inode/directory)"
     [ "$(xdg-mime query default text/plain)" = org.querencia.Editor.desktop ] && ok "Textprogramm in der Sitzung" || nok "Textprogramm"
     [ "$(xdg-mime query default image/png)" = org.querencia.Bilder.desktop ] && ok "Bildprogramm in der Sitzung" || nok "Bildprogramm"
     [ "$(xdg-mime query default application/zip)" = org.querencia.Archiv.desktop ] && ok "K5 Archivprogramm in der Sitzung" || nok "K5 Archivprogramm: $(xdg-mime query default application/zip)"

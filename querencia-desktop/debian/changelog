@@ -1,3 +1,36 @@
+querencia-desktop (0.1.0~alpha3-1) resolute; urgency=medium
+
+  * Querencia Desktop Alpha 3.
+  * Neuer Dateimanager Querencia Dateien 0.2.0 (querencia-dateien) mit
+    Reitern, Kompaktansicht, Netzwerkorten, Vorschaubildern und Suche;
+    er öffnet in der Querencia-Sitzung die Ordner.
+  * Querencia Files wird nicht mehr ausgeliefert. Beim Upgrade ersetzt das
+    Übergangspaket querencia-files das alte Files; seine Starter öffnen
+    Querencia Dateien.
+  * Panel 0.3.2, Arbeitsfläche 0.3.0 und Tastenkürzel-Übersicht 0.2.2
+    (querencia-shell 0.1.0~alpha10) kennen Querencia Dateien.
+  * Sitzungsdialog 0.1.8: Die Rechteabfrage übersteht einen Neustart des
+    polkit-Dienstes.
+  * Sitzung 0.1.0~alpha10: Software-OpenGL bei NVIDIA-Grafik mit nouveau
+    und zink.
+  * /usr/share/querencia/version und /usr/share/querencia/release nennen
+    Alpha 3.
+  * Mindestversionen: Shell 0.1.0~alpha10, Dateien 0.2.0, Symbole 0.8,
+    Session 0.1.0~alpha10, Sitzung 0.1.8.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 02:37:22 +0200
+
+querencia-desktop (0.1.0~alpha2.2-1) resolute; urgency=medium
+
+  * Querencia Desktop Alpha 2.2.
+  * /usr/share/querencia/version und /usr/share/querencia/release nennen
+    jetzt Alpha 2.2; auch der Info-Dialog von Files liest sie.
+  * Mindestversionen der Programme von Alpha 2.2: Session 0.1.0~alpha8,
+    Shell 0.1.0~alpha9 (Panel 0.3.0, Arbeitsfläche 0.2.6), Sitzung 0.1.7,
+    Einstellungen 0.1.6, Files 0.1.0~alpha8.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Fri, 23 Oct 2026 00:20:00 +0200
+
 querencia-desktop (0.1.0~alpha2.1-1) resolute; urgency=medium
 
   * Querencia Desktop Alpha 2.1.

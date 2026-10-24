@@ -6,8 +6,6 @@
 #   bash werkzeuge/alle-bauen.sh [<quellpaket>...]     (ohne Angabe: alle)
 #
 # Umgebung wie paket-bauen.sh, dazu:
-#   QUERENCIA_FREMDRUST_BIN   Toolchain für querencia-files (rustc >= 1.98,
-#                             Ubuntu 26.04 hat 1.93); Standard: rustup 1.98.1
 #   QUERENCIA_LABWC_PROFILE   Bauprofile für labwc (Standard: keine, also mit
 #                             Manpages und SVG-Knöpfen; ohne scdoc bzw.
 #                             librsvg2-dev automatisch nodoc bzw. pkg.labwc.nosvg)
@@ -16,7 +14,6 @@
 set -uo pipefail
 . "$(dirname "$(readlink -f "$0")")/gemeinsam.sh"
 W=$PK/werkzeuge
-FREMDRUST=${QUERENCIA_FREMDRUST_BIN:-$HOME/.rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/bin}
 if [ -z "${QUERENCIA_LABWC_PROFILE+x}" ]; then
     LABWC_PROFILE=
     command -v scdoc >/dev/null || LABWC_PROFILE="nodoc"
@@ -42,9 +39,6 @@ for p in "${pakete[@]}"; do
         fi
     fi
     case $p in
-    querencia-files)
-        ok=$(DEB_BUILD_PROFILES=pkg.querencia.fremdrust QUERENCIA_RUST_BIN=$FREMDRUST \
-            bash "$W/paket-bauen.sh" "$p" 2>&1) ;;
     labwc)
         ok=$(DEB_BUILD_PROFILES="$LABWC_PROFILE" bash "$W/paket-bauen.sh" "$p" 2>&1) ;;
     *)

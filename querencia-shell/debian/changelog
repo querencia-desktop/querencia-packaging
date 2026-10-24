@@ -1,3 +1,64 @@
+querencia-shell (0.1.0~alpha10-1) resolute; urgency=medium
+
+  * Panel (0.3.2):
+    - Das Orte-Menü öffnet Ordner mit Querencia Dateien, dem neuen
+      Dateimanager; ist keiner als Standard gewählt, nimmt es Querencia
+      Dateien vor dem früheren Querencia Files.
+    - Die Namen der Tasten in den Menükürzeln kommen aus einem gemeinsamen
+      Katalog mit der Arbeitsfläche und Querencia Dateien.
+  * Arbeitsfläche (0.3.0):
+    - Kopieren, Verschieben und Löschen zeigen bei längeren Vorgängen ein
+      Fenster mit Fortschritt und „Abbrechen“; abgebrochene Vorgänge
+      hinterlassen keine halben Dateien.
+    - Liegt am Ziel schon eine Datei gleichen Namens, fragt die
+      Arbeitsfläche wie Nautilus: Überspringen, Umbenennen oder Ersetzen
+      (bisher bekam die Kopie still einen neuen Namen).
+    - Nicht eingehängte Wechseldatenträger erscheinen als Symbol und werden
+      per Doppelklick eingehängt und geöffnet; Kennwortfragen stellt die
+      Arbeitsfläche selbst.
+    - „Papierkorb leeren“ zeigt Fortschritt und lässt sich abbrechen.
+    - Ordner, Rechner, Papierkorb und Datenträger öffnen in Querencia
+      Dateien.
+  * Tastenkürzel-Übersicht (0.2.2): Der Abschnitt „Querencia Files“ heißt
+    jetzt „Querencia Dateien“ und nennt dessen Kürzel (Reiter, Ansichten
+    Strg+1/2/3, Strg+D für Lesezeichen, F9 für die Seitenleiste).
+  * Das Paket enthält jetzt die Übersetzungen der Bibliotheken
+    querencia-oberflaeche und querencia-dateiarbeit, die Panel,
+    Arbeitsfläche und Querencia Dateien gemeinsam nutzen.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 01:31:03 +0200
+
+querencia-shell (0.1.0~alpha9-1) resolute; urgency=medium
+
+  * Panel (0.3.0):
+    - Behebt die Abstürze beim Öffnen der Menüs und im Betrieb: Das Panel
+      lädt seine Symbole jetzt selbst, statt GTK im Hintergrund vorladen zu
+      lassen.
+    - Nach einem Absturz startet das Panel schneller neu; nur vom ersten
+      Absturz wird ein Fehlerbericht angelegt.
+    - Englische Oberfläche: Bei englischer Spracheinstellung erscheinen
+      alle Texte englisch, Deutsch bleibt im Wortlaut wie bisher.
+    - Neue Kennung org.querencia.Panel; der alte Name funktioniert weiter.
+    - Die Fenster des Panels zeigen das Querencia-Logo.
+    - Fensterliste und Orte kennen die neue Kennung von Querencia Files.
+  * Arbeitsfläche (0.2.6):
+    - Die Symbolraster richten sich nach der Schrift der Sitzung; lange
+      Namen werden nicht mehr abgeschnitten, ein ausgewähltes Symbol zeigt
+      seinen ganzen Namen.
+    - Ein später angelegter Ordner Arbeitsfläche erscheint sofort.
+    - Gibt es für eine Datei kein Programm, erscheint ein Hinweis mit der
+      Programmauswahl.
+    - Englische Oberfläche wie beim Panel.
+    - Öffnet Ordner in Querencia Files unter dessen neuer Kennung.
+  * Thema Querencia-Klassisch 0.2.2:
+    - Neuer dunkler Fensterrahmen Querencia-Klassisch-Dunkel mit dunklen
+      Titelknöpfen; die Einstellungen wählen ihn mit der dunklen
+      Darstellung.
+    - Schieberegler-Werte, Untermenüpfeile und Schließknöpfe auf Reitern
+      sind etwas kräftiger.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 23:20:00 +0200
+
 querencia-shell (0.1.0~alpha8-1) resolute; urgency=medium
 
   * Arbeitsfläche (Desktop 0.2.4):

@@ -1,3 +1,35 @@
+querencia-session (0.1.0~alpha10-1) resolute; urgency=medium
+
+  * Neue Version 0.1.0~alpha10.
+  * Ordner öffnen in der Querencia-Sitzung mit Querencia Dateien (bisher
+    als Änderung im Paket, jetzt in der Quelle).
+  * Auf Rechnern mit NVIDIA-Grafik und dem freien Treiber (nouveau), deren
+    OpenGL über zink läuft, zeichnen die Programme der Sitzung mit
+    Software-OpenGL statt fehlerhaft; einstellbar in
+    ~/.config/querencia/grafik.ini (automatisch, an, aus).
+  * Empfiehlt querencia-sitzung 0.1.8 oder neuer (Grafikprüfung).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 02:37:22 +0200
+
+querencia-session (0.1.0~alpha8-2) resolute; urgency=medium
+
+  * Ordner öffnen in der Querencia-Sitzung jetzt mit Querencia Dateien
+    (org.querencia.Dateien) statt mit Querencia Files; eine eigene Vorgabe
+    in ~/.config/mimeapps.list gilt weiter.
+  * Empfiehlt Querencia Dateien statt Querencia Files.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Fri, 23 Oct 2026 21:20:00 +0200
+
+querencia-session (0.1.0~alpha8-1) resolute; urgency=medium
+
+  * Neue Version 0.1.0~alpha8.
+  * Super+D spricht das Panel unter seinem neuen Namen an.
+  * Ordner öffnen in der Querencia-Sitzung mit Querencia Files unter seiner
+    neuen Kennung.
+  * Braucht querencia-shell 0.1.0~alpha9 oder neuer.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 23:20:00 +0200
+
 querencia-session (0.1.0~alpha7-3) resolute; urgency=medium
 
   * Das Panel wird bei einem Absturz automatisch neu gestartet, höchstens

@@ -31,8 +31,9 @@ querencia-dokumente/         PDF-Betrachter
 querencia-hintergruende/     Hintergrundbilder (Architecture: all)
 querencia-benachrichtigungen/ Benachrichtigungsdienst
 querencia-einstellungen/     Einstellungen (Kontrollzentrum)
-querencia-files/             Dateimanager (ohne UnRAR, ohne Update-Prüfung)
-querencia-terminal/          Terminal
+querencia-dateien/           Dateimanager Querencia Dateien (aus querencia-runtime)
+querencia-files/             Übergangspaket seit Alpha 3: nur Brücken-Starter auf Dateien
+querencia-terminal/          Terminal (noch alte App-ID)
 querencia-screenshot/        Bildschirmfoto
 querencia-editor/            Texteditor (gettext, de)
 querencia-bilder/            Bildbetrachter
@@ -47,7 +48,7 @@ apt/                         Eintrag für die APT-Quelle (querencia.sources)
 werkzeuge/                   orig-erzeugen, paket-bauen, alle-bauen, pakete-pruefen,
                              copyright-erzeugen, apt-quelle-erzeugen/-testen,
                              veroeffentlichung-pruefen
-tests/                       Prüfskript frische VM, Wegwerf-Installation
+tests/                       Prüfskript frische VM, Wegwerf-Installation und -Upgrade
 ci/                          GitHub-Actions-Vorlagen (nicht aktiv)
 docs/                        Bauen, Prüfen, Pflichtprobe, öffentliche Quellen
 ```

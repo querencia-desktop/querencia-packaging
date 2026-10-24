@@ -1,3 +1,12 @@
+querencia-symbole (0.8-1) resolute; urgency=medium
+
+  * Neue Upstream-Version 0.8 (Tag symbole/0.8 = 26c830ba): eigenes
+    Programmsymbol für Querencia Dateien (org.querencia.Dateien, PNG 16–256
+    und SVG, kein 48x48) im Symbolthema Querencia; 723 Dateien im Thema
+    (0.7 plus 8), hicolor unverändert.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Fri, 23 Oct 2026 21:20:00 +0200
+
 querencia-symbole (0.7-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.7 (Tag symbole/0.7 = ac663d94; live seit 21.10.

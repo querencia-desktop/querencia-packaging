@@ -5,11 +5,11 @@ Description: Archivtypen mit Querencia Archiv, SVG mit Querencia Bilder
  an Querencia Bilder; andere Desktops sind nicht betroffen.
 Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
 Forwarded: not-needed
-Last-Update: 2026-10-20
+Last-Update: 2026-10-24
 ---
 --- a/share/applications/x-querencia-mimeapps.list
 +++ b/share/applications/x-querencia-mimeapps.list
-@@ -15,3 +15,19 @@
+@@ -19,3 +19,19 @@
  image/bmp=org.querencia.Bilder.desktop
  # PDF wie auf der Entwicklungs-VM (Dokumente 0.1.0, live seit 20.10.2026).
  application/pdf=org.querencia.Dokumente.desktop

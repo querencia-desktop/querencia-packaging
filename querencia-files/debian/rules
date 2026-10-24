@@ -1,32 +1,21 @@
 #!/usr/bin/make -f
-QUERENCIA_KIND := rust
-# The full suite (~2760 tests, 14-18 min, up to 5.5 GiB) has 61 known
-# environment failures (portal services, GVfs smb, GUI without Wayland) that
-# also fail in the unmodified Strata base. It runs separately (TESTING.md of Strata),
-# not inside the package build.
-QUERENCIA_TEST := no
-CARGO_FEATURES := --no-default-features
-# Strata needs rustc >= 1.98 (uses APIs stabilised after 1.93, e.g.
-# atomic_try_update; kstring 2.0.4 declares rust-version 1.96). Ubuntu 26.04
-# has 1.93.1, so prototypes build with DEB_BUILD_PROFILES=pkg.querencia.fremdrust
-# and QUERENCIA_RUST_BIN=<toolchain>/bin (querencia-packaging docs/building.md).
-# Update checks against GitHub/AUR: since QF-0q (files/qf-0q-1) the upstream
-# constant services::SELF_UPDATE (false) keeps Strata's own updater still (no
-# thread, no connection, no "update available"); the former build-time patch
-# 0001-update-pruefung-abschaltbar.patch is no longer needed.
-export STRATA_BUILD_KIND := alpha
-export STRATA_BUILD_COMMIT := $(shell head -n 1 debian/upstream-commit 2>/dev/null)
-# Paketversion im Info-Dialog (build_info::QUERENCIA_PACKAGE_VERSION)
-export QUERENCIA_PACKAGE_VERSION := $(shell dpkg-parsechangelog -S Version)
+# Übergangspaket (ab Alpha 3): Querencia Dateien löst Querencia Files ab, der
+# Strata-Fork wird nicht mehr ausgeliefert. Das Paket enthält nur noch die
+# beiden Brücken-Starter auf querencia-dateien; ein Upgrade ersetzt das alte
+# Paket samt Programm, und alte Verknüpfungen (Panel, Arbeitsfläche,
+# mimeapps.list) öffnen weiter Querencia Dateien. Quelle ist das
+# Projekt-Repository (wie beim Metapaket); kein Code von Files oder Strata.
+QUERENCIA_KIND := data
 include debian/querencia.mk
 
 querencia-install:
-	install -D -m 0755 target/release/strata $(DESTDIR)/usr/bin/querencia-files
-	$(call desktop_install,debian/io.github.lgse.Strata.desktop,$(DESTDIR)/usr/share/applications/io.github.lgse.Strata.desktop)
-	$(call metainfo_install,io.github.lgse.Strata)
-	install -D -m 0644 debian/install-source.toml $(DESTDIR)/usr/share/strata/install-source.toml
+	install -d $(DESTDIR)/usr/share/applications
+	set -e; for id in org.querencia.Files io.github.lgse.Strata; do \
+		f=$(DESTDIR)/usr/share/applications/$$id.desktop; \
+		$(call desktop_install,debian/$$id.desktop,$$f); \
+		grep -qx 'NoDisplay=true' $$f; \
+		grep -qx 'Exec=querencia-dateien %U' $$f; \
+		grep -qx 'TryExec=querencia-dateien' $$f; \
+		grep -qx 'StartupWMClass=org.querencia.Dateien' $$f; \
+		! grep -q '^MimeType=' $$f; done
 	install -D -m 0644 debian/README.Debian $(DESTDIR)/usr/share/doc/querencia-files/README.Debian
-	$(call doc_install,.)
-	install -D -m 0644 THIRD_PARTY_LICENSES.md $(DESTDIR)/usr/share/doc/querencia-files/THIRD_PARTY_LICENSES.md
-	install -d $(DESTDIR)/usr/share/doc/querencia-files/licenses
-	install -m 0644 data/licenses/*.txt $(DESTDIR)/usr/share/doc/querencia-files/licenses/

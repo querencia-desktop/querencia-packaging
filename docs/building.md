@@ -42,13 +42,11 @@ bash werkzeuge/paket-bauen.sh  querencia-rechner    # dpkg-buildpackage -us -uc
 
 ## Besonderheiten
 
-**querencia-files** braucht rustc ≥ 1.98, Ubuntu 26.04 hat 1.93:
-
-```bash
-DEB_BUILD_PROFILES=pkg.querencia.fremdrust \
-QUERENCIA_RUST_BIN=$HOME/.rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/bin \
-    bash werkzeuge/paket-bauen.sh querencia-files
-```
+**querencia-files** ist seit Alpha 3 ein Übergangspaket ohne Programm (nur
+die zwei Brücken-Starter auf Querencia Dateien, Quelle wie das Metapaket);
+es baut ohne Rust wie jedes Datenpaket. Bis Alpha 2.2 brauchte der
+Strata-Fork rustc ≥ 1.98 über das Bauprofil `pkg.querencia.fremdrust` mit
+`QUERENCIA_RUST_BIN` (`common/querencia.mk` kennt das Profil weiter).
 
 **labwc** baut `alle-bauen.sh` mit Manpages und SVG-Knöpfen, wenn `scdoc`
 und `librsvg2-dev` installiert sind (in der Entwicklungsumgebung seit 20.10.), sonst mit

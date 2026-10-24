@@ -144,7 +144,7 @@ Comment: Rust crate gettext-rs 0.8.0, vendored from crates.io (checksum in cargo
 Files: cargo-vendor/gettext-sys-0.27.0/*
 Copyright: Brian Olsen <brian@maven-group.org>; Alexander Batischev <eual.jp@gmail.com>
 License: Expat
-Comment: Rust crate gettext-sys 0.27.0, vendored from crates.io (checksum in cargo-vendor/gettext-sys-0.27.0/.cargo-checksum.json).
+Comment: Rust crate gettext-sys 0.27.0, vendored from crates.io (checksum in cargo-vendor/gettext-sys-0.27.0/.cargo-checksum.json). The bundled GNU gettext source archive (gettext-1.0.tar.xz) is removed from this vendored copy and from its .cargo-checksum.json: the Querencia packages build gettext-sys with the feature gettext-system and use the gettext functions of the C library, so the archive is never used (see debian/README.source).
 
 Files: cargo-vendor/gio-0.22.10/*
 Copyright: The gtk-rs Project Developers
@@ -470,6 +470,11 @@ Files: cargo-vendor/wayland-protocols-0.32.13/*
 Copyright: Elinor Berger <elinor@safaradeg.net>
 License: Expat
 Comment: Rust crate wayland-protocols 0.32.13, vendored from crates.io (checksum in cargo-vendor/wayland-protocols-0.32.13/.cargo-checksum.json).
+
+Files: cargo-vendor/wayland-protocols-wlr-0.3.12/*
+Copyright: Elinor Berger <elinor@safaradeg.net>
+License: Expat
+Comment: Rust crate wayland-protocols-wlr 0.3.12, vendored from crates.io (checksum in cargo-vendor/wayland-protocols-wlr-0.3.12/.cargo-checksum.json).
 
 Files: cargo-vendor/wayland-scanner-0.31.11/*
 Copyright: Elinor Berger <elinor@safaradeg.net>

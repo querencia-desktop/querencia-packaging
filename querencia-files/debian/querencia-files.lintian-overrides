@@ -1,8 +1,5 @@
-# Strata (upstream) reads and writes the udiskie configuration with
-# serde_norway, which uses unsafe-libyaml-norway: a Rust translation of
-# libyaml (c2rust), compiled from source like every crate of the binary.
-# Lintian sees the libyaml version strings; there is no C library to link
-# instead. Replacing the crate is an upstream change (Files follow-up).
-embedded-library libyaml [usr/bin/querencia-files]
-# German word in the German README.Debian, not an English misspelling.
-spelling-error-in-readme-debian Programm Program [usr/share/doc/querencia-files/README.Debian]
+# Both starters are hidden bridges to Querencia Dateien (the replacement of
+# Files, package querencia-dateien, a dependency of this transitional
+# package): their Exec is querencia-dateien on purpose.
+desktop-command-not-in-package querencia-dateien [usr/share/applications/org.querencia.Files.desktop]
+desktop-command-not-in-package querencia-dateien [usr/share/applications/io.github.lgse.Strata.desktop]

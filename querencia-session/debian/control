@@ -9,7 +9,7 @@ Standards-Version: 4.7.2
 Package: querencia-session
 Architecture: all
 Depends: labwc (>= 0.9.4),
-         querencia-shell (>= 0.1.0~alpha4),
+         querencia-shell (>= 0.1.0~alpha9),
          querencia-symbole (>= 0.5.2),
          procps,
          systemd,
@@ -18,11 +18,11 @@ Depends: labwc (>= 0.9.4),
          libglib2.0-bin,
          gsettings-desktop-schemas,
          xdg-user-dirs
-Recommends: querencia-sitzung,
+Recommends: querencia-sitzung (>= 0.1.8),
             querencia-benachrichtigungen,
             querencia-einstellungen,
             querencia-screenshot,
-            querencia-files,
+            querencia-dateien,
             querencia-dokumente,
             querencia-terminal,
             gnome-human-icon-theme,

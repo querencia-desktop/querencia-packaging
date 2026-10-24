@@ -1,0 +1,39 @@
+querencia-dateien (0.2.0-1) resolute; urgency=medium
+
+  * Neue Version 0.2.0 (Beta).
+  * Reiter wie in Nautilus 2.30: Strg+T öffnet einen neuen Reiter, Strg+W
+    schließt ihn; die mittlere Maustaste öffnet Ordner in einem Reiter.
+  * Kompaktansicht mit Strg+3 neben Symbolen (Strg+1) und Liste (Strg+2).
+  * Netzwerk: Ort „Netzwerk“ und „Mit Server verbinden …“ für SFTP, SMB,
+    FTP und WebDAV, mit eigener Kennwortfrage und Prüfung unbekannter
+    Serverschlüssel.
+  * Vorschaubilder für Bilder und, über installierte Vorschauprogramme in
+    einem Sandkasten (bubblewrap, empfohlen), für weitere Dateitypen;
+    einstellbar unter Bearbeiten → Einstellungen → Vorschau.
+  * Suche nach Dateinamen mit Strg+F ab dem gezeigten Ordner; „Erweiterte
+    Suche …“ öffnet Querencia Dateisuche.
+  * Behoben: Geschlossene Fenster blieben im Speicher; nach Strg+W im
+    letzten Fenster stürzte Dateien beim Beenden ab.
+  * Die Übersetzungen der gemeinsamen Bibliotheken liefert jetzt
+    querencia-shell; das Paket hängt davon ab.
+  * Querencia Files wird nicht mehr ausgeliefert; das Paket querencia-files
+    behält nur die alten Starter, die Querencia Dateien öffnen.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 01:40:11 +0200
+
+querencia-dateien (0.1.0-1) resolute; urgency=medium
+
+  * Erstes Paket von Querencia Dateien 0.1.0, dem neuen Dateimanager von
+    Querencia Desktop nach dem Vorbild von Nautilus 2.30: Menüleiste,
+    Werkzeugleiste, Knopfpfad, Seitenleiste „Orte“ mit Lesezeichen,
+    Symbol- und Listenansicht, Statusleiste, Dateioperationen mit
+    Fortschritt und Konfliktfrage, Papierkorb, Laufwerke, Eigenschaften.
+  * Öffnet in der Querencia-Sitzung Ordner und löst damit Querencia Files
+    ab; Files bleibt eine Ausgabe lang installierbar.
+  * Ansichten: Symbole mit Strg+1, Liste mit Strg+2 (in Files waren es
+    Spalten, Symbole und Liste).
+  * Lesezeichen teilt Dateien mit GTK; sechs Einstellungen von Files
+    übernimmt es beim ersten Start einmal.
+  * Englisch mit deutscher Übersetzung, Handbuchseite querencia-dateien(1).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Fri, 23 Oct 2026 21:20:00 +0200
