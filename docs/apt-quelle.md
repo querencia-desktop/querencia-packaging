@@ -258,3 +258,30 @@ bash werkzeuge/apt/quelle-pruefen.sh --fingerabdruck <FINGERABDRUCK> https://dl.
 - Der Bucket enthält außerdem die beiden ISO-Abbilder von Querencia Linux
   (Wurzel, `querencia-linux-*-20260315.iso`); die Quelle liegt getrennt unter
   `apt/`.
+
+## Nachtrag 24.10.2026: Alpha 3
+
+Am 24.10.2026 um 12:18:49 (MESZ) ging der Index von Alpha 3 auf den Server: Satz
+`debs-beta-3` (Tag `packaging/alpha3-2`, 22 Pakete, `SHA256SUMS` mit der Summe
+`488348b6…`), Metapaket `querencia-desktop 0.1.0~alpha3-1`, dazu Querencia Dateien
+0.2.0-1 und Querencia Files 0.2.0-1 als Übergangspaket.
+
+| Was | Wert |
+|---|---|
+| Release-Datum | Sat, 24 Oct 2026 10:04:01 UTC (vorher Alpha 2.1: 22 Oct 2026 08:55:57 UTC) |
+| InRelease (SHA256) | `6ab038d29be1b2aff1305da4b3f3863af7a70a09f215f79c4ee675a51ca1d0bc` |
+| Index | binary-amd64 22, binary-all 5; Pool 67 Dateien, davon 9 neu; ältere Fassungen bleiben liegen |
+| Upload | 37 Dateien (27115 KiB), 88 lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal 22/1 (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server 10/0 |
+
+- **Passphrase:** `quelle-bauen.sh` öffnet kein pinentry-Fenster. Es fragt
+  einmal mit `read -s` an `/dev/tty`. Aus einer Werkstatt-Sitzung heraus läuft
+  der Bau deshalb in einem Reiter des Terminal-Bereichs der App, und pottrauschen
+  tippt die Passphrase dort ein. Ohne Terminal und ohne `--passphrase-datei`
+  scheitert das Signieren.
+- **Rückfall:** Den Index von Alpha 2.1 sauber wieder anbieten heißt, die Quelle
+  mit dem Satz `debs-final-alpha21` neu zu bauen (neues Datum, neue Signatur) und
+  hochzuladen. Werden nur die alten Release-Dateien zurückgeschrieben, hilft das
+  bloß Clients, die Alpha 3 noch nicht geholt haben. Ein Client mit dem
+  Alpha-3-Index übernimmt die ältere Release-Datei nicht und behält Alpha 3,
+  ohne Fehlermeldung (Wegwerf-apt-Probe am 24.10.2026).
