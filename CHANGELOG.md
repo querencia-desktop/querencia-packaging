@@ -1,5 +1,22 @@
 # Änderungen – querencia-packaging
 
+## Zusatzpaket querencia-webhuelle 0.2.0-1 vom 24.10.2026 (Zweig webhuelle-paket), unveröffentlicht
+
+- Neues Quellpaket **querencia-webhuelle** (Section net): Querencia Webhülle 0.2.0, eine Hülle
+  für WhatsApp Web, aus `querencia-nachrichten` Tag `webhuelle/0.2.0` (`131304f`). Bis 0.1.1 hieß
+  das Programm Querencia Nachrichten und war nie paketiert. **Optional:** nicht im Metapaket
+  `querencia-desktop`; der nächste Satz nimmt es als eigenes Paket auf.
+- Wie querencia-software mit `komponenten.conf`: Programm im Unterordner `querencia-webhuelle/`,
+  der Runtime-Workspace (`801a016`, Quelle der Shell aus Alpha 3) als zweites Upstream-Archiv
+  daneben, weil die Bibliotheken `querencia-oberflaeche` und `querencia-dateiarbeit`
+  Cargo-Pfadabhängigkeiten sind; Prüfwerkzeuge, Doku, Hintergründe, Thema und Sitzungsdateien
+  nicht im Quellarchiv.
+- `Depends` nur aus den Bibliotheken (libwebkitgtk-6.0-4 bringt bubblewrap und xdg-dbus-proxy
+  für WebKits Sandbox mit); `Recommends: querencia-shell` (Katalog `querencia-oberflaeche`),
+  Wörterbücher; nur der eigene Katalog, eigenes Symbol in hicolor (nur SVG), MetaInfo aus der
+  Quelle (`<replaces>` org.querencia.Nachrichten), Handbuchseite; 39 Tests beim Bau.
+- Gebaut in `build/webhuelle-1/` (nicht im Satz debs-beta-3).
+
 ## Alpha 3 – Beta-Satz debs-beta-2 vom 24.10.2026 (Zweig dateien-beta), unveröffentlicht
 
 Ersetzt debs-beta-1 (Tag `packaging/alpha3-1`, nicht veröffentlichen). Dazu gegenüber debs-beta-1:

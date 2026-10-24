@@ -1,0 +1,50 @@
+Source: querencia-webhuelle
+Section: net
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libwebkitgtk-6.0-dev (>= 2.52),
+               libegl-dev,
+               libglib2.0-dev,
+               appstream,
+               desktop-file-utils,
+               gettext
+Standards-Version: 4.7.2
+
+Package: querencia-webhuelle
+Architecture: any
+Depends: ${shlibs:Depends}
+Recommends: querencia-shell (>= 0.1.0~alpha10),
+            hunspell-de-de | hunspell-dictionary,
+            hunspell-en-us
+Suggests: querencia-benachrichtigungen
+Description: wrapper for WhatsApp Web in a window of its own (alpha)
+ Querencia Web Wrapper (German: Querencia Webhülle) shows WhatsApp Web in a
+ window of its own, with the classic menu bar of Querencia Desktop. It
+ keeps the sign-in, announces new messages through the notifications of the
+ desktop, shows the number of unread messages in the window title, saves
+ downloads to the Downloads folder and checks spelling. Calls are not
+ possible: the web engine of Ubuntu is built without WebRTC.
+ .
+ This program is not a product of WhatsApp or Meta and is not affiliated
+ with them; WhatsApp is a trademark of its owner and is named only to say
+ which web page the program shows.
+ .
+ The package is optional: it is offered by Querencia but is not part of
+ the default installation (querencia-desktop). Until version 0.1.1 the
+ program was called Querencia Messages (querencia-nachrichten); on its
+ first start it takes over the sign-in and the settings by renaming the
+ folders of that name.
+ .
+ The web pages run in WebKitGTK's own sandbox (bubblewrap, a dependency of
+ libwebkitgtk-6.0-4). The interface is English with a German translation
+ (gettext); the translations of the shared libraries come with
+ querencia-shell.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.
