@@ -31,7 +31,7 @@ querencia-dokumente/         PDF-Betrachter
 querencia-hintergruende/     Hintergrundbilder (Architecture: all)
 querencia-benachrichtigungen/ Benachrichtigungsdienst
 querencia-einstellungen/     Einstellungen (Kontrollzentrum)
-querencia-dateien/           Dateimanager Querencia Dateien (aus querencia-runtime)
+querencia-dateien/           Dateimanager Querencia Dateien (Quelle: querencia-shell)
 querencia-files/             Übergangspaket seit Alpha 3: nur Brücken-Starter auf Dateien
 querencia-terminal/          Terminal (noch alte App-ID)
 querencia-screenshot/        Bildschirmfoto
