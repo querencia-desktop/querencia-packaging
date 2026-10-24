@@ -1,3 +1,10 @@
+querencia-session (0.1.0~alpha9-1) resolute; urgency=medium
+
+  * Neue Version 0.1.0~alpha9: Ordner öffnen in der Querencia-Sitzung mit
+    Querencia Dateien (bisher als Änderung im Paket, jetzt in der Quelle).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 02:22:16 +0200
+
 querencia-session (0.1.0~alpha8-2) resolute; urgency=medium
 
   * Ordner öffnen in der Querencia-Sitzung jetzt mit Querencia Dateien

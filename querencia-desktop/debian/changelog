@@ -9,12 +9,14 @@ querencia-desktop (0.1.0~alpha3-1) resolute; urgency=medium
     Querencia Dateien.
   * Panel 0.3.2, Arbeitsfläche 0.3.0 und Tastenkürzel-Übersicht 0.2.2
     (querencia-shell 0.1.0~alpha10) kennen Querencia Dateien.
+  * Sitzungsdialog 0.1.8: Die Rechteabfrage übersteht einen Neustart des
+    polkit-Dienstes.
   * /usr/share/querencia/version und /usr/share/querencia/release nennen
     Alpha 3.
   * Mindestversionen: Shell 0.1.0~alpha10, Dateien 0.2.0, Symbole 0.8,
-    Session 0.1.0~alpha8-2.
+    Session 0.1.0~alpha9, Sitzung 0.1.8.
 
- -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 01:36:02 +0200
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 02:22:16 +0200
 
 querencia-desktop (0.1.0~alpha2.2-1) resolute; urgency=medium
 
