@@ -7,7 +7,8 @@ klassischen Desktopumgebung im GNOME-2-Stil für Wayland (labwc, Rust, GTK 4).
 *English summary:* Debian packaging, APT repository tooling and CI templates of
 Querencia Desktop. Alpha software; documentation is in German.
 
-> **Alpha 2** (veröffentlicht am 21.10.2026, Tag `packaging/alpha-2`): 21
+> **Alpha 2.1** (veröffentlicht am 22.10.2026, Tag `packaging/alpha-2.1`; davor Alpha 2
+> am 21.10.2026, Tag `packaging/alpha-2`):
 > Quellpakete aus festen, getaggten Quellständen (`quellen.conf`), gebaut mit
 > `dpkg-buildpackage` und statisch sowie in einer Wegwerf-Installation geprüft;
 > die Probe auf einer frischen Ubuntu-26.04-VM beschreibt
