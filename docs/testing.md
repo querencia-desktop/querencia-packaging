@@ -39,7 +39,15 @@ Upgrade: alter Satz mit `dpkg -i`, Probe-Benutzer (Lesezeichen, Files-Einstellun
 Ordnerwahl auf die alte Strata-ID), `apt-get -s full-upgrade` gegen eine Datei-Quelle, neuer
 Satz darüber, Ordnerprogramm (`gio mime inode/directory` wie in der Querencia-Sitzung),
 Files-Starter, unveränderte Benutzerdaten, `apt-get -s autoremove`, danach die volle
-Sitzungsprüfung von `wegwerf-installation.sh` auf dem neuen Stand.
+Sitzungsprüfung von `wegwerf-installation.sh` auf dem neuen Stand. Seit Alpha 3 zusätzlich
+`apt-get -s upgrade --with-new-pkgs` (wie `apt upgrade`: nichts zurückgehalten, nichts entfernt),
+das Übergangspaket `querencia-files` ohne Reste von Files und keine Starter oder
+mimeapps-Einträge, die ins Leere zeigen. Alter Satz Alpha 2.1:
+`UPGRADE_VORHER_ORDNER=io.github.lgse.Strata.desktop`.
+
+Beide Proben legen ihre Wegwerf-Wurzel unter `$TMPDIR` an und geben der Hülle einen eigenen
+`TMPDIR` darin; `TMPDIR=$PWD/build/tmp` hält sie auf der Platte (`/tmp` ist auf der
+Entwicklungs-VM ein tmpfs). Paketpfade absolut angeben.
 
 ## Pflichtprobe auf frischem Ubuntu
 

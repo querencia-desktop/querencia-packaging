@@ -1,5 +1,38 @@
 # Änderungen – querencia-packaging
 
+## Alpha 3 – Beta-Satz debs-beta-1 vom 24.10.2026 (Zweig dateien-beta), unveröffentlicht
+
+Querencia Dateien 0.2.0 ins System, Querencia Files ausgemustert. Grundlage: Vorbau vom
+23.10. (`build/debs`); 22 Pakete, davon 4 neu gebaut, 18 unverändert übernommen.
+
+- querencia-shell 0.1.0~alpha10-1 aus runtime main `801a016` (Panel 0.3.2 mit Orte-Menü für
+  Dateien, Arbeitsfläche 0.3.0 mit Dateiarbeit, Kürzel-Übersicht 0.2.2 mit Block „Querencia
+  Dateien“). Baut und testet nur die fünf Shell-Crates (`cargo -p`); besitzt jetzt die Kataloge
+  `querencia-oberflaeche` und `querencia-dateiarbeit` (`Replaces`/`Breaks: querencia-dateien (<<
+  0.2.0)`); Symbole ≥ 0.8; Prüfrahmen von Dateien nicht im Quellarchiv; Patch 0001 auf die neue
+  Zeile gesetzt.
+- querencia-dateien 0.2.0-1 aus runtime `dateien/0.2.0` (`3facb50`): Reiter, Kompaktansicht,
+  Netzwerk, Miniaturen, Suche. `MimeType=inode/directory` kommt upstream (desktop-file-edit
+  entfällt), `Depends: querencia-shell (>= 0.1.0~alpha10)`, `Recommends: bubblewrap`,
+  `Suggests: querencia-dateisuche`; nur noch der eigene Katalog; Handbuchseite und MetaInfo
+  (`<release>` 0.2.0) nachgezogen; der PDF-Stellvertreter `werkzeug/miniaturen/qd-pdf-miniatur`
+  bleibt als Test-Eingabe im Quellarchiv (227 Tests beim Bau).
+- querencia-files 0.2.0-1: **Übergangspaket** (Section oldlibs, Architecture all) aus dem
+  Projekt-Repository wie das Metapaket, nur die zwei Brücken-Starter auf Dateien
+  (`TryExec=querencia-dateien`, `StartupWMClass=org.querencia.Dateien`), `Depends:
+  querencia-dateien (>= 0.2.0)`. Kein Strata-Code, kein Files-Quellarchiv, keine MetaInfo
+  (`common/metainfo/org.querencia.Files.metainfo.xml` entfernt; `pakete-pruefen.sh` nimmt das
+  Übergangspaket von Regel M aus).
+- querencia-desktop 0.1.0~alpha3-1 (neu gebaut, gleiche Version wie im unveröffentlichten
+  Vorbau): Shell ≥ 0.1.0~alpha10, Dateien ≥ 0.2.0.
+- Unverändert aus dem Vorbau: Session 0.1.0~alpha8-2 (Patch 0002), Symbole 0.8-1, Dateisuche
+  0.1.5-2; die übrigen 15 aus Alpha 2.2 Kandidat 2.
+- `tests/wegwerf-upgrade.sh`: `apt upgrade` neben `full-upgrade`, Übergangspaket ohne Reste von
+  Files, keine verwaisten Starter oder mimeapps-Einträge, autoremove behält die Brücken,
+  `UPGRADE_VORHER_ORDNER` für Upgrades von Alpha 2.1. `tests/frisches-ubuntu-pruefen.sh` auf
+  Alpha 3 (Dateien, Symbole 0.8, Kataloge, Brücken). `alle-bauen.sh`, `docs/building.md`,
+  `ci/paket.yml` ohne Fremd-Toolchain für Files.
+
 ## Welle C „Dateien“ – Satz vom 23.10.2026 (Zweig dateien-beta), unveröffentlicht
 
 Querencia Dateien als Paket und Ablösung von Querencia Files (Migration M2, M4, M5, M7).

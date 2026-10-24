@@ -19,7 +19,7 @@ querencia-sitzung/           Sitzungsdialog, Bildschirmsperre, polkit-Agent
 querencia-benachrichtigungen/ Benachrichtigungsdienst
 querencia-einstellungen/     Einstellungen (Kontrollzentrum)
 querencia-dateien/           Dateimanager Querencia Dateien (aus querencia-runtime)
-querencia-files/             früherer Dateimanager, Übergang zu Dateien (ohne UnRAR)
+querencia-files/             Übergangspaket seit Alpha 3: nur Brücken-Starter auf Dateien
 querencia-terminal/          Terminal (noch alte App-ID)
 querencia-screenshot/        Bildschirmfoto
 querencia-editor/            Texteditor (gettext, de)

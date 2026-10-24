@@ -1,8 +1,10 @@
 # Querencia Dateien nachziehen – Beta-Stand und Ablösung von Files
 
-Stand Welle C (Zweig `dateien-beta`, 23.10.2026): `querencia-dateien` 0.1.0-1 aus runtime
-`dateien/0.1.0-2` (`f9a3cda`), Files als Brücke (0.1.0~alpha8-2), Session mit Ordnerprogramm
-Dateien (0.1.0~alpha8-2), Symbole 0.8, Metapaket 0.1.0~alpha3-1. Diese Liste beschreibt, wie ein
+Stand Alpha 3 (Zweig `dateien-beta`, 24.10.2026): `querencia-dateien` 0.2.0-1 aus runtime
+`dateien/0.2.0`, Shell 0.1.0~alpha10-1 aus runtime main `801a016` (besitzt die gemeinsamen
+Kataloge), `querencia-files` 0.2.0-1 als Übergangspaket, Session mit Ordnerprogramm Dateien
+(0.1.0~alpha8-2), Symbole 0.8, Metapaket 0.1.0~alpha3-1. Davor (Vorbau 23.10.): Dateien 0.1.0-1
+aus `dateien/0.1.0-2` (`f9a3cda`), Files als Brücke (0.1.0~alpha8-2). Diese Liste beschreibt, wie ein
 späterer Stand von Dateien (Beta der Welle C: Netzwerk, Miniaturen/Suche, Reiter/Kompakt,
 Migration) ohne Umbau nachgezogen wird, und was beim Entfernen von Files zu tun ist.
 
@@ -65,41 +67,63 @@ zwei Paketen“). Eine Stelle muss sie besitzen:
 Mit der neuen Shell kommt auch M3 (Panel-Orte und Fensterliste kennen
 `org.querencia.Dateien.desktop`; die Arbeitsfläche ab runtime `f9a3cda` schon).
 
-## 4. Files als Brücke und Entfernen
+**Umgesetzt in Alpha 3: A** (Entscheidung der Startsession). Shell 0.1.0~alpha10 besitzt die
+beiden Kataloge (`Replaces`/`Breaks: querencia-dateien (<< 0.2.0)`), Dateien 0.2.0 hängt von
+`querencia-shell (>= 0.1.0~alpha10)` ab. Weil die Shell die Kataloge auch für Dateien liefert,
+müssen Shell- und Dateien-Commit dieselben Bibliotheks-Kataloge haben – vor jedem Nachzug von
+Dateien ohne Shell-Neubau prüfen (leer = passt):
 
-- In der Ausgabe mit Dateien bleibt `querencia-files` 0.1.0~alpha8-2 (unveränderte Datei bei
-  einem Beta-Nachzug). Beide Starter sind versteckte Brücken ohne MIME-Typen auf
-  `querencia-dateien %U`; `querencia-files` hängt von `querencia-dateien` ab.
-- Neuinstallation: Weder das Metapaket noch eine Empfehlung zieht Files (Session und Dateisuche
-  empfehlen seit 0.1.0~alpha8-2 bzw. 0.1.5-2 `querencia-dateien`). Nur `querencia-shell` nennt
-  `querencia-files` unter `Suggests` – das installiert apt nicht von selbst.
-- Upgrade: `apt autoremove` lässt `querencia-files` stehen, weil apt Pakete schützt, die ein
-  installiertes Paket vorschlägt (`APT::AutoRemove::SuggestsImportant`, Vorgabe `true`); ohne den
-  Schutz schlüge es Files vor (gemessen, `tests/wegwerf-upgrade.sh`). Die Brücken bleiben also, bis
-  der Benutzer Files entfernt. **Bei einem Shell-Neubau aus runtime main `Suggests:
-  querencia-files` für die Brückenausgabe stehen lassen**, sonst geht Files mit `autoremove`.
-- **Eine Ausgabe später:** `querencia-files` aus dem Satz nehmen (die Pool-Datei bleibt liegen),
-  Zeile in `quellen.conf` löschen, `common/metainfo/org.querencia.Files.metainfo.xml` löschen,
-  Release Notes: „Files entfällt; `sudo apt remove querencia-files`“. Vorher muss die Sitzung oder
-  Dateien Nennungen von `io.github.lgse.Strata.desktop` und `org.querencia.Files.desktop` in
-  `~/.config/mimeapps.list` umschreiben (QD-059/QD-138), sonst bleibt bei solchen Benutzern das
-  Ordnerprogramm leer.
+```bash
+git -C ~/projects/querencia-runtime diff <shell-commit> <dateien-tag> -- crates/querencia-oberflaeche/po crates/querencia-dateiarbeit/po
+```
+
+## 4. Files ausgemustert (Alpha 3)
+
+Seit Alpha 3 (Satz `debs-beta-1`, 24.10.2026) wird Files nicht mehr ausgeliefert
+(Vorgabe des Besitzers):
+
+- `querencia-files` 0.2.0-1 ist ein **Übergangspaket** (Section `oldlibs`, Architecture `all`)
+  aus dem Projekt-Repository wie das Metapaket – kein Strata-Code, kein Files-Quellarchiv,
+  keine MetaInfo. Es enthält nur die beiden Brücken-Starter `org.querencia.Files.desktop` und
+  `io.github.lgse.Strata.desktop` (versteckt, ohne MIME-Typen, `Exec=querencia-dateien %U`,
+  `TryExec=querencia-dateien`, `StartupWMClass=org.querencia.Dateien`) und hängt von
+  `querencia-dateien` ab. Ein Upgrade von Alpha 2.1/2.2 ersetzt das alte Paket (der Befehl
+  `querencia-files`, Paketmarke, MetaInfo und Lizenztexte von Strata verschwinden); alte
+  Verknüpfungen im Panel, auf der Arbeitsfläche und in einer `~/.config/mimeapps.list` öffnen
+  Dateien.
+- Gewählt nach der Upgrade-Probe statt „Brücken in querencia-dateien plus
+  `Replaces`/`Breaks: querencia-files`“: Das Übergangspaket kommt mit `apt upgrade` aus (keine
+  Entfernung nötig); `Breaks` verlangt eine Entfernung, die nur `full-upgrade` macht – `apt
+  upgrade` hielte dann Metapaket und Dateien zurück (Bericht `packaging-beta-bericht.md` §2).
+- Neuinstallation: Weder das Metapaket noch eine Empfehlung zieht `querencia-files`.
+- `apt autoremove` lässt das Übergangspaket stehen, weil `querencia-shell` es unter `Suggests`
+  nennt (`APT::AutoRemove::SuggestsImportant`). **Diese Zeile stehen lassen**, solange die
+  Brücken gebraucht werden.
+- `pakete-pruefen.sh` nimmt `querencia-files` von der MetaInfo-Pflicht aus (Übergangspaket);
+  `org.querencia.Dateien` nennt `org.querencia.Files` unter `<replaces>`.
+- **Später ganz entfernen:** `querencia-files` aus dem Satz und aus `quellen.conf` nehmen, die
+  `Suggests`-Zeile der Shell streichen, Release Notes „`sudo apt remove querencia-files`“.
+  Vorher müssen Sitzung oder Dateien Nennungen von `io.github.lgse.Strata.desktop` und
+  `org.querencia.Files.desktop` in `~/.config/mimeapps.list` und in Panel-Startern umschreiben
+  (QD-059/QD-138), sonst bleibt bei solchen Benutzern das Ordnerprogramm leer.
 
 ## 5. Kandidat und Prüfung
 
 ```bash
-bash build/nachweis/satz-zusammenstellen.sh build/debs-<name> querencia-dateien [querencia-shell …]
+bash build/nachweis-beta/satz-zusammenstellen.sh build/debs-<name> querencia-dateien [querencia-shell …]
 ```
 
 ```bash
-TMPDIR=$PWD/build/tmp PRUEF_DEBS=$PWD/build/debs-<name> bash build/nachweis/pruef-alles.sh build/nachweis/pruefung-<name>
+TMPDIR=$PWD/build/tmp PRUEF_DEBS=$PWD/build/debs-<name> bash build/nachweis-beta/pruef-alles.sh build/nachweis-<name>/pruefung
 ```
 
 ```bash
-TMPDIR=/tmp/claude-$(id -u) bash tests/wegwerf-upgrade.sh build/nachweis/upgrade-<name> <alter satz> build/debs-<name>
+TMPDIR=$PWD/build/tmp bash tests/wegwerf-upgrade.sh $PWD/build/nachweis-<name>/upgrade-22 <alter satz> $PWD/build/debs-<name>
 ```
 
-`satz-zusammenstellen.sh` und `pruef-alles.sh` liegen unter `build/nachweis/` (nicht im Git, Kopie
-in den Belegen); der alte Satz ist der zuletzt veröffentlichte (oder Alpha-2.2-Kandidat 2).
+`satz-zusammenstellen.sh` und `pruef-alles.sh` liegen unter `build/nachweis-beta/` (Alpha 3; nicht
+im Git, Kopie in den Belegen ); Vorgänger ist dort der Vorbau
+`build/debs`, der alte Satz der Upgrade-Probe der zuletzt veröffentlichte (Alpha 2.1, mit
+`UPGRADE_VORHER_ORDNER=io.github.lgse.Strata.desktop`) bzw. Alpha-2.2-Kandidat 2.
 Erwartung: pakete-pruefen ohne FAIL, Lintian ohne E, Upgrade-Probe ohne FAIL, `inode/directory`
 → `org.querencia.Dateien.desktop`.

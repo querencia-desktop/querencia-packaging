@@ -335,7 +335,7 @@ mkdir -p "$OUT"
 A=$(mktemp -d "${TMPDIR:-/tmp}/querencia-wegwerf.XXXXXX")
 trap 'chmod -R u+w "$A" 2>/dev/null; rm -rf "$A"' EXIT
 mkdir -p "$A/wurzel/var/lib/dpkg/updates" "$A/wurzel/var/lib/dpkg/triggers" "$A/wurzel/var/log" \
-    "$A/wurzel/etc" "$A/home"
+    "$A/wurzel/etc" "$A/home" "$A/tmp"
 cp /var/lib/dpkg/status "$A/wurzel/var/lib/dpkg/status"
 cp -a /var/lib/dpkg/info "$A/wurzel/var/lib/dpkg/info"
 find /var/lib/dpkg/triggers -maxdepth 1 -type f ! -name Lock -exec cp -a {} "$A/wurzel/var/lib/dpkg/triggers/" \;
@@ -355,7 +355,8 @@ huelle() {
     bwrap --ro-bind / / --dev /dev --proc /proc --tmpfs /tmp "${leer[@]}" \
         "${bind[@]}" --unshare-pid --unshare-net --unshare-ipc --die-with-parent \
         --unsetenv WAYLAND_DISPLAY --unsetenv DISPLAY --unsetenv DBUS_SESSION_BUS_ADDRESS \
-        --unsetenv XDG_RUNTIME_DIR --unsetenv XDG_SESSION_ID --unsetenv SWAYSOCK --unsetenv LABWC_PID "$@"
+        --unsetenv XDG_RUNTIME_DIR --unsetenv XDG_SESSION_ID --unsetenv SWAYSOCK --unsetenv LABWC_PID \
+        --setenv TMPDIR "$A/tmp" "$@"
 }
 {
     huelle --unshare-user --uid 0 --gid 0 bash "$HIER" --innen installieren "$A" "$OUT" "${debs[@]}"

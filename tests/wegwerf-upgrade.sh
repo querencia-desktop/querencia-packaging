@@ -11,13 +11,18 @@
 #   4. der neue Satz mit dpkg -i darübergespielt (Upgrade samt
 #      Maintainer-Skripten, ohne Rückfrage: stdin ist leer),
 #   5. die Ablösung geprüft (Ordnerprogramm, Files-Starter, Lesezeichen,
-#      apt autoremove),
+#      apt autoremove; seit Alpha 3: Files ausgemustert, querencia-files ist
+#      ein Übergangspaket ohne Programm, kein Starter und kein Eintrag einer
+#      mimeapps.list zeigt ins Leere),
 #   6. die volle Prüfung von wegwerf-installation.sh (Teil pruefen: Programme,
 #      kopflose Sitzung, jeder Starter) auf dem neuen Stand gefahren und
 #      danach Lesezeichen und Files-Übernahme nachgesehen.
 # Das echte System bleibt unverändert.
 #
 #   bash tests/wegwerf-upgrade.sh <nachweisordner> <ordner alter satz> <ordner neuer satz>
+#
+# UPGRADE_VORHER_ORDNER: Ordnerprogramm des alten Satzes (Vorgabe
+# org.querencia.Files.desktop = Alpha 2.2; Alpha 2.1: io.github.lgse.Strata.desktop).
 #
 # Ergebnis: PASS/FAIL/HINW je Prüfung in <nachweisordner>/ergebnis.txt,
 # Exit 1 bei einem FAIL.
@@ -82,8 +87,9 @@ if [ "${1-}" = --innen ]; then
         echo "Dateimanager im Menü: $(sichtbare_dateimanager)" >>"$OUT/gio-vorher.txt"
         gio_als "$H" mime inode/directory >"$OUT/gio-mime-vorher.txt"
         cat "$OUT/gio-vorher.txt"
-        grep -q '^Ordnerprogramm A: org.querencia.Files.desktop$' "$OUT/gio-vorher.txt" &&
-            ok "vorher: Ordnerprogramm org.querencia.Files.desktop (alter Satz)" ||
+        vo=${UPGRADE_VORHER_ORDNER:-org.querencia.Files.desktop}
+        grep -q "^Ordnerprogramm A: $vo\$" "$OUT/gio-vorher.txt" &&
+            ok "vorher: Ordnerprogramm $vo (alter Satz)" ||
             nok "vorher: Ordnerprogramm $(sed -n 's/^Ordnerprogramm A: //p' "$OUT/gio-vorher.txt")"
 
         # apt-Simulation des Upgrades: Datei-Quelle mit dem neuen Satz, Quelle
@@ -142,8 +148,21 @@ if [ "${1-}" = --innen ]; then
         else
             nok "Neuinstallation: Querencia-Pakete $q"
         fi
-        echo " $hoch " | grep -q ' querencia-files ' && ok "apt -s full-upgrade: querencia-files wird auf die Brückenfassung aktualisiert" ||
+        echo " $hoch " | grep -q ' querencia-files ' && ok "apt -s full-upgrade: querencia-files wird auf das Übergangspaket aktualisiert" ||
             nok "apt -s full-upgrade: querencia-files nicht aktualisiert"
+        # "apt upgrade" (= apt-get upgrade --with-new-pkgs) installiert neue
+        # Pakete, entfernt aber keine: das Upgrade muss auch so vollständig
+        # sein (sonst hielte apt Pakete zurück). apt-get upgrade ohne neue
+        # Pakete hält das Metapaket zurück (neue Abhängigkeit querencia-dateien).
+        apt_s -s upgrade --with-new-pkgs >"$OUT/apt-upgrade-simulation.txt" 2>&1
+        rc=$?
+        remv=$(awk '/^Remv / {print $2}' "$OUT/apt-upgrade-simulation.txt" | tr '\n' ' ')
+        hoch2=$(awk '/^Inst / {print $2}' "$OUT/apt-upgrade-simulation.txt" | sort | imsatz)
+        zurueck=$(sed -n '/zurückgehalten\|kept back/,/^[^ ]/p' "$OUT/apt-upgrade-simulation.txt" | grep '^ ' | tr ' ' '\n' | grep . | imsatz)
+        echo "apt -s upgrade --with-new-pkgs: installiert/aktualisiert: ${hoch2}| zurückgehalten: ${zurueck:-nichts}| entfernt: ${remv:-keins}"
+        [ $rc -eq 0 ] && [ -z "$remv" ] && [ -z "$zurueck" ] && [ "$hoch2" = "$(echo "$neu $hoch" | tr ' ' '\n' | grep . | sort | imsatz)" ] &&
+            ok "apt -s upgrade (apt upgrade): dieselben Pakete wie full-upgrade, nichts zurückgehalten, nichts entfernt" ||
+            nok "apt -s upgrade: rc $rc, Pakete: $hoch2, zurückgehalten: ${zurueck:-nichts}, entfernt: ${remv:-keins} ($OUT/apt-upgrade-simulation.txt)"
         ;;
 
     nachher)
@@ -191,7 +210,38 @@ if [ "${1-}" = --innen ]; then
             nok "Dateimanager im Menü: $menue"
         aufFiles=$(grep -l -E '^Exec=querencia-files( |$)' "$APPS"/*.desktop 2>/dev/null | xargs -r -n1 basename | tr '\n' ' ')
         [ -z "$aufFiles" ] && ok "kein Starter startet mehr querencia-files" || nok "Starter auf querencia-files: $aufFiles"
-        [ -x "$R/usr/bin/querencia-files" ] && ok "Programm querencia-files bleibt installiert (Terminal)" || nok "querencia-files fehlt"
+        # Files ausgemustert (Alpha 3): Übergangspaket ohne Programm und ohne
+        # Reste des alten Pakets
+        [ "$(dpkg-query --root="$R" -W -f='${Section}' querencia-files 2>/dev/null)" = oldlibs ] &&
+            ok "querencia-files ist das Übergangspaket (Section oldlibs)" || nok "querencia-files: Section $(dpkg-query --root="$R" -W -f='${Section}' querencia-files 2>/dev/null)"
+        rest=$(for f in /usr/bin/querencia-files /usr/share/querencia-files /usr/share/metainfo/org.querencia.Files.metainfo.xml \
+            /usr/share/metainfo/io.github.lgse.Strata.metainfo.xml /usr/share/doc/querencia-files/licenses; do [ -e "$R$f" ] && echo "$f"; done | tr '\n' ' ')
+        [ -z "$rest" ] && ok "Files ausgemustert: kein Befehl querencia-files, keine MetaInfo, keine Paketmarke, keine Lizenztexte von Strata" ||
+            nok "Reste von Files: $rest"
+        dateien=$(dpkg-query --root="$R" -L querencia-files 2>/dev/null | while read -r f; do [ -f "$R$f" ] && echo "$f"; done |
+            grep -v -x -E '/usr/share/applications/(org\.querencia\.Files|io\.github\.lgse\.Strata)\.desktop|/usr/share/doc/querencia-files/(README\.Debian|changelog\.Debian\.gz|copyright)|/usr/share/lintian/overrides/querencia-files' | tr '\n' ' ')
+        [ -z "$dateien" ] && ok "querencia-files enthält nur die zwei Brücken-Starter und seine Doku" || nok "querencia-files enthält: $dateien"
+        # kein verwaister Eintrag: jeder Starter findet sein Programm (Exec und
+        # TryExec im Paketsatz oder auf dem Rechner), jede Desktop-ID der
+        # Vorgabe der Sitzung und jeder Benutzer-mimeapps.list hat ihren Starter
+        verwaist=
+        for d in "$APPS"/*.desktop; do
+            for key in Exec TryExec; do
+                c=$(sed -n "s/^$key=//p" "$d" | head -n 1 | awk '{print $1}')
+                [ -n "$c" ] || continue
+                case $c in /*) [ -x "$R$c" ] || [ -x "$c" ] ;; *) [ -x "$R/usr/bin/$c" ] || command -v "$c" >/dev/null ;; esac ||
+                    verwaist+="$(basename "$d"):$key=$c "
+            done
+        done
+        [ -z "$verwaist" ] && ok "kein Starter zeigt auf ein fehlendes Programm ($(ls "$APPS"/*.desktop | wc -l) Starter)" || nok "verwaiste Starter: $verwaist"
+        ids=
+        for m in "$APPS/x-querencia-mimeapps.list" "$H/.config/mimeapps.list" "$HB/.config/mimeapps.list"; do
+            [ -f "$m" ] || continue
+            for id in $(grep -v '^[#\[]' "$m" | cut -d= -f2- | tr ';' '\n' | grep '\.desktop$'); do
+                [ -f "$APPS/$id" ] || [ -f "/usr/share/applications/$id" ] || ids+="$(basename "$m"):$id "
+            done
+        done
+        [ -z "$ids" ] && ok "mimeapps: jede genannte Desktop-ID hat ihren Starter (Vorgabe der Sitzung, Benutzer A und B)" || nok "mimeapps verweist ins Leere: $ids"
 
         # Benutzerdaten unverändert
         (cd "$H" && sha256sum -c --quiet "$OUT/home-vorher.sha256") >/dev/null 2>&1 &&
@@ -207,7 +257,8 @@ if [ "${1-}" = --innen ]; then
         echo "apt -s autoremove: ${weg:-nichts}; ohne Suggests-Schutz: ${weg2:-nichts}"
         grep -q 'Package: querencia-shell' "$R/var/lib/dpkg/status" && sug=$(dpkg-query --root="$R" -W -f='${Suggests}' querencia-shell)
         hinweis "apt autoremove schlüge vor: ${weg:-nichts}; mit APT::AutoRemove::SuggestsImportant=false: ${weg2:-nichts} (querencia-shell Suggests: ${sug:-–})"
-        echo " $weg " | grep -q ' querencia-files ' && hinweis "querencia-files würde mit autoremove entfernt; mit ihm gingen die Brücken"
+        echo " $weg " | grep -q ' querencia-files ' && nok "querencia-files würde mit autoremove entfernt; mit ihm gingen die Brücken" ||
+            ok "apt autoremove behält das Übergangspaket querencia-files (Brücken bleiben)"
         apt_s -s -f install >"$OUT/apt-check.txt" 2>&1; grep -q '^0 aktualisiert, 0 neu installiert, 0 zu entfernen\|^0 upgraded, 0 newly installed, 0 to remove' "$OUT/apt-check.txt" && ok "apt-get -s -f install: nach dem Upgrade nichts zu reparieren" ||
             hinweis "apt-get -s -f install: $(grep -E '^(Inst|Remv|Conf) ' "$OUT/apt-check.txt" | awk '{print $1, $2}' | tr '\n' ' ') (Abhängigkeiten aus dem Archiv, die dieser Rechner nicht hat)"
         ;;
@@ -244,7 +295,7 @@ A=$(mktemp -d "${TMPDIR:-/tmp}/querencia-upgrade.XXXXXX")
 # UPGRADE_BEHALTEN=1 lässt den Arbeitsordner zur Fehlersuche stehen.
 [ -n "${UPGRADE_BEHALTEN-}" ] && echo "Arbeitsordner bleibt: $A" || trap 'chmod -R u+w "$A" 2>/dev/null; rm -rf "$A"' EXIT
 mkdir -p "$A/wurzel/var/lib/dpkg/updates" "$A/wurzel/var/lib/dpkg/triggers" "$A/wurzel/var/log" \
-    "$A/wurzel/etc" "$A/home"
+    "$A/wurzel/etc" "$A/home" "$A/tmp"
 cp /var/lib/dpkg/status "$A/wurzel/var/lib/dpkg/status"
 cp -a /var/lib/dpkg/info "$A/wurzel/var/lib/dpkg/info"
 find /var/lib/dpkg/triggers -maxdepth 1 -type f ! -name Lock -exec cp -a {} "$A/wurzel/var/lib/dpkg/triggers/" \;
@@ -258,7 +309,8 @@ huelle() {
     bwrap --ro-bind / / --dev /dev --proc /proc --tmpfs /tmp "${leer[@]}" \
         "${bind[@]}" --unshare-pid --unshare-net --unshare-ipc --die-with-parent \
         --unsetenv WAYLAND_DISPLAY --unsetenv DISPLAY --unsetenv DBUS_SESSION_BUS_ADDRESS \
-        --unsetenv XDG_RUNTIME_DIR --unsetenv XDG_SESSION_ID --unsetenv SWAYSOCK --unsetenv LABWC_PID "$@"
+        --unsetenv XDG_RUNTIME_DIR --unsetenv XDG_SESSION_ID --unsetenv SWAYSOCK --unsetenv LABWC_PID \
+        --setenv TMPDIR "$A/tmp" "$@"
 }
 # querencia-anmeldung (optional, Suggests) braucht greetd und debconf und
 # bleibt ohne beides halb konfiguriert; wie in der Wegwerf-Installation von
