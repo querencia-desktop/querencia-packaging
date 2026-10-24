@@ -43,7 +43,10 @@ Sitzungsprüfung von `wegwerf-installation.sh` auf dem neuen Stand. Seit Alpha 3
 `apt-get -s upgrade --with-new-pkgs` (wie `apt upgrade`: nichts zurückgehalten, nichts entfernt),
 das Übergangspaket `querencia-files` ohne Reste von Files und keine Starter oder
 mimeapps-Einträge, die ins Leere zeigen. Alter Satz Alpha 2.1:
-`UPGRADE_VORHER_ORDNER=io.github.lgse.Strata.desktop`.
+`UPGRADE_VORHER_ORDNER=io.github.lgse.Strata.desktop`; Alpha 3: `UPGRADE_VORHER_ORDNER=org.querencia.Dateien.desktop
+UPGRADE_NEU=`. `UPGRADE_FILES_ORDNER=strata` legt die Files-Einstellungen des Probe-Benutzers wie
+bis Alpha 2.1 unter `~/.config/strata/` ab; `UPGRADE_OHNE` nimmt Pakete aus (optionale wie
+`querencia-webhuelle` zieht apt beim Upgrade nicht).
 
 Beide Proben legen ihre Wegwerf-Wurzel unter `$TMPDIR` an und geben der Hülle einen eigenen
 `TMPDIR` darin; `TMPDIR=$PWD/build/tmp` hält sie auf der Platte (`/tmp` ist auf der

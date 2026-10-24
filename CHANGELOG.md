@@ -1,5 +1,36 @@
 # Änderungen – querencia-packaging
 
+## Alpha 3.1 – Satz debs-alpha31-1 vom 24.10.2026 (Pflegestand), unveröffentlicht
+
+Gegenüber Alpha 3 (veröffentlicht, `debs-beta-3`); 23 Pakete, 3 neu gebaut, 20 byte-gleich.
+
+- querencia-dateien 0.2.1-1 aus runtime `dateien/0.2.1` (`21399c1`): der erste Start übernimmt die
+  Einstellungen von Files auch aus `~/.config/strata/` (Upgrade von Alpha 2.1); Handbuchseite und
+  MetaInfo 0.2.1 (228 Tests beim Bau).
+- Neu und optional (nicht im Metapaket): querencia-webhuelle 0.2.0-1 aus querencia-nachrichten
+  `webhuelle/0.2.0` (`131304f`), Zweig `webhuelle-paket` gemergt (Rezept des Workers unverändert;
+  Quellarchive byte-gleich mit dessen Bau, 39 Tests).
+- querencia-desktop 0.1.0~alpha3.1-1: Versionsdatei „Alpha 3.1“, Dateien ≥ 0.2.1.
+- `tests/wegwerf-upgrade.sh`: `UPGRADE_NEU`, `UPGRADE_FILES_ORDNER` (Files-Einstellungen unter
+  `strata/`), Files-Übergangspaket gleicher Version bleibt, übernommene Werte in `dateien.ini`.
+
+## Zusatzpaket querencia-webhuelle 0.2.0-1 vom 24.10.2026 (Zweig webhuelle-paket), unveröffentlicht
+
+- Neues Quellpaket **querencia-webhuelle** (Section net): Querencia Webhülle 0.2.0, eine Hülle
+  für WhatsApp Web, aus `querencia-nachrichten` Tag `webhuelle/0.2.0` (`131304f`). Bis 0.1.1 hieß
+  das Programm Querencia Nachrichten und war nie paketiert. **Optional:** nicht im Metapaket
+  `querencia-desktop`; der nächste Satz nimmt es als eigenes Paket auf.
+- Wie querencia-software mit `komponenten.conf`: Programm im Unterordner `querencia-webhuelle/`,
+  der Runtime-Workspace (`801a016`, Quelle der Shell aus Alpha 3) als zweites Upstream-Archiv
+  daneben, weil die Bibliotheken `querencia-oberflaeche` und `querencia-dateiarbeit`
+  Cargo-Pfadabhängigkeiten sind; Prüfwerkzeuge, Doku, Hintergründe, Thema und Sitzungsdateien
+  nicht im Quellarchiv.
+- `Depends` nur aus den Bibliotheken (libwebkitgtk-6.0-4 bringt bubblewrap und xdg-dbus-proxy
+  für WebKits Sandbox mit); `Recommends: querencia-shell` (Katalog `querencia-oberflaeche`),
+  Wörterbücher; nur der eigene Katalog, eigenes Symbol in hicolor (nur SVG), MetaInfo aus der
+  Quelle (`<replaces>` org.querencia.Nachrichten), Handbuchseite; 39 Tests beim Bau.
+- Gebaut in `build/webhuelle-1/` (nicht im Satz debs-beta-3).
+
 ## Alpha 3 – Beta-Satz debs-beta-2 vom 24.10.2026 (Zweig dateien-beta), unveröffentlicht
 
 Ersetzt debs-beta-1 (Tag `packaging/alpha3-1`, nicht veröffentlichen). Dazu gegenüber debs-beta-1:

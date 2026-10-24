@@ -22,7 +22,13 @@
 #   bash tests/wegwerf-upgrade.sh <nachweisordner> <ordner alter satz> <ordner neuer satz>
 #
 # UPGRADE_VORHER_ORDNER: Ordnerprogramm des alten Satzes (Vorgabe
-# org.querencia.Files.desktop = Alpha 2.2; Alpha 2.1: io.github.lgse.Strata.desktop).
+# org.querencia.Files.desktop = Alpha 2.2; Alpha 2.1: io.github.lgse.Strata.desktop;
+# Alpha 3: org.querencia.Dateien.desktop).
+# UPGRADE_NEU: Pakete, die das Upgrade neu installiert (Vorgabe
+# "querencia-dateien"; Alpha 3 -> 3.1: leer).
+# UPGRADE_FILES_ORDNER: Ordner der Files-Einstellungen des Probe-Benutzers A
+# unter ~/.config (Vorgabe querencia-files = Alpha 2.2; strata = Alpha 2.1,
+# übernimmt Dateien ab 0.2.1).
 #
 # Ergebnis: PASS/FAIL/HINW je Prüfung in <nachweisordner>/ergebnis.txt,
 # Exit 1 bei einem FAIL.
@@ -72,14 +78,15 @@ if [ "${1-}" = --innen ]; then
         # Files-Einstellungen, keine eigene Ordnervorgabe. Benutzer B: eigene
         # mimeapps.list mit der alten Strata-ID (Befund 1 aus Alpha 2.2).
         H=$A/home HB=$A/home-b
-        mkdir -p "$H/.config/gtk-3.0" "$H/.config/querencia-files" "$H/Dokumente" "$H/Bilder" "$H/Projekt Ä" \
+        FO=${UPGRADE_FILES_ORDNER:-querencia-files}
+        mkdir -p "$H/.config/gtk-3.0" "$H/.config/$FO" "$H/Dokumente" "$H/Bilder" "$H/Projekt Ä" \
             "$HB/.config"
         printf '%s\n' "file://$H/Dokumente" "file://$H/Bilder Urlaubsbilder" "file://$H/Projekt%20%C3%84 Projekt Ä" \
             "sftp://server.invalid/srv/daten Netzordner" >"$H/.config/gtk-3.0/bookmarks"
         printf '%s\n' 'show_hidden = true' 'browser_mode = "columns"' 'sort_key = "modified"' 'folders_first = true' \
-            'grid_folder_clicks = 2' 'list_folder_clicks = 2' 'sidebar_expanded = true' >"$H/.config/querencia-files/settings.toml"
+            'grid_folder_clicks = 2' 'list_folder_clicks = 2' 'sidebar_expanded = true' >"$H/.config/$FO/settings.toml"
         printf '%s\n' '[Default Applications]' 'inode/directory=io.github.lgse.Strata.desktop' >"$HB/.config/mimeapps.list"
-        (cd "$H" && sha256sum .config/gtk-3.0/bookmarks .config/querencia-files/settings.toml) >"$OUT/home-vorher.sha256"
+        (cd "$H" && sha256sum .config/gtk-3.0/bookmarks ".config/$FO/settings.toml") >"$OUT/home-vorher.sha256"
         dpkg-query --root="$R" -W -f='${Package} ${Version} ${db:Status-Abbrev}\n' 'querencia-*' labwc 2>/dev/null |
             sort >"$OUT/versionen-vorher.txt"
         echo "Ordnerprogramm A: $(vorgabe "$H")" >"$OUT/gio-vorher.txt"
@@ -130,8 +137,9 @@ if [ "${1-}" = --innen ]; then
         hoch=$(awk '/^Inst [^ ]+ \[/ {print $2}' "$OUT/apt-full-upgrade-simulation.txt" | imsatz)
         fremd=$(awk '/^Inst / {print $2}' "$OUT/apt-full-upgrade-simulation.txt" | while read -r p; do [[ " $satz " == *" $p "* ]] || echo "$p"; done | wc -l)
         echo "apt -s full-upgrade: neu: ${neu}| aktualisiert: ${hoch}| entfernt: ${remv:-keins} (dazu $fremd ausstehende Updates dieses Rechners)"
-        [ $rc -eq 0 ] && [ -z "$remv" ] && [ "$neu" = "querencia-dateien " ] &&
-            ok "apt -s full-upgrade: neu nur querencia-dateien, aktualisiert ${hoch}, nichts entfernt" ||
+        soll_neu=$(for p in ${UPGRADE_NEU-querencia-dateien}; do printf '%s ' "$p"; done)
+        [ $rc -eq 0 ] && [ -z "$remv" ] && [ "$neu" = "$soll_neu" ] &&
+            ok "apt -s full-upgrade: neu ${soll_neu:-nichts}, aktualisiert ${hoch}, nichts entfernt" ||
             nok "apt -s full-upgrade: rc $rc, neu: $neu, entfernt: ${remv:-keins} ($OUT/apt-full-upgrade-simulation.txt)"
         # Neuinstallation (M7): apt install querencia-desktop auf dem Stand des
         # Rechners ohne Querencia, mit Empfehlungen wie apt sie standardmäßig nimmt
@@ -148,8 +156,14 @@ if [ "${1-}" = --innen ]; then
         else
             nok "Neuinstallation: Querencia-Pakete $q"
         fi
-        echo " $hoch " | grep -q ' querencia-files ' && ok "apt -s full-upgrade: querencia-files wird auf das Übergangspaket aktualisiert" ||
-            nok "apt -s full-upgrade: querencia-files nicht aktualisiert"
+        fa=$(dpkg-deb -f "$ALT"/querencia-files_*.deb Version 2>/dev/null) fn=$(dpkg-deb -f "$NEU"/querencia-files_*.deb Version)
+        if [ "$fa" = "$fn" ]; then
+            ! echo " $hoch " | grep -q ' querencia-files ' && ok "apt -s full-upgrade: Übergangspaket querencia-files $fn bleibt" ||
+                nok "apt -s full-upgrade: querencia-files gleicher Version neu installiert"
+        else
+            echo " $hoch " | grep -q ' querencia-files ' && ok "apt -s full-upgrade: querencia-files wird auf das Übergangspaket aktualisiert" ||
+                nok "apt -s full-upgrade: querencia-files nicht aktualisiert"
+        fi
         # "apt upgrade" (= apt-get upgrade --with-new-pkgs) installiert neue
         # Pakete, entfernt aber keine: das Upgrade muss auch so vollständig
         # sein (sonst hielte apt Pakete zurück). apt-get upgrade ohne neue
@@ -276,6 +290,10 @@ if [ "${1-}" = --innen ]; then
         else
             nok "dateien.ini ohne AusFiles=1 ($ini)"
         fi
+        # die Probe-Werte (Spalten → Liste, Datum, verborgene Dateien) kamen an
+        grep -qx 'Ansicht=liste' "$ini" 2>/dev/null && grep -qx 'Anordnen=datum' "$ini" && grep -qx 'Verborgene=true' "$ini" &&
+            ok "übernommene Werte aus ~/.config/${UPGRADE_FILES_ORDNER:-querencia-files}: Liste, nach Datum, verborgene Dateien" ||
+            nok "dateien.ini ohne die Probe-Werte aus ~/.config/${UPGRADE_FILES_ORDNER:-querencia-files} ($(grep -E '^(Ansicht|Anordnen|Verborgene)=' "$ini" 2>/dev/null | tr '\n' ' '))"
         ls "$OUT"/../sitzung/start-org.querencia.Dateien.png >/dev/null 2>&1 &&
             ok "Bildschirmfoto Dateien mit Lesezeichen in der Seitenleiste: sitzung/start-org.querencia.Dateien.png" ||
             hinweis "kein Bildschirmfoto von Dateien"

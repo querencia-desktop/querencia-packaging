@@ -1,0 +1,32 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+# Das Programm liegt im Unterordner querencia-webhuelle/, die Bibliotheken
+# querencia-oberflaeche und querencia-dateiarbeit als Pfadabhängigkeit im
+# Runtime-Workspace daneben (komponenten.conf, Muster querencia-software);
+# gebaut und getestet wird nur das Programm mit diesen zwei Crates.
+CARGO_FEATURES := --manifest-path querencia-webhuelle/Cargo.toml
+include debian/querencia.mk
+
+W := querencia-webhuelle
+STARTER := $(DESTDIR)/usr/share/applications/org.querencia.Webhuelle.desktop
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-webhuelle $(DESTDIR)/usr/bin/querencia-webhuelle
+	$(call desktop_install,$(W)/data/org.querencia.Webhuelle.desktop,$(STARTER))
+	grep -qx 'Exec=querencia-webhuelle' $(STARTER)
+	grep -qx 'Icon=org.querencia.Webhuelle' $(STARTER)
+	grep -qx 'StartupWMClass=org.querencia.Webhuelle' $(STARTER)
+	grep -qx 'Name\[de\]=Webhülle' $(STARTER)
+	# Programmsymbol (eigenes Werk, kein Logo eines Dienstes): nur SVG, nie
+	# 48x48 (GTK-4.22-Symbolabsturz, pakete-pruefen.sh)
+	install -D -m 0644 $(W)/data/icons/org.querencia.Webhuelle.svg \
+		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Webhuelle.svg
+	# Übersetzungen: nur die eigene Domäne; den Katalog querencia-oberflaeche
+	# (Tastennamen der Menüs) liefert querencia-shell (Recommends)
+	$(call mo_install,$(W)/po,querencia-webhuelle)
+	$(call metainfo_install_from,$(W)/data,org.querencia.Webhuelle)
+	install -D -m 0644 debian/querencia-webhuelle.1 $(DESTDIR)/usr/share/man/man1/querencia-webhuelle.1
+	# nur das Änderungsprotokoll; das README nennt den Stand der
+	# Entwicklungs-VM (Live-Stand, Tags)
+	$(call doc_install,$(W),-)

@@ -1,3 +1,14 @@
+querencia-desktop (0.1.0~alpha3.1-1) resolute; urgency=medium
+
+  * Querencia Desktop Alpha 3.1 (Pflegestand).
+  * Querencia Dateien 0.2.1 übernimmt nach einem Upgrade von Alpha 2.1 die
+    Einstellungen von Querencia Files beim ersten Start.
+  * /usr/share/querencia/version und /usr/share/querencia/release nennen
+    Alpha 3.1.
+  * Mindestversion: Dateien 0.2.1.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 13:16:27 +0200
+
 querencia-desktop (0.1.0~alpha3-1) resolute; urgency=medium
 
   * Querencia Desktop Alpha 3.
