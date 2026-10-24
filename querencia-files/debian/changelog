@@ -1,3 +1,17 @@
+querencia-files (0.1.0~alpha7-1) resolute; urgency=medium
+
+  * Neue Version (Querencia Files für Alpha 2.1).
+  * Dateien aus dem Papierkorb in einen Ordner, die Seitenleiste oder auf
+    die Arbeitsfläche ziehen stellt sie wieder her; Strg+Z macht das
+    rückgängig.
+  * Info-Dialog mit Paketversion, Ausgabe und Link zum Quelltext; Hinweise
+    für Ubuntu und apt.
+  * Hilfe-Menü mit „Online-Hilfe“ (Dokumentation auf querencialinux.org in
+    der Sprache der Oberfläche) und „Fehler melden“; beides öffnet den
+    Browser.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 04:50:00 +0200
+
 querencia-files (0.1.0~alpha6-1) resolute; urgency=medium
 
   * Live-Stand QF-0r-1 (querencia-files-dev, Tag files/qf-0r-1 = 1ca5c0a9;

@@ -1,3 +1,15 @@
+querencia-einstellungen (0.1.5-1) resolute; urgency=medium
+
+  * Neue Version 0.1.5.
+  * „Informationen über Querencia“ zeigt die installierte Ausgabe von
+    Querencia Desktop, Website, Lizenz und die Knöpfe „Online-Hilfe“ und
+    „Fehler melden“.
+  * Neue Seite „Netzwerk“; der Eintrag „Netzwerkeinstellungen …“ im Panel
+    öffnet sie.
+  * Die Quellzeile am Ende jeder Seite steht überall gleich.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 04:50:00 +0200
+
 querencia-einstellungen (0.1.4-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.1.4 (Tag einstellungen/0.1.4 = a420ae64; live

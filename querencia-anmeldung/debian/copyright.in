@@ -3,8 +3,9 @@ Upstream-Name: querencia-anmeldung
 Source: https://github.com/rharish101/ReGreet (tag 0.5.0)
 Comment: Generated from copyright.in by werkzeuge/copyright-erzeugen.py.
  The cargo-vendor/ stanzas come from the vendored crates' Cargo.toml.
- The main source is the unmodified ReGreet 0.5.0 release (commit
- 290e6f8d65b7034c5b63bc950a20bcf8277ebe5f, REUSE-compliant upstream);
+ The main source is the ReGreet 0.5.0 release (commit
+ 290e6f8d65b7034c5b63bc950a20bcf8277ebe5f, REUSE-compliant upstream) with
+ one patch in debian/patches (gettext for visible texts, clock locale);
  querencia/ holds the Querencia configuration, start scripts and
  documentation (repository querencia-anmeldung).
 

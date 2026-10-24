@@ -1,6 +1,78 @@
 # Änderungen – querencia-packaging
 
-## Alpha 2 – veröffentlicht 21.10.2026 22:25
+## Alpha 2.1 – Kandidat 3b vom 22.10.2026, unveröffentlicht
+
+Wie Kandidat 3, querencia-session 0.1.0~alpha7-3 aber aus der Quelle
+`session/alpha7-3` (`1c200ad`, Autostart-Block gleich runtime `388cff8`, Tests
+erwarten den Wachhund) statt aus den Paket-Patches 0002/0003.
+
+## Alpha 2.1 – Kandidat 3 vom 22.10.2026, unveröffentlicht
+
+Kandidat 2 plus Panel-Überwachung im Sitzungsstart.
+
+- querencia-session 0.1.0~alpha7-3: Der Autostart startet Panel 0.2.3 unter
+  seinem Wachhund (`--ueberwacht`); Patch 0002 aus runtime `panel/ueberwacht-1`
+  (`7ad985a`), Patch 0003 passt `tests/run.sh` an (Fake-Panel beantwortet
+  `--faehigkeiten`, neuer Fall „Panel unter Überwachung“).
+- Metapaket verlangt querencia-session (>= 0.1.0~alpha7-3).
+- Shell-Quelle runtime `388cff8` (gleiche Crates wie `a2eebc8`, Paket byte-gleich).
+- Tests: Wegwerf-Hülle und `frisches-ubuntu-pruefen.sh sitzung` kennen Wachhund
+  plus Panel; die Hülle prüft den Neustart nach SIGSEGV (zweimal geschickt, Rusts
+  Stapelüberlauf-Handler fängt das erste).
+- Weg-B-Probe in VM 115: Neuinstallation aus lokaler Quelle und Upgrade Alpha 2 →
+  Kandidat 3 bestanden.
+
+## Alpha 2.1 – Kandidat 2 vom 22.10.2026, unveröffentlicht
+
+Welle Alpha 2.1 bis 05:00: alles, was live, nachkontrolliert und gemergt ist.
+
+- Shell 0.1.0~alpha8-1 aus querencia-runtime main `388cff8` (Tag zeigt auf
+  `a2eebc8`, gleiche Crates, Paket byte-gleich): Panel 0.2.3
+  (Info mit Ausgabe, Online-Hilfe/Fehler melden, Netzwerkseite, seltener
+  Symbolthema neu einlesen, Schutzmodus `--ueberwacht` noch aus), Desktop 0.2.4
+  (Beschriftung ohne Platte), Kürzel 0.2.1 (dunkel).
+- Files 0.1.0~alpha7-1 (QF-0s, `files/qf-0s`): Papierkorb-Ziehen stellt wieder
+  her, Info mit Paketversion (`QUERENCIA_PACKAGE_VERSION` aus debian/rules),
+  Ausgabe „Alpha 2.1“ per Patch.
+- Sitzung 0.1.4, Einstellungen 0.1.5, Software 0.1.5, Terminal 0.3.2,
+  Screenshot 0.2.10 (Homepage-Patches von Terminal und Screenshot entfallen),
+  Rechner 0.1.6, Editor 0.2.4, Bilder 0.2.6, Dateisuche 0.1.5, Dokumente
+  0.1.4, Archiv 0.1.2 (Homepage-Patch bleibt bei Archiv und Dokumente).
+- Metapaket: Mindestversionen der Welle, `Recommends: fonts-noto-core,
+  fonts-noto-cjk` (asiatische Zeichen in Fenstertiteln).
+- Panel-Überwachung (`--ueberwacht`) im Autostart von querencia-session: in
+  Kandidat 2 offen, mit Kandidat 3 erledigt.
+- Unverändert aus Alpha 2: labwc, Session, Benachrichtigungen, Symbole,
+  Hintergründe; Anmeldung 0.1.2-1 wie Kandidat 1.
+
+## Alpha 2.1 – Kandidat 1 vom 22.10.2026, unveröffentlicht
+
+Alpha 2 plus Desktop 0.2.3, Versionsdatei und Anmeldung 0.1.2; die übrigen
+Tags der Welle folgen nach [docs/alpha21-nachziehen.md](docs/alpha21-nachziehen.md).
+
+- Shell 0.1.0~alpha8-1: Desktop 0.2.3 (`desktop/0.2.3` = e38f402):
+  Kontextmenü, Zwischenablage, Papierkorb und Ziehen auf der Arbeitsfläche.
+- Metapaket 0.1.0~alpha2.1-1: `/usr/share/querencia/version` und
+  `/usr/share/querencia/release` ([docs/versionsdatei.md](docs/versionsdatei.md));
+  verlangt Shell >= 0.1.0~alpha8.
+- Terminal 0.3.0-2, Screenshot 0.2.9-2: MetaInfo-Homepage
+  https://querencialinux.org per Patch (bis die neuen Upstream-Versionen sie
+  selbst mitbringen).
+- Anmeldung 0.1.2-1 (Zweig `anmeldung-de`, Komponente c489a15): übersetzter
+  Anmeldebildschirm, Uhr nach Systemsprache, Ausgabe aus der Versionsdatei.
+- labwc: `GIT_CEILING_DIRECTORIES` im Bau, sonst landete `git describe` des
+  Packaging-Repos als Version im Binary. Mit der Grenze ist der Neubau
+  byte-gleich mit Alpha 2.
+- Neue debian/changelog-Einträge ohne interne Kennungen, Rollen oder
+  Rechnernamen. Der Filter für KI-Abschnitte (`common/doku/`) bleibt, solange
+  die READMEs der Quellen den Abschnitt noch haben.
+- 16 Pakete sind unverändert. Der Kandidat enthält für sie die Alpha-2-Dateien
+  aus der Quelle (Pool unveränderlich). Ihr Neubau ist bei 12 Paketen byte-gleich.
+  Bei Session, Symbole und Hintergründe weichen nur die Zeitstempel ab (der
+  Alpha-2-Bau lief vor dem Changelog-Datum). Bei Software liegen im Binary die
+  Konstanten in anderer Reihenfolge, bei gleichen Quellen.
+
+## Alpha 2 – eingefroren 21.10.2026 22:07, unveröffentlicht
 
 21 Pakete auf dem Stand der Entwicklungsumgebung vom 21.10.2026 abends
 (Abschlusstabelle 18:52, dazu Desktop 0.2.2, Einstellungen 0.1.4,

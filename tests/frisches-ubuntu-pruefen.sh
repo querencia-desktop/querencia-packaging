@@ -109,7 +109,16 @@ sitzung)
     # verweigerte Zweitstart rotiert sitzung-start.log (F3-9).
     START_LOG=$OUT/sitzung-start.vor-zweitstart.log
     cp "$HOME/.local/state/querencia/sitzung-start.log" "$START_LOG" 2>/dev/null
-    [ "$(pgrep -c -u "$(id -u)" -f "^(/usr/bin/)?querencia-panel( |\$)")" = 1 ] && ok "H genau ein Panel" || nok "H Panel-Anzahl"
+    # Ab querencia-session 0.1.0~alpha7-3 läuft das Panel unter seiner
+    # Überwachung: ein Wachhund "querencia-panel --ueberwacht" und genau ein
+    # Panel ohne Argumente; ältere Sitzungen haben nur das Panel.
+    panels=$(pgrep -c -u "$(id -u)" -f "^(/usr/bin/)?querencia-panel\$")
+    wachhund=$(pgrep -c -u "$(id -u)" -f "^(/usr/bin/)?querencia-panel --ueberwacht\$")
+    if [ "$panels" = 1 ] && [ "$wachhund" -le 1 ]; then
+        ok "H genau ein Panel$([ "$wachhund" = 1 ] && echo " (unter Überwachung)")"
+    else
+        nok "H Panel-Anzahl ($panels Panel, $wachhund Wachhund)"
+    fi
     [ "$(pgrep -c -u "$(id -u)" -f "^(/usr/bin/)?querencia-desktop( |\$)")" = 1 ] && ok "I genau ein Desktop" || nok "I Desktop-Anzahl"
     # Ausgabe erst sammeln: unter pipefail zählte sonst der Exit 1 der Verweigerung.
     zweit=$(querencia-session 2>&1)

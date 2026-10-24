@@ -1,3 +1,15 @@
+querencia-anmeldung (0.1.2-1) resolute; urgency=medium
+
+  * Der Anmeldebildschirm spricht die Systemsprache: Beschriftungen,
+    Knöpfe, Tooltips, Passwortabfrage und Fehlermeldungen sind übersetzt
+    (Deutsch mitgeliefert).
+  * Die Uhr zeigt Datum und Zeit im Format der Systemsprache, z. B.
+    „22.10.2026 02:54“.
+  * Der Grußtext nennt die installierte Ausgabe von Querencia Desktop
+    (aus /usr/share/querencia/release).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 03:45:00 +0200
+
 querencia-anmeldung (0.1.1-3) resolute; urgency=medium
 
   * Doku: KI-Abschnitt aus README bzw. COPYRIGHT nicht mehr installiert

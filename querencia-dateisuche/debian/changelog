@@ -1,3 +1,14 @@
+querencia-dateisuche (0.1.5-1) resolute; urgency=medium
+
+  * Neue Version 0.1.5.
+  * Info-Dialog wie in allen Querencia-Programmen: Hinweis „Alpha – nicht
+    für den Alltag freigegeben“, Website querencialinux.org, Copyright und
+    Lizenz.
+  * Die Kurzhilfe (Knopf „Hilfe“) hat die Knöpfe „Online-Hilfe“ und
+    „Fehler melden“; beide öffnen den Browser.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Thu, 22 Oct 2026 04:50:00 +0200
+
 querencia-dateisuche (0.1.4-1) resolute; urgency=medium
 
   * Neue Upstream-Version 0.1.4 (Tag dateisuche/0.1.4 = 73238ce6; live

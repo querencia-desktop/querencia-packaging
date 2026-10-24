@@ -186,6 +186,30 @@ BUS
                 hinweis "Sitzung: polkit-Agent gestartet, beendet sich ohne System-Bus (in der Hülle absichtlich verborgen; Prüfung auf der VM)"
                 continue
             fi
+            if [ $p = querencia-panel ] && [ "$(pgrep -c -f "^$R/usr/bin/$p --ueberwacht\$")" = 1 ]; then
+                # Panel unter seiner Überwachung (Autostart ab querencia-session
+                # 0.1.0~alpha7-3): Wachhund "--ueberwacht" plus genau ein Kind
+                # ohne Argumente; ein abgestürztes Kind startet er neu.
+                kind=$(pgrep -f "^$R/usr/bin/$p\$")
+                if [ "$(printf '%s\n' $kind | grep -c .)" = 1 ]; then
+                    ok "Sitzung: $p läuft unter Überwachung (Wachhund und ein Panel)"
+                    ps -o pid,ppid,stat,args -C querencia-panel >"$OUT/panel-ueberwacht-vorher.txt" 2>&1
+                    # zweimal: Rusts Laufzeit fängt das erste, von außen geschickte
+                    # SIGSEGV ab (Stapelüberlauf-Erkennung) und setzt nur zurück
+                    # (querencia-runtime docs/panel-023-absturz-und-ueberwachung.md)
+                    kill -SEGV "$kind" 2>>"$OUT/panel-ueberwacht-vorher.txt"; sleep 0.5
+                    kill -SEGV "$kind" 2>>"$OUT/panel-ueberwacht-vorher.txt"; sleep 4
+                    neu=$(pgrep -f "^$R/usr/bin/$p\$")
+                    ps -o pid,ppid,stat,args -C querencia-panel >"$OUT/panel-ueberwacht-nachher.txt" 2>&1
+                    cp "$S/panel.log" "$OUT/panel-ueberwacht.log" 2>/dev/null
+                    [ -n "$neu" ] && [ "$neu" != "$kind" ] && [ "$(printf '%s\n' $neu | grep -c .)" = 1 ] &&
+                        ok "Sitzung: Panel nach SIGSEGV neu gestartet (PID $kind → $neu)" ||
+                        nok "Sitzung: Panel nach SIGSEGV nicht neu gestartet (vorher $kind, nachher ${neu:-keins}, $S/panel.log)"
+                else
+                    nok "Sitzung: $p unter Überwachung, aber $(printf '%s\n' $kind | grep -c .) Panel-Prozesse ($S/panel.log)"
+                fi
+                continue
+            fi
             n=$(pgrep -c -f "^$R/usr/bin/$p( |\$)")
             [ "$n" = 1 ] && ok "Sitzung: $p läuft" || nok "Sitzung: $p läuft nicht ($n Prozesse, $S/*.log)"
         done
