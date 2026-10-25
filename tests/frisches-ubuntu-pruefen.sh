@@ -99,6 +99,22 @@ nachher)
     grep -A2 '<keybind key="W-d">' /etc/querencia/labwc/rc.xml | grep -q -- '--dest org.querencia.Panel ' &&
         ok "A22 Super+D an org.querencia.Panel" || nok "A22 Super+D"
     echo "HINW Ausgabe: $(cat /usr/share/querencia/version 2>/dev/null || echo fehlt)"
+    # Alpha 3.2: Schnatter kommt als Recommends des Metapakets; nach einem
+    # Upgrade mit Webhülle 0.2.0 ist querencia-webhuelle das Übergangspaket.
+    if grep -q -x -E 'Alpha 3\.2' /usr/share/querencia/version 2>/dev/null; then
+        if dpkg -s querencia-schnatter 2>/dev/null | grep -qx 'Status: install ok installed'; then
+            s=/usr/share/applications/org.querencia.Schnatter.desktop
+            [ -x /usr/bin/querencia-schnatter ] && [ -f "$s" ] && desktop-file-validate "$s" >/dev/null 2>&1 &&
+                ok "A32 Schnatter installiert (Programm, Starter)" || nok "A32 Schnatter: Programm oder Starter"
+        else
+            echo "HINW A32 querencia-schnatter nicht installiert (apt --no-install-recommends oder entfernt)"
+        fi
+        if dpkg -s querencia-webhuelle >/dev/null 2>&1; then
+            b=/usr/share/applications/org.querencia.Webhuelle.desktop
+            [ ! -e /usr/bin/querencia-webhuelle ] && grep -qx 'NoDisplay=true' "$b" && grep -qx 'Exec=querencia-schnatter' "$b" &&
+                ok "A32 querencia-webhuelle ist das Übergangspaket (Brücke auf Schnatter)" || nok "A32 querencia-webhuelle"
+        fi
+    fi
     # Alpha 2: dunkle Fassung des Themas, Terminal mit Reitern; Symbole seit Alpha 3: 0.8
     [ -f /usr/share/themes/Querencia-Klassisch/gtk-3.0/gtk-dark.css ] && [ -f /usr/share/themes/Querencia-Klassisch/gtk-4.0/gtk-dark.css ] &&
         ok "A2 Thema mit gtk-dark.css (GTK 3, 4)" || nok "A2 gtk-dark.css fehlt"
@@ -165,7 +181,20 @@ sitzung)
     zweit=$(querencia-session 2>&1)
     grep -q 'läuft bereits' <<<"$zweit" && ok "H zweiter Start verweigert" || nok "zweiter Start"
     echo "$XDG_CURRENT_DESKTOP" | grep -q X-Querencia && ok "XDG_CURRENT_DESKTOP=X-Querencia" || nok "XDG_CURRENT_DESKTOP"
-    [ "$(xdg-mime query default inode/directory)" = org.querencia.Dateien.desktop ] && ok "Ordnerprogramm in der Sitzung (org.querencia.Dateien)" || nok "Ordnerprogramm: $(xdg-mime query default inode/directory)"
+    # QD-172 T-1: Wer seine Ordnerwahl aus Files behält, hat dort eine Brücke
+    # (Übergangspaket querencia-files); sie startet Dateien und gilt als PASS.
+    ordner=$(xdg-mime query default inode/directory)
+    case $ordner in
+    org.querencia.Dateien.desktop) ok "Ordnerprogramm in der Sitzung (org.querencia.Dateien)" ;;
+    io.github.lgse.Strata.desktop | org.querencia.Files.desktop)
+        if grep -qx 'Exec=querencia-dateien %U' "/usr/share/applications/$ordner" 2>/dev/null; then
+            ok "Ordnerprogramm in der Sitzung: Brücke $ordner startet querencia-dateien"
+            echo "HINW Benutzerwahl Brücke: $ordner (aus Files behalten)"
+        else
+            nok "Ordnerprogramm: $ordner ohne Brücke auf querencia-dateien"
+        fi ;;
+    *) nok "Ordnerprogramm: $ordner" ;;
+    esac
     [ "$(xdg-mime query default text/plain)" = org.querencia.Editor.desktop ] && ok "Textprogramm in der Sitzung" || nok "Textprogramm"
     [ "$(xdg-mime query default image/png)" = org.querencia.Bilder.desktop ] && ok "Bildprogramm in der Sitzung" || nok "Bildprogramm"
     [ "$(xdg-mime query default application/zip)" = org.querencia.Archiv.desktop ] && ok "K5 Archivprogramm in der Sitzung" || nok "K5 Archivprogramm: $(xdg-mime query default application/zip)"
