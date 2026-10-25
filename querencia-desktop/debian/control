@@ -15,7 +15,7 @@ Depends: labwc (>= 0.9.4),
          querencia-sitzung (>= 0.1.8),
          querencia-benachrichtigungen (>= 0.2.2),
          querencia-einstellungen (>= 0.1.6),
-         querencia-dateien (>= 0.2.1),
+         querencia-dateien (>= 0.2.2),
          querencia-terminal (>= 0.3.2),
          querencia-screenshot (>= 0.2.10),
          querencia-editor (>= 0.2.4),
@@ -28,7 +28,8 @@ Depends: labwc (>= 0.9.4),
          querencia-archiv (>= 0.1.2),
          dmz-cursor-theme,
          fonts-dejavu
-Recommends: fonts-dejavu-extra,
+Recommends: querencia-schnatter (>= 0.3.0),
+            fonts-dejavu-extra,
             fonts-noto-core,
             fonts-noto-cjk,
             libnotify-bin,
@@ -54,7 +55,9 @@ Description: Querencia Desktop – classic GNOME 2 style desktop (metapackage, a
  session dialog with screen lock and polkit agent, notifications,
  settings, file manager, terminal, screenshot tool, text editor, image
  viewer, PDF viewer, archive manager, calculator, system monitor, file
- search and the software manager. Afterwards "Querencia Desktop" can be
+ search and the software manager. Schnatter, WhatsApp Web in its own
+ window (querencia-schnatter), is recommended; it can be removed without
+ removing the desktop. Afterwards "Querencia Desktop" can be
  chosen in the session list of the display manager (GDM shows it after a
  restart). No display manager is installed
  or reconfigured; the Querencia login screen is the separate, suggested

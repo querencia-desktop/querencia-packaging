@@ -1,3 +1,17 @@
+querencia-desktop (0.1.0~alpha3.2-1) resolute; urgency=medium
+
+  * Querencia Desktop Alpha 3.2 (Pflegestand).
+  * Querencia Dateien 0.2.2: Kontextmenüs bleiben offen, wenn der Zeiger
+    unter der Menüleiste steht; das Netzwerkfenster heißt „Netzwerk“.
+  * Schnatter 0.3.0 (querencia-schnatter), bisher Querencia Webhülle, wird
+    jetzt empfohlen (Recommends) und mit dem Desktop installiert. Es lässt
+    sich ohne den Desktop entfernen.
+  * /usr/share/querencia/version und /usr/share/querencia/release nennen
+    Alpha 3.2.
+  * Mindestversion: Dateien 0.2.2.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Mon, 26 Oct 2026 00:45:47 +0100
+
 querencia-desktop (0.1.0~alpha3.1-1) resolute; urgency=medium
 
   * Querencia Desktop Alpha 3.1 (Pflegestand).
