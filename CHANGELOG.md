@@ -1,5 +1,22 @@
 # Änderungen – querencia-packaging
 
+## Zusatzpaket querencia-schnatter 0.3.0-1 vom 26.10.2026 (Zweig schnatter-paket), unveröffentlicht
+
+- Neues Quellpaket **querencia-schnatter** (Section net, optional, nicht im Metapaket): Schnatter
+  0.3.0, so heißt Querencia Webhülle jetzt, aus `querencia-nachrichten` Tag `schnatter/0.3.0`
+  (`6cd0ce4`), Runtime-Komponente `6935c48` (querencia-oberflaeche 0.1.1, live mit Dateien 0.2.2),
+  41 Tests beim Bau. Breaks/Replaces `querencia-webhuelle (<< 0.3.0~)` und
+  `querencia-nachrichten`, Provides beide. Den Umzug der Ordner `querencia-webhuelle` bzw.
+  `querencia-nachrichten` macht das Programm beim ersten Start (keine Paketskripte, die
+  Benutzerordner anfassen).
+- **querencia-webhuelle** 0.3.0-1 ist ein Übergangspaket (Section oldlibs, Architecture all,
+  Depends `querencia-schnatter`), Muster querencia-files: bringt Schnatter mit `apt upgrade`,
+  behält den Starter `org.querencia.Webhuelle.desktop` versteckt als Brücke auf Schnatter.
+- `tests/wegwerf-upgrade-schnatter.sh`: Upgrade Webhülle 0.2.0-1 → Schnatter mit den Ordnern
+  der Webhülle am echten Pfad (Lehre QD-172), apt-Simulation, erster Start ohne Bildschirm.
+- `werkzeuge/pakete-pruefen.sh`: querencia-webhuelle als Übergangspaket ohne MetaInfo-Pflicht.
+- Gebaut in `build/schnatter-1/`; der Satz Alpha 3.2 ist ein eigener Auftrag.
+
 ## Alpha 3.1 – Satz debs-alpha31-1 vom 24.10.2026 (Pflegestand), unveröffentlicht
 
 Gegenüber Alpha 3 (veröffentlicht, `debs-beta-3`); 23 Pakete, 3 neu gebaut, 20 byte-gleich.

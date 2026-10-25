@@ -3,7 +3,7 @@ Quellarchive dieses Pakets
 
 <quelle>_<version>.orig.tar.xz ist ein "git archive" des Commits in der
 ersten Zeile von debian/upstream-commit (Repository querencia-nachrichten,
-Tag webhuelle/0.2.0) im Unterordner querencia-webhuelle/, ohne
+Tag schnatter/0.3.0) im Unterordner querencia-schnatter/, ohne
 Arbeitsanweisungen, Nachweise, Integrationsskripte, Prüfwerkzeuge und
 Entwickler-Doku. <quelle>_<version>.orig-querencia-runtime.tar.xz ist ein
 "git archive" des Runtime-Workspace querencia-runtime (zweite Zeile von

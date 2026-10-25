@@ -220,8 +220,10 @@ for deb in "${debs[@]}"; do
     # Querencia-Programm im eigenen Installer unsichtbar (G2-I 5.5, 06 §3).
     # querencia-files ist seit Alpha 3 ein Übergangspaket ohne Programm (nur
     # die Brücken-Starter auf Querencia Dateien, dessen MetaInfo
-    # org.querencia.Files unter <replaces> nennt).
-    case " ${QUERENCIA_METAINFO_AUSNAHMEN:-querencia-desktop querencia-session querencia-symbole querencia-hintergruende querencia-anmeldung querencia-files labwc} " in
+    # org.querencia.Files unter <replaces> nennt); querencia-webhuelle ebenso
+    # seit 0.3.0 (Brücken-Starter auf Schnatter, dessen MetaInfo
+    # org.querencia.Webhuelle unter <replaces> nennt).
+    case " ${QUERENCIA_METAINFO_AUSNAHMEN:-querencia-desktop querencia-session querencia-symbole querencia-hintergruende querencia-anmeldung querencia-files querencia-webhuelle labwc} " in
     *" $p "*) hinweis "$p: ohne MetaInfo-Pflicht (Ausnahme: Metapaket/Sitzungsstarter/Symbole/Anmeldebildschirm/Übergangspaket/Backport)" ;;
     *)
         case $p in

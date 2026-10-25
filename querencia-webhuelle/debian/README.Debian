@@ -1,0 +1,25 @@
+Querencia Webhülle – Übergangspaket
+===================================
+
+Querencia Webhülle (englisch Querencia Web Wrapper) heißt seit Version 0.3.0
+Schnatter (Paket querencia-schnatter, Befehl querencia-schnatter). Dieses
+Übergangspaket bringt Schnatter beim Upgrade mit; das alte Programm
+querencia-webhuelle entfällt.
+
+Anmeldung und Einstellungen übernimmt Schnatter beim ersten Start: Es
+benennt die Ordner ~/.local/share/querencia-webhuelle,
+~/.cache/querencia-webhuelle und ~/.config/querencia-webhuelle in
+querencia-schnatter um. Nichts wird kopiert oder gelöscht. Läuft die
+Webhülle noch, sagt Schnatter das und startet erst nach dem Schließen.
+
+Geblieben ist der Starter org.querencia.Webhuelle.desktop. Er ist im Menü
+versteckt und startet Schnatter, damit Verknüpfungen im Panel, die ihn noch
+nennen, weiter funktionieren.
+
+Das Paket lässt sich entfernen, sobald keine Verknüpfung mehr auf die
+Webhülle zeigt. Schnatter kam als Abhängigkeit dieses Pakets und gilt für
+apt als automatisch installiert; damit „apt autoremove“ es danach nicht
+mitnimmt, zuerst als ausdrücklich gewählt markieren:
+
+    sudo apt install querencia-schnatter
+    sudo apt remove querencia-webhuelle

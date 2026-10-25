@@ -1,0 +1,17 @@
+[Desktop Entry]
+# Brücke (Übergangspaket querencia-webhuelle): der Starter des alten Namens,
+# im Menü versteckt, startet Schnatter. Verknüpfungen im Panel, die ihn noch
+# nennen, funktionieren so weiter.
+Type=Application
+Version=1.5
+Name=Schnatter
+Comment=WhatsApp Web in its own window
+Comment[de]=WhatsApp Web als eigenes Fenster
+Exec=querencia-schnatter
+TryExec=querencia-schnatter
+Icon=org.querencia.Schnatter
+Terminal=false
+NoDisplay=true
+Categories=GTK;Network;InstantMessaging;Chat;
+StartupNotify=true
+StartupWMClass=org.querencia.Schnatter

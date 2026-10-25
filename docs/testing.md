@@ -48,6 +48,16 @@ UPGRADE_NEU=`. `UPGRADE_FILES_ORDNER=strata` legt die Files-Einstellungen des Pr
 bis Alpha 2.1 unter `~/.config/strata/` ab; `UPGRADE_OHNE` nimmt Pakete aus (optionale wie
 `querencia-webhuelle` zieht apt beim Upgrade nicht).
 
+`tests/wegwerf-upgrade-schnatter.sh <nachweis> <alter satz> <neuer satz>` misst die
+Umbenennung Querencia Webhülle → Schnatter: alter Satz mit `querencia-webhuelle 0.2.0-1`, ein
+Probe-Benutzer mit den Ordnern der Webhülle **am echten Pfad** (`~/.local/share`, `~/.cache`,
+`~/.config` je `querencia-webhuelle`, Attrappe der Anmeldung, Einstellungen wie von 0.2.0;
+Lehre aus QD-172), `apt-get -s full-upgrade` und `upgrade --with-new-pkgs` (Schnatter neu,
+Übergangspaket aktualisiert, nichts entfernt), Upgrade mit `dpkg -i` (Übergangspaket zuerst:
+dpkg ordnet nicht um wie apt), Pakete und Brücken-Starter, Ordner vom Upgrade unberührt, dann
+ein Start von Schnatter ohne Bildschirm: der Umzug läuft vor GTK (gleiche Inode, gleicher
+Inhalt), ein zweiter Start findet nichts mehr; zuletzt `apt-get -s autoremove`.
+
 Beide Proben legen ihre Wegwerf-Wurzel unter `$TMPDIR` an und geben der Hülle einen eigenen
 `TMPDIR` darin; `TMPDIR=$PWD/build/tmp` hält sie auf der Platte (`/tmp` ist auf der
 Entwicklungs-VM ein tmpfs). Paketpfade absolut angeben.

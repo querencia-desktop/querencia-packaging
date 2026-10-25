@@ -30,9 +30,10 @@ querencia-dateisuche/        Dateisuche
 querencia-software/          Software-Verwaltung (mit Bausteinen, komponenten.conf)
 querencia-symbole/           eigene Programmsymbole (Architecture: all)
 querencia-desktop/           Metapaket (zieht alles außer den Zusatzpaketen)
-querencia-webhuelle/         Zusatzpaket, optional (nicht im Metapaket): Hülle für
-                             WhatsApp Web (aus querencia-nachrichten, Runtime als
-                             Komponente)
+querencia-schnatter/         Zusatzpaket, optional (nicht im Metapaket): Schnatter,
+                             WhatsApp Web als eigenes Fenster (aus
+                             querencia-nachrichten, Runtime als Komponente)
+querencia-webhuelle/         Übergangspaket (ab 0.3.0) auf querencia-schnatter
 backports/labwc/             labwc 0.9.8 für Ubuntu 26.04
 werkzeuge/                   orig-erzeugen, paket-bauen, alle-bauen, pakete-pruefen,
                              copyright-erzeugen, apt-quelle-erzeugen/-testen,

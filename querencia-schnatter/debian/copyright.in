@@ -1,9 +1,9 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: querencia-webhuelle
+Upstream-Name: querencia-schnatter
 Comment: Generated from copyright.in by werkzeuge/copyright-erzeugen.py.
  The cargo-vendor/ stanzas come from the vendored crates' Cargo.toml.
- The source is the repository querencia-nachrichten (tag webhuelle/0.2.0) in
- querencia-webhuelle/ and the workspace querencia-runtime as a second
+ The source is the repository querencia-nachrichten (tag schnatter/0.3.0) in
+ querencia-schnatter/ and the workspace querencia-runtime as a second
  upstream archive in querencia-runtime/; this package builds only the
  program with the crates querencia-oberflaeche and querencia-dateiarbeit.
  The program links dynamically against WebKitGTK 6.0 and JavaScriptCore
@@ -18,10 +18,10 @@ Files: *
 Copyright: 2026 Querencia Desktop contributors
 License: GPL-3+
 
-Files: querencia-webhuelle/data/icons/org.querencia.Webhuelle.svg
+Files: querencia-schnatter/data/icons/org.querencia.Schnatter.svg
 Copyright: 2026 Querencia Desktop contributors
 License: GPL-3+
-Comment: Own program icon (a window with an address bar and a globe); no
+Comment: Own program icon (a green speech bubble with an eye and a beak); no
  logo of a service and not the Querencia logo.
 
 Files: querencia-runtime/crates/querencia-dateiarbeit/src/netz.rs

@@ -1,0 +1,28 @@
+querencia-schnatter (0.3.0-1) resolute; urgency=medium
+
+  * Querencia Webhülle heißt jetzt Schnatter (Programm querencia-schnatter,
+    Anwendungskennung org.querencia.Schnatter), mit neuem Symbol: eine
+    grüne Sprechblase mit Schnabel. Beschreibung „WhatsApp Web als eigenes
+    Fenster“; kein Produkt von WhatsApp oder Meta.
+  * Ersetzt das Paket querencia-webhuelle; das bleibt als Übergangspaket,
+    damit ein Upgrade Schnatter mitbringt.
+  * Beim ersten Start übernimmt Schnatter Anmeldung und Einstellungen aus
+    den Ordnern querencia-webhuelle (0.2.0) oder querencia-nachrichten
+    (bis 0.1.1) durch Umbenennen; nichts wird kopiert oder gelöscht.
+  * Gebaut mit Querencia Oberfläche 0.1.1 (runtime 6935c48).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Mon, 26 Oct 2026 01:00:00 +0100
+
+querencia-webhuelle (0.2.0-1) resolute; urgency=medium
+
+  * Erstes Paket von Querencia Webhülle 0.2.0 (englisch „Querencia Web
+    Wrapper“), einer Hülle für WhatsApp Web im eigenen Fenster mit der
+    klassischen Menüleiste von Querencia Desktop. Kein Produkt von WhatsApp
+    oder Meta und nicht mit ihnen verbunden.
+  * Wahlweise installierbar, nicht Teil der Standardinstallation
+    (querencia-desktop).
+  * Bis 0.1.1 hieß das Programm Querencia Nachrichten; beim ersten Start
+    übernimmt die Webhülle Anmeldung und Einstellungen aus dessen Ordnern.
+  * Eigenes Programmsymbol; keine Anrufe (WebKitGTK ohne WebRTC).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 12:45:00 +0200
