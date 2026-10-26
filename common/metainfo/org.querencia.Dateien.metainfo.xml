@@ -9,8 +9,14 @@
   <id>org.querencia.Dateien</id>
   <name>Querencia Dateien</name>
   <name xml:lang="de">Querencia Dateien</name>
+  <name xml:lang="it">Querencia Dateien</name>
+  <name xml:lang="es">Querencia Dateien</name>
+  <name xml:lang="fr">Querencia Dateien</name>
   <summary>Browse folders and manage files</summary>
   <summary xml:lang="de">Ordner durchsuchen und Dateien verwalten</summary>
+  <summary xml:lang="it">Sfoglia le cartelle e gestisci i file</summary>
+  <summary xml:lang="es">Examinar carpetas y gestionar archivos</summary>
+  <summary xml:lang="fr">Parcourir les dossiers et gérer les fichiers</summary>
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-3.0-or-later AND MIT</project_license>
   <developer id="org.querencia">
@@ -21,10 +27,19 @@
   <description>
     <p>Querencia Dateien is the file manager of Querencia Desktop (in English its menu entry is called Files). It follows the classic browser mode of Nautilus 2: menu bar, toolbar, path bar, a side pane with places, bookmarks and drives, icon and list view and a status bar.</p>
     <p xml:lang="de">Querencia Dateien ist der Dateimanager von Querencia Desktop. Er folgt dem klassischen Browser-Modus von Nautilus 2: Menüleiste, Werkzeugleiste, Knopfpfad, Seitenleiste mit Orten, Lesezeichen und Laufwerken, Symbol- und Listenansicht und Statusleiste.</p>
+    <p xml:lang="it">Querencia Dateien è il gestore file di Querencia Desktop (nel menu si chiama File). Segue la classica modalità browser di Nautilus 2: barra dei menu, barra degli strumenti, barra del percorso, riquadro laterale con risorse, segnalibri e unità, vista a icone ed elenco e barra di stato.</p>
+    <p xml:lang="es">Querencia Dateien es el gestor de archivos de Querencia Desktop (en el menú se llama Archivos). Sigue el modo navegador clásico de Nautilus 2: barra de menús, barra de herramientas, barra de ruta, panel lateral con lugares, marcadores y unidades, vista de iconos y de lista y barra de estado.</p>
+    <p xml:lang="fr">Querencia Dateien est le gestionnaire de fichiers de Querencia Desktop (dans le menu, il s’appelle Fichiers). Il suit le mode navigateur classique de Nautilus 2 : barre de menus, barre d’outils, barre de chemin, panneau latéral avec raccourcis, signets et disques, vue en icônes et en liste et barre d’état.</p>
     <p>It copies, moves and deletes with progress, cancel and conflict questions, manages the trash and opens files with their programs. It replaces the earlier Querencia Files based on Strata.</p>
     <p xml:lang="de">Er kopiert, verschiebt und löscht mit Fortschritt, Abbruch und Konfliktfrage, verwaltet den Papierkorb und öffnet Dateien mit ihren Programmen. Er löst das frühere, auf Strata beruhende Querencia Files ab.</p>
+    <p xml:lang="it">Copia, sposta ed elimina con avanzamento, annullamento e richiesta in caso di conflitto, gestisce il cestino e apre i file con i relativi programmi. Sostituisce il precedente Querencia Files basato su Strata.</p>
+    <p xml:lang="es">Copia, mueve y elimina con progreso, cancelación y pregunta en caso de conflicto, gestiona la papelera y abre los archivos con sus programas. Sustituye al anterior Querencia Files basado en Strata.</p>
+    <p xml:lang="fr">Il copie, déplace et supprime avec progression, annulation et question en cas de conflit, gère la corbeille et ouvre les fichiers avec leurs programmes. Il remplace l’ancien Querencia Files basé sur Strata.</p>
     <p>Folders open in tabs and in an icon, list or compact view with thumbnails. Network places (SFTP, SMB, FTP, WebDAV) are reached through “Connect to Server”, and a search finds files by name below the shown folder.</p>
     <p xml:lang="de">Ordner öffnen in Reitern und in der Symbol-, Listen- oder Kompaktansicht mit Vorschaubildern. Netzwerkorte (SFTP, SMB, FTP, WebDAV) erreicht man über „Mit Server verbinden“, und eine Suche findet Dateien nach ihrem Namen unterhalb des gezeigten Ordners.</p>
+    <p xml:lang="it">Le cartelle si aprono in schede e in vista a icone, a elenco o compatta con miniature. Le posizioni di rete (SFTP, SMB, FTP, WebDAV) si raggiungono con «Connetti al server», e una ricerca trova i file per nome sotto la cartella mostrata.</p>
+    <p xml:lang="es">Las carpetas se abren en pestañas y en vista de iconos, de lista o compacta con miniaturas. Las ubicaciones de red (SFTP, SMB, FTP, WebDAV) se alcanzan con «Conectar con un servidor», y una búsqueda encuentra archivos por su nombre dentro de la carpeta mostrada.</p>
+    <p xml:lang="fr">Les dossiers s’ouvrent dans des onglets et en vue icônes, liste ou compacte avec vignettes. Les emplacements réseau (SFTP, SMB, FTP, WebDAV) s’atteignent par « Se connecter à un serveur », et une recherche trouve les fichiers par leur nom sous le dossier affiché.</p>
   </description>
   <url type="homepage">https://querencialinux.org</url>
   <url type="bugtracker">https://github.com/querencia-desktop/querencia/issues</url>
@@ -50,6 +65,15 @@
     <keyword xml:lang="de">Dateien</keyword>
     <keyword xml:lang="de">Ordner</keyword>
     <keyword xml:lang="de">Dateimanager</keyword>
+    <keyword xml:lang="it">file</keyword>
+    <keyword xml:lang="it">cartelle</keyword>
+    <keyword xml:lang="it">gestore file</keyword>
+    <keyword xml:lang="es">archivos</keyword>
+    <keyword xml:lang="es">carpetas</keyword>
+    <keyword xml:lang="es">gestor de archivos</keyword>
+    <keyword xml:lang="fr">fichiers</keyword>
+    <keyword xml:lang="fr">dossiers</keyword>
+    <keyword xml:lang="fr">gestionnaire de fichiers</keyword>
   </keywords>
   <content_rating type="oars-1.1"/>
   <branding>
