@@ -1,5 +1,27 @@
 # Änderungen – querencia-packaging
 
+## Alpha 3.2 – Satz debs-alpha32-1 vom 26.10.2026 (Pflegestand), unveröffentlicht
+
+Gegenüber Alpha 3.1 (veröffentlicht, `debs-alpha31-1`); 24 Pakete, 2 neu gebaut, 2 aus dem
+Zweig schnatter-paket übernommen, 20 byte-gleich.
+
+- querencia-dateien 0.2.2-1 aus runtime `dateien/0.2.2` (`73ef2b5`, mit querencia-oberflaeche
+  0.1.1): Kontextmenüs springen nicht mehr in die Menüleiste (QD-176); das Netzwerkfenster heißt
+  „Netzwerk“ (QD-173 P-4); Handbuchseite und MetaInfo 0.2.2 (230 Tests beim Bau). Panel und
+  Desktop in querencia-shell bleiben auf `801a016` (kein Neubau, siehe
+  `docs/dateien-nachziehen.md` §6).
+- querencia-schnatter 0.3.0-1 und Übergangspaket querencia-webhuelle 0.3.0-1 unverändert aus
+  `build/schnatter-1` des Zweigs schnatter-paket (`5233329`); Quellarchive neu erzeugt und
+  byte-gleich.
+- querencia-desktop 0.1.0~alpha3.2-1: Versionsdatei „Alpha 3.2“, Dateien ≥ 0.2.2,
+  **Recommends querencia-schnatter** (bis Alpha 3.1 optional); README.Debian: Schnatter
+  entfernen.
+- `tests/wegwerf-upgrade.sh`: Files-Einstellungen am Pfad des alten Files (QD-172 T-2);
+  Webhülle 0.2.0 mit Ordnern am echten Pfad, Übergang auf Schnatter, Umzug beim Start;
+  Schnatter entfernbar, apt holt es nicht wieder; Übergangspakete zuerst für `dpkg -i`.
+- `tests/frisches-ubuntu-pruefen.sh`: behaltene Ordnerwahl aus Files (Brücke) gilt als PASS mit
+  Hinweis (QD-172 T-1); Prüfpunkte A32 für Schnatter.
+
 ## Zusatzpaket querencia-schnatter 0.3.0-1 vom 26.10.2026 (Zweig schnatter-paket), unveröffentlicht
 
 - Neues Quellpaket **querencia-schnatter** (Section net, optional, nicht im Metapaket): Schnatter
