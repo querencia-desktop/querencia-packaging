@@ -48,6 +48,15 @@ es baut ohne Rust wie jedes Datenpaket. Bis Alpha 2.2 brauchte der
 Strata-Fork rustc ≥ 1.98 über das Bauprofil `pkg.querencia.fremdrust` mit
 `QUERENCIA_RUST_BIN` (`common/querencia.mk` kennt das Profil weiter).
 
+**querencia-schnatter** (Zusatzpaket, nicht im Metapaket; bis 0.2.0
+querencia-webhuelle) kommt aus dem Repository `querencia-nachrichten`; wie
+bei querencia-software liegt das Programm im Unterordner
+`querencia-schnatter/` und der Runtime-Workspace als
+Komponente `querencia-runtime/` daneben (Cargo-Pfadabhängigkeiten
+`../querencia-runtime/crates/…`). `debian/rules` baut mit `--manifest-path`
+nur das Programm. **querencia-webhuelle** ist ab 0.3.0 ein Übergangspaket
+aus derselben Quelle (nichts gebaut, nur der versteckte Brücken-Starter).
+
 **labwc** baut `alle-bauen.sh` mit Manpages und SVG-Knöpfen, wenn `scdoc`
 und `librsvg2-dev` installiert sind (in der Entwicklungsumgebung seit 20.10.), sonst mit
 den Profilen unten. Von Hand auf einem Rechner ohne beides:

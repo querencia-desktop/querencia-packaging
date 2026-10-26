@@ -1,0 +1,4 @@
+# The starter is a hidden bridge to Schnatter (the new name of this
+# program, package querencia-schnatter, a dependency of this transitional
+# package): its Exec is querencia-schnatter on purpose.
+desktop-command-not-in-package querencia-schnatter [usr/share/applications/org.querencia.Webhuelle.desktop]

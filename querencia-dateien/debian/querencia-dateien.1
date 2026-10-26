@@ -1,4 +1,4 @@
-.TH QUERENCIA-DATEIEN 1 "October 2026" "querencia-dateien 0.2.0" "Querencia Desktop"
+.TH QUERENCIA-DATEIEN 1 "October 2026" "querencia-dateien 0.2.2" "Querencia Desktop"
 .SH NAME
 querencia-dateien \- file manager of Querencia Desktop
 .SH SYNOPSIS
@@ -72,8 +72,11 @@ other programs run only inside
 .BR bwrap (1)
 .TP
 .I ~/.config/querencia-files/settings.toml
+.TQ
+.I ~/.config/strata/settings.toml
 read once on the first start without
-.IR dateien.ini :
+.IR dateien.ini
+(the second one only if the first is missing):
 six settings of Querencia Files are taken over; the file is never changed
 .TP
 .I /usr/share/querencia/release

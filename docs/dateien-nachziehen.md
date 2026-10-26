@@ -127,3 +127,24 @@ im Git, Kopie in den Belegen ); Vorgänger ist dort der Vorbau
 `UPGRADE_VORHER_ORDNER=io.github.lgse.Strata.desktop`) bzw. Alpha-2.2-Kandidat 2.
 Erwartung: pakete-pruefen ohne FAIL, Lintian ohne E, Upgrade-Probe ohne FAIL, `inode/directory`
 → `org.querencia.Dateien.desktop`.
+
+## 6. Dateien 0.2.2 ohne Shell-Neubau (Alpha 3.2)
+
+Dateien 0.2.2 (runtime `dateien/0.2.2` = `73ef2b5`) bringt die Bibliothek
+`querencia-oberflaeche` 0.1.1 mit (`classic_menu::attach_popup`, die Menüleiste wechselt per
+Zeiger nur über ihren Knöpfen). Panel und Arbeitsfläche nutzen dieselbe Bibliothek, bleiben in
+Alpha 3.2 aber auf `querencia-shell` 0.1.0~alpha10 (runtime `801a016`, Bibliothek 0.1.0).
+**Entscheidung der Startsession (26.10.2026): kein Neubau der Shell.** Begründung: Für das
+Panel hat 0.1.1 keine sichtbare Wirkung; das Kontextmenü der Arbeitsfläche war nicht sichtbar
+betroffen, weil dort kein weiteres Hauptmenü im Fenster liegt (QD-176). Die Arbeitsfläche nutzt
+`attach_popup` im Quelltext schon und bekommt es mit ihrer nächsten Version.
+Das Verhalten von Panel und Arbeitsfläche ändert sich mit Alpha 3.2 nicht.
+
+Die Kataloge der Shell passen weiter (Prüfbefehl aus §3 für `801a016` gegen `dateien/0.2.2`:
+leer). Mit dem nächsten Neubau der Shell aus runtime `main` ≥ `6935c48` kommt die Bibliothek
+0.1.1 auch dort an.
+
+Werkzeuge für Alpha 3.2 (nicht im Git, Kopie in ):
+`build/nachweis-alpha32/satz-zusammenstellen.sh` nimmt neue Pakete aus `build/bau/<paket>/`
+oder aus den Ordnern in `NEU_AUS` (unverändert übernommene Pakete eines anderen Worktrees);
+`VORGAENGER` ist Pflicht.

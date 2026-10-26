@@ -1,3 +1,28 @@
+querencia-dateien (0.2.2-1) resolute; urgency=medium
+
+  * Neue Version 0.2.2.
+  * Behoben: Ein offenes Kontextmenü (Ansicht, Seitenleiste,
+    Suchergebnisse) schloss sich, und oben klappte ein Menü der Menüleiste
+    auf, sobald der Zeiger unter diesem Menü stand, etwa auf dem Weg zu
+    „Umbenennen …“. Die Menüleiste wechselt per Zeiger nur noch über ihren
+    Knöpfen (Bibliothek querencia-oberflaeche 0.1.1).
+  * Behoben: Das Fenster mit dem Netzwerk hieß „Network“, wenn GVfs nicht
+    deutsch spricht. Papierkorb, Rechner und Netzwerk tragen jetzt immer
+    ihren eigenen Namen.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Mon, 26 Oct 2026 00:45:30 +0100
+
+querencia-dateien (0.2.1-1) resolute; urgency=medium
+
+  * Neue Version 0.2.1.
+  * Behoben: Nach einem Upgrade von Alpha 2.1 übernahm Querencia Dateien
+    beim ersten Start die Einstellungen von Querencia Files nicht
+    (Ansicht, verborgene Dateien, Sortierung, Ordner zuerst, Klickverhalten,
+    Seitenleiste); sie lagen dort noch unter ~/.config/strata. Wer Dateien
+    schon einmal gestartet hat, behält seine eigenen Einstellungen.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Sat, 24 Oct 2026 13:16:27 +0200
+
 querencia-dateien (0.2.0-1) resolute; urgency=medium
 
   * Neue Version 0.2.0 (Beta).

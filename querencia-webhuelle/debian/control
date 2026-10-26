@@ -1,0 +1,24 @@
+Source: querencia-webhuelle
+Section: oldlibs
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: desktop-file-utils
+Standards-Version: 4.7.2
+
+Package: querencia-webhuelle
+Architecture: all
+Depends: querencia-schnatter (>= 0.3.0~)
+Description: Querencia Web Wrapper, renamed to Schnatter (transitional package)
+ Querencia Web Wrapper (German: Querencia Webhülle) was the wrapper for
+ WhatsApp Web of Querencia Desktop in version 0.2.0. It is now called
+ Schnatter (package querencia-schnatter). This transitional package brings
+ Schnatter on upgrade; on its first start Schnatter takes over the sign-in
+ and the settings by renaming the folders of the old name.
+ .
+ It keeps the starter of the old name (org.querencia.Webhuelle), hidden
+ from the menus, which starts Schnatter, so panel launchers that still name
+ it keep working.
+ .
+ It can be removed safely once no launcher refers to Querencia Web Wrapper
+ any more.

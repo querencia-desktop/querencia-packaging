@@ -1,5 +1,76 @@
 # Änderungen – querencia-packaging
 
+## Alpha 3.2 – Satz debs-alpha32-1 vom 26.10.2026 (Pflegestand), unveröffentlicht
+
+Gegenüber Alpha 3.1 (veröffentlicht, `debs-alpha31-1`); 24 Pakete, 2 neu gebaut, 2 aus dem
+Zweig schnatter-paket übernommen, 20 byte-gleich.
+
+- querencia-dateien 0.2.2-1 aus runtime `dateien/0.2.2` (`73ef2b5`, mit querencia-oberflaeche
+  0.1.1): Kontextmenüs springen nicht mehr in die Menüleiste (QD-176); das Netzwerkfenster heißt
+  „Netzwerk“ (QD-173 P-4); Handbuchseite und MetaInfo 0.2.2 (230 Tests beim Bau). Panel und
+  Desktop in querencia-shell bleiben auf `801a016` (kein Neubau, siehe
+  `docs/dateien-nachziehen.md` §6).
+- querencia-schnatter 0.3.0-1 und Übergangspaket querencia-webhuelle 0.3.0-1 unverändert aus
+  `build/schnatter-1` des Zweigs schnatter-paket (`5233329`); Quellarchive neu erzeugt und
+  byte-gleich.
+- querencia-desktop 0.1.0~alpha3.2-1: nur Version, Versionsdatei „Alpha 3.2“ und Changelog.
+  Schnatter bleibt optional, nicht im Metapaket (Entscheidung 24.10., bestätigt 26.10.2026); wer
+  die Webhülle 0.2.0 hat, bekommt es mit dem Übergangspaket querencia-webhuelle 0.3.0-1.
+- `tests/wegwerf-upgrade.sh`: Files-Einstellungen am Pfad des alten Files (QD-172 T-2);
+  Webhülle 0.2.0 mit Ordnern am echten Pfad, Übergang auf Schnatter, Umzug beim Start;
+  Neuinstallation zieht Schnatter nur, wenn das Metapaket es nennt; Schnatter entfernbar, apt
+  holt es nicht wieder; Übergangspakete zuerst für `dpkg -i`.
+- `tests/frisches-ubuntu-pruefen.sh`: behaltene Ordnerwahl aus Files (Brücke) gilt als PASS mit
+  Hinweis (QD-172 T-1); Prüfpunkte A32 für Schnatter (wenn installiert).
+
+## Zusatzpaket querencia-schnatter 0.3.0-1 vom 26.10.2026 (Zweig schnatter-paket), unveröffentlicht
+
+- Neues Quellpaket **querencia-schnatter** (Section net, optional, nicht im Metapaket): Schnatter
+  0.3.0, so heißt Querencia Webhülle jetzt, aus `querencia-nachrichten` Tag `schnatter/0.3.0`
+  (`6cd0ce4`), Runtime-Komponente `6935c48` (querencia-oberflaeche 0.1.1, live mit Dateien 0.2.2),
+  41 Tests beim Bau. Breaks/Replaces `querencia-webhuelle (<< 0.3.0~)` und
+  `querencia-nachrichten`, Provides beide. Den Umzug der Ordner `querencia-webhuelle` bzw.
+  `querencia-nachrichten` macht das Programm beim ersten Start (keine Paketskripte, die
+  Benutzerordner anfassen).
+- **querencia-webhuelle** 0.3.0-1 ist ein Übergangspaket (Section oldlibs, Architecture all,
+  Depends `querencia-schnatter`), Muster querencia-files: bringt Schnatter mit `apt upgrade`,
+  behält den Starter `org.querencia.Webhuelle.desktop` versteckt als Brücke auf Schnatter.
+- `tests/wegwerf-upgrade-schnatter.sh`: Upgrade Webhülle 0.2.0-1 → Schnatter mit den Ordnern
+  der Webhülle am echten Pfad (Lehre QD-172), apt-Simulation, erster Start ohne Bildschirm.
+- `werkzeuge/pakete-pruefen.sh`: querencia-webhuelle als Übergangspaket ohne MetaInfo-Pflicht.
+- Gebaut in `build/schnatter-1/`; der Satz Alpha 3.2 ist ein eigener Auftrag.
+
+## Alpha 3.1 – Satz debs-alpha31-1 vom 24.10.2026 (Pflegestand), unveröffentlicht
+
+Gegenüber Alpha 3 (veröffentlicht, `debs-beta-3`); 23 Pakete, 3 neu gebaut, 20 byte-gleich.
+
+- querencia-dateien 0.2.1-1 aus runtime `dateien/0.2.1` (`21399c1`): der erste Start übernimmt die
+  Einstellungen von Files auch aus `~/.config/strata/` (Upgrade von Alpha 2.1); Handbuchseite und
+  MetaInfo 0.2.1 (228 Tests beim Bau).
+- Neu und optional (nicht im Metapaket): querencia-webhuelle 0.2.0-1 aus querencia-nachrichten
+  `webhuelle/0.2.0` (`131304f`), Zweig `webhuelle-paket` gemergt (Rezept des Workers unverändert;
+  Quellarchive byte-gleich mit dessen Bau, 39 Tests).
+- querencia-desktop 0.1.0~alpha3.1-1: Versionsdatei „Alpha 3.1“, Dateien ≥ 0.2.1.
+- `tests/wegwerf-upgrade.sh`: `UPGRADE_NEU`, `UPGRADE_FILES_ORDNER` (Files-Einstellungen unter
+  `strata/`), Files-Übergangspaket gleicher Version bleibt, übernommene Werte in `dateien.ini`.
+
+## Zusatzpaket querencia-webhuelle 0.2.0-1 vom 24.10.2026 (Zweig webhuelle-paket), unveröffentlicht
+
+- Neues Quellpaket **querencia-webhuelle** (Section net): Querencia Webhülle 0.2.0, eine Hülle
+  für WhatsApp Web, aus `querencia-nachrichten` Tag `webhuelle/0.2.0` (`131304f`). Bis 0.1.1 hieß
+  das Programm Querencia Nachrichten und war nie paketiert. **Optional:** nicht im Metapaket
+  `querencia-desktop`; der nächste Satz nimmt es als eigenes Paket auf.
+- Wie querencia-software mit `komponenten.conf`: Programm im Unterordner `querencia-webhuelle/`,
+  der Runtime-Workspace (`801a016`, Quelle der Shell aus Alpha 3) als zweites Upstream-Archiv
+  daneben, weil die Bibliotheken `querencia-oberflaeche` und `querencia-dateiarbeit`
+  Cargo-Pfadabhängigkeiten sind; Prüfwerkzeuge, Doku, Hintergründe, Thema und Sitzungsdateien
+  nicht im Quellarchiv.
+- `Depends` nur aus den Bibliotheken (libwebkitgtk-6.0-4 bringt bubblewrap und xdg-dbus-proxy
+  für WebKits Sandbox mit); `Recommends: querencia-shell` (Katalog `querencia-oberflaeche`),
+  Wörterbücher; nur der eigene Katalog, eigenes Symbol in hicolor (nur SVG), MetaInfo aus der
+  Quelle (`<replaces>` org.querencia.Nachrichten), Handbuchseite; 39 Tests beim Bau.
+- Gebaut in `build/webhuelle-1/` (nicht im Satz debs-beta-3).
+
 ## Alpha 3 – Beta-Satz debs-beta-2 vom 24.10.2026 (Zweig dateien-beta), unveröffentlicht
 
 Ersetzt debs-beta-1 (Tag `packaging/alpha3-1`, nicht veröffentlichen). Dazu gegenüber debs-beta-1:

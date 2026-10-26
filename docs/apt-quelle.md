@@ -255,3 +255,89 @@ bash werkzeuge/apt/quelle-pruefen.sh --fingerabdruck <FINGERABDRUCK> https://dl.
 - Der Bucket enthält außerdem die beiden ISO-Abbilder von Querencia Linux
   (Wurzel, `querencia-linux-*-20260315.iso`); die Quelle liegt getrennt unter
   `apt/`.
+
+## Nachtrag 24.10.2026: Alpha 3
+
+Am 24.10.2026 um 12:18:49 (MESZ) ging der Index von Alpha 3 auf den Server: Satz
+`debs-beta-3` (Tag `packaging/alpha3-2`, 22 Pakete, `SHA256SUMS` mit der Summe
+`488348b6…`), Metapaket `querencia-desktop 0.1.0~alpha3-1`, dazu Querencia Dateien
+0.2.0-1 und Querencia Files 0.2.0-1 als Übergangspaket.
+
+| Was | Wert |
+|---|---|
+| Release-Datum | Sat, 24 Oct 2026 10:04:01 UTC (vorher Alpha 2.1: 22 Oct 2026 08:55:57 UTC) |
+| InRelease (SHA256) | `6ab038d29be1b2aff1305da4b3f3863af7a70a09f215f79c4ee675a51ca1d0bc` |
+| Index | binary-amd64 22, binary-all 5; Pool 67 Dateien, davon 9 neu; ältere Fassungen bleiben liegen |
+| Upload | 37 Dateien (27115 KiB), 88 lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal 22/1 (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server 10/0 |
+
+- **Passphrase:** `quelle-bauen.sh` öffnet kein pinentry-Fenster. Es fragt
+  einmal mit `read -s` an `/dev/tty`. Aus einer Werkstatt-Sitzung heraus läuft
+  der Bau deshalb in einem Reiter des Terminal-Bereichs der App, und pottrauschen
+  tippt die Passphrase dort ein. Ohne Terminal und ohne `--passphrase-datei`
+  scheitert das Signieren.
+- **Rückfall:** Den Index von Alpha 2.1 sauber wieder anbieten heißt, die Quelle
+  mit dem Satz `debs-final-alpha21` neu zu bauen (neues Datum, neue Signatur) und
+  hochzuladen. Werden nur die alten Release-Dateien zurückgeschrieben, hilft das
+  bloß Clients, die Alpha 3 noch nicht geholt haben. Ein Client mit dem
+  Alpha-3-Index übernimmt die ältere Release-Datei nicht und behält Alpha 3,
+  ohne Fehlermeldung (Wegwerf-apt-Probe am 24.10.2026).
+
+## Nachtrag 24.10.2026: Alpha 3.1
+
+Am 24.10.2026 um 14:48:53 (MESZ) ging der Index von Alpha 3.1 auf den Server: Satz
+`debs-alpha31-1` (Tag `packaging/alpha31-1`, 23 Pakete, `SHA256SUMS` mit der Summe
+`f87a4a5f…`). Neu gegenüber Alpha 3 sind `querencia-desktop 0.1.0~alpha3.1-1`,
+`querencia-dateien 0.2.1-1` und `querencia-webhuelle 0.2.0-1`. Die übrigen 20 Pakete
+lagen byte-gleich im Pool.
+
+| Was | Wert |
+|---|---|
+| Release-Datum | Sat, 24 Oct 2026 12:04:07 UTC |
+| InRelease (SHA256) | `9e25de04ed44a6d9125d44c8ff2e284782fdd04bea65abe1a3698e0bfa67b9f9` |
+| Index | binary-amd64 23, binary-all 5; Pool 70 Dateien, davon 3 neu |
+| Upload | 29 Dateien (1594 KiB), 107 lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal 22/1 (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server 10/0 |
+
+`querencia-webhuelle` steht im Index, aber kein Paket hängt davon ab, auch das
+Metapaket nicht. `apt install querencia-desktop` installiert sie deshalb nicht mit.
+
+## Nachtrag 26.10.2026: Alpha 3.2
+
+Am 26.10.2026 um 22:11:10 (MEZ) ging der Index von Alpha 3.2 auf den Server: Satz
+`debs-alpha32-1` (Tag `packaging/alpha32-1`, 24 Pakete, `SHA256SUMS` mit der
+Summe `fbf26227…`). Neu gegenüber Alpha 3.1 sind vier Pakete:
+
+| Paket | Version | Änderung |
+|---|---|---|
+| `querencia-desktop` | 0.1.0~alpha3.2-1 | nur Version und Versionsdatei „Alpha 3.2“ |
+| `querencia-dateien` | 0.2.2-1 | Kontextmenüs springen nicht mehr in die Menüleiste; Titel „Netzwerk“ |
+| `querencia-schnatter` | 0.3.0-1 | neu, optional: Schnatter, so heißt die Webhülle jetzt |
+| `querencia-webhuelle` | 0.3.0-1 | Übergangspaket auf `querencia-schnatter` (Architecture all) |
+
+Die übrigen 20 Pakete lagen byte-gleich im Pool.
+
+| Was | Wert |
+|---|---|
+| Release-Datum | Mon, 26 Oct 2026 09:35:14 UTC |
+| InRelease (SHA256) | `d67cfaa70b4cc0f1ec2a950da24aaf5ab822d4325dbf0bbd7bf378d3e33a85ed` |
+| Index | binary-amd64 24, binary-all 6; Pool 74 Dateien, davon 4 neu; ältere Fassungen bleiben liegen |
+| Upload | 32 Dateien (1689 KiB), 118 lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal 22/1 (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server 10/0 |
+
+Vor dem Upload liefen Neuinstallation und Upgrade 3.1 → 3.2 (mit Webhülle 0.2.0
+aus der veröffentlichten Quelle) in einer frischen Ubuntu-VM; beides ohne
+Rückfrage, beim Upgrade nichts entfernt.
+
+- **Schnatter bleibt optional.** Das Metapaket nennt es nicht;
+  `apt install querencia-desktop` installiert es nicht. Wer die Webhülle 0.2.0
+  installiert hat, bekommt mit dem Upgrade das Übergangspaket
+  `querencia-webhuelle` 0.3.0-1 und damit Schnatter. Schnatter übernimmt beim
+  ersten Start Anmeldung und Einstellungen, indem es die Ordner umbenennt.
+  Wer die Webhülle nicht hatte, bekommt nichts Neues dazu.
+- **Einzeln installieren:** `sudo apt install querencia-schnatter`.
+- **autoremove:** Nach dem Upgrade meldet apt `querencia-webhuelle` als nicht
+  mehr benötigt (apt überträgt die Markierung „manuell“ auf
+  `querencia-schnatter`). Als Kandidat für `sudo apt autoremove` nennt es nur
+  das Übergangspaket; Schnatter ist manuell markiert (VM-Probe 26.10.2026,
+  autoremove selbst nicht ausgeführt).

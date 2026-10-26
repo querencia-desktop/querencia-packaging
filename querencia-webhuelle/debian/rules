@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+# Übergangspaket (ab 0.3.0): Querencia Webhülle heißt jetzt Schnatter
+# (querencia-schnatter). Das Paket bringt beim Upgrade Schnatter mit und
+# enthält nur noch den Starter des alten Namens, versteckt, als Brücke auf
+# querencia-schnatter (Muster: querencia-files). Kein Programm; die Ordner
+# zieht Schnatter selbst beim ersten Start um.
+QUERENCIA_KIND := data
+include debian/querencia.mk
+
+STARTER := $(DESTDIR)/usr/share/applications/org.querencia.Webhuelle.desktop
+
+querencia-install:
+	$(call desktop_install,debian/org.querencia.Webhuelle.desktop,$(STARTER))
+	grep -qx 'NoDisplay=true' $(STARTER)
+	grep -qx 'Exec=querencia-schnatter' $(STARTER)
+	grep -qx 'TryExec=querencia-schnatter' $(STARTER)
+	grep -qx 'StartupWMClass=org.querencia.Schnatter' $(STARTER)
+	! grep -q '^MimeType=' $(STARTER)
+	install -D -m 0644 debian/README.Debian $(DESTDIR)/usr/share/doc/querencia-webhuelle/README.Debian

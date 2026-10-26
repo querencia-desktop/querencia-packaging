@@ -1,0 +1,21 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: querencia-webhuelle (transitional package for querencia-schnatter)
+Comment: The source is the repository querencia-nachrichten (tag
+ schnatter/0.3.0) without the program; this package builds nothing from it.
+ WhatsApp is a trademark of its owner; Schnatter is not a product of
+ WhatsApp or Meta and is not affiliated with them. The names and the logo
+ of Querencia are marks of the project (MARKE.md), not covered by the
+ licence below.
+
+Files: *
+Copyright: 2026 Querencia Desktop contributors
+License: GPL-3+
+
+License: GPL-3+
+ This program is free software: you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the Free
+ Software Foundation, either version 3 of the License, or (at your option)
+ any later version.
+ .
+ On Debian systems the full text of the GNU General Public License version 3
+ is in /usr/share/common-licenses/GPL-3.

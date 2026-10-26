@@ -4,17 +4,11 @@ Debian-Paketierung, APT-Quelle und CI-Vorlagen für
 [Querencia Desktop](https://github.com/querencia-desktop/querencia) – einer
 klassischen Desktopumgebung im GNOME-2-Stil für Wayland (labwc, Rust, GTK 4).
 
-*English summary:* Debian packaging, APT repository tooling and CI templates of
-Querencia Desktop. Alpha software; documentation is in German.
-
-> **Alpha 3** (veröffentlicht am 24.10.2026, Tag `packaging/alpha3-2`; davor Alpha 2.1 am
-> 22.10.2026, Tag `packaging/alpha-2.1`, und Alpha 2 am 21.10.2026, Tag `packaging/alpha-2`):
-> Quellpakete aus festen, getaggten Quellständen (`quellen.conf`), gebaut mit
-> `dpkg-buildpackage` und statisch sowie in einer Wegwerf-Installation geprüft;
-> die Probe auf einer frischen Ubuntu-26.04-VM beschreibt
-> [docs/pflichtprobe-frische-vm.md](docs/pflichtprobe-frische-vm.md). Die APT-Quelle beschreibt
-> [docs/apt-quelle.md](docs/apt-quelle.md). Keine Sicherheits- oder
-> Datenverlustgarantie.
+> **Status: Alpha 3.2 (26.10.2026, Satz `debs-alpha32-1`, unveröffentlicht).**
+> Veröffentlicht in der APT-Quelle ist Alpha 3.1 (24.10.2026). 24 Pakete aus 24
+> Quellpaketen bauen lokal mit `dpkg-buildpackage`; geprüft statisch, in einer
+> Wegwerf-Installation und mit Upgrade-Proben. Signatur und Upload macht der
+> Betreuer der Quelle ([docs/apt-quelle.md](docs/apt-quelle.md)).
 
 ## Inhalt
 
@@ -42,7 +36,11 @@ querencia-systemmonitor/     Systemüberwachung
 querencia-dateisuche/        Dateisuche
 querencia-software/          Software-Verwaltung (mit Bausteinen, komponenten.conf)
 querencia-symbole/           eigene Programmsymbole (Architecture: all)
-querencia-desktop/           Metapaket (zieht alles)
+querencia-desktop/           Metapaket (zieht alles außer den Zusatzpaketen)
+querencia-schnatter/         Zusatzpaket, optional (nicht im Metapaket): Schnatter,
+                             WhatsApp Web als eigenes Fenster (aus
+                             querencia-nachrichten, Runtime als Komponente)
+querencia-webhuelle/         Übergangspaket (ab 0.3.0) auf querencia-schnatter
 backports/labwc/             labwc 0.9.8 für Ubuntu 26.04
 apt/                         Eintrag für die APT-Quelle (querencia.sources)
 werkzeuge/                   orig-erzeugen, paket-bauen, alle-bauen, pakete-pruefen,

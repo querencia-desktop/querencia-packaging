@@ -1,0 +1,55 @@
+Source: querencia-schnatter
+Section: net
+Priority: optional
+Maintainer: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
+Rules-Requires-Root: no
+Build-Depends: cargo (>= 1.92),
+               rustc (>= 1.92),
+               pkgconf,
+               libgtk-4-dev (>= 4.12),
+               libwebkitgtk-6.0-dev (>= 2.52),
+               libegl-dev,
+               libglib2.0-dev,
+               appstream,
+               desktop-file-utils,
+               gettext
+Standards-Version: 4.7.2
+
+Package: querencia-schnatter
+Architecture: any
+Depends: ${shlibs:Depends}
+Breaks: querencia-webhuelle (<< 0.3.0~), querencia-nachrichten
+Replaces: querencia-webhuelle (<< 0.3.0~), querencia-nachrichten
+Provides: querencia-webhuelle (= ${binary:Version}), querencia-nachrichten (= ${binary:Version})
+Recommends: querencia-shell (>= 0.1.0~alpha10),
+            hunspell-de-de | hunspell-dictionary,
+            hunspell-en-us
+Suggests: querencia-benachrichtigungen
+Description: WhatsApp Web in its own window (alpha)
+ Schnatter shows WhatsApp Web in a window of its own, with the classic menu
+ bar of Querencia Desktop. It
+ keeps the sign-in, announces new messages through the notifications of the
+ desktop, shows the number of unread messages in the window title, saves
+ downloads to the Downloads folder and checks spelling. Calls are not
+ possible: the web engine of Ubuntu is built without WebRTC.
+ .
+ This program is not a product of WhatsApp or Meta and is not affiliated
+ with them; WhatsApp is a trademark of its owner and is named only to say
+ which web page the program shows.
+ .
+ The package is optional: it is offered by Querencia but is not part of
+ the default installation (querencia-desktop). Version 0.2.0 was called
+ Querencia Web Wrapper (querencia-webhuelle), versions up to 0.1.1 Querencia
+ Messages (querencia-nachrichten); on its first start Schnatter takes over
+ the sign-in and the settings by renaming the folders of the old name. The
+ package replaces querencia-webhuelle, which stays as a transitional
+ package.
+ .
+ The web pages run in WebKitGTK's own sandbox (bubblewrap, a dependency of
+ libwebkitgtk-6.0-4). The interface is English with a German translation
+ (gettext); the translations of the shared libraries come with
+ querencia-shell.
+ .
+ Querencia Desktop is developed with AI tools; every change is reviewed
+ and accepted by the project owner.
+ This is an alpha release.

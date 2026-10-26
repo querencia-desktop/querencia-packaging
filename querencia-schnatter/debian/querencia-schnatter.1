@@ -1,0 +1,61 @@
+.TH QUERENCIA-SCHNATTER 1 "October 2026" "querencia-schnatter 0.3.0" "Querencia Desktop"
+.SH NAME
+querencia-schnatter \- WhatsApp Web in its own window
+.SH SYNOPSIS
+.B querencia-schnatter
+.RI [ GTK-OPTION ...]
+.SH DESCRIPTION
+.B querencia-schnatter
+(Schnatter) shows WhatsApp Web in a window of its own, with the classic menu
+bar of Querencia Desktop (File, Edit, View, Help). It is not a product of
+WhatsApp or Meta and is not affiliated with them.
+.PP
+The sign-in is kept in
+.I ~/.local/share/querencia-schnatter
+and
+.IR ~/.cache/querencia-schnatter ,
+the settings in
+.IR ~/.config/querencia-schnatter/einstellungen.ini .
+File \(-> Log Out and Delete Data removes the stored data after a question.
+.PP
+A second start brings the open window to the front (one GTK application
+with the ID
+.BR org.querencia.Schnatter ).
+Calls are not possible: the web engine of Ubuntu is built without WebRTC.
+.SH MOVING FROM QUERENCIA WEB WRAPPER AND QUERENCIA MESSAGES
+Version 0.2.0 was called Querencia Web Wrapper
+.RB ( querencia-webhuelle ),
+versions up to 0.1.1 Querencia Messages
+.RB ( querencia-nachrichten ).
+On its first start Schnatter renames the folders
+.I querencia-webhuelle
+\(en or, if 0.2.0 was skipped,
+.I querencia-nachrichten
+\(en in
+.IR ~/.local/share ,
+.I ~/.cache
+and
+.I ~/.config
+to
+.IR querencia-schnatter ;
+nothing is copied or deleted, so the sign-in stays. While one of the old
+programs is still running, Schnatter only says so and does not start. If a
+folder of the new name exists already, the old ones are left untouched.
+.SH KEYS
+.TP
+.B Ctrl+R, F5
+reload
+.TP
+.B Ctrl+Plus, Ctrl+Minus, Ctrl+0
+zoom in, zoom out, normal size (remembered)
+.TP
+.B F11
+full screen
+.TP
+.B F1
+help
+.TP
+.B Ctrl+Q
+quit
+.SH SEE ALSO
+https://querencialinux.org

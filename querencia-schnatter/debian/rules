@@ -1,0 +1,33 @@
+#!/usr/bin/make -f
+QUERENCIA_KIND := rust
+QUERENCIA_TEST := yes
+# Das Programm liegt im Unterordner querencia-schnatter/, die Bibliotheken
+# querencia-oberflaeche und querencia-dateiarbeit als Pfadabhängigkeit im
+# Runtime-Workspace daneben (komponenten.conf, Muster querencia-software);
+# gebaut und getestet wird nur das Programm mit diesen zwei Crates.
+CARGO_FEATURES := --manifest-path querencia-schnatter/Cargo.toml
+include debian/querencia.mk
+
+W := querencia-schnatter
+STARTER := $(DESTDIR)/usr/share/applications/org.querencia.Schnatter.desktop
+
+querencia-install:
+	install -D -m 0755 target/release/querencia-schnatter $(DESTDIR)/usr/bin/querencia-schnatter
+	$(call desktop_install,$(W)/data/org.querencia.Schnatter.desktop,$(STARTER))
+	grep -qx 'Exec=querencia-schnatter' $(STARTER)
+	grep -qx 'Icon=org.querencia.Schnatter' $(STARTER)
+	grep -qx 'StartupWMClass=org.querencia.Schnatter' $(STARTER)
+	grep -qx 'Name=Schnatter' $(STARTER)
+	grep -qx 'Comment\[de\]=WhatsApp Web als eigenes Fenster' $(STARTER)
+	# Programmsymbol (eigenes Werk, kein Logo eines Dienstes): nur SVG, nie
+	# 48x48 (GTK-4.22-Symbolabsturz, pakete-pruefen.sh)
+	install -D -m 0644 $(W)/data/icons/org.querencia.Schnatter.svg \
+		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Schnatter.svg
+	# Übersetzungen: nur die eigene Domäne; den Katalog querencia-oberflaeche
+	# (Tastennamen der Menüs) liefert querencia-shell (Recommends)
+	$(call mo_install,$(W)/po,querencia-schnatter)
+	$(call metainfo_install_from,$(W)/data,org.querencia.Schnatter)
+	install -D -m 0644 debian/querencia-schnatter.1 $(DESTDIR)/usr/share/man/man1/querencia-schnatter.1
+	# nur das Änderungsprotokoll; das README nennt den Stand der
+	# Entwicklungs-VM (Live-Stand, Tags)
+	$(call doc_install,$(W),-)
