@@ -1,3 +1,20 @@
+querencia-desktop (0.1.0~alpha3.3-1) resolute; urgency=medium
+
+  * Alpha 3.3: Querencia Desktop spricht jetzt fünf Sprachen – Deutsch,
+    Englisch, Italienisch, Spanisch und Französisch. Die Programme, das
+    Panel und die Arbeitsfläche sind übersetzt; noch fest deutsch sind der
+    Sperrbildschirm, das Fenster des Lautstärkereglers und die
+    Tastenkürzel-Hilfe. Der Anmeldebildschirm (querencia-anmeldung,
+    wahlweise) ist durchgehend deutsch oder englisch.
+  * Neu empfohlen: locales-all. Damit sind die Spracheinstellungen für
+    Italienisch, Spanisch und Französisch (it_IT, es_ES, fr_FR) auf jedem
+    System vorhanden und lassen sich in den Einstellungen unter „Sprache und
+    Region“ wählen. Wer ohne empfohlene Pakete installiert, bekommt es
+    nicht.
+  * Versionsdatei „Alpha 3.3“. Abhängigkeiten sonst unverändert.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 00:23:11 +0100
+
 querencia-desktop (0.1.0~alpha3.2-1) resolute; urgency=medium
 
   * Querencia Desktop Alpha 3.2 (Pflegestand).

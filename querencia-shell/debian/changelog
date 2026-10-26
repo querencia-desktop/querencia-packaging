@@ -1,3 +1,24 @@
+querencia-shell (0.1.0~alpha11-1) resolute; urgency=medium
+
+  * Panel (0.3.3):
+    - Menüs Anwendungen, Orte und System, die Applets, „Zum Panel
+      hinzufügen“ sowie die Menüs für Netzwerk, Lautstärke und Mitteilungen
+      gibt es jetzt auch auf Italienisch, Spanisch und Französisch. Die Uhr
+      zeigt das Datum dort numerisch wie im Deutschen.
+  * Arbeitsfläche (0.3.1):
+    - Kontextmenüs, Rückfragen, Eigenschaften und Dateivorgänge gibt es
+      jetzt auch auf Italienisch, Spanisch und Französisch.
+    - Das Kontextmenü der Arbeitsfläche hängt an seinem Anker wie die
+      Kontextmenüs in Querencia Dateien (Bibliothek querencia-oberflaeche
+      0.1.2).
+  * Gemeinsame Kataloge für Fehlermeldungen der Dateivorgänge und die
+    Tastennamen in Menükürzeln (querencia-dateiarbeit 0.1.2,
+    querencia-oberflaeche 0.1.2) sowie der Starter des Lautstärkereglers:
+    ebenfalls Italienisch, Spanisch und Französisch. Noch fest deutsch
+    bleiben das Fenster des Lautstärkereglers und die Tastenkürzel-Hilfe.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 00:23:11 +0100
+
 querencia-shell (0.1.0~alpha10-1) resolute; urgency=medium
 
   * Panel (0.3.2):
