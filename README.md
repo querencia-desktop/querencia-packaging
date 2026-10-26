@@ -4,11 +4,19 @@ Debian-Paketierung, APT-Quelle und CI-Vorlagen für
 [Querencia Desktop](https://github.com/querencia-desktop/querencia) – einer
 klassischen Desktopumgebung im GNOME-2-Stil für Wayland (labwc, Rust, GTK 4).
 
-> **Status: Alpha 3.2 (26.10.2026, Satz `debs-alpha32-1`, unveröffentlicht).**
-> Veröffentlicht in der APT-Quelle ist Alpha 3.1 (24.10.2026). 24 Pakete aus 24
-> Quellpaketen bauen lokal mit `dpkg-buildpackage`; geprüft statisch, in einer
-> Wegwerf-Installation und mit Upgrade-Proben. Signatur und Upload macht der
-> Betreuer der Quelle ([docs/apt-quelle.md](docs/apt-quelle.md)).
+*English summary:* Debian packaging, APT repository tooling and CI templates of
+Querencia Desktop. Alpha software; documentation is in German.
+
+> **Alpha 3.2** (veröffentlicht am 26.10.2026, Tag `packaging/alpha32-1`; davor Alpha 3.1
+> am 24.10.2026, Tag `packaging/alpha31-1`, Alpha 3 am 24.10.2026, Tag `packaging/alpha3-2`,
+> Alpha 2.1 am 22.10.2026, Tag `packaging/alpha-2.1`, und Alpha 2 am 21.10.2026, Tag
+> `packaging/alpha-2`): 24 Quellpakete aus festen, getaggten Quellständen (`quellen.conf`),
+> gebaut mit `dpkg-buildpackage` und statisch, in einer Wegwerf-Installation und mit
+> Upgrade-Proben geprüft; die Probe auf einer frischen Ubuntu-26.04-VM beschreibt
+> [docs/pflichtprobe-frische-vm.md](docs/pflichtprobe-frische-vm.md). Die APT-Quelle beschreibt
+> [docs/apt-quelle.md](docs/apt-quelle.md). Neu in Alpha 3.2 ist das optionale Zusatzpaket
+> `querencia-schnatter` (Schnatter, bis 0.2.0 „Querencia Webhülle“); `querencia-webhuelle`
+> ist nur noch ein Übergangspaket darauf. Keine Sicherheits- oder Datenverlustgarantie.
 
 ## Inhalt
 
@@ -38,8 +46,8 @@ querencia-software/          Software-Verwaltung (mit Bausteinen, komponenten.co
 querencia-symbole/           eigene Programmsymbole (Architecture: all)
 querencia-desktop/           Metapaket (zieht alles außer den Zusatzpaketen)
 querencia-schnatter/         Zusatzpaket, optional (nicht im Metapaket): Schnatter,
-                             WhatsApp Web als eigenes Fenster (aus
-                             querencia-nachrichten, Runtime als Komponente)
+                             WhatsApp Web als eigenes Fenster (Quelle:
+                             querencia-schnatter, Runtime als Komponente)
 querencia-webhuelle/         Übergangspaket (ab 0.3.0) auf querencia-schnatter
 backports/labwc/             labwc 0.9.8 für Ubuntu 26.04
 apt/                         Eintrag für die APT-Quelle (querencia.sources)
