@@ -305,12 +305,10 @@ lagen byte-gleich im Pool.
 `querencia-webhuelle` steht im Index, aber kein Paket hängt davon ab, auch das
 Metapaket nicht. `apt install querencia-desktop` installiert sie deshalb nicht mit.
 
-## Nachtrag Alpha 3.2 (Entwurf, noch nicht veröffentlicht)
+## Nachtrag 26.10.2026: Alpha 3.2
 
-Datum, Uhrzeit, Release-Datum, InRelease-Summe und Upload-Zahlen trägt der
-APT-Worker nach dem Upload ein.
-
-Satz `debs-alpha32-1` (Tag `packaging/alpha32-1`, 24 Pakete, `SHA256SUMS` mit der
+Am 26.10.2026 um 22:11:10 (MEZ) ging der Index von Alpha 3.2 auf den Server: Satz
+`debs-alpha32-1` (Tag `packaging/alpha32-1`, 24 Pakete, `SHA256SUMS` mit der
 Summe `fbf26227…`). Neu gegenüber Alpha 3.1 sind vier Pakete:
 
 | Paket | Version | Änderung |
@@ -320,16 +318,19 @@ Summe `fbf26227…`). Neu gegenüber Alpha 3.1 sind vier Pakete:
 | `querencia-schnatter` | 0.3.0-1 | neu, optional: Schnatter, so heißt die Webhülle jetzt |
 | `querencia-webhuelle` | 0.3.0-1 | Übergangspaket auf `querencia-schnatter` (Architecture all) |
 
-Die übrigen 20 Pakete liegen byte-gleich im Pool (Pool-Simulation: 74 Dateien,
-davon 4 neu; binary-amd64 24, binary-all 6).
+Die übrigen 20 Pakete lagen byte-gleich im Pool.
 
 | Was | Wert |
 |---|---|
-| Release-Datum | (nach dem Upload) |
-| InRelease (SHA256) | (nach dem Upload) |
-| Index | binary-amd64 24, binary-all 6 |
-| Upload | (nach dem Upload) |
-| Prüfung | lokal (Pool-Simulation) 22/1, bekannt: `querencia-anmeldung` in der Wegwerf-Hülle; Server (nach dem Upload) |
+| Release-Datum | Mon, 26 Oct 2026 09:35:14 UTC |
+| InRelease (SHA256) | `d67cfaa70b4cc0f1ec2a950da24aaf5ab822d4325dbf0bbd7bf378d3e33a85ed` |
+| Index | binary-amd64 24, binary-all 6; Pool 74 Dateien, davon 4 neu; ältere Fassungen bleiben liegen |
+| Upload | 32 Dateien (1689 KiB), 118 lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal 22/1 (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server 10/0 |
+
+Vor dem Upload liefen Neuinstallation und Upgrade 3.1 → 3.2 (mit Webhülle 0.2.0
+aus der veröffentlichten Quelle) in einer frischen Ubuntu-VM; beides ohne
+Rückfrage, beim Upgrade nichts entfernt.
 
 - **Schnatter bleibt optional.** Das Metapaket nennt es nicht;
   `apt install querencia-desktop` installiert es nicht. Wer die Webhülle 0.2.0
@@ -338,3 +339,8 @@ davon 4 neu; binary-amd64 24, binary-all 6).
   ersten Start Anmeldung und Einstellungen, indem es die Ordner umbenennt.
   Wer die Webhülle nicht hatte, bekommt nichts Neues dazu.
 - **Einzeln installieren:** `sudo apt install querencia-schnatter`.
+- **autoremove:** Nach dem Upgrade meldet apt `querencia-webhuelle` als nicht
+  mehr benötigt (apt überträgt die Markierung „manuell“ auf
+  `querencia-schnatter`). Als Kandidat für `sudo apt autoremove` nennt es nur
+  das Übergangspaket; Schnatter ist manuell markiert (VM-Probe 26.10.2026,
+  autoremove selbst nicht ausgeführt).
