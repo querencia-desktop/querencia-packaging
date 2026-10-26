@@ -6,6 +6,8 @@ querencia-desktop (0.1.0~alpha3.3-1) resolute; urgency=medium
     Sperrbildschirm, das Fenster des Lautstärkereglers und die
     Tastenkürzel-Hilfe. Der Anmeldebildschirm (querencia-anmeldung,
     wahlweise) ist durchgehend deutsch oder englisch.
+  * Neu im Panel: der Infobereich für die Symbole anderer Programme
+    (querencia-shell 0.1.0~alpha11, Panel 0.4.0).
   * Neu empfohlen: locales-all. Damit sind die Spracheinstellungen für
     Italienisch, Spanisch und Französisch (it_IT, es_ES, fr_FR) auf jedem
     System vorhanden und lassen sich in den Einstellungen unter „Sprache und
