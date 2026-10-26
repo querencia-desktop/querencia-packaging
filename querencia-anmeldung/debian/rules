@@ -33,6 +33,8 @@ ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 endif
 	# der Patch ist angewendet (Text, den es nur mit ihm gibt)
 	grep -q 'Wrong password. Please try again.' target/release/regreet
+	# seit 0.1.3: Meldungen von PAM auch über den Katalog von Linux-PAM
+	grep -q 'Linux-PAM' target/release/regreet
 	# die eingebauten Pfade müssen im Binary stehen
 	grep -q /etc/querencia/greetd target/release/regreet
 	grep -q /var/lib/querencia-anmeldung target/release/regreet

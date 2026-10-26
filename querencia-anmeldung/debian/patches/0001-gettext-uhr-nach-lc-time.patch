@@ -1,11 +1,15 @@
 Description: Visible texts through gettext, clock locale from LC_TIME
  The login screen of Querencia Desktop shows ReGreet in the system
- language. Visible texts (labels, buttons, tooltips, error messages and the
- PAM prompts that greetd passes on) go through glib::dgettext with the
- domain "querencia-anmeldung"; the catalog comes from po/de.po of the
- Querencia part of this source package. Untranslated texts stay English.
- A rejected password (PAM AUTH_ERR) gets a plain message instead of
- "Login failed: Pam_authenticate: AUTH_ERR".
+ language. Visible texts (labels, buttons, tooltips, error messages) go
+ through glib::dgettext with the domain "querencia-anmeldung"; the catalog
+ comes from po/de.po of the Querencia part of this source package.
+ Untranslated texts stay English. A rejected password (PAM AUTH_ERR) gets
+ a plain message instead of "Login failed: Pam_authenticate: AUTH_ERR".
+ .
+ greetd calls no setlocale, so PAM prompts and PAM info and error messages
+ always arrive in English. They go through tr_pam: first the
+ "querencia-anmeldung" catalog, then the "Linux-PAM" catalog of the system
+ (e.g. "You are required to change your password immediately ...").
  .
  The clock takes its locale from LC_ALL, LC_TIME or LANG ("de_DE.UTF-8"
  -> de_DE). sys-locale ignores LC_TIME and returns "de-DE", which
@@ -15,16 +19,16 @@ Description: Visible texts through gettext, clock locale from LC_TIME
 Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
 Origin: vendor
 Forwarded: no
-Last-Update: 2026-10-22
+Last-Update: 2026-10-26
 ---
-diff -ru '--exclude=.cargo' a/src/gui/model.rs b/src/gui/model.rs
+diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/model.rs b/src/gui/model.rs
 --- a/src/gui/model.rs	2026-07-17 20:33:05.000000000 +0200
-+++ b/src/gui/model.rs	2026-10-22 03:18:41.715171952 +0200
++++ b/src/gui/model.rs	2026-10-26 22:31:32.796473969 +0100
 @@ -28,6 +28,7 @@
  
  use super::{
      messages::{CommandMsg, UserSessInfo},
-+    tr,
++    tr, tr_pam,
      widget::clock::Clock,
  };
  
@@ -43,7 +47,7 @@ diff -ru '--exclude=.cargo' a/src/gui/model.rs b/src/gui/model.rs
                          self.updates.set_input(String::new());
 -                        self.updates
 -                            .set_input_prompt(auth_message.trim_end().to_string());
-+                        self.updates.set_input_prompt(tr(auth_message.trim_end()));
++                        self.updates.set_input_prompt(tr_pam(&auth_message));
                          if let Some(msg) = auto_select_msg {
                              self.display_info(sender, &msg, "Skipped user/session selection");
                          }
@@ -53,10 +57,28 @@ diff -ru '--exclude=.cargo' a/src/gui/model.rs b/src/gui/model.rs
                          self.updates.set_input(String::new());
 -                        self.updates
 -                            .set_input_prompt(auth_message.trim_end().to_string());
-+                        self.updates.set_input_prompt(tr(auth_message.trim_end()));
++                        self.updates.set_input_prompt(tr_pam(&auth_message));
                          if let Some(msg) = auto_select_msg {
                              self.display_info(sender, &msg, "Skipped user/session selection");
                          }
+@@ -364,7 +363,7 @@
+                         self.updates.set_input_mode(InputMode::None);
+                         self.display_info(
+                             sender,
+-                            &capitalize(&auth_message),
++                            &capitalize(&tr_pam(&auth_message)),
+                             &format!("Authentication message info from greetd: {auth_message}"),
+                         );
+                     }
+@@ -373,7 +372,7 @@
+                         self.updates.set_input_mode(InputMode::None);
+                         self.display_error(
+                             sender,
+-                            &capitalize(&auth_message),
++                            &capitalize(&tr_pam(&auth_message)),
+                             &format!("Authentication message error from greetd: {auth_message}"),
+                         );
+                     }
 @@ -384,9 +383,15 @@
                  error_type,
              } => {
@@ -110,10 +132,10 @@ diff -ru '--exclude=.cargo' a/src/gui/model.rs b/src/gui/model.rs
                      &format!("Failed to start session; error: {description}"),
                  );
              }
-diff -ru '--exclude=.cargo' a/src/gui/mod.rs b/src/gui/mod.rs
+diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/mod.rs b/src/gui/mod.rs
 --- a/src/gui/mod.rs	2026-07-17 20:33:05.000000000 +0200
-+++ b/src/gui/mod.rs	2026-10-22 03:18:34.316064101 +0200
-@@ -13,4 +13,10 @@
++++ b/src/gui/mod.rs	2026-10-26 22:31:41.044033377 +0100
+@@ -13,4 +13,26 @@
  }
  
  pub use component::GreeterInit;
@@ -123,10 +145,26 @@ diff -ru '--exclude=.cargo' a/src/gui/mod.rs b/src/gui/mod.rs
 +pub(crate) fn tr(msgid: &str) -> String {
 +    relm4::gtk::glib::dgettext(Some("querencia-anmeldung"), msgid).into()
 +}
++
++/// Translate a text from PAM (passed on by greetd, which sets no locale):
++/// first through the `querencia-anmeldung` catalog, then through the one
++/// of Linux-PAM itself; untranslated texts stay unchanged.
++pub(crate) fn tr_pam(msgid: &str) -> String {
++    // gettext returns the catalog header for an empty msgid
++    if msgid.trim_end().is_empty() {
++        return String::new();
++    }
++    let own = tr(msgid.trim_end());
++    if own != msgid.trim_end() {
++        return own;
++    }
++    let pam: String = relm4::gtk::glib::dgettext(Some("Linux-PAM"), msgid).into();
++    pam.trim_end().to_string()
++}
  pub use model::Greeter;
-diff -ru '--exclude=.cargo' a/src/gui/templates.rs b/src/gui/templates.rs
+diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/templates.rs b/src/gui/templates.rs
 --- a/src/gui/templates.rs	2026-07-17 20:33:05.000000000 +0200
-+++ b/src/gui/templates.rs	2026-10-22 03:18:34.318105369 +0200
++++ b/src/gui/templates.rs	2026-10-26 22:22:40.937386228 +0100
 @@ -8,6 +8,8 @@
  use gtk::prelude::*;
  use relm4::{RelmWidgetExt, WidgetTemplate, gtk};
@@ -203,9 +241,9 @@ diff -ru '--exclude=.cargo' a/src/gui/templates.rs b/src/gui/templates.rs
                  },
              },
          }
-diff -ru '--exclude=.cargo' a/src/gui/widget/clock.rs b/src/gui/widget/clock.rs
+diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/widget/clock.rs b/src/gui/widget/clock.rs
 --- a/src/gui/widget/clock.rs	2026-07-17 20:33:05.000000000 +0200
-+++ b/src/gui/widget/clock.rs	2026-10-22 03:18:34.319869567 +0200
++++ b/src/gui/widget/clock.rs	2026-10-26 22:22:40.937505382 +0100
 @@ -74,6 +74,18 @@
  }
  
