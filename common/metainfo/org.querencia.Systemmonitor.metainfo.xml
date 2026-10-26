@@ -6,8 +6,14 @@
   <id>org.querencia.Systemmonitor</id>
   <name>Querencia System Monitor</name>
   <name xml:lang="de">Querencia Systemüberwachung</name>
+  <name xml:lang="it">Querencia Monitor di sistema</name>
+  <name xml:lang="es">Querencia Monitor del sistema</name>
+  <name xml:lang="fr">Querencia Moniteur système</name>
   <summary>View current processes and monitor system state</summary>
   <summary xml:lang="de">Laufende Prozesse anzeigen und den Systemzustand überwachen</summary>
+  <summary xml:lang="it">Visualizza i processi attivi e controlla lo stato del sistema</summary>
+  <summary xml:lang="es">Ver los procesos actuales y monitorizar el estado del sistema</summary>
+  <summary xml:lang="fr">Afficher les processus en cours et surveiller l’état du système</summary>
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <developer id="org.querencia">
@@ -18,6 +24,9 @@
   <description>
     <p>Querencia System Monitor shows the running processes with CPU and memory use, the load of processor, memory and network over time and the file systems with their free space. Processes can be ended after confirmation.</p>
     <p xml:lang="de">Querencia Systemüberwachung zeigt die laufenden Prozesse mit Prozessor- und Speicherverbrauch, die Auslastung von Prozessor, Speicher und Netzwerk im Verlauf und die Dateisysteme mit ihrem freien Platz. Prozesse lassen sich nach Rückfrage beenden.</p>
+    <p xml:lang="it">Querencia Monitor di sistema mostra i processi in esecuzione con l’uso di CPU e memoria, il carico di processore, memoria e rete nel tempo e i file system con il loro spazio libero. I processi possono essere terminati dopo una conferma.</p>
+    <p xml:lang="es">Querencia Monitor del sistema muestra los procesos en ejecución con su uso de CPU y memoria, la carga del procesador, la memoria y la red a lo largo del tiempo y los sistemas de archivos con su espacio libre. Los procesos se pueden finalizar tras una confirmación.</p>
+    <p xml:lang="fr">Querencia Moniteur système affiche les processus en cours avec leur utilisation du CPU et de la mémoire, la charge du processeur, de la mémoire et du réseau au fil du temps et les systèmes de fichiers avec leur espace libre. Les processus peuvent être terminés après confirmation.</p>
   </description>
   <url type="homepage">https://querencialinux.org</url>
   <launchable type="desktop-id">org.querencia.Systemmonitor.desktop</launchable>
@@ -42,6 +51,24 @@
     <keyword xml:lang="de">Prozessor</keyword>
     <keyword xml:lang="de">Speicher</keyword>
     <keyword xml:lang="de">Task-Manager</keyword>
+    <keyword xml:lang="it">monitor</keyword>
+    <keyword xml:lang="it">sistema</keyword>
+    <keyword xml:lang="it">processo</keyword>
+    <keyword xml:lang="it">CPU</keyword>
+    <keyword xml:lang="it">memoria</keyword>
+    <keyword xml:lang="it">task manager</keyword>
+    <keyword xml:lang="es">monitor</keyword>
+    <keyword xml:lang="es">sistema</keyword>
+    <keyword xml:lang="es">proceso</keyword>
+    <keyword xml:lang="es">CPU</keyword>
+    <keyword xml:lang="es">memoria</keyword>
+    <keyword xml:lang="es">administrador de tareas</keyword>
+    <keyword xml:lang="fr">moniteur</keyword>
+    <keyword xml:lang="fr">système</keyword>
+    <keyword xml:lang="fr">processus</keyword>
+    <keyword xml:lang="fr">CPU</keyword>
+    <keyword xml:lang="fr">mémoire</keyword>
+    <keyword xml:lang="fr">gestionnaire de tâches</keyword>
   </keywords>
   <content_rating type="oars-1.1"/>
   <branding>
