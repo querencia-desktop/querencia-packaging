@@ -311,13 +311,13 @@ Datum, Uhrzeit, Release-Datum, InRelease-Summe und Upload-Zahlen trägt der
 APT-Worker nach dem Upload ein.
 
 Satz `debs-alpha32-1` (Tag `packaging/alpha32-1`, 24 Pakete, `SHA256SUMS` mit der
-Summe `144a3595…`). Neu gegenüber Alpha 3.1 sind vier Pakete:
+Summe `fbf26227…`). Neu gegenüber Alpha 3.1 sind vier Pakete:
 
 | Paket | Version | Änderung |
 |---|---|---|
-| `querencia-desktop` | 0.1.0~alpha3.2-1 | Versionsdatei „Alpha 3.2“, Dateien ≥ 0.2.2, **Recommends `querencia-schnatter`** |
+| `querencia-desktop` | 0.1.0~alpha3.2-1 | nur Version und Versionsdatei „Alpha 3.2“ |
 | `querencia-dateien` | 0.2.2-1 | Kontextmenüs springen nicht mehr in die Menüleiste; Titel „Netzwerk“ |
-| `querencia-schnatter` | 0.3.0-1 | neu: Schnatter, so heißt die Webhülle jetzt |
+| `querencia-schnatter` | 0.3.0-1 | neu, optional: Schnatter, so heißt die Webhülle jetzt |
 | `querencia-webhuelle` | 0.3.0-1 | Übergangspaket auf `querencia-schnatter` (Architecture all) |
 
 Die übrigen 20 Pakete liegen byte-gleich im Pool (Pool-Simulation: 74 Dateien,
@@ -331,11 +331,10 @@ davon 4 neu; binary-amd64 24, binary-all 6).
 | Upload | (nach dem Upload) |
 | Prüfung | lokal (Pool-Simulation) 22/1, bekannt: `querencia-anmeldung` in der Wegwerf-Hülle; Server (nach dem Upload) |
 
-- **Schnatter kommt mit.** Seit Alpha 3.2 empfiehlt das Metapaket
-  `querencia-schnatter`. `apt install querencia-desktop` und das Upgrade von 3.1
-  installieren es (ohne `--no-install-recommends`). Wer die Webhülle 0.2.0 hatte,
-  bekommt das Übergangspaket `querencia-webhuelle` 0.3.0-1; Schnatter übernimmt
-  beim ersten Start Anmeldung und Einstellungen, indem es die Ordner umbenennt.
-- **Entfernen:** `sudo apt remove querencia-schnatter querencia-webhuelle`
-  entfernt nur diese beiden; der Desktop bleibt. Ein späteres Upgrade holt
-  Schnatter nicht wieder (in der Wegwerf-Probe geprüft).
+- **Schnatter bleibt optional.** Das Metapaket nennt es nicht;
+  `apt install querencia-desktop` installiert es nicht. Wer die Webhülle 0.2.0
+  installiert hat, bekommt mit dem Upgrade das Übergangspaket
+  `querencia-webhuelle` 0.3.0-1 und damit Schnatter. Schnatter übernimmt beim
+  ersten Start Anmeldung und Einstellungen, indem es die Ordner umbenennt.
+  Wer die Webhülle nicht hatte, bekommt nichts Neues dazu.
+- **Einzeln installieren:** `sudo apt install querencia-schnatter`.

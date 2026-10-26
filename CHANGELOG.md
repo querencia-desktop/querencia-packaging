@@ -13,14 +13,15 @@ Zweig schnatter-paket übernommen, 20 byte-gleich.
 - querencia-schnatter 0.3.0-1 und Übergangspaket querencia-webhuelle 0.3.0-1 unverändert aus
   `build/schnatter-1` des Zweigs schnatter-paket (`5233329`); Quellarchive neu erzeugt und
   byte-gleich.
-- querencia-desktop 0.1.0~alpha3.2-1: Versionsdatei „Alpha 3.2“, Dateien ≥ 0.2.2,
-  **Recommends querencia-schnatter** (bis Alpha 3.1 optional); README.Debian: Schnatter
-  entfernen.
+- querencia-desktop 0.1.0~alpha3.2-1: nur Version, Versionsdatei „Alpha 3.2“ und Changelog.
+  Schnatter bleibt optional, nicht im Metapaket (Entscheidung 24.10., bestätigt 26.10.2026); wer
+  die Webhülle 0.2.0 hat, bekommt es mit dem Übergangspaket querencia-webhuelle 0.3.0-1.
 - `tests/wegwerf-upgrade.sh`: Files-Einstellungen am Pfad des alten Files (QD-172 T-2);
   Webhülle 0.2.0 mit Ordnern am echten Pfad, Übergang auf Schnatter, Umzug beim Start;
-  Schnatter entfernbar, apt holt es nicht wieder; Übergangspakete zuerst für `dpkg -i`.
+  Neuinstallation zieht Schnatter nur, wenn das Metapaket es nennt; Schnatter entfernbar, apt
+  holt es nicht wieder; Übergangspakete zuerst für `dpkg -i`.
 - `tests/frisches-ubuntu-pruefen.sh`: behaltene Ordnerwahl aus Files (Brücke) gilt als PASS mit
-  Hinweis (QD-172 T-1); Prüfpunkte A32 für Schnatter.
+  Hinweis (QD-172 T-1); Prüfpunkte A32 für Schnatter (wenn installiert).
 
 ## Zusatzpaket querencia-schnatter 0.3.0-1 vom 26.10.2026 (Zweig schnatter-paket), unveröffentlicht
 
