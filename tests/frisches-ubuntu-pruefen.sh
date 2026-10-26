@@ -99,15 +99,15 @@ nachher)
     grep -A2 '<keybind key="W-d">' /etc/querencia/labwc/rc.xml | grep -q -- '--dest org.querencia.Panel ' &&
         ok "A22 Super+D an org.querencia.Panel" || nok "A22 Super+D"
     echo "HINW Ausgabe: $(cat /usr/share/querencia/version 2>/dev/null || echo fehlt)"
-    # Alpha 3.2: Schnatter kommt als Recommends des Metapakets; nach einem
-    # Upgrade mit Webhülle 0.2.0 ist querencia-webhuelle das Übergangspaket.
+    # Alpha 3.2: Schnatter ist optional (nicht im Metapaket); nach einem
+    # Upgrade mit Webhülle 0.2.0 kommt es mit dem Übergangspaket querencia-webhuelle.
     if grep -q -x -E 'Alpha 3\.2' /usr/share/querencia/version 2>/dev/null; then
         if dpkg -s querencia-schnatter 2>/dev/null | grep -qx 'Status: install ok installed'; then
             s=/usr/share/applications/org.querencia.Schnatter.desktop
             [ -x /usr/bin/querencia-schnatter ] && [ -f "$s" ] && desktop-file-validate "$s" >/dev/null 2>&1 &&
                 ok "A32 Schnatter installiert (Programm, Starter)" || nok "A32 Schnatter: Programm oder Starter"
         else
-            echo "HINW A32 querencia-schnatter nicht installiert (apt --no-install-recommends oder entfernt)"
+            echo "HINW A32 querencia-schnatter nicht installiert (optional; Neuinstallation ohne Webhülle: richtig)"
         fi
         if dpkg -s querencia-webhuelle >/dev/null 2>&1; then
             b=/usr/share/applications/org.querencia.Webhuelle.desktop

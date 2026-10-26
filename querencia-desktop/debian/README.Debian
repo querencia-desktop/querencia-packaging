@@ -39,16 +39,6 @@ Umfang: Mit den empfohlenen Paketen holt apt auf einer Server-Installation
 rund 360 weitere Pakete aus dem Archiv (darunter Avahi, wsdd, PipeWire und
 die X-Hilfsprogramme für Xwayland), auf einem Ubuntu-Desktop nur wenige.
 
-Schnatter: Das Metapaket empfiehlt querencia-schnatter (WhatsApp Web als
-eigenes Fenster). Wer es nicht braucht, entfernt es mit
-
-    sudo apt remove querencia-schnatter querencia-webhuelle
-
-Der Desktop bleibt dabei installiert. Anmeldung und Einstellungen von
-Schnatter (Ordner querencia-schnatter unter ~/.local/share, ~/.config und
-~/.cache) bleiben liegen, bis man sie selbst löscht.
-apt installiert es bei späteren Upgrades nicht von selbst wieder.
-
 Diagnose ohne Start:   querencia-session --check
 Logs:                  ~/.local/state/querencia/{labwc,panel,desktop,sitzung,polkit-agent,benachrichtigungen,bildschirm}.log
 

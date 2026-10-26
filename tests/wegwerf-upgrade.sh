@@ -37,8 +37,12 @@
 # (nicht in UPGRADE_OHNE), legt die Probe die Ordner der Webhülle am echten
 # Pfad an (~/.local/share, ~/.config, ~/.cache je querencia-webhuelle, 0700,
 # Lehre QD-171/172) und prüft den Übergang auf Schnatter. Enthält der neue
-# Satz querencia-schnatter, prüft sie außerdem, dass es sich ohne den Desktop
-# entfernen lässt und apt es danach nicht wieder holt.
+# Satz querencia-schnatter, prüft sie, ob die Neuinstallation es so zieht, wie
+# das Metapaket es verlangt (Alpha 3.2: optional, also nicht), und – wenn es
+# nach dem Upgrade installiert ist – dass es sich ohne den Desktop entfernen
+# lässt und apt es danach nicht wieder holt. Ohne Webhülle im alten Stand
+# gehört querencia-schnatter in UPGRADE_OHNE (apt brächte es nicht mit; das
+# zeigt die apt-Simulation mit UPGRADE_NEU=).
 #
 # Ergebnis: PASS/FAIL/HINW je Prüfung in <nachweisordner>/ergebnis.txt,
 # Exit 1 bei einem FAIL.
@@ -68,6 +72,9 @@ if [ "${1-}" = --innen ]; then
     WH_ORDNER=".local/share .config .cache"
     webhuelle_alt() { grep -q '^querencia-webhuelle 0\.2\.' "$OUT/versionen-vorher.txt" 2>/dev/null; }
     schnatter_neu() { ls "$NEU"/querencia-schnatter_*.deb >/dev/null 2>&1; }
+    meta_schnatter() { # zieht das Metapaket des neuen Satzes Schnatter?
+        dpkg-deb -f "$NEU"/querencia-desktop_*.deb Depends Recommends | grep -q 'querencia-schnatter'; }
+    schnatter_da() { dpkg-query --root="$R" -W -f='${db:Status-Abbrev}' querencia-schnatter 2>/dev/null | grep -q '^ii'; }
     ordnerstand() { # je Ordner: Inode, Rechte, Prüfsumme des Inhalts
         local n=$1 e d
         for e in $WH_ORDNER; do
@@ -204,10 +211,14 @@ if [ "${1-}" = --innen ]; then
         else
             nok "Neuinstallation: Querencia-Pakete $q"
         fi
-        if schnatter_neu; then
+        if schnatter_neu && meta_schnatter; then
             echo " $q " | grep -q ' querencia-schnatter ' && ! echo " $q " | grep -q ' querencia-webhuelle ' &&
-                ok "Neuinstallation: zieht querencia-schnatter (Recommends), nicht das Übergangspaket querencia-webhuelle" ||
+                ok "Neuinstallation: zieht querencia-schnatter (Metapaket), nicht das Übergangspaket querencia-webhuelle" ||
                 nok "Neuinstallation ohne querencia-schnatter oder mit querencia-webhuelle: $q"
+        elif schnatter_neu; then
+            ! echo " $q " | grep -q -E ' querencia-(schnatter|webhuelle) ' &&
+                ok "Neuinstallation: zieht weder querencia-schnatter noch querencia-webhuelle (optional, nicht im Metapaket)" ||
+                nok "Neuinstallation zieht Schnatter, obwohl das Metapaket es nicht nennt: $q"
         fi
         if webhuelle_alt; then
             echo " $hoch " | grep -q ' querencia-webhuelle ' && ok "apt -s full-upgrade: querencia-webhuelle wird auf das Übergangspaket aktualisiert" ||
@@ -243,7 +254,7 @@ if [ "${1-}" = --innen ]; then
         diff "$OUT/versionen-vorher.txt" "$OUT/versionen-nachher.txt" >"$OUT/versionen-diff.txt"
         sed 's/^/  /' "$OUT/versionen-diff.txt"
         wh=; webhuelle_alt && wh="querencia-webhuelle $(dpkg-deb -f "$NEU"/querencia-webhuelle_*.deb Version)"
-        sn=; schnatter_neu && sn="querencia-schnatter $(dpkg-deb -f "$NEU"/querencia-schnatter_*.deb Version)"
+        sn=; schnatter_neu && { webhuelle_alt || meta_schnatter; } && sn="querencia-schnatter $(dpkg-deb -f "$NEU"/querencia-schnatter_*.deb Version)"
         for want in "querencia-dateien $(dpkg-deb -f "$NEU"/querencia-dateien_*.deb Version)" ${sn:+"$sn"} ${wh:+"$wh"} \
             "querencia-files $(dpkg-deb -f "$NEU"/querencia-files_*.deb Version)" \
             "querencia-desktop $(dpkg-deb -f "$NEU"/querencia-desktop_*.deb Version)"; do
@@ -333,7 +344,8 @@ if [ "${1-}" = --innen ]; then
         # apt: was "autoremove" danach vorschlüge (auto-Markierung wie oben,
         # querencia-dateien als neue Abhängigkeit ebenfalls automatisch)
         printf 'Package: querencia-dateien\nArchitecture: amd64\nAuto-Installed: 1\n\n' >>"$A/apt/state/extended_states"
-        schnatter_neu && ! webhuelle_alt && printf 'Package: querencia-schnatter\nArchitecture: amd64\nAuto-Installed: 1\n\n' >>"$A/apt/state/extended_states"
+        # Schnatter kam als Abhängigkeit (Übergangspaket oder Metapaket): automatisch
+        schnatter_da && printf 'Package: querencia-schnatter\nArchitecture: amd64\nAuto-Installed: 1\n\n' >>"$A/apt/state/extended_states"
         apt_s -s autoremove >"$OUT/apt-autoremove-simulation.txt" 2>&1
         weg=$(grep '^Remv ' "$OUT/apt-autoremove-simulation.txt" | awk '{print $2}' | tr '\n' ' ')
         apt_s -s -o APT::AutoRemove::SuggestsImportant=false autoremove >"$OUT/apt-autoremove-ohne-suggests.txt" 2>&1
@@ -343,7 +355,9 @@ if [ "${1-}" = --innen ]; then
         hinweis "apt autoremove schlüge vor: ${weg:-nichts}; mit APT::AutoRemove::SuggestsImportant=false: ${weg2:-nichts} (querencia-shell Suggests: ${sug:-–})"
         echo " $weg " | grep -q ' querencia-files ' && nok "querencia-files würde mit autoremove entfernt; mit ihm gingen die Brücken" ||
             ok "apt autoremove behält das Übergangspaket querencia-files (Brücken bleiben)"
-        if schnatter_neu; then
+        if schnatter_neu && ! schnatter_da && ! webhuelle_alt && ! meta_schnatter; then
+            ok "nachher: querencia-schnatter nicht installiert (keine Webhülle vorher, nicht im Metapaket)"
+        elif schnatter_neu; then
             echo " $weg " | grep -q -E ' querencia-(schnatter|webhuelle) ' && nok "apt autoremove entfernte Schnatter: $weg" ||
                 ok "apt autoremove behält querencia-schnatter$(webhuelle_alt && echo " und das Übergangspaket querencia-webhuelle")"
             # entfernbar ohne Schaden: apt remove nimmt nur Schnatter (und das
@@ -405,6 +419,7 @@ if [ "${1-}" = --innen ]; then
         # sieht apt nach, ob ein Upgrade es wieder holte (Recommends, die schon
         # vorher galten, installiert apt nicht nach) und ob alles heil bleibt
         D() { dpkg --root="$R" --force-not-root "$@"; }
+        if ! schnatter_da; then echo "Teil entfernen: Schnatter nicht installiert, nichts zu tun"; exit 0; fi
         weg=querencia-schnatter; webhuelle_alt && weg="querencia-webhuelle querencia-schnatter"
         # shellcheck disable=SC2086
         D --force-script-chrootless --no-triggers --log="$OUT/dpkg-remove.log" -r $weg >"$OUT/dpkg-remove-schnatter.txt" 2>&1
@@ -498,7 +513,7 @@ done
     huelle bash "$WEGWERF" --innen pruefen "$A" "$OUT/sitzung" "${neu[@]}" </dev/null
     huelle bash "$HIER" --innen danach "$A" "$OUT/upgrade" "$ALT" "$NEU" </dev/null
     if ls "$NEU"/querencia-schnatter_*.deb >/dev/null 2>&1; then
-        echo "== 7 Schnatter entfernen (Recommends: entfernbar, apt holt es nicht wieder)"
+        echo "== 7 Schnatter entfernen (entfernbar ohne den Desktop, apt holt es nicht wieder)"
         huelle --unshare-user --uid 0 --gid 0 bash "$HIER" --innen entfernen "$A" "$OUT/upgrade" "$ALT" "$NEU" </dev/null
     fi
 } 2>&1 | tee "$OUT/ergebnis.txt"
