@@ -133,6 +133,7 @@ if [ "${1-}" = --innen ]; then
             printf '[Fenster]\nbreite=1000\nhoehe=700\nmaximiert=false\n\n[Seite]\nkennung=standard\nzoom=1.25\n' \
                 >"$H/.config/querencia-webhuelle/einstellungen.ini"
             ordnerstand querencia-webhuelle >"$OUT/webhuelle-ordner-vorher.txt"
+            for e in $WH_ORDNER; do (cd "$H/$e/querencia-webhuelle" && sha256sum storage/attrappe/anmeldung.db | sed "s|  |  $e/|"); done >"$OUT/webhuelle-attrappen.sha256"
             ok "vorher: querencia-webhuelle $(awk '$1 == "querencia-webhuelle" {print $2}' "$OUT/versionen-vorher.txt") mit Ordnern am echten Pfad (~/.local/share, ~/.config, ~/.cache)"
         fi
         echo "Ordnerprogramm A: $(vorgabe "$H")" >"$OUT/gio-vorher.txt"
@@ -180,11 +181,11 @@ if [ "${1-}" = --innen ]; then
         satz=$(for d in "$NEU"/*.deb "$ALT"/*.deb; do dpkg-deb -f "$d" Package; done | sort -u | tr '\n' ' ')
         imsatz() { while read -r p; do [[ " $satz " == *" $p "* ]] && echo "$p"; done | tr '\n' ' '; }
         remv=$(awk '/^Remv / {print $2}' "$OUT/apt-full-upgrade-simulation.txt" | tr '\n' ' ')
-        neu=$(awk '/^Inst [^ ]+ \(/ {print $2}' "$OUT/apt-full-upgrade-simulation.txt" | imsatz)
+        neu=$(awk '/^Inst [^ ]+ \(/ {print $2}' "$OUT/apt-full-upgrade-simulation.txt" | sort | imsatz)
         hoch=$(awk '/^Inst [^ ]+ \[/ {print $2}' "$OUT/apt-full-upgrade-simulation.txt" | imsatz)
         fremd=$(awk '/^Inst / {print $2}' "$OUT/apt-full-upgrade-simulation.txt" | while read -r p; do [[ " $satz " == *" $p "* ]] || echo "$p"; done | wc -l)
         echo "apt -s full-upgrade: neu: ${neu}| aktualisiert: ${hoch}| entfernt: ${remv:-keins} (dazu $fremd ausstehende Updates dieses Rechners)"
-        soll_neu=$(for p in ${UPGRADE_NEU-querencia-dateien}; do printf '%s ' "$p"; done)
+        soll_neu=$(for p in ${UPGRADE_NEU-querencia-dateien}; do echo "$p"; done | sort | tr '\n' ' ')
         [ $rc -eq 0 ] && [ -z "$remv" ] && [ "$neu" = "$soll_neu" ] &&
             ok "apt -s full-upgrade: neu ${soll_neu:-nichts}, aktualisiert ${hoch}, nichts entfernt" ||
             nok "apt -s full-upgrade: rc $rc, neu: $neu, entfernt: ${remv:-keins} ($OUT/apt-full-upgrade-simulation.txt)"
@@ -376,11 +377,17 @@ if [ "${1-}" = --innen ]; then
             nok "dateien.ini ohne die Probe-Werte aus ~/.config/$(cat "$A/files-ordner") ($(grep -E '^(Ansicht|Anordnen|Verborgene)=' "$ini" 2>/dev/null | tr '\n' ' '))"
         if webhuelle_alt; then
             # in der Sitzungsprüfung startete jeder Starter, auch Schnatter: der
-            # Umzug benennt die Ordner um (gleiche Inode, gleicher Inhalt)
+            # Umzug benennt die Ordner um (gleiche Inode und Rechte, die Attrappe
+            # der Anmeldung unverändert). Danach schreibt WebKit eigene Dateien
+            # dazu; der Inhalt als Ganzes ist deshalb kein Maß.
             ordnerstand querencia-schnatter >"$OUT/schnatter-ordner-danach.txt"
             ordnerstand querencia-webhuelle >"$OUT/webhuelle-ordner-danach.txt"
-            if cmp -s "$OUT/webhuelle-ordner-vorher.txt" "$OUT/schnatter-ordner-danach.txt" && [ "$(grep -c fehlt "$OUT/webhuelle-ordner-danach.txt")" = 3 ]; then
-                ok "nach dem Start von Schnatter: Ordner der Webhülle umbenannt (Inode, 0700, Inhalt gleich)"
+            att=0; for e in $WH_ORDNER; do
+                (cd "$H/$e/querencia-schnatter" 2>/dev/null && grep " $e/" "$OUT/webhuelle-attrappen.sha256" | sed "s|  $e/|  |" | sha256sum -c --quiet) >/dev/null 2>&1 && att=$((att + 1))
+            done
+            if [ "$(cut -d' ' -f1-3 "$OUT/webhuelle-ordner-vorher.txt")" = "$(cut -d' ' -f1-3 "$OUT/schnatter-ordner-danach.txt")" ] &&
+                [ "$(grep -c fehlt "$OUT/webhuelle-ordner-danach.txt")" = 3 ] && [ $att = 3 ]; then
+                ok "nach dem Start von Schnatter: Ordner der Webhülle umbenannt (gleiche Inode, 0700, Attrappe der Anmeldung gleich in allen drei)"
                 grep -qx 'zoom=1.25' "$H/.config/querencia-schnatter/einstellungen.ini" && ok "Schnatter: Einstellungen der Webhülle (Zoom 1,25) übernommen" ||
                     nok "Schnatter: Einstellungen der Webhülle fehlen"
             elif cmp -s "$OUT/webhuelle-ordner-vorher.txt" "$OUT/webhuelle-ordner-danach.txt"; then
@@ -459,6 +466,10 @@ huelle() {
 OHNE=${UPGRADE_OHNE-querencia-anmeldung}
 waehle() { local d n; for d in "$1"/*.deb; do n=$(basename "$d"); n=${n%%_*}; [[ " $OHNE " == *" $n "* ]] || echo "$d"; done; }
 mapfile -t alt < <(waehle "$ALT"); mapfile -t neu < <(waehle "$NEU")
+# dpkg -i ordnet nicht um wie apt: querencia-schnatter bricht
+# querencia-webhuelle (<< 0.3.0~), erst das entpackte Übergangspaket
+# querencia-webhuelle 0.3.0 erfüllt das. Übergangspakete deshalb zuerst.
+mapfile -t neu < <(printf '%s\n' "${neu[@]}" | grep '/querencia-webhuelle_'; printf '%s\n' "${neu[@]}" | grep -v '/querencia-webhuelle_')
 # Archiv-Abhängigkeiten, die dieser Rechner nicht installiert hat (auf der VM
 # holt apt sie aus dem Ubuntu-Archiv): leere, gekennzeichnete Attrappe mit
 # der Version des Archivs, damit das Metapaket konfiguriert wird und apt einen
