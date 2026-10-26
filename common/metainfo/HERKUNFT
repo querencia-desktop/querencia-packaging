@@ -5,3 +5,4 @@ org.querencia.Files.metainfo.xml aus querencia-files-dev, Tag querencia/qf-0t-3-
 org.querencia.Dateien.metainfo.xml für querencia-packaging geschrieben (Welle C, 23.10.2026) nach dem Muster von org.querencia.Files; <replaces> nennt org.querencia.Files.
 Abweichung (23.10.2026, Welle C): org.querencia.Files.metainfo.xml ohne inode/directory, Übergangstext (Files → Dateien).
 Entfernt (24.10.2026, Alpha 3): org.querencia.Files.metainfo.xml – Files wird nicht mehr ausgeliefert, querencia-files ist ein Übergangspaket ohne Programm; org.querencia.Dateien nennt org.querencia.Files unter <replaces>.
+Ergänzt (26.10.2026, i18n Teil B): it/es/fr (name, summary, description, keywords) in org.querencia.Rechner, Bilder, Dateisuche, Systemmonitor, Screenshot und Benachrichtigungen; Wortlaut wie die Kataloge der Programme (Rechner 0.1.7, Bilder 0.2.7, Dateisuche 0.1.6, Systemmonitor 0.1.6, Screenshot 0.2.11, Benachrichtigungen 0.2.3).

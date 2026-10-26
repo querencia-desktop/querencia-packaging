@@ -6,8 +6,14 @@
   <id>org.querencia.Bilder</id>
   <name>Querencia Images</name>
   <name xml:lang="de">Querencia Bilder</name>
+  <name xml:lang="it">Querencia Immagini</name>
+  <name xml:lang="es">Querencia Imágenes</name>
+  <name xml:lang="fr">Querencia Images</name>
   <summary>View images</summary>
   <summary xml:lang="de">Bilder ansehen</summary>
+  <summary xml:lang="it">Visualizza le immagini</summary>
+  <summary xml:lang="es">Ver imágenes</summary>
+  <summary xml:lang="fr">Voir des images</summary>
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <developer id="org.querencia">
@@ -18,8 +24,14 @@
   <description>
     <p>Querencia Images is the image viewer of Querencia Desktop. It shows PNG, JPEG, GIF, BMP, WebP, SVG and every other format gdk-pixbuf can load, with a classic menu bar, a compact toolbar, zoom, fit to window, full screen, slideshow, rotation and image properties.</p>
     <p xml:lang="de">Querencia Bilder ist der Bildbetrachter von Querencia Desktop. Er zeigt PNG, JPEG, GIF, BMP, WebP, SVG und jedes andere Format, das gdk-pixbuf laden kann, mit klassischer Menüleiste, kompakter Werkzeugleiste, Zoom, Einpassen, Vollbild, Diashow, Drehen und Bildeigenschaften.</p>
+    <p xml:lang="it">Querencia Immagini è il visualizzatore di immagini di Querencia Desktop. Mostra PNG, JPEG, GIF, BMP, WebP, SVG e ogni altro formato che gdk-pixbuf sa caricare, con una classica barra dei menu, una barra degli strumenti compatta, ingrandimento, adattamento alla finestra, schermo intero, presentazione, rotazione e proprietà dell’immagine.</p>
+    <p xml:lang="es">Querencia Imágenes es el visor de imágenes de Querencia Desktop. Muestra PNG, JPEG, GIF, BMP, WebP, SVG y cualquier otro formato que gdk-pixbuf pueda cargar, con una barra de menús clásica, una barra de herramientas compacta, ampliación, ajuste a la ventana, pantalla completa, pase de diapositivas, rotación y propiedades de la imagen.</p>
+    <p xml:lang="fr">Querencia Images est le visionneur d’images de Querencia Desktop. Il affiche les formats PNG, JPEG, GIF, BMP, WebP, SVG et tout autre format que gdk-pixbuf sait charger, avec une barre de menus classique, une barre d’outils compacte, le zoom, l’ajustement à la fenêtre, le plein écran, le diaporama, la rotation et les propriétés de l’image.</p>
     <p>Images are only displayed, never modified or saved.</p>
     <p xml:lang="de">Bilder werden nur angezeigt, nie verändert oder gespeichert.</p>
+    <p xml:lang="it">Le immagini vengono solo mostrate, mai modificate o salvate.</p>
+    <p xml:lang="es">Las imágenes solo se muestran, nunca se modifican ni se guardan.</p>
+    <p xml:lang="fr">Les images sont uniquement affichées, jamais modifiées ni enregistrées.</p>
   </description>
   <url type="homepage">https://querencialinux.org</url>
   <launchable type="desktop-id">org.querencia.Bilder.desktop</launchable>
@@ -45,6 +57,15 @@
     <keyword xml:lang="de">Foto</keyword>
     <keyword xml:lang="de">Betrachter</keyword>
     <keyword xml:lang="de">Bildbetrachter</keyword>
+    <keyword xml:lang="it">immagine</keyword>
+    <keyword xml:lang="it">foto</keyword>
+    <keyword xml:lang="it">visualizzatore</keyword>
+    <keyword xml:lang="es">imagen</keyword>
+    <keyword xml:lang="es">foto</keyword>
+    <keyword xml:lang="es">visor</keyword>
+    <keyword xml:lang="fr">image</keyword>
+    <keyword xml:lang="fr">photo</keyword>
+    <keyword xml:lang="fr">visionneur</keyword>
   </keywords>
   <content_rating type="oars-1.1"/>
   <branding>
