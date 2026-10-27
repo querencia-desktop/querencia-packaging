@@ -256,8 +256,8 @@ BUS
         done
         # 8 Alpha 3.3 (WEGWERF_SPRACHPROBE=1): Starter-Namen in der Sprache von
         # LANG, Foto des Anwendungsmenüs im Panel und eines Programm-Menüs
-        # (WEGWERF_MENUE_PROG, Standard org.querencia.Bilder; F10 öffnet die
-        # Menüleiste). Bewertet wird nur, ob es die Texte gibt; die Fotos sieht
+        # (WEGWERF_MENUE_PROG, Standard org.querencia.Bilder; Klick auf das erste
+        # Menü der Menüleiste). Bewertet wird nur, ob es die Texte gibt; die Fotos sieht
         # ein Mensch an.
         if [ "${WEGWERF_SPRACHPROBE-}" = 1 ]; then
             sp=${LANG%%_*}
@@ -284,8 +284,8 @@ BUS
                 # Panel-Knopf „Anwendungen“ oben links
                 wlrctl pointer move -4000 -4000 2>/dev/null; wlrctl pointer move 40 12 2>/dev/null
                 wlrctl pointer click left 2>/dev/null; sleep 1.5
-                # Zeiger auf den ersten Eintrag (Zubehör): das Untermenü zeigt die Starter
-                wlrctl pointer move 20 35 2>/dev/null; sleep 1.5
+                # Klick auf den ersten Eintrag (Zubehör): das Untermenü zeigt die Starter
+                wlrctl pointer move 20 35 2>/dev/null; sleep 0.3; wlrctl pointer click left 2>/dev/null; sleep 1.5
                 grim "$OUT/a33-panel-anwendungen.png" 2>/dev/null && ok "A33 Foto Panel-Menü $OUT/a33-panel-anwendungen.png" ||
                     hinweis "A33 kein Foto des Panel-Menüs"
                 # schließen: Klick auf den Knopf (Escape erreicht das Menü nicht immer)
@@ -299,7 +299,10 @@ BUS
                 pid=$!
                 sleep 4
                 if kill -0 "$pid" 2>/dev/null; then
-                    wtype -k F10 2>/dev/null; sleep 1.5
+                    # erstes Menü der Menüleiste: das Fenster steht mittig
+                    # (1280×720, Fenster 800 breit), der erste Titel bei (282, 86)
+                    wlrctl pointer move -4000 -4000 2>/dev/null; wlrctl pointer move 282 86 2>/dev/null
+                    wlrctl pointer click left 2>/dev/null; sleep 1.5
                     grim "$OUT/a33-menue-$mp.png" 2>/dev/null && ok "A33 Foto Programm-Menü $OUT/a33-menue-$mp.png" ||
                         hinweis "A33 kein Foto des Programm-Menüs"
                     kill "$pid" 2>/dev/null; wait "$pid" 2>/dev/null
