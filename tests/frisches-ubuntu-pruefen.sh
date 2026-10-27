@@ -101,7 +101,7 @@ nachher)
     echo "HINW Ausgabe: $(cat /usr/share/querencia/version 2>/dev/null || echo fehlt)"
     # Alpha 3.2: Schnatter ist optional (nicht im Metapaket); nach einem
     # Upgrade mit Webhülle 0.2.0 kommt es mit dem Übergangspaket querencia-webhuelle.
-    if grep -q -x -E 'Alpha 3\.[234]' /usr/share/querencia/version 2>/dev/null; then
+    if grep -q -x -E 'Alpha 3\.[2345]' /usr/share/querencia/version 2>/dev/null; then
         if dpkg -s querencia-schnatter 2>/dev/null | grep -qx 'Status: install ok installed'; then
             s=/usr/share/applications/org.querencia.Schnatter.desktop
             [ -x /usr/bin/querencia-schnatter ] && [ -f "$s" ] && desktop-file-validate "$s" >/dev/null 2>&1 &&
@@ -117,7 +117,7 @@ nachher)
     fi
     # Alpha 3.3: it/es/fr in allen Programmen (Kataloge, Starter), locales-all
     # als Recommends des Metapakets (bei --no-install-recommends nur Hinweis).
-    if grep -q -x -E 'Alpha 3\.[34]' /usr/share/querencia/version 2>/dev/null; then
+    if grep -q -x -E 'Alpha 3\.[345]' /usr/share/querencia/version 2>/dev/null; then
         for d in querencia-panel querencia-desktop querencia-oberflaeche querencia-dateiarbeit querencia-dateien \
             querencia-terminal querencia-screenshot querencia-editor querencia-bilder querencia-rechner \
             querencia-systemmonitor querencia-dateisuche querencia-einstellungen querencia-software querencia-sitzung \
@@ -146,7 +146,7 @@ nachher)
     # Alpha 3.4: Einstellungen 0.2.0 mit Seite und Menüeintrag „Treiber“
     # (ubuntu-drivers-common nur empfohlen), Sitzung 0.1.10 (Sperrbildschirm
     # in fünf Sprachen), Tastenkürzel-Hilfe mit it/es/fr.
-    if grep -q -x 'Alpha 3\.4' /usr/share/querencia/version 2>/dev/null; then
+    if grep -q -x -E 'Alpha 3\.[45]' /usr/share/querencia/version 2>/dev/null; then
         dpkg --compare-versions "$(dpkg-query -W -f='${Version}' querencia-einstellungen)" ge 0.2.0-1 &&
             ok "A34 Einstellungen >= 0.2.0-1" || nok "A34 Einstellungen < 0.2.0-1"
         t=/usr/share/applications/org.querencia.Einstellungen.Treiber.desktop
@@ -166,6 +166,14 @@ nachher)
         s=/usr/share/applications/org.querencia.Kuerzel.desktop
         grep -q -E '^(Name|GenericName|Comment)\[it\]=' "$s" && grep -q -E '^(Name|GenericName|Comment)\[fr\]=' "$s" &&
             ok "A34 Starter Tastenkürzel it/es/fr" || nok "A34 Starter Tastenkürzel ohne it/fr"
+    fi
+    # Alpha 3.5: Einstellungen 0.2.1 (Treiber-Seite: Zeile „OpenGL der Karte“,
+    # Software-Darstellung mit Grund), Anmeldung 0.1.5 (Kataloge it/es/fr,
+    # geprüft im Schritt anmeldung).
+    if grep -q -x 'Alpha 3\.5' /usr/share/querencia/version 2>/dev/null; then
+        dpkg --compare-versions "$(dpkg-query -W -f='${Version}' querencia-einstellungen)" ge 0.2.1-1 &&
+            grep -a -q 'OpenGL der Karte' /usr/share/locale/de/LC_MESSAGES/querencia-einstellungen.mo 2>/dev/null &&
+            ok "A35 Einstellungen >= 0.2.1-1 mit „OpenGL der Karte“" || nok "A35 Einstellungen < 0.2.1-1 oder Katalog ohne „OpenGL der Karte“"
     fi
     # Alpha 2: dunkle Fassung des Themas, Terminal mit Reitern; Symbole seit Alpha 3: 0.8
     [ -f /usr/share/themes/Querencia-Klassisch/gtk-3.0/gtk-dark.css ] && [ -f /usr/share/themes/Querencia-Klassisch/gtk-4.0/gtk-dark.css ] &&
@@ -324,7 +332,12 @@ anmeldung)
             ok "ANM Dienst querencia-anmeldung aktiv als Display-Manager" ||
             echo "HINW ANM Dienst nicht eingeschaltet (debconf-Wahl: GDM behalten); Bildschirmprüfung entfällt"
         echo "INFO ANM Systemsprache: $(grep -h -E '^(LANG|LANGUAGE)=' /etc/default/locale 2>/dev/null | tr '\n' ' ')"
-        for l in de en; do
+        if dpkg --compare-versions "$v" ge 0.1.5-1; then
+            fehlt=; for l in it es fr; do [ -s /usr/share/locale/$l/LC_MESSAGES/querencia-anmeldung.mo ] || fehlt="$fehlt $l"; done
+            grep -a -q 'Password errata' /usr/share/locale/it/LC_MESSAGES/querencia-anmeldung.mo 2>/dev/null || fehlt="$fehlt it-Text"
+            [ -z "$fehlt" ] && ok "ANM 0.1.5 Kataloge it/es/fr („Password errata. Riprovare.“)" || nok "ANM 0.1.5 Kataloge fehlen:$fehlt"
+        fi
+        for l in de en it es fr; do
             dpkg -s language-pack-gnome-$l >/dev/null 2>&1 && echo "INFO ANM language-pack-gnome-$l installiert" ||
                 echo "HINW ANM language-pack-gnome-$l fehlt (GTK-eigene Texte wie „Show Text“ bleiben englisch, Grenze)"
         done
@@ -336,6 +349,7 @@ HAND Ü en (sudo localectl set-locale LANG=en_US.UTF-8, Anmeldebildschirm neu): 
 HAND Ü7 Sitzungsname: /usr/local/share/wayland-sessions/probe.desktop mit Name=Test session und Name[de]=Testsitzung, freigeben = probe → de „Testsitzung“, en „Test session“
 HAND Ü8 abgelaufenes Passwort: sudo passwd -e probe, mit dem alten Passwort anmelden → de „Ihr Passwort ist abgelaufen. Bitte wählen Sie ein neues.“ und „Dazu an der Textkonsole anmelden (Strg+Alt+F1); Strg+Alt+F7 führt hierher zurück.“, nach 10 s noch sichtbar, kein „NEW_AUTHTOK_REQD“; Strg+Alt+F1, login als probe (altes, zweimal neues Passwort), abmelden, Strg+Alt+F7, mit dem neuen Passwort anmelden → Sitzung startet
 HAND Ü8 en: „Your password has expired. Please choose a new one.“ und „To do so, log in on the text console (Ctrl+Alt+F1); Ctrl+Alt+F7 brings you back here.“
+HAND Ü10 it (ab 0.1.5; sudo localectl set-locale LANG=it_IT.UTF-8, Neustart): „Utente:“, „Sessione:“, „Accedi“, „Riavvia“, „Spegni“; Uhr TT/MM/JJJJ hh:mm; falsches Passwort „Password errata. Riprovare.“; Ü8 it: „La password è scaduta. Sceglierne una nuova.“ und „Per farlo, accedere alla console testuale (Ctrl+Alt+F1); Ctrl+Alt+F7 riporta qui.“
 HAND Ü9 keine englischen Reste bei de außer Namen und GTK-Texten ohne language-pack-gnome-de; bei en kein deutsches Wort
 HAND
     ;;
