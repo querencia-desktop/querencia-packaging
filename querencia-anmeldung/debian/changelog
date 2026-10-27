@@ -1,3 +1,15 @@
+querencia-anmeldung (0.1.5-1) resolute; urgency=medium
+
+  * Der Anmeldebildschirm spricht jetzt auch Italienisch, Spanisch und
+    Französisch: Beschriftungen, Knöpfe, Tooltips, Fehlermeldungen und die
+    Meldung bei abgelaufenem Passwort samt Hinweis auf die Textkonsole.
+    Vorher war er in diesen Sprachen englisch.
+  * Uhr und Sitzungsnamen folgen der Systemsprache wie bisher, jetzt auch
+    in diesen drei Sprachen geprüft.
+  * Das Paket installiert die Kataloge aller mitgelieferten Sprachen.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 22:15:00 +0100
+
 querencia-anmeldung (0.1.4-1) resolute; urgency=medium
 
   * Abgelaufenes Passwort: Der Anmeldebildschirm sagt jetzt "Ihr Passwort

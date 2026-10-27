@@ -29,7 +29,7 @@ DOC := $(DESTDIR)/usr/share/doc/$(PKG)
 querencia-install:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	sh $(Q)/tests/konfig-pruefen.sh $(Q)
-	sh $(Q)/tests/uebersetzung-pruefen.sh . $(Q)/po/de.po
+	sh $(Q)/tests/uebersetzung-pruefen.sh . $(Q)/po/*.po
 endif
 	# der Patch ist angewendet (Text, den es nur mit ihm gibt)
 	grep -q 'Wrong password. Please try again.' target/release/regreet
@@ -57,8 +57,13 @@ endif
 		$(DESTDIR)/usr/lib/systemd/system/querencia-anmeldung.service
 	install -D -m 0644 $(Q)/tmpfiles/querencia-anmeldung.conf \
 		$(DESTDIR)/usr/lib/tmpfiles.d/querencia-anmeldung.conf
-	install -d $(DESTDIR)/usr/share/locale/de/LC_MESSAGES
-	msgfmt -c -o $(DESTDIR)/usr/share/locale/de/LC_MESSAGES/querencia-anmeldung.mo $(Q)/po/de.po
+	# Kataloge aller Sprachen in po/ (seit 0.1.5 de, es, fr, it)
+	set -e; for po in $(Q)/po/*.po; do \
+		l=$$(basename $$po .po); \
+		install -d $(DESTDIR)/usr/share/locale/$$l/LC_MESSAGES; \
+		msgfmt -c -o $(DESTDIR)/usr/share/locale/$$l/LC_MESSAGES/querencia-anmeldung.mo $$po; \
+	done
+	for l in de es fr it; do test -f $(DESTDIR)/usr/share/locale/$$l/LC_MESSAGES/querencia-anmeldung.mo; done
 	install -D -m 0644 $(Q)/man/querencia-anmeldung.8 $(DESTDIR)/usr/share/man/man8/querencia-anmeldung.8
 	$(call doc_install,$(Q))
 	install -m 0644 $(Q)/docs/umschalten.md $(DOC)/umschalten.md
