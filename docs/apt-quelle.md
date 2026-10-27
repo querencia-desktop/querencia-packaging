@@ -400,9 +400,9 @@ Rückfrage und ohne etwas zu entfernen (9,5 s); die Neuinstallation brachte
   nicht geprüft: auf einer Textkonsole anmelden, dort fragt `login` nach dem neuen
   Passwort.
 
-## Nachtrag [Datum]: Alpha 3.4 (Entwurf)
+## Nachtrag 27.10.2026: Alpha 3.4
 
-Am [Datum] um [Uhrzeit] (MEZ) ging der Index von Alpha 3.4 auf den Server: Satz
+Am 27.10.2026 um 20:56:05 (MEZ) ging der Index von Alpha 3.4 auf den Server: Satz
 `debs-alpha34-1` (Tag `packaging/alpha34-1`, 24 Pakete, `SHA256SUMS` mit der
 Summe `97f55df0…`). Neu gegenüber Alpha 3.3 sind sechs Pakete:
 
@@ -419,14 +419,18 @@ Die übrigen 18 Pakete lagen byte-gleich im Pool.
 
 | Was | Wert |
 |---|---|
-| Release-Datum | [Date aus InRelease] |
-| InRelease (SHA256) | [Summe] |
-| Index | binary-amd64 24, binary-all 6; Pool [n] Dateien, davon 6 neu; ältere Fassungen bleiben liegen |
-| Upload | [n] Dateien ([KiB]), [n] lagen schon auf dem Server, nichts gelöscht |
-| Prüfung | lokal [22/1 erwartet] (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server [10/0 erwartet] |
+| Release-Datum | Tue, 27 Oct 2026 19:35:20 UTC |
+| InRelease (SHA256) | `df002889dafa327e962e422be311d935de7321b1294b3b11f1bbaf392e9baddc` |
+| Index | binary-amd64 24, binary-all 6; Pool 98 Dateien, davon 6 neu; ältere Fassungen bleiben liegen |
+| Upload | 32 Dateien (28267 KiB), 158 lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal 22/1 (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server 10/0 |
 
-Vor dem Upload liefen Upgrade 3.3 → 3.4 und Neuinstallation in einer frischen
-Ubuntu-VM: [Dauer, Anzahl, nichts entfernt, keine Rückfrage].
+Vor dem Upload liefen Upgrade 3.3 → 3.4 (mit Schnatter und Anmeldebildschirm aus
+der veröffentlichten Quelle) und Neuinstallation in einer frischen Ubuntu-VM. Das
+Upgrade aktualisierte die sechs Pakete und installierte `ubuntu-drivers-common`
+(mit `python3-xkit`) mit, ohne Rückfrage und ohne etwas zu entfernen (8,4 s); die
+Neuinstallation brachte 392 Pakete, `locales-all` und `ubuntu-drivers-common`
+eingeschlossen (807 s, davon fast alles Download vom Ubuntu-Spiegel mit 312 kB/s).
 
 - **Treiber:** Die Einstellungen empfehlen `ubuntu-drivers-common`; `apt
   full-upgrade` installiert es mit. Wer ohne Empfehlungen installiert, sieht auf
@@ -437,6 +441,12 @@ Ubuntu-VM: [Dauer, Anzahl, nichts entfernt, keine Rückfrage].
   dass das Passwort abgelaufen ist, und verweist auf die Textkonsole
   (Strg+Alt+F1, zurück mit Strg+Alt+F7). Im Anmeldebildschirm selbst lässt sich
   das Passwort mit greetd 0.10 weiter nicht ändern. Die Meldung
-  „Pam_acct_mgmt: NEW_AUTHTOK_REQD“ aus Alpha 3.3 erscheint nicht mehr.
+  „Pam_acct_mgmt: NEW_AUTHTOK_REQD“ aus Alpha 3.3 erscheint nicht mehr. In der
+  VM-Probe fragte `login` an der Textkonsole nach dem alten und zweimal nach dem
+  neuen Passwort; danach startete die Anmeldung am Anmeldebildschirm die Sitzung.
 - **Sprachen:** Sperrbildschirm, Tastenkürzel-Hilfe und Lautstärkeregler-Fenster
   sind jetzt übersetzt; „noch fest deutsch“ aus Alpha 3.3 entfällt.
+- **Treiber-Seite in virtuellen Maschinen:** Ohne 3D-Beschleunigung rendert
+  Mesa mit `llvmpipe`; die Seite nennt den Renderer richtig, schreibt unter
+  „Diese Sitzung“ aber „OpenGL auf der Grafikkarte“ (VM-Probe 27.10.2026, Befund an
+  die Einstellungen).
