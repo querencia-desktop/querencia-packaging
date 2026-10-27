@@ -5,7 +5,7 @@ include debian/querencia.mk
 # Ausgabe für /usr/share/querencia/{version,release}, gelesen von den
 # Info-Dialogen (Panel, Einstellungen); Format: docs/versionsdatei.md.
 # VERSION_ID ist die Upstream-Version dieses Pakets.
-AUSGABE := Alpha 3.4
+AUSGABE := Alpha 3.5
 
 querencia-install:
 	install -D -m 0644 debian/README.Debian $(DESTDIR)/usr/share/doc/querencia-desktop/README.Debian
