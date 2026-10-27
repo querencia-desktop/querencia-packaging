@@ -19,12 +19,16 @@ Architecture: any
 Depends: ${shlibs:Depends},
          querencia-symbole (>= 0.2),
          querencia-hintergruende (>= 0.2)
-Recommends: querencia-shell
+Recommends: querencia-shell,
+            ubuntu-drivers-common
 Description: Querencia Desktop settings centre (alpha)
  Querencia Einstellungen is the control centre of Querencia Desktop, a
  classic desktop in the style of GNOME 2: desktop background and icons,
  display resolution and monitor layout (wlr-output-management, with a
- 15-second revert), fonts, theme and default applications.
+ 15-second revert), fonts, theme and default applications. The page
+ "Drivers" shows the graphics driver in use and switches between the free
+ driver and the NVIDIA driver; it reads the list from ubuntu-drivers-common
+ and installs through PackageKit.
  .
  Querencia Desktop is developed with AI tools; every change is reviewed
  and accepted by the project owner.

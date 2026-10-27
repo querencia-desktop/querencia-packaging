@@ -1,13 +1,20 @@
 #!/usr/bin/make -f
 QUERENCIA_KIND := rust
 QUERENCIA_TEST := yes
-CARGO_FEATURES :=
+CARGO_FEATURES := --manifest-path querencia-einstellungen/Cargo.toml
 include debian/querencia.mk
 
 querencia-install:
 	install -D -m 0755 target/release/querencia-einstellungen $(DESTDIR)/usr/bin/querencia-einstellungen
 	# Desktop-Datei mit Übersetzungen und Kataloge de/en aus dem Upstream (0.1.0)
-	$(call desktop_install,crates/querencia-einstellungen/data/org.querencia.Einstellungen.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Einstellungen.desktop)
+	$(call desktop_install,querencia-einstellungen/crates/querencia-einstellungen/data/org.querencia.Einstellungen.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Einstellungen.desktop)
 	$(call desktop_nur_querencia,$(DESTDIR)/usr/share/applications/org.querencia.Einstellungen.desktop)
-	$(call mo_install,crates/querencia-einstellungen/po,querencia-einstellungen)
+	# Menüeintrag „Treiber“ (0.2.0, System → Systemverwaltung) mit eigenem
+	# Symbol; nur SVG, nie zusätzlich 48x48 (GTK-4.22-Symbolabsturz).
+	$(call desktop_install,querencia-einstellungen/crates/querencia-einstellungen/data/org.querencia.Einstellungen.Treiber.desktop,$(DESTDIR)/usr/share/applications/org.querencia.Einstellungen.Treiber.desktop)
+	grep -qx 'Exec=querencia-einstellungen --seite treiber' $(DESTDIR)/usr/share/applications/org.querencia.Einstellungen.Treiber.desktop
+	$(call desktop_nur_querencia,$(DESTDIR)/usr/share/applications/org.querencia.Einstellungen.Treiber.desktop)
+	install -D -m 0644 querencia-einstellungen/crates/querencia-einstellungen/data/icons/hicolor/scalable/apps/org.querencia.Einstellungen.Treiber.svg \
+		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Einstellungen.Treiber.svg
+	$(call mo_install,querencia-einstellungen/crates/querencia-einstellungen/po,querencia-einstellungen)
 	$(call metainfo_install,org.querencia.Einstellungen)

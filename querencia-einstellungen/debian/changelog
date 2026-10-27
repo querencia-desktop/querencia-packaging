@@ -1,3 +1,17 @@
+querencia-einstellungen (0.2.0-1) resolute; urgency=medium
+
+  * Neue Version 0.2.0.
+  * Neue Seite „Treiber“, auch als eigener Eintrag „Treiber“ im Menü System
+    → Systemverwaltung: zeigt Grafikkarte, Kerneltreiber und die Art der
+    Darstellung dieser Sitzung und wechselt zwischen dem freien Treiber und
+    dem NVIDIA-Treiber. Die Liste kommt von ubuntu-drivers-common, die
+    Installation läuft wie im Software-Center über PackageKit und fragt nach
+    dem Passwort. Nach einem Wechsel bietet die Seite den Neustart an.
+  * ubuntu-drivers-common ist empfohlen, nicht vorausgesetzt. Fehlt es, sagt
+    die Seite das und bietet die Installation an.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 18:34:52 +0100
+
 querencia-einstellungen (0.1.7-1) resolute; urgency=medium
 
   * Neue Version 0.1.7.
