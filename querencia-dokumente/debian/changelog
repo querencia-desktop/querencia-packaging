@@ -5,6 +5,8 @@ querencia-dokumente (0.1.5-1) resolute; urgency=medium
     Französisch: Menüs, Dialoge und Meldungen, der Starter im Anwendungsmenü
     und die Beschreibung im Software-Center. Welche Sprache gilt, bestimmt
     wie bisher die Spracheinstellung des Systems.
+  * Die Projektseite in der MetaInfo (querencialinux.org) steht jetzt in
+    der Quelle; der Patch des Pakets dafür entfällt.
 
  -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 00:23:11 +0100
 
