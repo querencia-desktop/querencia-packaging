@@ -6,6 +6,14 @@ Description: Visible texts through gettext, clock locale from LC_TIME
  Untranslated texts stay English. A rejected password (PAM AUTH_ERR) gets
  a plain message instead of "Login failed: Pam_authenticate: AUTH_ERR".
  .
+ An expired password (PAM NEW_AUTHTOK_REQD, e.g. after "chage -d 0")
+ cannot be changed on the login screen: greetd 0.10.3 never calls
+ pam_chauthtok, it ends the login with "pam_acct_mgmt: NEW_AUTHTOK_REQD"
+ right after PAM's own message, which therefore vanished at once.
+ Instead of "Login failed: Pam_acct_mgmt: NEW_AUTHTOK_REQD" the screen
+ says that the password has expired and points to the text console
+ (Ctrl+Alt+F1); the message stays for a minute instead of five seconds.
+ .
  greetd calls no setlocale, so PAM prompts and PAM info and error messages
  always arrive in English. They go through tr_pam: first the
  "querencia-anmeldung" catalog, then the "Linux-PAM" catalog of the system
@@ -19,11 +27,11 @@ Description: Visible texts through gettext, clock locale from LC_TIME
 Author: pottrauschen <147073098+pottrauschen@users.noreply.github.com>
 Origin: vendor
 Forwarded: no
-Last-Update: 2026-10-26
+Last-Update: 2026-10-27
 ---
 diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/model.rs b/src/gui/model.rs
---- a/src/gui/model.rs	2026-07-17 20:33:05.000000000 +0200
-+++ b/src/gui/model.rs	2026-10-26 22:31:32.796473969 +0100
+--- a/src/gui/model.rs	2026-10-27 14:52:25.995865484 +0100
++++ b/src/gui/model.rs	2026-10-27 14:52:45.585699127 +0100
 @@ -28,6 +28,7 @@
  
  use super::{
@@ -79,13 +87,23 @@ diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/model.rs b/src/gui/mode
                              &format!("Authentication message error from greetd: {auth_message}"),
                          );
                      }
-@@ -384,9 +383,15 @@
+@@ -384,11 +383,35 @@
                  error_type,
              } => {
                  // some general response error. This can be an authentication failure or a general error
 +                // A rejected password (PAM AUTH_ERR) gets a plain message.
++                // An expired password (NEW_AUTHTOK_REQD) cannot be changed
++                // here: greetd 0.10 never calls pam_chauthtok. The message
++                // points to the text console and stays for a minute.
++                let expired = description.ends_with("NEW_AUTHTOK_REQD");
 +                let display_text = if description.ends_with("AUTH_ERR") {
 +                    tr("Wrong password. Please try again.")
++                } else if expired {
++                    format!(
++                        "{}\n{}",
++                        tr("Your password has expired. Please choose a new one."),
++                        tr("To do so, log in on the text console (Ctrl+Alt+F1); Ctrl+Alt+F7 brings you back here.")
++                    )
 +                } else {
 +                    format!("{} {}", tr("Login failed:"), capitalize(&description))
 +                };
@@ -95,8 +113,18 @@ diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/model.rs b/src/gui/mode
 +                    &display_text,
                      &format!("Error from greetd: {description}"),
                  );
++                if expired {
++                    let version = self.updates.notif_ver + 1;
++                    self.updates.set_notif_ver(version);
++                    sender.oneshot_command(async move {
++                        sleep(Duration::from_secs(60)).await;
++                        CommandMsg::ClearNotif(version)
++                    });
++                }
  
-@@ -523,7 +528,7 @@
+                 // In case this is an authentication error (e.g. wrong password), the session should be cancelled.
+                 if let ErrorType::AuthError = error_type {
+@@ -523,7 +546,7 @@
                  // This must be an invalid command.
                  self.display_error(
                      sender,
@@ -105,7 +133,7 @@ diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/model.rs b/src/gui/mode
                      &format!("Invalid session command: {}", info.sess_text),
                  );
                  (None, None)
-@@ -536,7 +541,7 @@
+@@ -536,7 +559,7 @@
              } else {
                  // Shouldn't happen, unless there are no sessions available.
                  let error_msg = format!("Session '{session}' not found");
@@ -114,7 +142,7 @@ diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/model.rs b/src/gui/mode
                  (None, None)
              }
          } else {
-@@ -558,7 +563,7 @@
+@@ -558,7 +581,7 @@
              } else {
                  // No login shell exists.
                  let error_msg = "No session or login shell found";
@@ -123,7 +151,7 @@ diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/model.rs b/src/gui/mode
                  (None, None)
              }
          }
-@@ -626,7 +631,7 @@
+@@ -626,7 +649,7 @@
                  self.cancel_click_handler().await;
                  self.display_error(
                      sender,
@@ -133,8 +161,8 @@ diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/model.rs b/src/gui/mode
                  );
              }
 diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/mod.rs b/src/gui/mod.rs
---- a/src/gui/mod.rs	2026-07-17 20:33:05.000000000 +0200
-+++ b/src/gui/mod.rs	2026-10-26 22:31:41.044033377 +0100
+--- a/src/gui/mod.rs	2026-10-27 14:52:25.995843803 +0100
++++ b/src/gui/mod.rs	2026-10-27 14:52:26.003456649 +0100
 @@ -13,4 +13,26 @@
  }
  
@@ -163,8 +191,8 @@ diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/mod.rs b/src/gui/mod.rs
 +}
  pub use model::Greeter;
 diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/templates.rs b/src/gui/templates.rs
---- a/src/gui/templates.rs	2026-07-17 20:33:05.000000000 +0200
-+++ b/src/gui/templates.rs	2026-10-26 22:22:40.937386228 +0100
+--- a/src/gui/templates.rs	2026-10-27 14:52:25.995897535 +0100
++++ b/src/gui/templates.rs	2026-10-27 14:52:26.003534022 +0100
 @@ -8,6 +8,8 @@
  use gtk::prelude::*;
  use relm4::{RelmWidgetExt, WidgetTemplate, gtk};
@@ -242,8 +270,8 @@ diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/templates.rs b/src/gui/
              },
          }
 diff -ru '--exclude=.cargo' '--exclude=target' a/src/gui/widget/clock.rs b/src/gui/widget/clock.rs
---- a/src/gui/widget/clock.rs	2026-07-17 20:33:05.000000000 +0200
-+++ b/src/gui/widget/clock.rs	2026-10-26 22:22:40.937505382 +0100
+--- a/src/gui/widget/clock.rs	2026-10-27 14:52:25.995935246 +0100
++++ b/src/gui/widget/clock.rs	2026-10-27 14:52:26.003646366 +0100
 @@ -74,6 +74,18 @@
  }
  
