@@ -54,7 +54,8 @@ dessen Ordner am echten Pfad an (`~/.local/share`, `~/.config`, `~/.cache` je
 `querencia-schnatter`) und prüft sie nach Upgrade und Start. `UPGRADE_DATEIEN_INI=1` legt
 `~/.config/querencia/dateien.ini` mit eigenen Werten an (Benutzer hat Dateien schon benutzt);
 `UPGRADE_NEU_FREMD="locales-all"` verlangt, dass `full-upgrade` diese Pakete außerhalb des Satzes
-neu installiert (neue Empfehlungen des Metapakets).
+neu installiert (neue Empfehlungen: Alpha 3.3 `locales-all` vom Metapaket, Alpha 3.4
+`ubuntu-drivers-common` von den Einstellungen).
 
 Sprache der Installationsprobe: `WEGWERF_LANG` (Vorgabe `de_DE.UTF-8`), `WEGWERF_LANGUAGE`
 (leer = nicht gesetzt), `WEGWERF_LOCPATH` für Locales, die der Rechner nicht hat
@@ -62,6 +63,11 @@ Sprache der Installationsprobe: `WEGWERF_LANG` (Vorgabe `de_DE.UTF-8`), `WEGWERF
 `WEGWERF_SPRACHPROBE=1` prüft die Starter in dieser Sprache (`starter-namen.txt`) und
 fotografiert das Panel-Menü mit „Zubehör“ und das erste Menü von Bilder
 (`a33-panel-anwendungen.png`, `a33-menue-org.querencia.Bilder.png`; braucht `wlrctl`, `grim`).
+Seit Alpha 3.4 außerdem: die Tastenkürzel-Hilfe als Text (`querencia-kuerzel --liste`,
+`a34-kuerzel-<sprache>.txt` gegen `a34-kuerzel-en.txt`) und der Sperrbildschirm im Prüfmodus
+der Sitzung (`QS_TROCKENLAUF=1` mit Testpasswort, kein PAM): Katalog der Sprache geladen,
+Fotos `a34-sperre-start|leer|falsch.png`, falsches Passwort hält die Sperre, das Testpasswort
+entsperrt (braucht `wtype`, `grim`).
 
 `tests/wegwerf-upgrade-schnatter.sh <nachweis> <alter satz> <neuer satz>` misst die
 Umbenennung Querencia Webhülle → Schnatter: alter Satz mit `querencia-webhuelle 0.2.0-1`, ein

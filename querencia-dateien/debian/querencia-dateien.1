@@ -1,4 +1,4 @@
-.TH QUERENCIA-DATEIEN 1 "October 2026" "querencia-dateien 0.2.4" "Querencia Desktop"
+.TH QUERENCIA-DATEIEN 1 "October 2026" "querencia-dateien 0.3.0" "Querencia Desktop"
 .SH NAME
 querencia-dateien \- file manager of Querencia Desktop
 .SH SYNOPSIS
@@ -11,7 +11,8 @@ querencia-dateien \- file manager of Querencia Desktop
 of Querencia Desktop, modelled on the browser mode of Nautilus 2.30: menu
 bar, toolbar, path bar, side pane \(lqPlaces\(rq with bookmarks, drives and
 network places, tabs, icon, list and compact view, thumbnails, a search by
-name and a status bar.
+name and, optionally, by file content, undo and redo for file operations
+and a status bar.
 .PP
 Without arguments it opens a window with the home folder. Each
 .I FOLDER
@@ -42,7 +43,12 @@ new tab, close tab (the last one closes the window)
 previous / next tab, tab 1 to 10
 .TP
 .B Ctrl+F
-search by name from the shown folder
+search by name from the shown folder; the switch \(lqAlso file content\(rq
+searches text files too
+.TP
+.B Ctrl+Z, Shift+Ctrl+Z
+undo, redo the last file operation (move, rename, move to trash, copy, new
+folder, new document)
 .TP
 .B Ctrl+D
 bookmark the shown folder (Querencia Files: duplicate)

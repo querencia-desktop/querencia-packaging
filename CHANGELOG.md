@@ -1,6 +1,40 @@
 # Änderungen – querencia-packaging
 
-## Alpha 3.3 – Satz debs-alpha33-2 vom 27.10.2026 (fünf Sprachen), unveröffentlicht
+## Alpha 3.4 – Satz debs-alpha34-1 vom 27.10.2026, unveröffentlicht
+
+Gegenüber Alpha 3.3 (veröffentlicht 27.10.2026, `debs-alpha33-2`); 24 Pakete, 6 neu gebaut,
+18 byte-gleich mit dem veröffentlichten Index von Alpha 3.3.
+
+- querencia-einstellungen 0.2.0-1 aus `einstellungen/0.2.0` (`59ab892`): neue Seite **„Treiber“**
+  mit eigenem Menüeintrag (System → Systemverwaltung) und Symbol. Der Workspace liegt jetzt im
+  Unterordner `querencia-einstellungen/`, der PackageKit-Baustein `querencia-software-paketkit`
+  (`efb1a62`, mit `qs_typen`) als zweites Quellarchiv daneben (`komponenten.conf`, Muster
+  querencia-software). **Recommends `ubuntu-drivers-common`** (nicht Depends: die Seite erklärt
+  das Fehlen und bietet die Installation an).
+- querencia-anmeldung 0.1.4-1 (Zweig anmeldung-014, Tag `anmeldung/0.1.4` = `d8aa0d7`): Meldung
+  bei abgelaufenem Passwort statt „Pam_acct_mgmt: NEW_AUTHTOK_REQD“, Hinweis auf die
+  Textkonsole. Hier neu gebaut (`def8257c…`); Inhalt gleich dem Paket der Übergabe
+  (`f1a3021a…`), dort waren nur die Dateizeiten nicht auf das Changelog-Datum begrenzt (Bau vor
+  dem Datum des Eintrags).
+- querencia-sitzung 0.1.10-1 aus `sitzung/0.1.10` (`46e0924`): Sperrbildschirm in fünf Sprachen.
+- querencia-shell 0.1.0~alpha12-1 aus runtime main `69e7394`: Tastenkürzel-Hilfe 0.2.3 und
+  Lautstärkeregler 0.1.2 mit it/es/fr, neu der Katalog `querencia-kuerzel` in `debian/rules`;
+  dateiarbeit 0.1.3.
+- querencia-dateien 0.3.0-1 aus `dateien/0.3.0` (`346b439`): Rückgängig und Wiederholen,
+  Suche im Dateiinhalt, Reiter beim Start wiederherstellen, „Hier entpacken“; Handbuchseite und
+  MetaInfo 0.3.0.
+- querencia-desktop 0.1.0~alpha3.4-1: Versionsdatei „Alpha 3.4“, Changelog; Abhängigkeiten
+  unverändert.
+- Tests: `frisches-ubuntu-pruefen.sh` mit Prüfpunkten A34 und Anmeldung 0.1.4 (Ü8 neu);
+  `wegwerf-installation.sh` ohne Ausnahme für den Starter Tastenkürzel, Schritt 9 der
+  Sprachprobe (Tastenkürzel-Hilfe als Text, Sperrbildschirm im Prüfmodus mit Fotos).
+- Prüfungen des Satzes (SHA256SUMS `97f55df0…`): pakete-pruefen 304/0, Lintian E 0, Sprachen
+  18/0, Wegwerf 96/0 und mit `LANG=it_IT.UTF-8` 103/0 (Treiber-Seite, Tastenkürzel-Hilfe und
+  Sperrbildschirm italienisch, Fotos), Upgrades 3.3 → 3.4 mit Schnatter 168/0, ohne 155/0,
+  3.2 → 3.4 169/0 (`ubuntu-drivers-common` neu, nichts entfernt, keine Rückfrage), Kontrollbau
+  aller sechs Neubauten byte-gleich, 18 übrige Pakete byte-gleich mit dem Index von Alpha 3.3.
+
+## Alpha 3.3 – Satz debs-alpha33-2 vom 27.10.2026 (fünf Sprachen), veröffentlicht 27.10.2026
 
 Wie `debs-alpha33-1` (unten), aber mit **querencia-dateien 0.2.4-1** aus runtime `dateien/0.2.4`
 (`467e0ab`, 231 Tests beim Bau): Die Kompaktansicht kürzt Namen nicht mehr nach der Zoomstufe

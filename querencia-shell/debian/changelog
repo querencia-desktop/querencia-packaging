@@ -1,3 +1,16 @@
+querencia-shell (0.1.0~alpha12-1) resolute; urgency=medium
+
+  * Tastenkürzel-Hilfe (0.2.3): jetzt auch auf Englisch, Italienisch,
+    Spanisch und Französisch, mit Tastennamen in der jeweiligen Sprache;
+    der Starter im Anwendungsmenü ebenso. Auf Deutsch bleibt sie wie bisher.
+  * Lautstärkeregler (0.1.2): das Fenster gibt es jetzt auch auf Italienisch,
+    Spanisch und Französisch.
+  * Bibliothek querencia-dateiarbeit 0.1.3 (Grundlage für Rückgängig in
+    Querencia Dateien 0.3.0); Panel und Arbeitsfläche ändern sich dadurch
+    nicht sichtbar.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 18:52:46 +0100
+
 querencia-shell (0.1.0~alpha11-1) resolute; urgency=medium
 
   * Panel (0.4.0):

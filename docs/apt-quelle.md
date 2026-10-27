@@ -396,3 +396,54 @@ Rückfrage und ohne etwas zu entfernen (9,5 s); die Neuinstallation brachte
   und bietet keinen Passwortwechsel an (VM-Probe 27.10.2026). Ausweg, in der VM
   nicht geprüft: auf einer Textkonsole anmelden, dort fragt `login` nach dem neuen
   Passwort.
+
+## Nachtrag 27.10.2026: Alpha 3.4
+
+Am 27.10.2026 um 20:56:05 (MEZ) ging der Index von Alpha 3.4 auf den Server: Satz
+`debs-alpha34-1` (Tag `packaging/alpha34-1`, 24 Pakete, `SHA256SUMS` mit der
+Summe `97f55df0…`). Neu gegenüber Alpha 3.3 sind sechs Pakete:
+
+| Paket | Version | Änderung |
+|---|---|---|
+| `querencia-desktop` | 0.1.0~alpha3.4-1 | Versionsdatei „Alpha 3.4“; Abhängigkeiten unverändert |
+| `querencia-einstellungen` | 0.2.0-1 | neue Seite „Treiber“ mit Menüeintrag; empfiehlt `ubuntu-drivers-common` |
+| `querencia-dateien` | 0.3.0-1 | Rückgängig/Wiederholen, Suche im Dateiinhalt, Reiter wiederherstellen, „Hier entpacken“ |
+| `querencia-shell` | 0.1.0~alpha12-1 | Tastenkürzel-Hilfe und Lautstärkeregler in fünf Sprachen |
+| `querencia-sitzung` | 0.1.10-1 | Sperrbildschirm in fünf Sprachen |
+| `querencia-anmeldung` | 0.1.4-1 | Meldung bei abgelaufenem Passwort (wahlweise) |
+
+Die übrigen 18 Pakete lagen byte-gleich im Pool.
+
+| Was | Wert |
+|---|---|
+| Release-Datum | Tue, 27 Oct 2026 19:35:20 UTC |
+| InRelease (SHA256) | `df002889dafa327e962e422be311d935de7321b1294b3b11f1bbaf392e9baddc` |
+| Index | binary-amd64 24, binary-all 6; Pool 98 Dateien, davon 6 neu; ältere Fassungen bleiben liegen |
+| Upload | 32 Dateien (28267 KiB), 158 lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal 22/1 (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server 10/0 |
+
+Vor dem Upload liefen Upgrade 3.3 → 3.4 (mit Schnatter und Anmeldebildschirm aus
+der veröffentlichten Quelle) und Neuinstallation in einer frischen Ubuntu-VM. Das
+Upgrade aktualisierte die sechs Pakete und installierte `ubuntu-drivers-common`
+(mit `python3-xkit`) mit, ohne Rückfrage und ohne etwas zu entfernen (8,4 s); die
+Neuinstallation brachte 392 Pakete, `locales-all` und `ubuntu-drivers-common`
+eingeschlossen (807 s, davon fast alles Download vom Ubuntu-Spiegel mit 312 kB/s).
+
+- **Treiber:** Die Einstellungen empfehlen `ubuntu-drivers-common`; `apt
+  full-upgrade` installiert es mit. Wer ohne Empfehlungen installiert, sieht auf
+  der Seite „Treiber“ einen Hinweis und kann es dort nachinstallieren. Der
+  Wechsel auf den NVIDIA-Treiber läuft über PackageKit und fragt nach dem
+  Passwort; danach bietet die Seite einen Neustart an.
+- **Abgelaufenes Passwort am Anmeldebildschirm:** Querencia Anmeldung 0.1.4 sagt,
+  dass das Passwort abgelaufen ist, und verweist auf die Textkonsole
+  (Strg+Alt+F1, zurück mit Strg+Alt+F7). Im Anmeldebildschirm selbst lässt sich
+  das Passwort mit greetd 0.10 weiter nicht ändern. Die Meldung
+  „Pam_acct_mgmt: NEW_AUTHTOK_REQD“ aus Alpha 3.3 erscheint nicht mehr. In der
+  VM-Probe fragte `login` an der Textkonsole nach dem alten und zweimal nach dem
+  neuen Passwort; danach startete die Anmeldung am Anmeldebildschirm die Sitzung.
+- **Sprachen:** Sperrbildschirm, Tastenkürzel-Hilfe und Lautstärkeregler-Fenster
+  sind jetzt übersetzt; „noch fest deutsch“ aus Alpha 3.3 entfällt.
+- **Treiber-Seite in virtuellen Maschinen:** Ohne 3D-Beschleunigung rendert
+  Mesa mit `llvmpipe`; die Seite nennt den Renderer richtig, schreibt unter
+  „Diese Sitzung“ aber „OpenGL auf der Grafikkarte“ (VM-Probe 27.10.2026, Befund an
+  die Einstellungen).

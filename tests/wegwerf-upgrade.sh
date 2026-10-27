@@ -240,7 +240,7 @@ if [ "${1-}" = --innen ]; then
             nok "apt -s full-upgrade: rc $rc, neu: $neu, entfernt: ${remv:-keins} ($OUT/apt-full-upgrade-simulation.txt)"
         for p in ${UPGRADE_NEU_FREMD-}; do
             grep -q "^Inst $p (" "$OUT/apt-full-upgrade-simulation.txt" &&
-                ok "apt -s full-upgrade: $p neu (Empfehlung des neuen Metapakets)" ||
+                ok "apt -s full-upgrade: $p neu (neue Empfehlung im neuen Satz)" ||
                 nok "apt -s full-upgrade: $p nicht neu installiert"
         done
         # jedes installierte Paket mit neuer Version im neuen Satz wird aktualisiert, sonst keins
@@ -454,7 +454,7 @@ if [ "${1-}" = --innen ]; then
         fi
         if [ "${UPGRADE_DATEIEN_INI-}" = 1 ]; then
             grep -qx 'ZoomSymbole=150' "$ini" && grep -qx 'Rechte=true' "$ini" && grep -qx 'Breite=900' "$ini" &&
-                ok "nach dem Start von Dateien 0.2.3: eigene Werte aus dateien.ini erhalten (Zoom 150, Spalte Rechte, Breite 900)" ||
+                ok "nach dem Start von Dateien: eigene Werte aus dateien.ini erhalten (Zoom 150, Spalte Rechte, Breite 900)" ||
                 nok "dateien.ini: eigene Werte verloren ($(grep -E '^(ZoomSymbole|Rechte|Breite)=' "$ini" | tr '\n' ' '))"
         fi
         # die Probe-Werte (Spalten → Liste, Datum, verborgene Dateien) kamen an

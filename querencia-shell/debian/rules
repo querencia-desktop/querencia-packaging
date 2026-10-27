@@ -51,6 +51,8 @@ querencia-install:
 	$(call mo_install,crates/querencia-lautstaerke/po,querencia-lautstaerke)
 	$(call mo_install,crates/querencia-netzwerk/po,querencia-netzwerk)
 	$(call mo_install,crates/querencia-desktop/po,querencia-desktop)
+	# Tastenkürzel-Hilfe ab Kürzel 0.2.3 (Alpha 3.4): de/it/es/fr, msgid englisch
+	$(call mo_install,crates/querencia-kuerzel/po,querencia-kuerzel)
 	# Kataloge der gemeinsamen Bibliotheken (Tastennamen der Menükürzel,
 	# Texte der Dateiarbeit): Panel und Arbeitsfläche binden sie an dasselbe
 	# Verzeichnis, Querencia Dateien auch. Die Shell besitzt sie;

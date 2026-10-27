@@ -1,3 +1,14 @@
+querencia-sitzung (0.1.10-1) resolute; urgency=medium
+
+  * Neue Version 0.1.10.
+  * Der Sperrbildschirm spricht jetzt alle fünf Sprachen (Deutsch, Englisch,
+    Italienisch, Spanisch, Französisch): Hinweis, Platzhalter, Meldungen bei
+    falschem Passwort und Feststelltaste sowie das Datum. Meldungen von PAM
+    erscheinen in derselben Sprache, soweit PAM sie nicht selbst liefert.
+    Ablauf und Verhalten der Sperre sind unverändert.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 18:35:10 +0100
+
 querencia-sitzung (0.1.9-1) resolute; urgency=medium
 
   * Neue Version 0.1.9.
