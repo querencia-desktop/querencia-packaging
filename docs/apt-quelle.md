@@ -351,8 +351,8 @@ Rückfrage, beim Upgrade nichts entfernt.
 trägt der Betreuer der Quelle nach dem Upload ein.*
 
 Am [Datum] um [Uhrzeit] ging der Index von Alpha 3.3 auf den Server: Satz
-`debs-alpha33-1` (Tag `packaging/alpha33-1`, 24 Pakete, `SHA256SUMS` mit der
-Summe `[SUMME]…`). Alpha 3.3 bringt **fünf Sprachen**: Alle Programme, das Panel
+`debs-alpha33-2` (Tag `packaging/alpha33-2`, 24 Pakete, `SHA256SUMS` mit der
+Summe `ad018bf1…`). Alpha 3.3 bringt **fünf Sprachen**: Alle Programme, das Panel
 und die Arbeitsfläche sprechen Deutsch, Englisch, Italienisch, Spanisch und
 Französisch. Neu gegenüber Alpha 3.2 sind 18 Pakete:
 
@@ -360,7 +360,7 @@ Französisch. Neu gegenüber Alpha 3.2 sind 18 Pakete:
 |---|---|---|
 | `querencia-desktop` | 0.1.0~alpha3.3-1 | Versionsdatei „Alpha 3.3“; empfiehlt neu `locales-all` |
 | `querencia-shell` | 0.1.0~alpha11-1 | Panel 0.4.0 mit Infobereich; Panel und Arbeitsfläche it/es/fr |
-| `querencia-dateien` | 0.2.3-1 | it/es/fr |
+| `querencia-dateien` | 0.2.4-1 | it/es/fr; Kompaktansicht kürzt Namen nicht mehr; Statusleiste nach der Suche |
 | `querencia-anmeldung` | 0.1.3-1 | Anmeldebildschirm durchgehend Deutsch oder Englisch (wahlweise) |
 | `querencia-schnatter` | 0.3.1-1 | it/es/fr (wahlweise) |
 | übrige 13 Programme | neue Versionen | it/es/fr (Editor, Terminal, Sitzung, Einstellungen, Software, Rechner, Bilder, Dokumente, Archiv, Systemmonitor, Dateisuche, Screenshot, Benachrichtigungen) |

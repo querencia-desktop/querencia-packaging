@@ -2,7 +2,7 @@
 
 Debian-Paketierung, APT-Quelle und CI-Vorlagen für Querencia Desktop.
 
-> **Status: Alpha 3.3 (27.10.2026, Satz `debs-alpha33-1`, unveröffentlicht): fünf
+> **Status: Alpha 3.3 (27.10.2026, Satz `debs-alpha33-2`, unveröffentlicht): fünf
 > Sprachen.** Alle Programme sprechen Deutsch, Englisch, Italienisch, Spanisch und
 > Französisch (noch fest deutsch: Sperrbildschirm, Fenster des Lautstärkereglers,
 > Tastenkürzel); der Anmeldebildschirm durchgehend Deutsch oder Englisch; das Panel hat

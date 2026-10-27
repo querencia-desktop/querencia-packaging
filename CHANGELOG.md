@@ -1,6 +1,17 @@
 # Änderungen – querencia-packaging
 
-## Alpha 3.3 – Satz debs-alpha33-1 vom 27.10.2026 (fünf Sprachen), unveröffentlicht
+## Alpha 3.3 – Satz debs-alpha33-2 vom 27.10.2026 (fünf Sprachen), unveröffentlicht
+
+Wie `debs-alpha33-1` (unten), aber mit **querencia-dateien 0.2.4-1** aus runtime `dateien/0.2.4`
+(`467e0ab`, 231 Tests beim Bau): Die Kompaktansicht kürzt Namen nicht mehr nach der Zoomstufe
+(QD-173 P-2), die Statusleiste zeigt nach dem Schließen der Suche wieder den Ordner (P-3);
+Handbuchseite und MetaInfo 0.2.4. Die übrigen 23 Pakete sind byte-gleich mit `debs-alpha33-1`.
+Entscheidung der Startsession: ein Satz Alpha 3.3 statt Dateien 0.2.4 in Alpha 3.4.
+Prüfungen (SHA256SUMS `ad018bf1…`): pakete-pruefen 300/0, Lintian E 0, Sprachen 18/0, Wegwerf 95/0,
+it 98/0, Upgrades 167/0, 154/0, 169/0, 170/0, Kontrollbau Dateien byte-gleich.
+`debs-alpha33-1` (Tag `packaging/alpha33-1`) bleibt als Beleg.
+
+## Alpha 3.3 – Satz debs-alpha33-1 vom 27.10.2026 (fünf Sprachen), Beleg (abgelöst durch debs-alpha33-2)
 
 Gegenüber Alpha 3.2 (veröffentlicht 26.10.2026, `debs-alpha32-1`); 24 Pakete, 17 neu gebaut,
 querencia-anmeldung aus dem Zweig anmeldung-i18n übernommen, 6 byte-gleich (labwc, Session,
@@ -15,7 +26,7 @@ Symbole, Hintergründe, Files, Webhülle).
 - querencia-shell 0.1.0~alpha11-1 aus runtime main `caf7dfb` (Panel **0.4.0 mit Infobereich**,
   Tag `panel/0.4.0-2` = `331810f`, danach nur Integration und Doku; Arbeitsfläche 0.3.1,
   oberflaeche 0.1.3, dateiarbeit 0.1.2); querencia-dateien 0.2.3-1 aus `dateien/0.2.3`
-  (`6d95ff9`). Dateien 0.2.4 war beim Bau nicht in main (Alpha 3.4).
+  (`6d95ff9`). Dateien 0.2.4 war beim Bau nicht in main (kam mit `debs-alpha33-2`).
 - querencia-software 0.1.7-1 enthält erstmals die Änderungen von 0.1.6: Katalog-Ergänzungen
   für Thunderbird und Firefox unter `/usr/share/swcatalog`, Snap-Hüllen gelten nicht als
   installierbare Fassung.
