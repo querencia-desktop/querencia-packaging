@@ -48,6 +48,21 @@ UPGRADE_NEU=`. `UPGRADE_FILES_ORDNER=strata` legt die Files-Einstellungen des Pr
 bis Alpha 2.1 unter `~/.config/strata/` ab; `UPGRADE_OHNE` nimmt Pakete aus (optionale wie
 `querencia-webhuelle` zieht apt beim Upgrade nicht).
 
+Seit Alpha 3.3 prüft die Upgrade-Probe immer, dass genau die installierten Pakete mit neuer
+Version aktualisiert werden. Ist im alten Satz `querencia-schnatter` 0.3.x installiert, legt sie
+dessen Ordner am echten Pfad an (`~/.local/share`, `~/.config`, `~/.cache` je
+`querencia-schnatter`) und prüft sie nach Upgrade und Start. `UPGRADE_DATEIEN_INI=1` legt
+`~/.config/querencia/dateien.ini` mit eigenen Werten an (Benutzer hat Dateien schon benutzt);
+`UPGRADE_NEU_FREMD="locales-all"` verlangt, dass `full-upgrade` diese Pakete außerhalb des Satzes
+neu installiert (neue Empfehlungen des Metapakets).
+
+Sprache der Installationsprobe: `WEGWERF_LANG` (Vorgabe `de_DE.UTF-8`), `WEGWERF_LANGUAGE`
+(leer = nicht gesetzt), `WEGWERF_LOCPATH` für Locales, die der Rechner nicht hat
+(`localedef -i it_IT -f UTF-8 build/tmp/locale/it_IT.UTF-8`, kein root).
+`WEGWERF_SPRACHPROBE=1` prüft die Starter in dieser Sprache (`starter-namen.txt`) und
+fotografiert das Panel-Menü mit „Zubehör“ und das erste Menü von Bilder
+(`a33-panel-anwendungen.png`, `a33-menue-org.querencia.Bilder.png`; braucht `wlrctl`, `grim`).
+
 `tests/wegwerf-upgrade-schnatter.sh <nachweis> <alter satz> <neuer satz>` misst die
 Umbenennung Querencia Webhülle → Schnatter: alter Satz mit `querencia-webhuelle 0.2.0-1`, ein
 Probe-Benutzer mit den Ordnern der Webhülle **am echten Pfad** (`~/.local/share`, `~/.cache`,

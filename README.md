@@ -4,19 +4,15 @@ Debian-Paketierung, APT-Quelle und CI-Vorlagen für
 [Querencia Desktop](https://github.com/querencia-desktop/querencia) – einer
 klassischen Desktopumgebung im GNOME-2-Stil für Wayland (labwc, Rust, GTK 4).
 
-*English summary:* Debian packaging, APT repository tooling and CI templates of
-Querencia Desktop. Alpha software; documentation is in German.
-
-> **Alpha 3.2** (veröffentlicht am 26.10.2026, Tag `packaging/alpha32-1`; davor Alpha 3.1
-> am 24.10.2026, Tag `packaging/alpha31-1`, Alpha 3 am 24.10.2026, Tag `packaging/alpha3-2`,
-> Alpha 2.1 am 22.10.2026, Tag `packaging/alpha-2.1`, und Alpha 2 am 21.10.2026, Tag
-> `packaging/alpha-2`): 24 Quellpakete aus festen, getaggten Quellständen (`quellen.conf`),
-> gebaut mit `dpkg-buildpackage` und statisch, in einer Wegwerf-Installation und mit
-> Upgrade-Proben geprüft; die Probe auf einer frischen Ubuntu-26.04-VM beschreibt
-> [docs/pflichtprobe-frische-vm.md](docs/pflichtprobe-frische-vm.md). Die APT-Quelle beschreibt
-> [docs/apt-quelle.md](docs/apt-quelle.md). Neu in Alpha 3.2 ist das optionale Zusatzpaket
-> `querencia-schnatter` (Schnatter, bis 0.2.0 „Querencia Webhülle“); `querencia-webhuelle`
-> ist nur noch ein Übergangspaket darauf. Keine Sicherheits- oder Datenverlustgarantie.
+> **Status: Alpha 3.3 (27.10.2026, Satz `debs-alpha33-2`, unveröffentlicht): fünf
+> Sprachen.** Alle Programme sprechen Deutsch, Englisch, Italienisch, Spanisch und
+> Französisch (noch fest deutsch: Sperrbildschirm, Fenster des Lautstärkereglers,
+> Tastenkürzel); der Anmeldebildschirm durchgehend Deutsch oder Englisch; das Panel hat
+> einen Infobereich (Panel 0.4.0); das Metapaket empfiehlt `locales-all`. Veröffentlicht in der APT-Quelle ist Alpha 3.2
+> (26.10.2026). 24 Pakete aus 24 Quellpaketen bauen lokal mit `dpkg-buildpackage`;
+> geprüft statisch, in einer Wegwerf-Installation (auch mit `LANG=it_IT.UTF-8`) und
+> mit Upgrade-Proben. Signatur und Upload macht der Betreuer der Quelle
+> ([docs/apt-quelle.md](docs/apt-quelle.md)).
 
 ## Inhalt
 
@@ -37,7 +33,7 @@ querencia-dateien/           Dateimanager Querencia Dateien (Quelle: querencia-s
 querencia-files/             Übergangspaket seit Alpha 3: nur Brücken-Starter auf Dateien
 querencia-terminal/          Terminal (noch alte App-ID)
 querencia-screenshot/        Bildschirmfoto
-querencia-editor/            Texteditor (gettext, de)
+querencia-editor/            Texteditor (gettext: de, en, it, es, fr)
 querencia-bilder/            Bildbetrachter
 querencia-rechner/           Taschenrechner
 querencia-systemmonitor/     Systemüberwachung

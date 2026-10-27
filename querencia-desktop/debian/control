@@ -43,7 +43,8 @@ Recommends: fonts-dejavu-extra,
             wsdd-server,
             xdg-desktop-portal-gtk,
             wl-clipboard,
-            slurp
+            slurp,
+            locales-all
 Suggests: querencia-anmeldung
 Description: Querencia Desktop – classic GNOME 2 style desktop (metapackage, alpha)
  Querencia Desktop is a classic desktop in the style of GNOME 2 /

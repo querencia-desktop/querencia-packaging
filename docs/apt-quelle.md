@@ -341,3 +341,58 @@ Rückfrage, beim Upgrade nichts entfernt.
   `querencia-schnatter`). Als Kandidat für `sudo apt autoremove` nennt es nur
   das Übergangspaket; Schnatter ist manuell markiert (VM-Probe 26.10.2026,
   autoremove selbst nicht ausgeführt).
+
+## Nachtrag 27.10.2026: Alpha 3.3
+
+Am 27.10.2026 um 12:05:37 (MEZ) ging der Index von Alpha 3.3 auf den Server: Satz
+`debs-alpha33-2` (Tag `packaging/alpha33-2`, 24 Pakete, `SHA256SUMS` mit der
+Summe `ad018bf1…`). Alpha 3.3 bringt **fünf Sprachen**: Alle Programme, das Panel
+und die Arbeitsfläche sprechen Deutsch, Englisch, Italienisch, Spanisch und
+Französisch. Neu gegenüber Alpha 3.2 sind 18 Pakete:
+
+| Paket | Version | Änderung |
+|---|---|---|
+| `querencia-desktop` | 0.1.0~alpha3.3-1 | Versionsdatei „Alpha 3.3“; empfiehlt neu `locales-all` |
+| `querencia-shell` | 0.1.0~alpha11-1 | Panel 0.4.0 mit Infobereich; Panel und Arbeitsfläche it/es/fr |
+| `querencia-dateien` | 0.2.4-1 | it/es/fr; Kompaktansicht kürzt Namen nicht mehr; Statusleiste nach der Suche |
+| `querencia-anmeldung` | 0.1.3-1 | Anmeldebildschirm durchgehend Deutsch oder Englisch (wahlweise) |
+| `querencia-schnatter` | 0.3.1-1 | it/es/fr (wahlweise) |
+| übrige 13 Programme | neue Versionen | it/es/fr (Editor, Terminal, Sitzung, Einstellungen, Software, Rechner, Bilder, Dokumente, Archiv, Systemmonitor, Dateisuche, Screenshot, Benachrichtigungen) |
+
+Byte-gleich im Pool blieben `labwc`, `querencia-session`, `-symbole`,
+`-hintergruende`, `-files` und `-webhuelle`.
+
+| Was | Wert |
+|---|---|
+| Release-Datum | Tue, 27 Oct 2026 10:53:08 UTC |
+| InRelease (SHA256) | `e829617fbc4e14e30b675c21259a4bb576410a28934c48d9d59db657a7a17f62` |
+| Index | binary-amd64 24, binary-all 6; Pool 92 Dateien, davon 18 neu; ältere Fassungen bleiben liegen |
+| Upload | 44 Dateien (33041 KiB), 132 lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal 22/1 (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server 10/0 |
+
+Vor dem Upload liefen Upgrade 3.2 → 3.3 (mit Schnatter und Anmeldebildschirm aus
+der veröffentlichten Quelle) und Neuinstallation in einer frischen Ubuntu-VM. Das
+Upgrade aktualisierte die 18 Pakete und installierte `locales-all` mit, ohne
+Rückfrage und ohne etwas zu entfernen (9,5 s); die Neuinstallation brachte
+390 Pakete (72 s), `locales-all` eingeschlossen.
+
+- **Sprache:** Welche Sprache gilt, bestimmt die Spracheinstellung des Systems
+  (Einstellungen → „Sprache und Region“). Das Metapaket empfiehlt `locales-all`,
+  damit `it_IT`, `es_ES` und `fr_FR` dort wählbar sind (rund 230 MB auf der
+  Platte). `apt full-upgrade` installiert es beim Upgrade mit; wer mit
+  `--no-install-recommends` installiert, bekommt es nicht.
+- **GTK-eigene Texte** (Dateidialog, Tastennamen im Dialog) kommen aus
+  `language-pack-gnome-<xx>` des Systems, nicht aus dem Metapaket.
+- **Infobereich:** Im Standard-Panel oben rechts vor der Glocke. Wer das Panel
+  schon angepasst hat, fügt ihn über „Zum Panel hinzufügen“ hinzu; das Paket
+  ändert die gespeicherte Anordnung nicht.
+- **Noch fest deutsch:** Sperrbildschirm, Fenster des Lautstärkereglers,
+  Tastenkürzel-Hilfe.
+- **Software:** Thunderbird und Firefox stehen mit eigener Beschreibung im
+  Software-Center; ohne die Paketquelle des Mozilla-Teams bzw. von Mozilla
+  zeigen sie „Nicht verfügbar“ (keine Snap-Hüllen).
+- **Abgelaufenes Passwort am Anmeldebildschirm:** greetd 0.10.3 aus Ubuntu bricht
+  die Anmeldung mit „Anmeldung fehlgeschlagen: Pam_acct_mgmt: NEW_AUTHTOK_REQD“ ab
+  und bietet keinen Passwortwechsel an (VM-Probe 27.10.2026). Ausweg, in der VM
+  nicht geprüft: auf einer Textkonsole anmelden, dort fragt `login` nach dem neuen
+  Passwort.

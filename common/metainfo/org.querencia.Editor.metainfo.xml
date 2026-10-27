@@ -6,8 +6,14 @@
   <id>org.querencia.Editor</id>
   <name>Querencia Editor</name>
   <name xml:lang="de">Querencia Editor</name>
+  <name xml:lang="it">Querencia Editor</name>
+  <name xml:lang="es">Querencia Editor</name>
+  <name xml:lang="fr">Querencia Éditeur</name>
   <summary>Edit text files</summary>
   <summary xml:lang="de">Textdateien bearbeiten</summary>
+  <summary xml:lang="it">Modifica file di testo</summary>
+  <summary xml:lang="es">Editar archivos de texto</summary>
+  <summary xml:lang="fr">Modifier des fichiers texte</summary>
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <developer id="org.querencia">
@@ -18,6 +24,9 @@
   <description>
     <p>Querencia Editor is the text editor of Querencia Desktop: a classic editor with menu bar and toolbar on GtkSourceView 5 with syntax highlighting, search and replace, line numbers and several documents in tabs.</p>
     <p xml:lang="de">Querencia Editor ist der Texteditor von Querencia Desktop: ein klassischer Editor mit Menüleiste und Werkzeugleiste auf GtkSourceView 5 mit Syntaxhervorhebung, Suchen und Ersetzen, Zeilennummern und mehreren Dokumenten in Reitern.</p>
+    <p xml:lang="it">Querencia Editor è l’editor di testo di Querencia Desktop: un editor classico con barra dei menu e barra degli strumenti basato su GtkSourceView 5, con evidenziazione della sintassi, ricerca e sostituzione, numeri di riga e più documenti in schede.</p>
+    <p xml:lang="es">Querencia Editor es el editor de textos de Querencia Desktop: un editor clásico con barra de menús y barra de herramientas sobre GtkSourceView 5, con resaltado de sintaxis, búsqueda y reemplazo, números de línea y varios documentos en pestañas.</p>
+    <p xml:lang="fr">Querencia Éditeur est l’éditeur de texte de Querencia Desktop : un éditeur classique avec barre de menus et barre d’outils basé sur GtkSourceView 5, avec coloration syntaxique, recherche et remplacement, numéros de ligne et plusieurs documents dans des onglets.</p>
   </description>
   <url type="homepage">https://querencialinux.org</url>
   <launchable type="desktop-id">org.querencia.Editor.desktop</launchable>
@@ -46,6 +55,18 @@
     <keyword xml:lang="de">Editor</keyword>
     <keyword xml:lang="de">Texteditor</keyword>
     <keyword xml:lang="de">Notizen</keyword>
+    <keyword xml:lang="it">testo</keyword>
+    <keyword xml:lang="it">editor</keyword>
+    <keyword xml:lang="it">editor di testo</keyword>
+    <keyword xml:lang="it">note</keyword>
+    <keyword xml:lang="es">texto</keyword>
+    <keyword xml:lang="es">editor</keyword>
+    <keyword xml:lang="es">editor de textos</keyword>
+    <keyword xml:lang="es">notas</keyword>
+    <keyword xml:lang="fr">texte</keyword>
+    <keyword xml:lang="fr">éditeur</keyword>
+    <keyword xml:lang="fr">éditeur de texte</keyword>
+    <keyword xml:lang="fr">notes</keyword>
   </keywords>
   <content_rating type="oars-1.1"/>
   <branding>

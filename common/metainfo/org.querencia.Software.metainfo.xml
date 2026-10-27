@@ -6,8 +6,14 @@
   <id>org.querencia.Software</id>
   <name>Querencia Software</name>
   <name xml:lang="de">Querencia Software</name>
+  <name xml:lang="it">Querencia Software</name>
+  <name xml:lang="es">Querencia Software</name>
+  <name xml:lang="fr">Querencia Logiciels</name>
   <summary>Install, remove and update programs</summary>
   <summary xml:lang="de">Programme installieren, entfernen und aktualisieren</summary>
+  <summary xml:lang="it">Installa, rimuovi e aggiorna programmi</summary>
+  <summary xml:lang="es">Instalar, quitar y actualizar programas</summary>
+  <summary xml:lang="fr">Installer, supprimer et mettre à jour des programmes</summary>
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <developer id="org.querencia">
@@ -18,8 +24,14 @@
   <description>
     <p>Querencia Software is the software manager of Querencia Desktop in the manner of „Add/Remove Applications“ of GNOME 2: programs by category from the AppStream catalogue, search, a details page with description, version, size and license, install and remove with progress, a list of installed programs and the pending updates. Package operations run through PackageKit; the session's polkit agent asks for the password.</p>
     <p xml:lang="de">Querencia Software ist die Softwareverwaltung von Querencia Desktop nach Art von „Anwendungen hinzufügen/entfernen“ aus GNOME 2: Programme nach Kategorien aus dem AppStream-Katalog, Suche, eine Detailseite mit Beschreibung, Version, Größe und Lizenz, Installieren und Entfernen mit Fortschritt, die Liste der installierten Programme und die anstehenden Aktualisierungen. Paketvorgänge laufen über PackageKit; der polkit-Agent der Sitzung fragt nach dem Passwort.</p>
+    <p xml:lang="it">Querencia Software è il gestore software di Querencia Desktop sul modello di «Aggiungi/Rimuovi applicazioni» di GNOME 2: programmi per categoria dal catalogo AppStream, ricerca, una pagina di dettagli con descrizione, versione, dimensione e licenza, installazione e rimozione con avanzamento, l’elenco dei programmi installati e gli aggiornamenti in sospeso. Le operazioni sui pacchetti passano per PackageKit; l’agente polkit della sessione chiede la password.</p>
+    <p xml:lang="es">Querencia Software es el gestor de software de Querencia Desktop al estilo de «Añadir/Quitar aplicaciones» de GNOME 2: programas por categorías del catálogo AppStream, búsqueda, una página de detalles con descripción, versión, tamaño y licencia, instalación y eliminación con progreso, la lista de programas instalados y las actualizaciones pendientes. Las operaciones con paquetes se hacen mediante PackageKit; el agente de polkit de la sesión pide la contraseña.</p>
+    <p xml:lang="fr">Querencia Logiciels est le gestionnaire de logiciels de Querencia Desktop à la manière de « Ajouter/Supprimer des applications » de GNOME 2 : programmes par catégorie depuis le catalogue AppStream, recherche, une page de détails avec description, version, taille et licence, installation et suppression avec progression, la liste des programmes installés et les mises à jour en attente. Les opérations sur les paquets passent par PackageKit ; l’agent polkit de la session demande le mot de passe.</p>
     <p>The first version handles Debian packages from the configured APT sources; Snap, Flatpak and firmware are not shown.</p>
     <p xml:lang="de">Die erste Version behandelt Debian-Pakete aus den eingerichteten APT-Quellen; Snap, Flatpak und Firmware werden nicht gezeigt.</p>
+    <p xml:lang="it">La prima versione gestisce i pacchetti Debian dalle sorgenti APT configurate; Snap, Flatpak e firmware non vengono mostrati.</p>
+    <p xml:lang="es">La primera versión trata paquetes Debian de los orígenes APT configurados; Snap, Flatpak y firmware no se muestran.</p>
+    <p xml:lang="fr">La première version gère les paquets Debian des sources APT configurées ; Snap, Flatpak et les micrologiciels ne sont pas affichés.</p>
   </description>
   <url type="homepage">https://querencialinux.org</url>
   <launchable type="desktop-id">org.querencia.Software.desktop</launchable>
@@ -47,6 +59,27 @@
     <keyword xml:lang="de">entfernen</keyword>
     <keyword xml:lang="de">aktualisieren</keyword>
     <keyword xml:lang="de">Softwareverwaltung</keyword>
+    <keyword xml:lang="it">software</keyword>
+    <keyword xml:lang="it">pacchetti</keyword>
+    <keyword xml:lang="it">programmi</keyword>
+    <keyword xml:lang="it">installare</keyword>
+    <keyword xml:lang="it">rimuovere</keyword>
+    <keyword xml:lang="it">aggiornare</keyword>
+    <keyword xml:lang="it">gestione software</keyword>
+    <keyword xml:lang="es">software</keyword>
+    <keyword xml:lang="es">paquetes</keyword>
+    <keyword xml:lang="es">programas</keyword>
+    <keyword xml:lang="es">instalar</keyword>
+    <keyword xml:lang="es">quitar</keyword>
+    <keyword xml:lang="es">actualizar</keyword>
+    <keyword xml:lang="es">gestor de software</keyword>
+    <keyword xml:lang="fr">logiciels</keyword>
+    <keyword xml:lang="fr">paquets</keyword>
+    <keyword xml:lang="fr">programmes</keyword>
+    <keyword xml:lang="fr">installer</keyword>
+    <keyword xml:lang="fr">supprimer</keyword>
+    <keyword xml:lang="fr">mettre à jour</keyword>
+    <keyword xml:lang="fr">gestionnaire de logiciels</keyword>
   </keywords>
   <content_rating type="oars-1.1"/>
   <branding>

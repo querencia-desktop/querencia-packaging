@@ -1,3 +1,23 @@
+querencia-software (0.1.7-1) resolute; urgency=medium
+
+  * Neue Version 0.1.7.
+  * Die Oberfläche gibt es jetzt auch auf Italienisch, Spanisch und
+    Französisch: Menüs, Dialoge und Meldungen, der Starter im Anwendungsmenü
+    und die Beschreibung im Software-Center. Welche Sprache gilt, bestimmt
+    wie bisher die Spracheinstellung des Systems.
+  * Aus Version 0.1.6: Thunderbird und Firefox stehen mit eigener
+    Beschreibung im Software-Center (Katalogdatei
+    /usr/share/swcatalog/xml/querencia-ergaenzungen.xml mit Symbolen).
+    Installieren lassen sie sich, sobald die Paketquelle des Mozilla-Teams
+    bzw. von Mozilla eingerichtet ist; sonst steht dort „Nicht verfügbar“.
+  * Aus Version 0.1.6: Ubuntus Übergangspakete, die nur einen Snap
+    nachinstallieren (etwa thunderbird 2:1snap1), gelten nicht mehr als
+    installierbare Fassung und werden auch nicht als Aktualisierung
+    angeboten. Eine schon installierte Hülle bleibt sichtbar und lässt sich
+    entfernen.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 00:23:11 +0100
+
 querencia-software (0.1.5-1) resolute; urgency=medium
 
   * Neue Version 0.1.5.

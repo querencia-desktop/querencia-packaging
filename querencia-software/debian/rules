@@ -16,5 +16,11 @@ querencia-install:
 		$(DESTDIR)/usr/share/icons/hicolor/scalable/apps/org.querencia.Software.svg
 	$(call mo_install,querencia-software/programm/po,querencia-software)
 	$(call metainfo_install,org.querencia.Software)
+	# Katalog-Ergänzungen (ab 0.1.6, docs/katalog-ergaenzungen.md upstream):
+	# programm/data/swcatalog hat den Aufbau von /usr/share/swcatalog.
+	install -D -m 0644 querencia-software/programm/data/swcatalog/xml/querencia-ergaenzungen.xml \
+		$(DESTDIR)/usr/share/swcatalog/xml/querencia-ergaenzungen.xml
+	set -e; for s in 64x64 128x128; do for f in querencia-software/programm/data/swcatalog/icons/querencia-ergaenzungen/$$s/*.png; do \
+		install -D -m 0644 $$f $(DESTDIR)/usr/share/swcatalog/icons/querencia-ergaenzungen/$$s/$$(basename $$f); done; done
 	# README nennt Arbeitsordner der Entwicklungs-VM (~/projects/...); nur das Änderungsprotokoll.
 	$(call doc_install,querencia-software/programm,-)

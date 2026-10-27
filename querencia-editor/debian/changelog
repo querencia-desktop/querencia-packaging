@@ -1,3 +1,13 @@
+querencia-editor (0.2.5-1) resolute; urgency=medium
+
+  * Neue Version 0.2.5.
+  * Die Oberfläche gibt es jetzt auch auf Italienisch, Spanisch und
+    Französisch: Menüs, Dialoge und Meldungen, der Starter im Anwendungsmenü
+    und die Beschreibung im Software-Center. Welche Sprache gilt, bestimmt
+    wie bisher die Spracheinstellung des Systems.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 00:23:11 +0100
+
 querencia-editor (0.2.4-1) resolute; urgency=medium
 
   * Neue Version 0.2.4.

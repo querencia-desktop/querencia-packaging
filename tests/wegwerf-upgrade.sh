@@ -44,6 +44,17 @@
 # gehört querencia-schnatter in UPGRADE_OHNE (apt brächte es nicht mit; das
 # zeigt die apt-Simulation mit UPGRADE_NEU=).
 #
+# Ist im alten Satz querencia-schnatter 0.3.x installiert (Alpha 3.2 -> 3.3),
+# legt die Probe dessen Ordner am echten Pfad an (~/.local/share, ~/.config,
+# ~/.cache je querencia-schnatter, 0700) und prüft, dass das Upgrade sie nicht
+# anfasst und Schnatter aktualisiert. UPGRADE_DATEIEN_INI=1: Benutzer A hat
+# Dateien schon benutzt (~/.config/querencia/dateien.ini mit eigenen Werten,
+# Format wie Dateien 0.2.2 schreibt); Upgrade und Start lassen sie stehen.
+# UPGRADE_NEU_FREMD: Pakete außerhalb des Satzes, die full-upgrade neu
+# installieren muss (Alpha 3.3: locales-all, neue Recommends des Metapakets).
+# Immer: jedes installierte Paket, dessen Version sich zwischen den Sätzen
+# ändert, wird aktualisiert, sonst keins.
+#
 # Ergebnis: PASS/FAIL/HINW je Prüfung in <nachweisordner>/ergebnis.txt,
 # Exit 1 bei einem FAIL.
 set -uo pipefail
@@ -71,6 +82,8 @@ if [ "${1-}" = --innen ]; then
     APPS=$R/usr/share/applications
     WH_ORDNER=".local/share .config .cache"
     webhuelle_alt() { grep -q '^querencia-webhuelle 0\.2\.' "$OUT/versionen-vorher.txt" 2>/dev/null; }
+    schnatter_alt() { grep -q -E '^querencia-schnatter 0\.3\.[^ ]+ ii' "$OUT/versionen-vorher.txt" 2>/dev/null; }
+    webhuelle_da() { dpkg-query --root="$R" -W -f='${db:Status-Abbrev}' querencia-webhuelle 2>/dev/null | grep -q '^ii'; }
     schnatter_neu() { ls "$NEU"/querencia-schnatter_*.deb >/dev/null 2>&1; }
     meta_schnatter() { # zieht das Metapaket des neuen Satzes Schnatter?
         dpkg-deb -f "$NEU"/querencia-desktop_*.deb Depends Recommends | grep -q 'querencia-schnatter'; }
@@ -143,6 +156,34 @@ if [ "${1-}" = --innen ]; then
             for e in $WH_ORDNER; do (cd "$H/$e/querencia-webhuelle" && sha256sum storage/attrappe/anmeldung.db | sed "s|  |  $e/|"); done >"$OUT/webhuelle-attrappen.sha256"
             ok "vorher: querencia-webhuelle $(awk '$1 == "querencia-webhuelle" {print $2}' "$OUT/versionen-vorher.txt") mit Ordnern am echten Pfad (~/.local/share, ~/.config, ~/.cache)"
         fi
+        if schnatter_alt; then
+            # Ordner von Schnatter 0.3.x am echten Pfad (wie nach dem Umzug bzw.
+            # dem ersten Start), Attrappe der Anmeldung (Zufall, nie echte Daten)
+            for e in $WH_ORDNER; do
+                d=$H/$e/querencia-schnatter
+                mkdir -p "$d/storage/attrappe" && chmod 0700 "$d"
+                head -c 4096 /dev/urandom >"$d/storage/attrappe/anmeldung.db"
+            done
+            printf '[Fenster]\nbreite=1000\nhoehe=700\nmaximiert=false\n\n[Seite]\nkennung=standard\nzoom=1.25\n' \
+                >"$H/.config/querencia-schnatter/einstellungen.ini"
+            ordnerstand querencia-schnatter >"$OUT/schnatter-ordner-vorher.txt"
+            for e in $WH_ORDNER; do (cd "$H/$e/querencia-schnatter" && sha256sum storage/attrappe/anmeldung.db | sed "s|  |  $e/|"); done >"$OUT/schnatter-attrappen.sha256"
+            ok "vorher: querencia-schnatter $(awk '$1 == "querencia-schnatter" {print $2}' "$OUT/versionen-vorher.txt") mit Ordnern am echten Pfad (~/.local/share, ~/.config, ~/.cache)"
+        fi
+        if [ "${UPGRADE_DATEIEN_INI-}" = 1 ]; then
+            mkdir -p "$H/.config/querencia"
+            {
+                printf '%s\n' '# Querencia Dateien – Einstellungen (jede Änderung wird sofort geschrieben)' '[Ansichten]' \
+                    'Ansicht=liste' 'Anordnen=datum' 'OrdnerZuerst=true' 'Verborgene=true' 'ZoomSymbole=150' 'ZoomListe=50' ''
+                printf '%s\n' '[Verhalten]' 'EinfacherKlick=false' 'AusfuehrbareTexte=nachfragen' 'Nachfragen=true' \
+                    'LoeschenAnbieten=false' 'AdresseAlsText=false' ''
+                printf '%s\n' '[Listenspalten]' 'Groesse=true' 'Typ=true' 'Datum=true' 'Rechte=true' 'Eigentuemer=false' 'Gruppe=false' ''
+                printf '%s\n' '[Fenster]' 'Breite=900' 'Hoehe=600' 'Werkzeugleiste=true' 'Seitenleiste=true' \
+                    'Adressleiste=true' 'Statusleiste=true' 'SeitenleisteBreite=150' '' '[Migration]' 'AusFiles=1'
+            } >"$H/.config/querencia/dateien.ini"
+            (cd "$H" && sha256sum .config/querencia/dateien.ini) >"$OUT/dateien-ini-vorher.sha256"
+            ok "vorher: Dateien-Einstellungen am echten Pfad ~/.config/querencia/dateien.ini (Zoom 150, Spalte Rechte, 900×600)"
+        fi
         echo "Ordnerprogramm A: $(vorgabe "$H")" >"$OUT/gio-vorher.txt"
         echo "Ordnerprogramm B: $(vorgabe "$HB")" >>"$OUT/gio-vorher.txt"
         echo "Dateimanager im Menü: $(sichtbare_dateimanager)" >>"$OUT/gio-vorher.txt"
@@ -174,7 +215,8 @@ if [ "${1-}" = --innen ]; then
         { cat "$A/apt/sources.list.rechner" 2>/dev/null
           printf '%s\n' "deb [trusted=yes] file:$A/apt/neu ./" "deb [trusted=yes] file:$A/apt/alt ./"; } >"$A/apt/sources.list"
         # querencia-webhuelle 0.2.0 war optional: wer es hat, hat es selbst gewählt
-        for p in $(awk '$1 ~ /^(querencia-|labwc$)/ && $1 != "querencia-desktop" && $1 != "querencia-webhuelle" && $3 == "ii" {print $1}' "$OUT/versionen-vorher.txt"); do
+        # querencia-schnatter (ab 0.3.0 optional): ebenfalls selbst gewählt
+        for p in $(awk '$1 ~ /^(querencia-|labwc$)/ && $1 != "querencia-desktop" && $1 != "querencia-webhuelle" && $1 != "querencia-schnatter" && $3 == "ii" {print $1}' "$OUT/versionen-vorher.txt"); do
             printf 'Package: %s\nArchitecture: %s\nAuto-Installed: 1\n\n' "$p" "$(dpkg-query --root="$R" -W -f='${Architecture}' "$p")"
         done >"$A/apt/state/extended_states"
         apt_s update >"$OUT/apt-update.txt" 2>&1
@@ -196,6 +238,20 @@ if [ "${1-}" = --innen ]; then
         [ $rc -eq 0 ] && [ -z "$remv" ] && [ "$neu" = "$soll_neu" ] &&
             ok "apt -s full-upgrade: neu ${soll_neu:-nichts}, aktualisiert ${hoch}, nichts entfernt" ||
             nok "apt -s full-upgrade: rc $rc, neu: $neu, entfernt: ${remv:-keins} ($OUT/apt-full-upgrade-simulation.txt)"
+        for p in ${UPGRADE_NEU_FREMD-}; do
+            grep -q "^Inst $p (" "$OUT/apt-full-upgrade-simulation.txt" &&
+                ok "apt -s full-upgrade: $p neu (Empfehlung des neuen Metapakets)" ||
+                nok "apt -s full-upgrade: $p nicht neu installiert"
+        done
+        # jedes installierte Paket mit neuer Version im neuen Satz wird aktualisiert, sonst keins
+        soll_hoch=$(for d in "$NEU"/*.deb; do
+            p=$(dpkg-deb -f "$d" Package) v=$(dpkg-deb -f "$d" Version)
+            awk -v p="$p" -v v="$v" '$1 == p && $3 == "ii" && $2 != v {print p}' "$OUT/versionen-vorher.txt"
+        done | sort | tr '\n' ' ')
+        ist_hoch=$(echo "$hoch" | tr ' ' '\n' | grep . | sort | tr '\n' ' ')
+        [ "$ist_hoch" = "$soll_hoch" ] &&
+            ok "apt -s full-upgrade: alle $(echo "$soll_hoch" | wc -w) installierten Pakete mit neuer Version werden aktualisiert, keins sonst" ||
+            nok "apt -s full-upgrade aktualisiert: $ist_hoch; erwartet: $soll_hoch"
         # Neuinstallation (M7): apt install querencia-desktop auf dem Stand des
         # Rechners ohne Querencia, mit Empfehlungen wie apt sie standardmäßig nimmt
         apt-get -q -o Dir::State::status=/var/lib/dpkg/status -o Dir::State="$A/apt/state" \
@@ -254,7 +310,7 @@ if [ "${1-}" = --innen ]; then
         diff "$OUT/versionen-vorher.txt" "$OUT/versionen-nachher.txt" >"$OUT/versionen-diff.txt"
         sed 's/^/  /' "$OUT/versionen-diff.txt"
         wh=; webhuelle_alt && wh="querencia-webhuelle $(dpkg-deb -f "$NEU"/querencia-webhuelle_*.deb Version)"
-        sn=; schnatter_neu && { webhuelle_alt || meta_schnatter; } && sn="querencia-schnatter $(dpkg-deb -f "$NEU"/querencia-schnatter_*.deb Version)"
+        sn=; schnatter_neu && { webhuelle_alt || meta_schnatter || schnatter_alt; } && sn="querencia-schnatter $(dpkg-deb -f "$NEU"/querencia-schnatter_*.deb Version)"
         for want in "querencia-dateien $(dpkg-deb -f "$NEU"/querencia-dateien_*.deb Version)" ${sn:+"$sn"} ${wh:+"$wh"} \
             "querencia-files $(dpkg-deb -f "$NEU"/querencia-files_*.deb Version)" \
             "querencia-desktop $(dpkg-deb -f "$NEU"/querencia-desktop_*.deb Version)"; do
@@ -341,11 +397,22 @@ if [ "${1-}" = --innen ]; then
                 nok "Brücken-Starter der Webhülle: $(grep -E '^(NoDisplay|Exec)=' "$b" 2>/dev/null | tr '\n' ' ')"
         fi
 
+        if schnatter_alt; then
+            ordnerstand querencia-schnatter >"$OUT/schnatter-ordner-nach-upgrade.txt"
+            cmp -s "$OUT/schnatter-ordner-vorher.txt" "$OUT/schnatter-ordner-nach-upgrade.txt" &&
+                ok "Upgrade: Ordner von Schnatter unberührt (Inode, Rechte, Inhalt)" ||
+                nok "Upgrade hat die Ordner von Schnatter verändert ($OUT/schnatter-ordner-nach-upgrade.txt)"
+        fi
+        if [ "${UPGRADE_DATEIEN_INI-}" = 1 ]; then
+            (cd "$H" && sha256sum -c --quiet "$OUT/dateien-ini-vorher.sha256") >/dev/null 2>&1 &&
+                ok "Upgrade: ~/.config/querencia/dateien.ini unverändert" || nok "Upgrade hat dateien.ini verändert"
+        fi
+
         # apt: was "autoremove" danach vorschlüge (auto-Markierung wie oben,
         # querencia-dateien als neue Abhängigkeit ebenfalls automatisch)
         printf 'Package: querencia-dateien\nArchitecture: amd64\nAuto-Installed: 1\n\n' >>"$A/apt/state/extended_states"
         # Schnatter kam als Abhängigkeit (Übergangspaket oder Metapaket): automatisch
-        schnatter_da && printf 'Package: querencia-schnatter\nArchitecture: amd64\nAuto-Installed: 1\n\n' >>"$A/apt/state/extended_states"
+        schnatter_da && ! schnatter_alt && printf 'Package: querencia-schnatter\nArchitecture: amd64\nAuto-Installed: 1\n\n' >>"$A/apt/state/extended_states"
         apt_s -s autoremove >"$OUT/apt-autoremove-simulation.txt" 2>&1
         weg=$(grep '^Remv ' "$OUT/apt-autoremove-simulation.txt" | awk '{print $2}' | tr '\n' ' ')
         apt_s -s -o APT::AutoRemove::SuggestsImportant=false autoremove >"$OUT/apt-autoremove-ohne-suggests.txt" 2>&1
@@ -364,7 +431,7 @@ if [ "${1-}" = --innen ]; then
             # Übergangspaket, das davon abhängt), nicht den Desktop
             apt_s -s remove querencia-schnatter >"$OUT/apt-remove-schnatter-simulation.txt" 2>&1
             rm_=$(awk '/^Remv / {print $2}' "$OUT/apt-remove-schnatter-simulation.txt" | sort | tr '\n' ' ')
-            soll=$(webhuelle_alt && echo "querencia-schnatter querencia-webhuelle " || echo "querencia-schnatter ")
+            soll=$({ webhuelle_alt || webhuelle_da; } && echo "querencia-schnatter querencia-webhuelle " || echo "querencia-schnatter ")
             [ "$rm_" = "$soll" ] && ok "apt -s remove querencia-schnatter: entfernt nur ${soll}(querencia-desktop bleibt)" ||
                 nok "apt -s remove querencia-schnatter entfernt: ${rm_:-nichts} ($OUT/apt-remove-schnatter-simulation.txt)"
         fi
@@ -384,6 +451,11 @@ if [ "${1-}" = --innen ]; then
             ok "Dateien hat die Files-Einstellungen beim ersten Start übernommen (AusFiles=1, $OUT/dateien.ini)"
         else
             nok "dateien.ini ohne AusFiles=1 ($ini)"
+        fi
+        if [ "${UPGRADE_DATEIEN_INI-}" = 1 ]; then
+            grep -qx 'ZoomSymbole=150' "$ini" && grep -qx 'Rechte=true' "$ini" && grep -qx 'Breite=900' "$ini" &&
+                ok "nach dem Start von Dateien 0.2.3: eigene Werte aus dateien.ini erhalten (Zoom 150, Spalte Rechte, Breite 900)" ||
+                nok "dateien.ini: eigene Werte verloren ($(grep -E '^(ZoomSymbole|Rechte|Breite)=' "$ini" | tr '\n' ' '))"
         fi
         # die Probe-Werte (Spalten → Liste, Datum, verborgene Dateien) kamen an
         grep -qx 'Ansicht=liste' "$ini" 2>/dev/null && grep -qx 'Anordnen=datum' "$ini" && grep -qx 'Verborgene=true' "$ini" &&
@@ -410,6 +482,15 @@ if [ "${1-}" = --innen ]; then
                 nok "Ordner nach dem Start von Schnatter: $(paste -sd' ' "$OUT/schnatter-ordner-danach.txt") / Webhülle: $(paste -sd' ' "$OUT/webhuelle-ordner-danach.txt")"
             fi
         fi
+        if schnatter_alt; then
+            # Schnatter 0.3.1 startete in der Sitzungsprüfung mit diesen Ordnern
+            att=0; for e in $WH_ORDNER; do
+                (cd "$H/$e/querencia-schnatter" 2>/dev/null && grep " $e/" "$OUT/schnatter-attrappen.sha256" | sed "s|  $e/|  |" | sha256sum -c --quiet) >/dev/null 2>&1 && att=$((att + 1))
+            done
+            [ $att = 3 ] && grep -qx 'zoom=1.25' "$H/.config/querencia-schnatter/einstellungen.ini" &&
+                ok "nach dem Start von Schnatter 0.3.1: Ordner, Attrappe der Anmeldung und Zoom 1,25 erhalten" ||
+                nok "Schnatter-Ordner nach dem Start: Attrappe $att/3, $(grep zoom "$H/.config/querencia-schnatter/einstellungen.ini" 2>/dev/null)"
+        fi
         ls "$OUT"/../sitzung/start-org.querencia.Dateien.png >/dev/null 2>&1 &&
             ok "Bildschirmfoto Dateien mit Lesezeichen in der Seitenleiste: sitzung/start-org.querencia.Dateien.png" ||
             hinweis "kein Bildschirmfoto von Dateien"
@@ -420,7 +501,8 @@ if [ "${1-}" = --innen ]; then
         # vorher galten, installiert apt nicht nach) und ob alles heil bleibt
         D() { dpkg --root="$R" --force-not-root "$@"; }
         if ! schnatter_da; then echo "Teil entfernen: Schnatter nicht installiert, nichts zu tun"; exit 0; fi
-        weg=querencia-schnatter; webhuelle_alt && weg="querencia-webhuelle querencia-schnatter"
+        # das Übergangspaket hängt von Schnatter ab (0.2.x vorher oder 0.3.x installiert)
+        weg=querencia-schnatter; { webhuelle_alt || webhuelle_da; } && weg="querencia-webhuelle querencia-schnatter"
         # shellcheck disable=SC2086
         D --force-script-chrootless --no-triggers --log="$OUT/dpkg-remove.log" -r $weg >"$OUT/dpkg-remove-schnatter.txt" 2>&1
         rc=$?
