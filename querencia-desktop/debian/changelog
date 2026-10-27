@@ -1,3 +1,23 @@
+querencia-desktop (0.1.0~alpha3.4-1) resolute; urgency=medium
+
+  * Alpha 3.4.
+  * Querencia Dateien 0.3.0: Rückgängig und Wiederholen für Dateiaktionen
+    (Strg+Z), Suche auch im Dateiinhalt, die Reiter des letzten Fensters
+    beim nächsten Start und „Hier entpacken“ im Kontextmenü von Archiven.
+  * Neue Seite „Treiber“ in den Einstellungen (querencia-einstellungen
+    0.2.0), auch als Eintrag „Treiber“ im Menü System → Systemverwaltung:
+    zeigt den Grafiktreiber und wechselt zwischen dem freien Treiber und dem
+    NVIDIA-Treiber. Dafür empfehlen die Einstellungen ubuntu-drivers-common.
+  * Der wahlweise Anmeldebildschirm (querencia-anmeldung 0.1.4) sagt bei
+    einem abgelaufenen Passwort, dass es abgelaufen ist und wie man an der
+    Textkonsole ein neues setzt.
+  * Der Sperrbildschirm (querencia-sitzung 0.1.10), die Tastenkürzel-Hilfe
+    und das Fenster des Lautstärkereglers (querencia-shell 0.1.0~alpha12)
+    sprechen jetzt alle fünf Sprachen.
+  * Versionsdatei „Alpha 3.4“. Abhängigkeiten unverändert.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 18:52:46 +0100
+
 querencia-desktop (0.1.0~alpha3.3-1) resolute; urgency=medium
 
   * Alpha 3.3: Querencia Desktop spricht jetzt fünf Sprachen – Deutsch,

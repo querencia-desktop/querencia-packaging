@@ -1,3 +1,23 @@
+querencia-dateien (0.3.0-1) resolute; urgency=medium
+
+  * Neue Version 0.3.0.
+  * Neu: Rückgängig und Wiederholen (Strg+Z, Umschalt+Strg+Z, Menü
+    Bearbeiten) für Verschieben, Umbenennen, In den Papierkorb, Kopieren,
+    Neuer Ordner und Neues Dokument; bis 50 Schritte je Fenster. Rückgängig
+    beim Kopieren legt die Kopien in den Papierkorb. Endgültiges Löschen
+    lässt sich nicht zurücknehmen.
+  * Neu: Suche im Dateiinhalt. Mit „Auch Dateiinhalt“ in der Suchleiste
+    (Strg+F) findet die Suche auch Textdateien bis 10 MB, in denen alle
+    Wörter vorkommen; die Spalte „Fundstelle“ zeigt die Zeile.
+  * Neu: Beim Start ohne Ordner öffnen sich die Reiter des zuletzt
+    geschlossenen Fensters wieder (abschaltbar unter Bearbeiten →
+    Einstellungen → Verhalten).
+  * Neu: „Hier entpacken“ im Kontextmenü von Archiven, wenn Querencia Archiv
+    installiert ist.
+  * Neue Texte in allen fünf Sprachen.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 18:52:26 +0100
+
 querencia-dateien (0.2.4-1) resolute; urgency=medium
 
   * Neue Version 0.2.4.
