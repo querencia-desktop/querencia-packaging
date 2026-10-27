@@ -450,3 +450,38 @@ eingeschlossen (807 s, davon fast alles Download vom Ubuntu-Spiegel mit 312 kB/s
   Mesa mit `llvmpipe`; die Seite nennt den Renderer richtig, schreibt unter
   „Diese Sitzung“ aber „OpenGL auf der Grafikkarte“ (VM-Probe 27.10.2026, Befund an
   die Einstellungen).
+
+## Nachtrag [Datum]: Alpha 3.5 (Entwurf)
+
+Am [Datum] um [Uhrzeit] (MEZ) ging der Index von Alpha 3.5 auf den Server: Satz
+`debs-alpha35-1` (Tag `packaging/alpha35-1`, 24 Pakete, `SHA256SUMS` mit der
+Summe `e19e1421…`). Neu gegenüber Alpha 3.4 sind drei Pakete:
+
+| Paket | Version | Änderung |
+|---|---|---|
+| `querencia-desktop` | 0.1.0~alpha3.5-1 | Versionsdatei „Alpha 3.5“; Abhängigkeiten unverändert |
+| `querencia-anmeldung` | 0.1.5-1 | Anmeldebildschirm auch auf Italienisch, Spanisch und Französisch (wahlweise) |
+| `querencia-einstellungen` | 0.2.1-1 | Seite „Treiber“ zeigt richtig, ob die Sitzung auf der Grafikkarte oder in Software zeichnet |
+
+Die übrigen 21 Pakete lagen byte-gleich im Pool.
+
+| Was | Wert |
+|---|---|
+| Release-Datum | [Date aus InRelease] |
+| InRelease (SHA256) | [Summe] |
+| Index | binary-amd64 24, binary-all 6; Pool [101 erwartet] Dateien, davon 3 neu; ältere Fassungen bleiben liegen |
+| Upload | [n] Dateien ([KiB]), [n] lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal [22/1 erwartet] (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server [10/0 erwartet] |
+
+Vor dem Upload liefen Upgrade 3.4 → 3.5 und Neuinstallation in einer frischen
+Ubuntu-VM: [Dauer, Anzahl, nichts entfernt, keine Rückfrage].
+
+- **Anmeldebildschirm in fünf Sprachen:** Querencia Anmeldung 0.1.5 zeigt
+  Beschriftungen, Knöpfe, Tooltips und Meldungen, auch die bei abgelaufenem
+  Passwort, jetzt auch auf Italienisch, Spanisch und Französisch; vorher waren
+  sie in diesen Sprachen englisch. Texte von GTK selbst (etwa der Tooltip am Auge
+  im Passwortfeld) übersetzt das System nur mit `language-pack-gnome-<sprache>`.
+- **Treiber-Seite:** Die Zeile „Diese Sitzung“ folgt jetzt dem gemessenen
+  Renderer. In einer virtuellen Maschine ohne 3D-Beschleunigung steht dort
+  Software-Darstellung mit Grund statt „OpenGL auf der Grafikkarte“; der
+  Kerneltreiber heißt dort `virtio_gpu`. Die Einschränkung aus Alpha 3.4 entfällt.
