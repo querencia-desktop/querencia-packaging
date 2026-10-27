@@ -1,3 +1,17 @@
+querencia-dateien (0.2.4-1) resolute; urgency=medium
+
+  * Neue Version 0.2.4.
+  * Behoben: Die Kompaktansicht kürzte gewöhnliche Namen, bei 50 % schon
+    nach 13 Zeichen. Die Spalten sind jetzt so breit wie der längste Name,
+    höchstens 42 Zeichen und höchstens so breit wie die Ansicht, in jeder
+    Zoomstufe gleich. Längere Namen enden mit „…“ und stehen ganz im
+    Tooltip.
+  * Behoben: Nach dem Schließen der Suche blieb die Statusleiste leer. Jetzt
+    steht dort wieder die Zeile des Ordners; solange Treffer gezeigt werden,
+    nennt sie die Trefferzahl bzw. die Auswahl mit Größe.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 02:23:14 +0100
+
 querencia-dateien (0.2.3-1) resolute; urgency=medium
 
   * Neue Version 0.2.3.
