@@ -345,12 +345,9 @@ Rückfrage, beim Upgrade nichts entfernt.
   das Übergangspaket; Schnatter ist manuell markiert (VM-Probe 26.10.2026,
   autoremove selbst nicht ausgeführt).
 
-## Nachtrag [Datum]: Alpha 3.3 (Entwurf)
+## Nachtrag 27.10.2026: Alpha 3.3
 
-*Entwurf des Packaging-Workers; Datum, Uhrzeit, InRelease-Summe und Upload-Zahlen
-trägt der Betreuer der Quelle nach dem Upload ein.*
-
-Am [Datum] um [Uhrzeit] ging der Index von Alpha 3.3 auf den Server: Satz
+Am 27.10.2026 um 12:05:37 (MEZ) ging der Index von Alpha 3.3 auf den Server: Satz
 `debs-alpha33-2` (Tag `packaging/alpha33-2`, 24 Pakete, `SHA256SUMS` mit der
 Summe `ad018bf1…`). Alpha 3.3 bringt **fünf Sprachen**: Alle Programme, das Panel
 und die Arbeitsfläche sprechen Deutsch, Englisch, Italienisch, Spanisch und
@@ -370,11 +367,17 @@ Byte-gleich im Pool blieben `labwc`, `querencia-session`, `-symbole`,
 
 | Was | Wert |
 |---|---|
-| Release-Datum | [Date aus InRelease] |
-| InRelease (SHA256) | `[…]` |
-| Index | binary-amd64 24, binary-all 6 (erwartet); Pool [n] Dateien, davon 18 neu |
-| Upload | [n] Dateien ([n] KiB), [n] lagen schon auf dem Server, nichts gelöscht |
-| Prüfung | lokal [n/n], Server [n/n] |
+| Release-Datum | Tue, 27 Oct 2026 10:53:08 UTC |
+| InRelease (SHA256) | `e829617fbc4e14e30b675c21259a4bb576410a28934c48d9d59db657a7a17f62` |
+| Index | binary-amd64 24, binary-all 6; Pool 92 Dateien, davon 18 neu; ältere Fassungen bleiben liegen |
+| Upload | 44 Dateien (33041 KiB), 132 lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal 22/1 (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server 10/0 |
+
+Vor dem Upload liefen Upgrade 3.2 → 3.3 (mit Schnatter und Anmeldebildschirm aus
+der veröffentlichten Quelle) und Neuinstallation in einer frischen Ubuntu-VM. Das
+Upgrade aktualisierte die 18 Pakete und installierte `locales-all` mit, ohne
+Rückfrage und ohne etwas zu entfernen (9,5 s); die Neuinstallation brachte
+390 Pakete (72 s), `locales-all` eingeschlossen.
 
 - **Sprache:** Welche Sprache gilt, bestimmt die Spracheinstellung des Systems
   (Einstellungen → „Sprache und Region“). Das Metapaket empfiehlt `locales-all`,
@@ -391,3 +394,8 @@ Byte-gleich im Pool blieben `labwc`, `querencia-session`, `-symbole`,
 - **Software:** Thunderbird und Firefox stehen mit eigener Beschreibung im
   Software-Center; ohne die Paketquelle des Mozilla-Teams bzw. von Mozilla
   zeigen sie „Nicht verfügbar“ (keine Snap-Hüllen).
+- **Abgelaufenes Passwort am Anmeldebildschirm:** greetd 0.10.3 aus Ubuntu bricht
+  die Anmeldung mit „Anmeldung fehlgeschlagen: Pam_acct_mgmt: NEW_AUTHTOK_REQD“ ab
+  und bietet keinen Passwortwechsel an (VM-Probe 27.10.2026). Ausweg, in der VM
+  nicht geprüft: auf einer Textkonsole anmelden, dort fragt `login` nach dem neuen
+  Passwort.
