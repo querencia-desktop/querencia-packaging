@@ -23,7 +23,9 @@
 # 7 Alpha 2: gtk-dark.css, Symbole 0.7, dunkle Fassung für ein GTK-4- und
 # ein GTK-3-Fenster über die Helligkeit der Bildmitte; 8 Alpha 3.3 (wahlweise,
 # WEGWERF_SPRACHPROBE=1, Sprache über WEGWERF_LANG): Starter-Namen, Fotos von
-# Panel- und Programm-Menü.
+# Panel- und Programm-Menü; 9 Alpha 3.4 (mit 8): Tastenkürzel-Hilfe als Text
+# in der Sprache, Sperrbildschirm im Prüfmodus der Sitzung (Katalog, Fotos,
+# falsches Passwort, Testpasswort).
 # Ergebnis: PASS/FAIL je Prüfung, Exit 1 bei einem FAIL.
 set -uo pipefail
 HIER=$(readlink -f "$0")
@@ -313,6 +315,47 @@ BUS
                 fi
             else
                 hinweis "A33 Fotos nicht möglich (wlrctl, wtype oder grim fehlt)"
+            fi
+            # 9 Alpha 3.4: Tastenkürzel-Hilfe als Text (--liste, kein Fenster)
+            # in der Sprache von LANG gegen die englischen msgids; Sperrbildschirm
+            # (Sitzung 0.1.10) im Prüfmodus der Sitzung: QS_TROCKENLAUF=1 und
+            # Testpasswort, XDG_RUNTIME_DIR der Hülle, kein PAM.
+            if [ -x "$R/usr/bin/querencia-kuerzel" ] && [ -f "$R/etc/querencia/labwc/rc.xml" ]; then
+                "$R/usr/bin/querencia-kuerzel" --liste --rc "$R/etc/querencia/labwc/rc.xml" >"$OUT/a34-kuerzel-$sp.txt" 2>&1
+                LANGUAGE=en LANG=C.UTF-8 "$R/usr/bin/querencia-kuerzel" --liste --rc "$R/etc/querencia/labwc/rc.xml" >"$OUT/a34-kuerzel-en.txt" 2>&1
+                if [ -s "$OUT/a34-kuerzel-$sp.txt" ] && ! cmp -s "$OUT/a34-kuerzel-$sp.txt" "$OUT/a34-kuerzel-en.txt"; then
+                    ok "A34 Tastenkürzel-Hilfe $sp: $(head -n 1 "$OUT/a34-kuerzel-$sp.txt" | cut -c1-60) ($OUT/a34-kuerzel-$sp.txt)"
+                else
+                    nok "A34 Tastenkürzel-Hilfe $sp gleich der englischen oder leer ($OUT/a34-kuerzel-$sp.txt)"
+                fi
+            fi
+            if [ -x "$R/usr/bin/querencia-sitzung" ] && command -v wtype >/dev/null && command -v grim >/dev/null; then
+                (cd "$HOME" && USER=probe QS_TROCKENLAUF=1 QS_TESTPASSWORT=querencia-test \
+                    exec "$R/usr/bin/querencia-sitzung" --sperren --sofort) >"$S/sperre.log" 2>&1 &
+                pid=$!
+                sleep 3
+                if kill -0 "$pid" 2>/dev/null; then
+                    grep -q "/$sp/LC_MESSAGES/querencia-sitzung.mo" "/proc/$pid/maps" 2>/dev/null &&
+                        ok "A34 Sperrbildschirm: Katalog $sp geladen" || nok "A34 Sperrbildschirm: Katalog $sp nicht geladen"
+                    grim "$OUT/a34-sperre-start.png" 2>/dev/null
+                    # wtype verliert die erste Taste: erst Shift
+                    wtype -P Shift_L -p Shift_L 2>/dev/null; wtype -k Return 2>/dev/null; sleep 1
+                    grim "$OUT/a34-sperre-leer.png" 2>/dev/null
+                    wtype -d 40 falsch 2>/dev/null; wtype -k Return 2>/dev/null; sleep 2
+                    grim "$OUT/a34-sperre-falsch.png" 2>/dev/null
+                    kill -0 "$pid" 2>/dev/null && ok "A34 Sperrbildschirm: falsches Passwort, Sperre bleibt (Fotos $OUT/a34-sperre-*.png)" ||
+                        nok "A34 Sperrbildschirm nach falschem Passwort beendet ($S/sperre.log)"
+                    wtype -d 40 querencia-test 2>/dev/null; wtype -k Return 2>/dev/null
+                    for _ in 1 2 3 4 5 6 7 8 9 10; do kill -0 "$pid" 2>/dev/null || break; sleep 0.5; done
+                    if kill -0 "$pid" 2>/dev/null; then
+                        nok "A34 Sperrbildschirm: Testpasswort entsperrt nicht ($S/sperre.log)"; kill "$pid" 2>/dev/null; wait "$pid" 2>/dev/null
+                    else
+                        wait "$pid"; rc=$?
+                        [ $rc = 0 ] && ok "A34 Sperrbildschirm: Testpasswort entsperrt (Exit 0)" || nok "A34 Sperrbildschirm: Exit $rc ($S/sperre.log)"
+                    fi
+                else
+                    wait "$pid"; nok "A34 Sperrbildschirm startet nicht (Exit $?, $S/sperre.log)"
+                fi
             fi
         fi
         # 7 Alpha 2: dunkle Fassung des Themas, Symbole 0.7, dunkle Darstellung
