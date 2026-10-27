@@ -2,15 +2,15 @@
 
 Debian-Paketierung, APT-Quelle und CI-Vorlagen für Querencia Desktop.
 
-> **Status: Alpha 3.3 (27.10.2026, Satz `debs-alpha33-2`, unveröffentlicht): fünf
-> Sprachen.** Alle Programme sprechen Deutsch, Englisch, Italienisch, Spanisch und
-> Französisch (noch fest deutsch: Sperrbildschirm, Fenster des Lautstärkereglers,
-> Tastenkürzel); der Anmeldebildschirm durchgehend Deutsch oder Englisch; das Panel hat
-> einen Infobereich (Panel 0.4.0); das Metapaket empfiehlt `locales-all`. Veröffentlicht in der APT-Quelle ist Alpha 3.2
-> (26.10.2026). 24 Pakete aus 24 Quellpaketen bauen lokal mit `dpkg-buildpackage`;
-> geprüft statisch, in einer Wegwerf-Installation (auch mit `LANG=it_IT.UTF-8`) und
-> mit Upgrade-Proben. Signatur und Upload macht der Betreuer der Quelle
-> ([docs/apt-quelle.md](docs/apt-quelle.md)).
+> **Status: Alpha 3.4 (27.10.2026, Satz `debs-alpha34-1`, unveröffentlicht).** Neu: Seite
+> „Treiber“ in den Einstellungen (empfiehlt `ubuntu-drivers-common`), Querencia Dateien 0.3.0
+> mit Rückgängig, Suche im Dateiinhalt, Reitern beim Start und „Hier entpacken“, eine klare
+> Meldung bei abgelaufenem Passwort am Anmeldebildschirm; Sperrbildschirm, Tastenkürzel-Hilfe
+> und Lautstärkeregler sprechen jetzt alle fünf Sprachen (Deutsch, Englisch, Italienisch,
+> Spanisch, Französisch). Veröffentlicht in der APT-Quelle ist Alpha 3.3 (27.10.2026).
+> 24 Pakete aus 24 Quellpaketen bauen lokal mit `dpkg-buildpackage`; geprüft statisch, in
+> einer Wegwerf-Installation (auch mit `LANG=it_IT.UTF-8`) und mit Upgrade-Proben. Signatur
+> und Upload macht der Betreuer der Quelle ([docs/apt-quelle.md](docs/apt-quelle.md)).
 
 ## Inhalt
 
@@ -22,7 +22,7 @@ querencia-shell/             Panel, Desktop, Lautstärke, Netzwerk, Tastenkürze
 querencia-session/           Sitzungsstarter und labwc-Konfiguration (Architecture: all)
 querencia-sitzung/           Sitzungsdialog, Bildschirmsperre, polkit-Agent
 querencia-benachrichtigungen/ Benachrichtigungsdienst
-querencia-einstellungen/     Einstellungen (Kontrollzentrum)
+querencia-einstellungen/     Einstellungen (Kontrollzentrum, mit PackageKit-Baustein, komponenten.conf)
 querencia-dateien/           Dateimanager Querencia Dateien (aus querencia-runtime)
 querencia-files/             Übergangspaket seit Alpha 3: nur Brücken-Starter auf Dateien
 querencia-terminal/          Terminal (noch alte App-ID)

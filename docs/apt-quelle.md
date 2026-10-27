@@ -399,3 +399,44 @@ Rückfrage und ohne etwas zu entfernen (9,5 s); die Neuinstallation brachte
   und bietet keinen Passwortwechsel an (VM-Probe 27.10.2026). Ausweg, in der VM
   nicht geprüft: auf einer Textkonsole anmelden, dort fragt `login` nach dem neuen
   Passwort.
+
+## Nachtrag [Datum]: Alpha 3.4 (Entwurf)
+
+Am [Datum] um [Uhrzeit] (MEZ) ging der Index von Alpha 3.4 auf den Server: Satz
+`debs-alpha34-1` (Tag `packaging/alpha34-1`, 24 Pakete, `SHA256SUMS` mit der
+Summe `97f55df0…`). Neu gegenüber Alpha 3.3 sind sechs Pakete:
+
+| Paket | Version | Änderung |
+|---|---|---|
+| `querencia-desktop` | 0.1.0~alpha3.4-1 | Versionsdatei „Alpha 3.4“; Abhängigkeiten unverändert |
+| `querencia-einstellungen` | 0.2.0-1 | neue Seite „Treiber“ mit Menüeintrag; empfiehlt `ubuntu-drivers-common` |
+| `querencia-dateien` | 0.3.0-1 | Rückgängig/Wiederholen, Suche im Dateiinhalt, Reiter wiederherstellen, „Hier entpacken“ |
+| `querencia-shell` | 0.1.0~alpha12-1 | Tastenkürzel-Hilfe und Lautstärkeregler in fünf Sprachen |
+| `querencia-sitzung` | 0.1.10-1 | Sperrbildschirm in fünf Sprachen |
+| `querencia-anmeldung` | 0.1.4-1 | Meldung bei abgelaufenem Passwort (wahlweise) |
+
+Die übrigen 18 Pakete lagen byte-gleich im Pool.
+
+| Was | Wert |
+|---|---|
+| Release-Datum | [Date aus InRelease] |
+| InRelease (SHA256) | [Summe] |
+| Index | binary-amd64 24, binary-all 6; Pool [n] Dateien, davon 6 neu; ältere Fassungen bleiben liegen |
+| Upload | [n] Dateien ([KiB]), [n] lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal [22/1 erwartet] (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server [10/0 erwartet] |
+
+Vor dem Upload liefen Upgrade 3.3 → 3.4 und Neuinstallation in einer frischen
+Ubuntu-VM: [Dauer, Anzahl, nichts entfernt, keine Rückfrage].
+
+- **Treiber:** Die Einstellungen empfehlen `ubuntu-drivers-common`; `apt
+  full-upgrade` installiert es mit. Wer ohne Empfehlungen installiert, sieht auf
+  der Seite „Treiber“ einen Hinweis und kann es dort nachinstallieren. Der
+  Wechsel auf den NVIDIA-Treiber läuft über PackageKit und fragt nach dem
+  Passwort; danach bietet die Seite einen Neustart an.
+- **Abgelaufenes Passwort am Anmeldebildschirm:** Querencia Anmeldung 0.1.4 sagt,
+  dass das Passwort abgelaufen ist, und verweist auf die Textkonsole
+  (Strg+Alt+F1, zurück mit Strg+Alt+F7). Im Anmeldebildschirm selbst lässt sich
+  das Passwort mit greetd 0.10 weiter nicht ändern. Die Meldung
+  „Pam_acct_mgmt: NEW_AUTHTOK_REQD“ aus Alpha 3.3 erscheint nicht mehr.
+- **Sprachen:** Sperrbildschirm, Tastenkürzel-Hilfe und Lautstärkeregler-Fenster
+  sind jetzt übersetzt; „noch fest deutsch“ aus Alpha 3.3 entfällt.
