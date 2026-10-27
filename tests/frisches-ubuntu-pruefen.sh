@@ -1,7 +1,7 @@
 #!/bin/bash
 # Prüfskript für die Test-VM (NICHT für die Entwicklungs-VM). Ändert nichts
 # außer der Ablage seiner Ergebnisse in ./querencia-test/.
-#   vorher | nachher | sitzung | entfernt
+#   vorher | nachher | sitzung | anmeldung | entfernt
 set -uo pipefail
 OUT=./querencia-test; mkdir -p "$OUT"
 p=0 f=0
@@ -101,7 +101,7 @@ nachher)
     echo "HINW Ausgabe: $(cat /usr/share/querencia/version 2>/dev/null || echo fehlt)"
     # Alpha 3.2: Schnatter ist optional (nicht im Metapaket); nach einem
     # Upgrade mit Webhülle 0.2.0 kommt es mit dem Übergangspaket querencia-webhuelle.
-    if grep -q -x -E 'Alpha 3\.2' /usr/share/querencia/version 2>/dev/null; then
+    if grep -q -x -E 'Alpha 3\.[23]' /usr/share/querencia/version 2>/dev/null; then
         if dpkg -s querencia-schnatter 2>/dev/null | grep -qx 'Status: install ok installed'; then
             s=/usr/share/applications/org.querencia.Schnatter.desktop
             [ -x /usr/bin/querencia-schnatter ] && [ -f "$s" ] && desktop-file-validate "$s" >/dev/null 2>&1 &&
@@ -113,6 +113,34 @@ nachher)
             b=/usr/share/applications/org.querencia.Webhuelle.desktop
             [ ! -e /usr/bin/querencia-webhuelle ] && grep -qx 'NoDisplay=true' "$b" && grep -qx 'Exec=querencia-schnatter' "$b" &&
                 ok "A32 querencia-webhuelle ist das Übergangspaket (Brücke auf Schnatter)" || nok "A32 querencia-webhuelle"
+        fi
+    fi
+    # Alpha 3.3: it/es/fr in allen Programmen (Kataloge, Starter), locales-all
+    # als Recommends des Metapakets (bei --no-install-recommends nur Hinweis).
+    if grep -q -x 'Alpha 3\.3' /usr/share/querencia/version 2>/dev/null; then
+        for d in querencia-panel querencia-desktop querencia-oberflaeche querencia-dateiarbeit querencia-dateien \
+            querencia-terminal querencia-screenshot querencia-editor querencia-bilder querencia-rechner \
+            querencia-systemmonitor querencia-dateisuche querencia-einstellungen querencia-software querencia-sitzung \
+            querencia-benachrichtigungen querencia-dokumente querencia-archiv; do
+            fehlt=; for l in it es fr; do [ -s /usr/share/locale/$l/LC_MESSAGES/$d.mo ] || fehlt="$fehlt $l"; done
+            [ -z "$fehlt" ] && ok "A33 Katalog $d it/es/fr" || nok "A33 Katalog $d fehlt:$fehlt"
+        done
+        for d in org.querencia.Dateien org.querencia.Terminal org.querencia.Editor org.querencia.Bilder \
+            org.querencia.Rechner org.querencia.Software org.querencia.Einstellungen; do
+            s=/usr/share/applications/$d.desktop
+            # Name, GenericName oder Comment je Sprache (Software heißt in it/es „Software“)
+            grep -q -E '^(Name|GenericName|Comment)\[it\]=' "$s" && grep -q -E '^(Name|GenericName|Comment)\[es\]=' "$s" &&
+                grep -q -E '^(Name|GenericName|Comment)\[fr\]=' "$s" &&
+                ok "A33 Starter $d it/es/fr" || nok "A33 Starter $d ohne it/es/fr"
+        done
+        if dpkg -s locales-all 2>/dev/null | grep -qx 'Status: install ok installed'; then
+            n=$(locale -a 2>/dev/null | grep -c -i -E '^(it_IT|es_ES|fr_FR)\.utf-?8$')
+            [ "$n" = 3 ] && ok "A33 locales-all: it_IT, es_ES, fr_FR vorhanden" || nok "A33 locales-all installiert, aber $n von 3 Locales"
+        else
+            echo "HINW A33 locales-all nicht installiert (Recommends; ohne Empfehlungen installiert?)"
+        fi
+        if dpkg -s querencia-schnatter 2>/dev/null | grep -qx 'Status: install ok installed'; then
+            [ -s /usr/share/locale/it/LC_MESSAGES/querencia-schnatter.mo ] && ok "A33 Schnatter it" || nok "A33 Schnatter ohne it"
         fi
     fi
     # Alpha 2: dunkle Fassung des Themas, Terminal mit Reitern; Symbole seit Alpha 3: 0.8
@@ -257,11 +285,39 @@ sitzung)
     grep -h 'Settings-Portal antwortet\|no-portals\|Ersatz' "$S/panel.log" "$S/desktop.log" 2>/dev/null | tail -4 | sed 's/^/LOG /'
     echo "Weiter von Hand nach docs/pflichtprobe-frische-vm.md, Abschnitt 6 (Prüfliste)"
     ;;
+anmeldung)
+    # Anmeldebildschirm (querencia-anmeldung, wahlweise): statische Punkte;
+    # die Bildschirmtexte prüft Weg B von Hand (HAND-Zeilen, Fotos).
+    if ! dpkg -s querencia-anmeldung 2>/dev/null | grep -qx 'Status: install ok installed'; then
+        echo "HINW querencia-anmeldung nicht installiert (wahlweise); Punkte entfallen"
+    else
+        v=$(dpkg-query -W -f='${Version}' querencia-anmeldung)
+        dpkg --compare-versions "$v" ge 0.1.3-1 && ok "ANM querencia-anmeldung $v (>= 0.1.3-1, durchgehend de/en)" || nok "ANM querencia-anmeldung $v < 0.1.3-1"
+        m=/usr/share/locale/de/LC_MESSAGES/querencia-anmeldung.mo
+        [ -s "$m" ] && grep -a -q 'Falsches Passwort' "$m" && ok "ANM Katalog de mit „Falsches Passwort“" || nok "ANM Katalog de fehlt oder ohne Meldung"
+        [ "$(systemctl is-enabled querencia-anmeldung.service 2>/dev/null)" = enabled ] &&
+            ok "ANM Dienst querencia-anmeldung aktiv als Display-Manager" ||
+            echo "HINW ANM Dienst nicht eingeschaltet (debconf-Wahl: GDM behalten); Bildschirmprüfung entfällt"
+        echo "INFO ANM Systemsprache: $(grep -h -E '^(LANG|LANGUAGE)=' /etc/default/locale 2>/dev/null | tr '\n' ' ')"
+        for l in de en; do
+            dpkg -s language-pack-gnome-$l >/dev/null 2>&1 && echo "INFO ANM language-pack-gnome-$l installiert" ||
+                echo "HINW ANM language-pack-gnome-$l fehlt (GTK-eigene Texte wie „Show Text“ bleiben englisch, Grenze)"
+        done
+    fi
+    cat <<'HAND'
+HAND Ü de (LANG=de_DE.UTF-8): „Benutzer:“, „Sitzung:“, „Anmelden“, „Neu starten“, „Ausschalten“, „Passwort:“, „Abbrechen“; Uhr TT.MM.JJJJ hh:mm
+HAND Ü de falsches Passwort: „Falsches Passwort. Bitte erneut versuchen.“
+HAND Ü en (sudo localectl set-locale LANG=en_US.UTF-8, Anmeldebildschirm neu): „User:“, „Session:“, „Login“, „Reboot“, „Power Off“, „Password:“, „Wrong password. Please try again.“; Uhr MM/TT/JJJJ
+HAND Ü7 Sitzungsname: /usr/local/share/wayland-sessions/probe.desktop mit Name=Test session und Name[de]=Testsitzung, freigeben = probe → de „Testsitzung“, en „Test session“
+HAND Ü8 PAM: sudo passwd -e probe, anmelden → de „Sie müssen Ihr Passwort sofort ändern (von root erzwungen).“, en die englische Zeile
+HAND Ü9 keine englischen Reste bei de außer Namen und GTK-Texten ohne language-pack-gnome-de; bei en kein deutsches Wort
+HAND
+    ;;
 entfernt)
     [ -d "$HOME/.config/querencia" ] || [ -d "$HOME/.local/state/querencia" ] && ok "N Benutzerdaten erhalten" || echo "HINW keine Benutzerdaten angelegt"
     dpkg -l | grep -q '^ii  querencia' && nok "Pakete noch installiert" || ok "Pakete entfernt"
     ;;
-*) echo "Aufruf: $0 vorher|nachher|sitzung|entfernt" >&2; exit 2 ;;
+*) echo "Aufruf: $0 vorher|nachher|sitzung|anmeldung|entfernt" >&2; exit 2 ;;
 esac
 echo "Ergebnis: $p PASS, $f FAIL"
 [ $f -eq 0 ]

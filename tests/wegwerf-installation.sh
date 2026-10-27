@@ -21,7 +21,9 @@
 # Bildschirmfoto; 6 jedes Programm aus /usr/share/applications startet in
 # dieser Sitzung und läuft 4 s ohne Absturz (Bildschirmfoto je Programm);
 # 7 Alpha 2: gtk-dark.css, Symbole 0.7, dunkle Fassung für ein GTK-4- und
-# ein GTK-3-Fenster über die Helligkeit der Bildmitte.
+# ein GTK-3-Fenster über die Helligkeit der Bildmitte; 8 Alpha 3.3 (wahlweise,
+# WEGWERF_SPRACHPROBE=1, Sprache über WEGWERF_LANG): Starter-Namen, Fotos von
+# Panel- und Programm-Menü.
 # Ergebnis: PASS/FAIL je Prüfung, Exit 1 bei einem FAIL.
 set -uo pipefail
 HIER=$(readlink -f "$0")
@@ -99,8 +101,14 @@ if [ "${1-}" = --innen ]; then
     export HOME=$A/home XDG_CONFIG_HOME=$A/home/.config XDG_DATA_HOME=$A/home/.local/share \
         XDG_STATE_HOME=$A/home/.local/state XDG_CACHE_HOME=$A/home/.cache \
         XDG_DATA_DIRS=$R/usr/share:/usr/share XDG_CONFIG_DIRS=$R/etc/xdg:/etc/xdg \
-        PATH=$R/usr/bin:/usr/bin:/bin LANG=de_DE.UTF-8 LANGUAGE=de \
+        PATH=$R/usr/bin:/usr/bin:/bin LANG=${WEGWERF_LANG:-de_DE.UTF-8} \
         GSETTINGS_BACKEND=memory NO_AT_BRIDGE=1 GTK_A11Y=none
+    # Sprache (Alpha 3.3): WEGWERF_LANG, WEGWERF_LANGUAGE (leer = nicht gesetzt,
+    # wie auf einem frischen System), WEGWERF_LOCPATH für Locales, die der
+    # Rechner nicht hat (localedef in einen eigenen Ordner, kein root).
+    if [ -n "${WEGWERF_LANGUAGE-de}" ]; then export LANGUAGE=${WEGWERF_LANGUAGE-de}; else unset LANGUAGE; fi
+    [ -n "${WEGWERF_LOCPATH-}" ] && export LOCPATH=$WEGWERF_LOCPATH
+    unset LC_ALL LC_MESSAGES LC_CTYPE LC_TIME
     mkdir -p "$HOME/.config" "$XDG_STATE_HOME/querencia"
 
     # 4 Programme: Bibliotheken und Aufruf ohne Sitzung
@@ -246,6 +254,58 @@ BUS
                 fi
             fi
         done
+        # 8 Alpha 3.3 (WEGWERF_SPRACHPROBE=1): Starter-Namen in der Sprache von
+        # LANG, Foto des Anwendungsmenüs im Panel und eines Programm-Menüs
+        # (WEGWERF_MENUE_PROG, Standard org.querencia.Bilder; F10 öffnet die
+        # Menüleiste). Bewertet wird nur, ob es die Texte gibt; die Fotos sieht
+        # ein Mensch an.
+        if [ "${WEGWERF_SPRACHPROBE-}" = 1 ]; then
+            sp=${LANG%%_*}
+            : >"$OUT/starter-namen.txt"; ohne=
+            for d in "$R"/usr/share/applications/*.desktop; do
+                grep -qx 'NoDisplay=true' "$d" && continue
+                id=$(basename "$d" .desktop)
+                # Name in der Sprache, sonst Name (gleich in allen Sprachen, z. B.
+                # „Software“); übersetzt gilt der Starter, wenn ein Schlüssel die
+                # Sprache trägt
+                n=$(sed -n "s/^Name\[$sp\]=//p" "$d" | head -n 1)
+                c=$(sed -n "s/^Comment\[$sp\]=//p" "$d" | head -n 1)
+                printf '%s\t%s\t%s\n' "$id" "${n:-=$(sed -n 's/^Name=//p' "$d" | head -n 1)}" "${c:--}" >>"$OUT/starter-namen.txt"
+                if ! grep -q -E "^(Name|GenericName|Comment)\[$sp\]=" "$d"; then
+                    # bekannt offen (Tastenkürzel ohne Katalog): nur Hinweis
+                    if [[ " ${WEGWERF_SPRACHE_AUSNAHMEN-org.querencia.Kuerzel} " == *" $id "* ]]; then
+                        hinweis "A33 Starter $id ohne $sp (bekannt offen)"
+                    else ohne="$ohne $id"; fi
+                fi
+            done
+            [ -z "$ohne" ] && ok "A33 Starter: sichtbare Starter übersetzt ($sp, $(wc -l <"$OUT/starter-namen.txt") gelistet in $OUT/starter-namen.txt)" ||
+                nok "A33 Starter ohne $sp:$ohne"
+            if command -v wlrctl >/dev/null && command -v wtype >/dev/null && command -v grim >/dev/null; then
+                # Panel-Knopf „Anwendungen“ oben links
+                wlrctl pointer move -4000 -4000 2>/dev/null; wlrctl pointer move 40 12 2>/dev/null
+                wlrctl pointer click left 2>/dev/null; sleep 1.5
+                grim "$OUT/a33-panel-anwendungen.png" 2>/dev/null && ok "A33 Foto Panel-Menü $OUT/a33-panel-anwendungen.png" ||
+                    hinweis "A33 kein Foto des Panel-Menüs"
+                wtype -k Escape 2>/dev/null; sleep 0.5
+                mp=${WEGWERF_MENUE_PROG:-org.querencia.Bilder}
+                d=$R/usr/share/applications/$mp.desktop
+                cmd=$(sed -n 's/^Exec=//p' "$d" | head -n 1 | sed 's/ *%[UuFf]//g')
+                # shellcheck disable=SC2086
+                (cd "$HOME" && exec $R/usr/bin/$cmd) >"$S/menue-$mp.log" 2>&1 &
+                pid=$!
+                sleep 4
+                if kill -0 "$pid" 2>/dev/null; then
+                    wtype -k F10 2>/dev/null; sleep 1.5
+                    grim "$OUT/a33-menue-$mp.png" 2>/dev/null && ok "A33 Foto Programm-Menü $OUT/a33-menue-$mp.png" ||
+                        hinweis "A33 kein Foto des Programm-Menüs"
+                    kill "$pid" 2>/dev/null; wait "$pid" 2>/dev/null
+                else
+                    nok "A33 $mp läuft nicht ($S/menue-$mp.log)"
+                fi
+            else
+                hinweis "A33 Fotos nicht möglich (wlrctl, wtype oder grim fehlt)"
+            fi
+        fi
         # 7 Alpha 2: dunkle Fassung des Themas, Symbole 0.7, dunkle Darstellung
         # für ein GTK-4- und ein GTK-3-Fenster (color-scheme über das Portal
         # prüft frisches-ubuntu-pruefen.sh sitzung auf der VM)
