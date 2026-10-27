@@ -344,3 +344,50 @@ Rückfrage, beim Upgrade nichts entfernt.
   `querencia-schnatter`). Als Kandidat für `sudo apt autoremove` nennt es nur
   das Übergangspaket; Schnatter ist manuell markiert (VM-Probe 26.10.2026,
   autoremove selbst nicht ausgeführt).
+
+## Nachtrag [Datum]: Alpha 3.3 (Entwurf)
+
+*Entwurf des Packaging-Workers; Datum, Uhrzeit, InRelease-Summe und Upload-Zahlen
+trägt der Betreuer der Quelle nach dem Upload ein.*
+
+Am [Datum] um [Uhrzeit] ging der Index von Alpha 3.3 auf den Server: Satz
+`debs-alpha33-1` (Tag `packaging/alpha33-1`, 24 Pakete, `SHA256SUMS` mit der
+Summe `[SUMME]…`). Alpha 3.3 bringt **fünf Sprachen**: Alle Programme, das Panel
+und die Arbeitsfläche sprechen Deutsch, Englisch, Italienisch, Spanisch und
+Französisch. Neu gegenüber Alpha 3.2 sind 18 Pakete:
+
+| Paket | Version | Änderung |
+|---|---|---|
+| `querencia-desktop` | 0.1.0~alpha3.3-1 | Versionsdatei „Alpha 3.3“; empfiehlt neu `locales-all` |
+| `querencia-shell` | 0.1.0~alpha11-1 | Panel 0.4.0 mit Infobereich; Panel und Arbeitsfläche it/es/fr |
+| `querencia-dateien` | 0.2.3-1 | it/es/fr |
+| `querencia-anmeldung` | 0.1.3-1 | Anmeldebildschirm durchgehend Deutsch oder Englisch (wahlweise) |
+| `querencia-schnatter` | 0.3.1-1 | it/es/fr (wahlweise) |
+| übrige 13 Programme | neue Versionen | it/es/fr (Editor, Terminal, Sitzung, Einstellungen, Software, Rechner, Bilder, Dokumente, Archiv, Systemmonitor, Dateisuche, Screenshot, Benachrichtigungen) |
+
+Byte-gleich im Pool blieben `labwc`, `querencia-session`, `-symbole`,
+`-hintergruende`, `-files` und `-webhuelle`.
+
+| Was | Wert |
+|---|---|
+| Release-Datum | [Date aus InRelease] |
+| InRelease (SHA256) | `[…]` |
+| Index | binary-amd64 24, binary-all 6 (erwartet); Pool [n] Dateien, davon 18 neu |
+| Upload | [n] Dateien ([n] KiB), [n] lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal [n/n], Server [n/n] |
+
+- **Sprache:** Welche Sprache gilt, bestimmt die Spracheinstellung des Systems
+  (Einstellungen → „Sprache und Region“). Das Metapaket empfiehlt `locales-all`,
+  damit `it_IT`, `es_ES` und `fr_FR` dort wählbar sind (rund 230 MB auf der
+  Platte). `apt full-upgrade` installiert es beim Upgrade mit; wer mit
+  `--no-install-recommends` installiert, bekommt es nicht.
+- **GTK-eigene Texte** (Dateidialog, Tastennamen im Dialog) kommen aus
+  `language-pack-gnome-<xx>` des Systems, nicht aus dem Metapaket.
+- **Infobereich:** Im Standard-Panel oben rechts vor der Glocke. Wer das Panel
+  schon angepasst hat, fügt ihn über „Zum Panel hinzufügen“ hinzu; das Paket
+  ändert die gespeicherte Anordnung nicht.
+- **Noch fest deutsch:** Sperrbildschirm, Fenster des Lautstärkereglers,
+  Tastenkürzel-Hilfe.
+- **Software:** Thunderbird und Firefox stehen mit eigener Beschreibung im
+  Software-Center; ohne die Paketquelle des Mozilla-Teams bzw. von Mozilla
+  zeigen sie „Nicht verfügbar“ (keine Snap-Hüllen).

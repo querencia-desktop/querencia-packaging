@@ -1,6 +1,48 @@
 # Änderungen – querencia-packaging
 
-## Alpha 3.2 – Satz debs-alpha32-1 vom 26.10.2026 (Pflegestand), unveröffentlicht
+## Alpha 3.3 – Satz debs-alpha33-1 vom 27.10.2026 (fünf Sprachen), unveröffentlicht
+
+Gegenüber Alpha 3.2 (veröffentlicht 26.10.2026, `debs-alpha32-1`); 24 Pakete, 17 neu gebaut,
+querencia-anmeldung aus dem Zweig anmeldung-i18n übernommen, 6 byte-gleich (labwc, Session,
+Symbole, Hintergründe, Files, Webhülle).
+
+- **Italienisch, Spanisch, Französisch** in allen Programmen aus den getaggten Ständen der
+  Übersetzung: querencia-editor 0.2.5, -terminal 0.3.3, -sitzung 0.1.9, -einstellungen 0.1.7,
+  -software 0.1.7, -rechner 0.1.7, -bilder 0.2.7, -dokumente 0.1.5, -archiv 0.1.3,
+  -systemmonitor 0.1.6, -dateisuche 0.1.6, -screenshot 0.2.11, -benachrichtigungen 0.2.3,
+  -schnatter 0.3.1 (optional); Kataloge über `po/LINGUAS`, Starter und MetaInfo it/es/fr
+  (`common/metainfo` aus i18n Teil A/B).
+- querencia-shell 0.1.0~alpha11-1 aus runtime main `caf7dfb` (Panel **0.4.0 mit Infobereich**,
+  Tag `panel/0.4.0-2` = `331810f`, danach nur Integration und Doku; Arbeitsfläche 0.3.1,
+  oberflaeche 0.1.3, dateiarbeit 0.1.2); querencia-dateien 0.2.3-1 aus `dateien/0.2.3`
+  (`6d95ff9`). Dateien 0.2.4 war beim Bau nicht in main (Alpha 3.4).
+- querencia-software 0.1.7-1 enthält erstmals die Änderungen von 0.1.6: Katalog-Ergänzungen
+  für Thunderbird und Firefox unter `/usr/share/swcatalog`, Snap-Hüllen gelten nicht als
+  installierbare Fassung.
+- querencia-schnatter 0.3.1-1 baut weiter gegen runtime `6935c48` (Cargo.lock nennt
+  oberflaeche 0.1.1); den Katalog oberflaeche mit it/es/fr liefert querencia-shell.
+- querencia-anmeldung 0.1.3-1 (Zweig anmeldung-i18n, `b84840c`): durchgehend Deutsch oder
+  Englisch, auch Sitzungsnamen und PAM-Meldungen; Paket unverändert übernommen, Quellarchive
+  hier neu erzeugt und byte-gleich.
+- querencia-dokumente und querencia-archiv: der Patch `metainfo-homepage` entfällt (die Quelle
+  nennt querencialinux.org selbst).
+- querencia-desktop 0.1.0~alpha3.3-1: **Recommends locales-all** (it_IT, es_ES, fr_FR
+  vorhanden), Versionsdatei „Alpha 3.3“; Abhängigkeiten sonst unverändert. GTK-eigene Texte
+  kommen weiter aus `language-pack-gnome-<xx>` des Systems.
+- `tests/wegwerf-upgrade.sh`: Schnatter 0.3.x im alten Stand mit Ordnern am echten Pfad;
+  `UPGRADE_DATEIEN_INI` (dateien.ini am echten Pfad), `UPGRADE_NEU_FREMD` (locales-all);
+  Prüfung „jedes installierte Paket mit neuer Version wird aktualisiert, keins sonst“; beim
+  Entfernen von Schnatter geht ein installiertes Übergangspaket Webhülle 0.3.x mit.
+- `tests/wegwerf-installation.sh`: Sprache über `WEGWERF_LANG`/`WEGWERF_LANGUAGE`/
+  `WEGWERF_LOCPATH`; `WEGWERF_SPRACHPROBE=1` prüft Starter-Namen und fotografiert Panel- und
+  Programm-Menü (Klicks über wlrctl).
+- Prüfungen des Satzes (SHA256SUMS `76660ee7…`): pakete-pruefen 300/0, Lintian E 0, Sprachen 18/0,
+  Wegwerf 95/0 und mit `LANG=it_IT.UTF-8` 98/0, Upgrades 3.2 → 3.3 mit Schnatter 167/0, ohne
+  154/0, mit Webhülle 169/0, 3.1 → 3.3 170/0, Kontrollbau byte-gleich.
+- `tests/frisches-ubuntu-pruefen.sh`: Prüfpunkte A33 (Kataloge, Starter, locales-all) und neuer
+  Schritt `anmeldung` (Version, Katalog, Dienst, Sprachpakete, Handprüfliste Ü).
+
+## Alpha 3.2 – Satz debs-alpha32-1 vom 26.10.2026 (Pflegestand), veröffentlicht 26.10.2026
 
 Gegenüber Alpha 3.1 (veröffentlicht, `debs-alpha31-1`); 24 Pakete, 2 neu gebaut, 2 aus dem
 Zweig schnatter-paket übernommen, 20 byte-gleich.
