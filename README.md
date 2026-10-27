@@ -4,15 +4,27 @@ Debian-Paketierung, APT-Quelle und CI-Vorlagen für
 [Querencia Desktop](https://github.com/querencia-desktop/querencia) – einer
 klassischen Desktopumgebung im GNOME-2-Stil für Wayland (labwc, Rust, GTK 4).
 
-> **Status: Alpha 3.4 (27.10.2026, Satz `debs-alpha34-1`, unveröffentlicht).** Neu: Seite
-> „Treiber“ in den Einstellungen (empfiehlt `ubuntu-drivers-common`), Querencia Dateien 0.3.0
-> mit Rückgängig, Suche im Dateiinhalt, Reitern beim Start und „Hier entpacken“, eine klare
-> Meldung bei abgelaufenem Passwort am Anmeldebildschirm; Sperrbildschirm, Tastenkürzel-Hilfe
-> und Lautstärkeregler sprechen jetzt alle fünf Sprachen (Deutsch, Englisch, Italienisch,
-> Spanisch, Französisch). Veröffentlicht in der APT-Quelle ist Alpha 3.3 (27.10.2026).
-> 24 Pakete aus 24 Quellpaketen bauen lokal mit `dpkg-buildpackage`; geprüft statisch, in
-> einer Wegwerf-Installation (auch mit `LANG=it_IT.UTF-8`) und mit Upgrade-Proben. Signatur
-> und Upload macht der Betreuer der Quelle ([docs/apt-quelle.md](docs/apt-quelle.md)).
+*English summary:* Debian packaging, APT repository tooling and CI templates of
+Querencia Desktop. Alpha software; documentation is in German.
+
+> **Alpha 3.4** (veröffentlicht am 27.10.2026, Tag `packaging/alpha34-1`; davor Alpha 3.3
+> am 27.10.2026, Tag `packaging/alpha33-2`, Alpha 3.2 am 26.10.2026, Tag
+> `packaging/alpha32-1`, Alpha 3.1 am 24.10.2026, Tag `packaging/alpha31-1`, Alpha 3 am
+> 24.10.2026, Tag `packaging/alpha3-2`, Alpha 2.1 am 22.10.2026, Tag `packaging/alpha-2.1`,
+> und Alpha 2 am 21.10.2026, Tag `packaging/alpha-2`):
+> 24 Quellpakete aus festen, getaggten Quellständen (`quellen.conf`), gebaut mit
+> `dpkg-buildpackage` und statisch, in einer Wegwerf-Installation (auch mit
+> `LANG=it_IT.UTF-8`) und mit Upgrade-Proben geprüft; die Probe auf einer frischen
+> Ubuntu-26.04-VM beschreibt [docs/pflichtprobe-frische-vm.md](docs/pflichtprobe-frische-vm.md).
+> Die APT-Quelle beschreibt [docs/apt-quelle.md](docs/apt-quelle.md). Neu in Alpha 3.4:
+> Seite „Treiber“ in den Einstellungen (empfiehlt `ubuntu-drivers-common`), Querencia
+> Dateien 0.3.0 mit Rückgängig, Suche im Dateiinhalt, Reitern beim Start und „Hier
+> entpacken“, eine klare Meldung bei abgelaufenem Passwort am Anmeldebildschirm;
+> Sperrbildschirm, Tastenkürzel-Hilfe und Lautstärkeregler sprechen jetzt alle fünf
+> Sprachen (Deutsch, Englisch, Italienisch, Spanisch, Französisch). Seit Alpha 3.2 gibt es
+> das optionale Zusatzpaket `querencia-schnatter` (Schnatter, bis 0.2.0 „Querencia
+> Webhülle“); `querencia-webhuelle` ist nur noch ein Übergangspaket darauf.
+> Keine Sicherheits- oder Datenverlustgarantie.
 
 ## Inhalt
 
