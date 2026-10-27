@@ -272,8 +272,10 @@ BUS
                 c=$(sed -n "s/^Comment\[$sp\]=//p" "$d" | head -n 1)
                 printf '%s\t%s\t%s\n' "$id" "${n:-=$(sed -n 's/^Name=//p' "$d" | head -n 1)}" "${c:--}" >>"$OUT/starter-namen.txt"
                 if ! grep -q -E "^(Name|GenericName|Comment)\[$sp\]=" "$d"; then
-                    # bekannt offen (Tastenkürzel ohne Katalog): nur Hinweis
-                    if [[ " ${WEGWERF_SPRACHE_AUSNAHMEN-org.querencia.Kuerzel} " == *" $id "* ]]; then
+                    # bekannt offen (WEGWERF_SPRACHE_AUSNAHMEN, Desktop-IDs): nur
+                    # Hinweis; bis Alpha 3.3 war das org.querencia.Kuerzel, ab
+                    # Kürzel 0.2.3 (Alpha 3.4) hat dessen Starter it/es/fr
+                    if [[ " ${WEGWERF_SPRACHE_AUSNAHMEN-} " == *" $id "* ]]; then
                         hinweis "A33 Starter $id ohne $sp (bekannt offen)"
                     else ohne="$ohne $id"; fi
                 fi

@@ -101,7 +101,7 @@ nachher)
     echo "HINW Ausgabe: $(cat /usr/share/querencia/version 2>/dev/null || echo fehlt)"
     # Alpha 3.2: Schnatter ist optional (nicht im Metapaket); nach einem
     # Upgrade mit Webhülle 0.2.0 kommt es mit dem Übergangspaket querencia-webhuelle.
-    if grep -q -x -E 'Alpha 3\.[23]' /usr/share/querencia/version 2>/dev/null; then
+    if grep -q -x -E 'Alpha 3\.[234]' /usr/share/querencia/version 2>/dev/null; then
         if dpkg -s querencia-schnatter 2>/dev/null | grep -qx 'Status: install ok installed'; then
             s=/usr/share/applications/org.querencia.Schnatter.desktop
             [ -x /usr/bin/querencia-schnatter ] && [ -f "$s" ] && desktop-file-validate "$s" >/dev/null 2>&1 &&
@@ -117,7 +117,7 @@ nachher)
     fi
     # Alpha 3.3: it/es/fr in allen Programmen (Kataloge, Starter), locales-all
     # als Recommends des Metapakets (bei --no-install-recommends nur Hinweis).
-    if grep -q -x 'Alpha 3\.3' /usr/share/querencia/version 2>/dev/null; then
+    if grep -q -x -E 'Alpha 3\.[34]' /usr/share/querencia/version 2>/dev/null; then
         for d in querencia-panel querencia-desktop querencia-oberflaeche querencia-dateiarbeit querencia-dateien \
             querencia-terminal querencia-screenshot querencia-editor querencia-bilder querencia-rechner \
             querencia-systemmonitor querencia-dateisuche querencia-einstellungen querencia-software querencia-sitzung \
@@ -142,6 +142,30 @@ nachher)
         if dpkg -s querencia-schnatter 2>/dev/null | grep -qx 'Status: install ok installed'; then
             [ -s /usr/share/locale/it/LC_MESSAGES/querencia-schnatter.mo ] && ok "A33 Schnatter it" || nok "A33 Schnatter ohne it"
         fi
+    fi
+    # Alpha 3.4: Einstellungen 0.2.0 mit Seite und Menüeintrag „Treiber“
+    # (ubuntu-drivers-common nur empfohlen), Sitzung 0.1.10 (Sperrbildschirm
+    # in fünf Sprachen), Tastenkürzel-Hilfe mit it/es/fr.
+    if grep -q -x 'Alpha 3\.4' /usr/share/querencia/version 2>/dev/null; then
+        dpkg --compare-versions "$(dpkg-query -W -f='${Version}' querencia-einstellungen)" ge 0.2.0-1 &&
+            ok "A34 Einstellungen >= 0.2.0-1" || nok "A34 Einstellungen < 0.2.0-1"
+        t=/usr/share/applications/org.querencia.Einstellungen.Treiber.desktop
+        [ -f "$t" ] && desktop-file-validate "$t" >/dev/null 2>&1 && grep -qx 'Exec=querencia-einstellungen --seite treiber' "$t" &&
+            grep -qx 'Name\[de\]=Treiber' "$t" && [ -f /usr/share/icons/hicolor/scalable/apps/org.querencia.Einstellungen.Treiber.svg ] &&
+            ok "A34 Menüeintrag „Treiber“ mit Symbol" || nok "A34 Menüeintrag „Treiber“ oder Symbol"
+        if dpkg -s ubuntu-drivers-common 2>/dev/null | grep -qx 'Status: install ok installed'; then
+            ok "A34 ubuntu-drivers-common installiert (Recommends)"
+        else
+            echo "HINW A34 ubuntu-drivers-common nicht installiert (Recommends; die Seite „Treiber“ sagt das und bietet es an)"
+        fi
+        dpkg --compare-versions "$(dpkg-query -W -f='${Version}' querencia-sitzung)" ge 0.1.10-1 &&
+            grep -a -q 'Password errata' /usr/share/locale/it/LC_MESSAGES/querencia-sitzung.mo 2>/dev/null &&
+            ok "A34 Sitzung >= 0.1.10-1, Sperrbildschirm it" || nok "A34 Sitzung < 0.1.10-1 oder Sperrbildschirm ohne it"
+        fehlt=; for l in de it es fr; do [ -s /usr/share/locale/$l/LC_MESSAGES/querencia-kuerzel.mo ] || fehlt="$fehlt $l"; done
+        [ -z "$fehlt" ] && ok "A34 Katalog querencia-kuerzel de/it/es/fr" || nok "A34 Katalog querencia-kuerzel fehlt:$fehlt"
+        s=/usr/share/applications/org.querencia.Kuerzel.desktop
+        grep -q -E '^(Name|GenericName|Comment)\[it\]=' "$s" && grep -q -E '^(Name|GenericName|Comment)\[fr\]=' "$s" &&
+            ok "A34 Starter Tastenkürzel it/es/fr" || nok "A34 Starter Tastenkürzel ohne it/fr"
     fi
     # Alpha 2: dunkle Fassung des Themas, Terminal mit Reitern; Symbole seit Alpha 3: 0.8
     [ -f /usr/share/themes/Querencia-Klassisch/gtk-3.0/gtk-dark.css ] && [ -f /usr/share/themes/Querencia-Klassisch/gtk-4.0/gtk-dark.css ] &&
@@ -292,9 +316,10 @@ anmeldung)
         echo "HINW querencia-anmeldung nicht installiert (wahlweise); Punkte entfallen"
     else
         v=$(dpkg-query -W -f='${Version}' querencia-anmeldung)
-        dpkg --compare-versions "$v" ge 0.1.3-1 && ok "ANM querencia-anmeldung $v (>= 0.1.3-1, durchgehend de/en)" || nok "ANM querencia-anmeldung $v < 0.1.3-1"
+        dpkg --compare-versions "$v" ge 0.1.4-1 && ok "ANM querencia-anmeldung $v (>= 0.1.4-1, de/en, Meldung bei abgelaufenem Passwort)" || nok "ANM querencia-anmeldung $v < 0.1.4-1"
         m=/usr/share/locale/de/LC_MESSAGES/querencia-anmeldung.mo
-        [ -s "$m" ] && grep -a -q 'Falsches Passwort' "$m" && ok "ANM Katalog de mit „Falsches Passwort“" || nok "ANM Katalog de fehlt oder ohne Meldung"
+        [ -s "$m" ] && grep -a -q 'Falsches Passwort' "$m" && grep -a -q 'Ihr Passwort ist abgelaufen' "$m" &&
+            ok "ANM Katalog de mit „Falsches Passwort“ und „Ihr Passwort ist abgelaufen“" || nok "ANM Katalog de fehlt oder ohne Meldungen"
         [ "$(systemctl is-enabled querencia-anmeldung.service 2>/dev/null)" = enabled ] &&
             ok "ANM Dienst querencia-anmeldung aktiv als Display-Manager" ||
             echo "HINW ANM Dienst nicht eingeschaltet (debconf-Wahl: GDM behalten); Bildschirmprüfung entfällt"
@@ -309,7 +334,8 @@ HAND Ü de (LANG=de_DE.UTF-8): „Benutzer:“, „Sitzung:“, „Anmelden“, 
 HAND Ü de falsches Passwort: „Falsches Passwort. Bitte erneut versuchen.“
 HAND Ü en (sudo localectl set-locale LANG=en_US.UTF-8, Anmeldebildschirm neu): „User:“, „Session:“, „Login“, „Reboot“, „Power Off“, „Password:“, „Wrong password. Please try again.“; Uhr MM/TT/JJJJ
 HAND Ü7 Sitzungsname: /usr/local/share/wayland-sessions/probe.desktop mit Name=Test session und Name[de]=Testsitzung, freigeben = probe → de „Testsitzung“, en „Test session“
-HAND Ü8 PAM: sudo passwd -e probe, anmelden → de „Sie müssen Ihr Passwort sofort ändern (von root erzwungen).“, en die englische Zeile
+HAND Ü8 abgelaufenes Passwort: sudo passwd -e probe, mit dem alten Passwort anmelden → de „Ihr Passwort ist abgelaufen. Bitte wählen Sie ein neues.“ und „Dazu an der Textkonsole anmelden (Strg+Alt+F1); Strg+Alt+F7 führt hierher zurück.“, nach 10 s noch sichtbar, kein „NEW_AUTHTOK_REQD“; Strg+Alt+F1, login als probe (altes, zweimal neues Passwort), abmelden, Strg+Alt+F7, mit dem neuen Passwort anmelden → Sitzung startet
+HAND Ü8 en: „Your password has expired. Please choose a new one.“ und „To do so, log in on the text console (Ctrl+Alt+F1); Ctrl+Alt+F7 brings you back here.“
 HAND Ü9 keine englischen Reste bei de außer Namen und GTK-Texten ohne language-pack-gnome-de; bei en kein deutsches Wort
 HAND
     ;;
