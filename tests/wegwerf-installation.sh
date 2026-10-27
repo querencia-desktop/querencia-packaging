@@ -284,9 +284,13 @@ BUS
                 # Panel-Knopf „Anwendungen“ oben links
                 wlrctl pointer move -4000 -4000 2>/dev/null; wlrctl pointer move 40 12 2>/dev/null
                 wlrctl pointer click left 2>/dev/null; sleep 1.5
+                # Zeiger auf den ersten Eintrag (Zubehör): das Untermenü zeigt die Starter
+                wlrctl pointer move 20 35 2>/dev/null; sleep 1.5
                 grim "$OUT/a33-panel-anwendungen.png" 2>/dev/null && ok "A33 Foto Panel-Menü $OUT/a33-panel-anwendungen.png" ||
                     hinweis "A33 kein Foto des Panel-Menüs"
-                wtype -k Escape 2>/dev/null; sleep 0.5
+                # schließen: Klick auf den Knopf (Escape erreicht das Menü nicht immer)
+                wlrctl pointer move -20 -35 2>/dev/null; wlrctl pointer click left 2>/dev/null; sleep 0.5
+                wlrctl pointer move 600 400 2>/dev/null; sleep 0.5
                 mp=${WEGWERF_MENUE_PROG:-org.querencia.Bilder}
                 d=$R/usr/share/applications/$mp.desktop
                 cmd=$(sed -n 's/^Exec=//p' "$d" | head -n 1 | sed 's/ *%[UuFf]//g')

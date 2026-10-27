@@ -501,7 +501,8 @@ if [ "${1-}" = --innen ]; then
         # vorher galten, installiert apt nicht nach) und ob alles heil bleibt
         D() { dpkg --root="$R" --force-not-root "$@"; }
         if ! schnatter_da; then echo "Teil entfernen: Schnatter nicht installiert, nichts zu tun"; exit 0; fi
-        weg=querencia-schnatter; webhuelle_alt && weg="querencia-webhuelle querencia-schnatter"
+        # das Übergangspaket hängt von Schnatter ab (0.2.x vorher oder 0.3.x installiert)
+        weg=querencia-schnatter; { webhuelle_alt || webhuelle_da; } && weg="querencia-webhuelle querencia-schnatter"
         # shellcheck disable=SC2086
         D --force-script-chrootless --no-triggers --log="$OUT/dpkg-remove.log" -r $weg >"$OUT/dpkg-remove-schnatter.txt" 2>&1
         rc=$?
