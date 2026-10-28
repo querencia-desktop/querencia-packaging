@@ -101,7 +101,7 @@ nachher)
     echo "HINW Ausgabe: $(cat /usr/share/querencia/version 2>/dev/null || echo fehlt)"
     # Alpha 3.2: Schnatter ist optional (nicht im Metapaket); nach einem
     # Upgrade mit Webhülle 0.2.0 kommt es mit dem Übergangspaket querencia-webhuelle.
-    if grep -q -x -E 'Alpha 3\.[2345]' /usr/share/querencia/version 2>/dev/null; then
+    if grep -q -x -E 'Alpha 3\.[23456]' /usr/share/querencia/version 2>/dev/null; then
         if dpkg -s querencia-schnatter 2>/dev/null | grep -qx 'Status: install ok installed'; then
             s=/usr/share/applications/org.querencia.Schnatter.desktop
             [ -x /usr/bin/querencia-schnatter ] && [ -f "$s" ] && desktop-file-validate "$s" >/dev/null 2>&1 &&
@@ -117,7 +117,7 @@ nachher)
     fi
     # Alpha 3.3: it/es/fr in allen Programmen (Kataloge, Starter), locales-all
     # als Recommends des Metapakets (bei --no-install-recommends nur Hinweis).
-    if grep -q -x -E 'Alpha 3\.[345]' /usr/share/querencia/version 2>/dev/null; then
+    if grep -q -x -E 'Alpha 3\.[3456]' /usr/share/querencia/version 2>/dev/null; then
         for d in querencia-panel querencia-desktop querencia-oberflaeche querencia-dateiarbeit querencia-dateien \
             querencia-terminal querencia-screenshot querencia-editor querencia-bilder querencia-rechner \
             querencia-systemmonitor querencia-dateisuche querencia-einstellungen querencia-software querencia-sitzung \
@@ -146,7 +146,7 @@ nachher)
     # Alpha 3.4: Einstellungen 0.2.0 mit Seite und Menüeintrag „Treiber“
     # (ubuntu-drivers-common nur empfohlen), Sitzung 0.1.10 (Sperrbildschirm
     # in fünf Sprachen), Tastenkürzel-Hilfe mit it/es/fr.
-    if grep -q -x -E 'Alpha 3\.[45]' /usr/share/querencia/version 2>/dev/null; then
+    if grep -q -x -E 'Alpha 3\.[456]' /usr/share/querencia/version 2>/dev/null; then
         dpkg --compare-versions "$(dpkg-query -W -f='${Version}' querencia-einstellungen)" ge 0.2.0-1 &&
             ok "A34 Einstellungen >= 0.2.0-1" || nok "A34 Einstellungen < 0.2.0-1"
         t=/usr/share/applications/org.querencia.Einstellungen.Treiber.desktop
@@ -170,10 +170,23 @@ nachher)
     # Alpha 3.5: Einstellungen 0.2.1 (Treiber-Seite: Zeile „OpenGL der Karte“,
     # Software-Darstellung mit Grund), Anmeldung 0.1.5 (Kataloge it/es/fr,
     # geprüft im Schritt anmeldung).
-    if grep -q -x 'Alpha 3\.5' /usr/share/querencia/version 2>/dev/null; then
+    if grep -q -x -E 'Alpha 3\.[56]' /usr/share/querencia/version 2>/dev/null; then
         dpkg --compare-versions "$(dpkg-query -W -f='${Version}' querencia-einstellungen)" ge 0.2.1-1 &&
             grep -a -q 'OpenGL der Karte' /usr/share/locale/de/LC_MESSAGES/querencia-einstellungen.mo 2>/dev/null &&
             ok "A35 Einstellungen >= 0.2.1-1 mit „OpenGL der Karte“" || nok "A35 Einstellungen < 0.2.1-1 oder Katalog ohne „OpenGL der Karte“"
+    fi
+    # Alpha 3.6: Panel 0.4.1, Desktop 0.3.2 (querencia-shell 0.1.0~alpha13) und
+    # Dateien 0.3.1 nehmen ohne Nutzerwert die Vorgabe der Sitzung (Override
+    # icon-theme='Querencia'); Software 0.1.8 ohne doppelte Programme. Das
+    # Symbolthema selbst prüft der Schritt sitzung (panel.log).
+    if grep -q -x 'Alpha 3\.6' /usr/share/querencia/version 2>/dev/null; then
+        for pv in querencia-shell:0.1.0~alpha13-1 querencia-dateien:0.3.1-1 querencia-software:0.1.8-1; do
+            dpkg --compare-versions "$(dpkg-query -W -f='${Version}' "${pv%%:*}")" ge "${pv#*:}" &&
+                ok "A36 ${pv%%:*} >= ${pv#*:}" || nok "A36 ${pv%%:*} < ${pv#*:}"
+        done
+        grep -q -x "icon-theme='Querencia'" /usr/share/glib-2.0/schemas/20_querencia-session.gschema.override 2>/dev/null &&
+            [ -f /usr/share/icons/Querencia/index.theme ] &&
+            ok "A36 Vorgabe Symbolthema Querencia (Override, Thema installiert)" || nok "A36 Override oder Thema Querencia fehlt"
     fi
     # Alpha 2: dunkle Fassung des Themas, Terminal mit Reitern; Symbole seit Alpha 3: 0.8
     [ -f /usr/share/themes/Querencia-Klassisch/gtk-3.0/gtk-dark.css ] && [ -f /usr/share/themes/Querencia-Klassisch/gtk-4.0/gtk-dark.css ] &&
@@ -263,6 +276,17 @@ sitzung)
         [ "$(pgrep -c -u "$(id -u)" -f "^(/usr/bin/)?$x( |\$)")" = 1 ] && ok "$x läuft" || nok "$x läuft nicht"
     done
     pgrep -u "$(id -u)" -f "^(/usr/bin/)?querencia-sitzung --leerlauf" >/dev/null && ok "Leerlaufsperre läuft" || nok "Leerlaufsperre"
+    # Alpha 3.6: Symbolthema im Panel nach der Vorgabe der Sitzung (Panel 0.4.1)
+    if grep -q -x 'Alpha 3\.6' /usr/share/querencia/version 2>/dev/null; then
+        st=$(grep -h 'querencia-panel: Symbolthema' "$HOME/.local/state/querencia/panel.log" 2>/dev/null | tail -1)
+        uw=$(dconf read /org/gnome/desktop/interface/icon-theme 2>/dev/null)
+        if [ -n "$uw" ]; then
+            echo "HINW A36 Nutzerwert icon-theme=$uw gesetzt; Vorgabe nicht prüfbar ($st)"
+        else
+            grep -q 'Symbolthema Querencia (Vorgabe „Querencia“)' <<<"$st" &&
+                ok "A36 Panel: Symbolthema Querencia (Vorgabe „Querencia“)" || nok "A36 Panel-Symbolthema: ${st:-keine Zeile in panel.log}"
+        fi
+    fi
     for x in panel desktop labwc; do
         grep -q -E '/home/[^/]+/(projects|opt)/' "$HOME/.local/state/querencia/$x.log" 2>/dev/null &&
             nok "Entwicklerpfad in $x.log" || ok "kein Entwicklerpfad in $x.log"
