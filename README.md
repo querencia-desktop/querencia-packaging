@@ -4,14 +4,27 @@ Debian-Paketierung, APT-Quelle und CI-Vorlagen für
 [Querencia Desktop](https://github.com/querencia-desktop/querencia) – einer
 klassischen Desktopumgebung im GNOME-2-Stil für Wayland (labwc, Rust, GTK 4).
 
-> **Status: Alpha 3.5 (27.10.2026, Satz `debs-alpha35-1`, unveröffentlicht).** Neu: Der
-> wahlweise Anmeldebildschirm spricht jetzt auch Italienisch, Spanisch und Französisch; die
-> Seite „Treiber“ der Einstellungen zeigt richtig, ob die Sitzung auf der Grafikkarte oder in
-> Software zeichnet. Veröffentlicht in der APT-Quelle ist Alpha 3.4 (27.10.2026: Seite
-> „Treiber“, Querencia Dateien 0.3.0 mit Rückgängig, Sperrbildschirm in fünf Sprachen).
-> 24 Pakete aus 24 Quellpaketen bauen lokal mit `dpkg-buildpackage`; geprüft statisch, in
-> einer Wegwerf-Installation (auch mit `LANG=it_IT.UTF-8`) und mit Upgrade-Proben. Signatur
-> und Upload macht der Betreuer der Quelle ([docs/apt-quelle.md](docs/apt-quelle.md)).
+*English summary:* Debian packaging, APT repository tooling and CI templates of
+Querencia Desktop. Alpha software; documentation is in German.
+
+> **Alpha 3.5** (veröffentlicht am 28.10.2026, Tag `packaging/alpha35-1`; davor Alpha 3.4
+> am 27.10.2026, Tag `packaging/alpha34-1`, Alpha 3.3 am 27.10.2026, Tag
+> `packaging/alpha33-2`, Alpha 3.2 am 26.10.2026, Tag `packaging/alpha32-1`, Alpha 3.1 am
+> 24.10.2026, Tag `packaging/alpha31-1`, Alpha 3 am 24.10.2026, Tag `packaging/alpha3-2`,
+> Alpha 2.1 am 22.10.2026, Tag `packaging/alpha-2.1`, und Alpha 2 am 21.10.2026, Tag
+> `packaging/alpha-2`):
+> 24 Quellpakete aus festen, getaggten Quellständen (`quellen.conf`), gebaut mit
+> `dpkg-buildpackage` und statisch, in einer Wegwerf-Installation (auch mit
+> `LANG=it_IT.UTF-8`) und mit Upgrade-Proben geprüft; die Probe auf einer frischen
+> Ubuntu-26.04-VM beschreibt [docs/pflichtprobe-frische-vm.md](docs/pflichtprobe-frische-vm.md).
+> Die APT-Quelle beschreibt [docs/apt-quelle.md](docs/apt-quelle.md). Neu in Alpha 3.5:
+> Der wahlweise Anmeldebildschirm spricht jetzt auch Italienisch, Spanisch und
+> Französisch; die Seite „Treiber“ der Einstellungen zeigt richtig, ob die Sitzung auf der
+> Grafikkarte oder in Software zeichnet. Seit Alpha 3.4 gibt es die Seite „Treiber“
+> (empfiehlt `ubuntu-drivers-common`) und Querencia Dateien 0.3.0 mit Rückgängig; seit
+> Alpha 3.2 das optionale Zusatzpaket `querencia-schnatter` (Schnatter, bis 0.2.0
+> „Querencia Webhülle“); `querencia-webhuelle` ist nur noch ein Übergangspaket darauf.
+> Keine Sicherheits- oder Datenverlustgarantie.
 
 ## Inhalt
 
