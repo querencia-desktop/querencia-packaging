@@ -1,3 +1,12 @@
+querencia-dateien (0.3.1-1) resolute; urgency=medium
+
+  * Neue Version 0.3.1.
+  * In einer frischen Installation zeigt Querencia Dateien jetzt die
+    Querencia-Symbole statt GNOME Human; ohne eigene Wahl gilt die Vorgabe
+    der Querencia-Sitzung (querencia-oberflaeche 0.1.4).
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 28 Oct 2026 14:15:33 +0100
+
 querencia-dateien (0.3.0-1) resolute; urgency=medium
 
   * Neue Version 0.3.0.

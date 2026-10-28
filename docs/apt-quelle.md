@@ -490,3 +490,49 @@ Meldung bei abgelaufenem Passwort.
   Renderer. In einer virtuellen Maschine ohne 3D-Beschleunigung steht dort
   Software-Darstellung mit Grund statt „OpenGL auf der Grafikkarte“; der
   Kerneltreiber heißt dort `virtio_gpu`. Die Einschränkung aus Alpha 3.4 entfällt.
+
+## Nachtrag 28.10.2026: Alpha 3.6
+
+Am 28.10.2026 um 21:46:04 (MEZ) ging der Index von Alpha 3.6 auf den Server: Satz
+`debs-alpha36-1` (Tag `packaging/alpha36-1`, 24 Pakete, `SHA256SUMS` mit der
+Summe `19dfc935…`). Neu gegenüber Alpha 3.5 sind vier Pakete:
+
+| Paket | Version | Änderung |
+|---|---|---|
+| `querencia-desktop` | 0.1.0~alpha3.6-1 | Versionsdatei „Alpha 3.6“; Mindestversionen Shell 0.1.0~alpha13, Dateien 0.3.1, Software 0.1.8 |
+| `querencia-shell` | 0.1.0~alpha13-1 | Panel 0.4.1 und Arbeitsfläche 0.3.2: Querencia-Symbole statt GNOME Human in frischer Installation |
+| `querencia-dateien` | 0.3.1-1 | ebenso für Querencia Dateien |
+| `querencia-software` | 0.1.8-1 | keine doppelten Programme im Software-Center; GIMP auch installiert sichtbar |
+
+Die übrigen 20 Pakete lagen byte-gleich im Pool.
+
+| Was | Wert |
+|---|---|
+| Release-Datum | Wed, 28 Oct 2026 17:34:14 UTC |
+| InRelease (SHA256) | `e382f728682fc086bf46fc062d6bb0239d35de7cafc7734667a5f3a4bd96e130` |
+| Index | binary-amd64 24, binary-all 6; Pool 105 Dateien, davon 4 neu; ältere Fassungen bleiben liegen |
+| Upload | 28 Dateien (25462 KiB), 183 lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal 22/1 (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server 10/0 |
+
+Vor dem Upload liefen Upgrade 3.5 → 3.6 (mit Schnatter und Anmeldebildschirm aus
+der veröffentlichten Quelle) und Neuinstallation in einer frischen Ubuntu-VM. Das
+Upgrade aktualisierte die vier Pakete, ohne Rückfrage, ohne etwas zu entfernen und
+ohne neues Querencia-Paket; zusammen mit einem Ubuntu-Kernel dauerte
+`apt full-upgrade` 50 s (die vier Querencia-Pakete sind zusammen 25,8 MB groß).
+Unter 3.5 zeigten Arbeitsfläche und Panel GNOME Human; nach Ab- und Anmelden
+zeigten sie die flachen Querencia-Symbole, und Panel, Arbeitsfläche und Dateien
+protokollierten „Symbolthema Querencia (Vorgabe „Querencia“)“. Die Suche nach
+„Remmina“ im Software-Center ergab unter 3.5 zwei, unter 3.6 einen Treffer. Die
+Neuinstallation brachte 392 Pakete (91 s) mit demselben Ergebnis. Der neue
+Prüfpunkt A36 im Schritt `sitzung` von `tests/frisches-ubuntu-pruefen.sh` meldete
+dabei FAIL, weil er die letzte Logzeile mit „Symbolthema“ liest; das ist eine
+Folgezeile „Symbolthema geändert – …“. Die Zeile davor lautete richtig auf
+Querencia.
+
+- **Symbole in frischen Installationen:** Panel, Arbeitsfläche und Querencia
+  Dateien nahmen ohne eigene Wahl des Symbolthemas immer GNOME Human. Jetzt gilt
+  die Vorgabe der Querencia-Sitzung, also die Querencia-Symbole. Wer ein
+  Symbolthema gewählt hat, sieht keinen Unterschied.
+- **Software-Center:** Programme, die Ubuntu in zwei Paketquellen unter leicht
+  verschiedener Kennung führt (etwa Remmina), stehen nur noch einmal in Suche
+  und Kategorien. GIMP fehlte, sobald es installiert war; das ist behoben.
