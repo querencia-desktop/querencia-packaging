@@ -1,3 +1,16 @@
+querencia-desktop (0.1.0~alpha3.5-1) resolute; urgency=medium
+
+  * Alpha 3.5.
+  * Der wahlweise Anmeldebildschirm (querencia-anmeldung 0.1.5) spricht
+    jetzt auch Italienisch, Spanisch und Französisch, auch bei der Meldung
+    zum abgelaufenen Passwort. Vorher war er in diesen Sprachen englisch.
+  * Die Seite „Treiber“ der Einstellungen (querencia-einstellungen 0.2.1)
+    zeigt richtig an, ob die Sitzung auf der Grafikkarte oder in Software
+    zeichnet, und nennt bei Software-Darstellung den Grund.
+  * Versionsdatei „Alpha 3.5“. Abhängigkeiten unverändert.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 22:34:06 +0100
+
 querencia-desktop (0.1.0~alpha3.4-1) resolute; urgency=medium
 
   * Alpha 3.4.

@@ -447,3 +447,46 @@ eingeschlossen (807 s, davon fast alles Download vom Ubuntu-Spiegel mit 312 kB/s
   Mesa mit `llvmpipe`; die Seite nennt den Renderer richtig, schreibt unter
   „Diese Sitzung“ aber „OpenGL auf der Grafikkarte“ (VM-Probe 27.10.2026, Befund an
   die Einstellungen).
+
+## Nachtrag 28.10.2026: Alpha 3.5
+
+Am 28.10.2026 um 12:07:22 (MEZ) ging der Index von Alpha 3.5 auf den Server: Satz
+`debs-alpha35-1` (Tag `packaging/alpha35-1`, 24 Pakete, `SHA256SUMS` mit der
+Summe `e19e1421…`). Neu gegenüber Alpha 3.4 sind drei Pakete:
+
+| Paket | Version | Änderung |
+|---|---|---|
+| `querencia-desktop` | 0.1.0~alpha3.5-1 | Versionsdatei „Alpha 3.5“; Abhängigkeiten unverändert |
+| `querencia-anmeldung` | 0.1.5-1 | Anmeldebildschirm auch auf Italienisch, Spanisch und Französisch (wahlweise) |
+| `querencia-einstellungen` | 0.2.1-1 | Seite „Treiber“ zeigt richtig, ob die Sitzung auf der Grafikkarte oder in Software zeichnet |
+
+Die übrigen 21 Pakete lagen byte-gleich im Pool.
+
+| Was | Wert |
+|---|---|
+| Release-Datum | Wed, 28 Oct 2026 10:34:29 UTC |
+| InRelease (SHA256) | `2b95acefd82a1530626db3786bd58cd1d0fa8bfe44bc9115d16be9edd03f2018` |
+| Index | binary-amd64 24, binary-all 6; Pool 101 Dateien, davon 3 neu; ältere Fassungen bleiben liegen |
+| Upload | 29 Dateien (3847 KiB), 172 lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal 22/1 (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server 10/0 |
+
+Vor dem Upload liefen Upgrade 3.4 → 3.5 (mit Schnatter und Anmeldebildschirm aus
+der veröffentlichten Quelle) und Neuinstallation in einer frischen Ubuntu-VM. Das
+Upgrade aktualisierte die drei Pakete, ohne Rückfrage, ohne etwas zu entfernen und
+ohne neues Querencia-Paket; zusammen mit einem gleichzeitig erschienenen
+Ubuntu-Kernel dauerte `apt full-upgrade` 53 s (die drei Querencia-Pakete sind
+zusammen 3,6 MB groß). Die Neuinstallation brachte 392 Pakete, `locales-all` und
+`ubuntu-drivers-common` eingeschlossen (73 s). In der VM zeigte die Seite „Treiber“
+„Software-Darstellung: keine 3D-Beschleunigung …“ und `virtio_gpu`; der
+Anmeldebildschirm war nach Umstellung auf `it_IT.UTF-8` italienisch, auch die
+Meldung bei abgelaufenem Passwort.
+
+- **Anmeldebildschirm in fünf Sprachen:** Querencia Anmeldung 0.1.5 zeigt
+  Beschriftungen, Knöpfe, Tooltips und Meldungen, auch die bei abgelaufenem
+  Passwort, jetzt auch auf Italienisch, Spanisch und Französisch; vorher waren
+  sie in diesen Sprachen englisch. Texte von GTK selbst (etwa der Tooltip am Auge
+  im Passwortfeld) übersetzt das System nur mit `language-pack-gnome-<sprache>`.
+- **Treiber-Seite:** Die Zeile „Diese Sitzung“ folgt jetzt dem gemessenen
+  Renderer. In einer virtuellen Maschine ohne 3D-Beschleunigung steht dort
+  Software-Darstellung mit Grund statt „OpenGL auf der Grafikkarte“; der
+  Kerneltreiber heißt dort `virtio_gpu`. Die Einschränkung aus Alpha 3.4 entfällt.

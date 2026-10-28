@@ -1,6 +1,32 @@
 # Änderungen – querencia-packaging
 
-## Alpha 3.4 – Satz debs-alpha34-1 vom 27.10.2026, unveröffentlicht
+## Alpha 3.5 – Satz debs-alpha35-1 vom 27.10.2026, unveröffentlicht
+
+Gegenüber Alpha 3.4 (veröffentlicht 27.10.2026, `debs-alpha34-1`); 24 Pakete, 3 neu gebaut,
+21 byte-gleich mit dem veröffentlichten Index von Alpha 3.4.
+
+- querencia-anmeldung 0.1.5-1 (Zweig anmeldung-015, Tag `anmeldung/0.1.5` = `c198851`):
+  Anmeldebildschirm auch auf Italienisch, Spanisch und Französisch; `debian/rules` installiert
+  und prüft jeden Katalog aus `po/`. Hier neu gebaut (`130adf87…`); Inhalt gleich dem Paket der
+  Übergabe (`75e4fc1a…`), das wieder vor dem Datum seines Changelog-Eintrags gebaut war (nur
+  Dateizeiten anders).
+- querencia-einstellungen 0.2.1-1 aus `einstellungen/0.2.1-2` (`aca9898`, = main der
+  Einstellungen; das zurückgezogene `einstellungen/0.2.1` ist nicht verwendet): Treiber-Seite mit
+  „Diese Sitzung“ nach gemessenem Renderer (Software-Darstellung mit Grund), Zeile „OpenGL der
+  Karte“, `virtio_gpu`, findet `querencia-sitzung` ohne `PATH`. Baustein `querencia-software-paketkit`
+  `efb1a62` unverändert.
+- querencia-desktop 0.1.0~alpha3.5-1: Versionsdatei „Alpha 3.5“, Changelog; Abhängigkeiten
+  unverändert.
+- Tests: `frisches-ubuntu-pruefen.sh` mit Prüfpunkt A35 (Einstellungen 0.2.1) und Anmeldung
+  0.1.5 (Kataloge it/es/fr, HAND-Zeile Ü10 italienisch); A33/A34 gelten auch für Alpha 3.5.
+- Prüfungen des Satzes (SHA256SUMS `e19e1421…`): pakete-pruefen 304/0, Lintian E 0 (gleich 3.4),
+  Sprachen 18/0 (Anmeldung jetzt mit it/es/fr), Wegwerf 96/0 und mit `LANG=it_IT.UTF-8` 103/0,
+  Anmeldebildschirm italienisch isoliert (Kataloge 12/0, Fotos Sprache und abgelaufenes
+  Passwort), Upgrades 3.4 → 3.5 mit Schnatter 167/0, ohne 154/0 (Einstellungen und Metapaket
+  aktualisiert, nichts neu, nichts entfernt, keine Rückfrage), 3.3 → 3.5 168/0, Kontrollbau
+  aller drei Neubauten byte-gleich.
+
+## Alpha 3.4 – Satz debs-alpha34-1 vom 27.10.2026, veröffentlicht 27.10.2026
 
 Gegenüber Alpha 3.3 (veröffentlicht 27.10.2026, `debs-alpha33-2`); 24 Pakete, 6 neu gebaut,
 18 byte-gleich mit dem veröffentlichten Index von Alpha 3.3.

@@ -1,3 +1,23 @@
+querencia-einstellungen (0.2.1-1) resolute; urgency=medium
+
+  * Neue Version 0.2.1.
+  * Seite „Treiber“: Die Zeile „Diese Sitzung“ folgt jetzt dem gemessenen
+    Renderer und dem Kerneltreiber. Sie unterscheidet OpenGL auf der
+    Grafikkarte mit dem freien Treiber, mit dem NVIDIA-Treiber und
+    Software-Darstellung und nennt dann den Grund: Die Sitzung hat wegen
+    eines Grafikproblems umgeschaltet, oder es gibt keine 3D-Beschleunigung
+    (etwa in einer virtuellen Maschine). Vorher stand dort in einer
+    virtuellen Maschine fälschlich „OpenGL auf der Grafikkarte“.
+  * Nach dem Umschalten auf Software-Darstellung zeigt die neue Zeile
+    „OpenGL der Karte“ den Renderer der Grafikkarte.
+  * Bei virtueller Grafik steht als Kerneltreiber virtio_gpu statt
+    virtio-pci.
+  * Die Seite findet den Sitzungsdialog wie die Sitzung selbst und nicht
+    nur über PATH; vorher blieb der Renderer in manchen Sitzungen „nicht
+    gemessen“.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Tue, 27 Oct 2026 22:34:06 +0100
+
 querencia-einstellungen (0.2.0-1) resolute; urgency=medium
 
   * Neue Version 0.2.0.
