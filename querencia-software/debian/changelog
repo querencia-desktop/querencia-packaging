@@ -1,3 +1,13 @@
+querencia-software (0.1.8-1) resolute; urgency=medium
+
+  * Neue Version 0.1.8.
+  * Programme stehen nicht mehr doppelt in Suche und Kategorien (etwa
+    Remmina), wenn Ubuntu sie in zwei Paketquellen mit und ohne
+    „.desktop“ führt (Katalog-Baustein 0.1.1).
+  * GIMP fehlte im Katalog, sobald es installiert war; behoben.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 28 Oct 2026 14:15:33 +0100
+
 querencia-software (0.1.7-1) resolute; urgency=medium
 
   * Neue Version 0.1.7.

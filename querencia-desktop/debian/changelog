@@ -1,3 +1,17 @@
+querencia-desktop (0.1.0~alpha3.6-1) resolute; urgency=medium
+
+  * Alpha 3.6.
+  * Panel, Arbeitsfläche und Dateien zeigen in einer frischen Installation
+    die Querencia-Symbole statt GNOME Human (querencia-shell
+    0.1.0~alpha13, querencia-dateien 0.3.1).
+  * Querencia Software zeigt keine Programme mehr doppelt
+    (querencia-software 0.1.8).
+  * Versionsdatei „Alpha 3.6“. Mindestversionen angehoben:
+    querencia-shell 0.1.0~alpha13, querencia-dateien 0.3.1,
+    querencia-software 0.1.8.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 28 Oct 2026 14:15:33 +0100
+
 querencia-desktop (0.1.0~alpha3.5-1) resolute; urgency=medium
 
   * Alpha 3.5.

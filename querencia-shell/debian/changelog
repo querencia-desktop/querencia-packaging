@@ -1,3 +1,13 @@
+querencia-shell (0.1.0~alpha13-1) resolute; urgency=medium
+
+  * Panel (0.4.1) und Arbeitsfläche (0.3.2): In einer frischen Installation
+    zeigen sie jetzt die Querencia-Symbole statt GNOME Human; ohne eigene
+    Wahl gilt die Vorgabe der Querencia-Sitzung (Bibliothek
+    querencia-oberflaeche 0.1.4). Wer ein Symbolthema gewählt hat, sieht
+    keinen Unterschied.
+
+ -- pottrauschen <147073098+pottrauschen@users.noreply.github.com>  Wed, 28 Oct 2026 14:15:33 +0100
+
 querencia-shell (0.1.0~alpha12-1) resolute; urgency=medium
 
   * Tastenkürzel-Hilfe (0.2.3): jetzt auch auf Englisch, Italienisch,
