@@ -1,6 +1,31 @@
 # Änderungen – querencia-packaging
 
-## Alpha 3.5 – Satz debs-alpha35-1 vom 27.10.2026, unveröffentlicht
+## Alpha 3.6 – Satz debs-alpha36-1 vom 28.10.2026, unveröffentlicht
+
+Gegenüber Alpha 3.5 (veröffentlicht 28.10.2026, `debs-alpha35-1`); 24 Pakete, 4 neu gebaut,
+20 byte-gleich mit dem veröffentlichten Index von Alpha 3.5.
+
+- querencia-shell 0.1.0~alpha13-1 aus runtime main `5658eed` (= Tags `panel/0.4.1`,
+  `desktop/0.3.2`): Panel und Arbeitsfläche nehmen ohne Nutzerwert die Vorgabe der Sitzung
+  (`icon-theme='Querencia'` aus dem Override von querencia-session) statt immer GNOME Human
+  (querencia-oberflaeche 0.1.4). Behebt die GNOME-Human-Symbole in frischen Installationen.
+- querencia-dateien 0.3.1-1 aus `dateien/0.3.1` (`5658eed`): dieselbe Korrektur;
+  MetaInfo und Handbuchseite 0.3.1.
+- querencia-software 0.1.8-1 aus `software/0.1.8` (`698c84b`) mit dem Baustein
+  `katalog/0.1.1` (`c788ea0`): Programme mit Kennung mit und ohne `.desktop` (Remmina,
+  Subtitle Editor) erscheinen nur noch einmal; GIMP fehlt nicht mehr, wenn es installiert ist.
+  Bausteine paketkit `efb1a62` und transaktion `163dc3a` (gegenüber 0.1.7 nur Kommentare).
+- querencia-desktop 0.1.0~alpha3.6-1: Versionsdatei „Alpha 3.6“; Mindestversionen
+  querencia-shell 0.1.0~alpha13, querencia-dateien 0.3.1, querencia-software 0.1.8.
+- Tests: `frisches-ubuntu-pruefen.sh` mit Prüfpunkt A36 (Mindestversionen, Vorgabe
+  Symbolthema; im Schritt `sitzung` die Zeile „Symbolthema Querencia (Vorgabe „Querencia“)“
+  in `panel.log`); A32 bis A35 gelten auch für Alpha 3.6.
+- Prüfungen des Satzes (SHA256SUMS `19dfc935…`): pakete-pruefen 304/0, Lintian E 0 (gleich
+  3.5), Sprachen 18/0, Wegwerf 96/0 und mit `LANG=it_IT.UTF-8` 103/0, Upgrades 3.5 → 3.6 mit
+  Schnatter 167/0, ohne 154/0 (vier Pakete aktualisiert, nichts neu, nichts entfernt, keine
+  Rückfrage), 3.4 → 3.6 167/0, Kontrollbau aller vier Neubauten byte-gleich.
+
+## Alpha 3.5 – Satz debs-alpha35-1 vom 27.10.2026, veröffentlicht 28.10.2026
 
 Gegenüber Alpha 3.4 (veröffentlicht 27.10.2026, `debs-alpha34-1`); 24 Pakete, 3 neu gebaut,
 21 byte-gleich mit dem veröffentlichten Index von Alpha 3.4.

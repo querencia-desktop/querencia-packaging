@@ -2,11 +2,11 @@
 
 Debian-Paketierung, APT-Quelle und CI-Vorlagen für Querencia Desktop.
 
-> **Status: Alpha 3.5 (27.10.2026, Satz `debs-alpha35-1`, unveröffentlicht).** Neu: Der
-> wahlweise Anmeldebildschirm spricht jetzt auch Italienisch, Spanisch und Französisch; die
-> Seite „Treiber“ der Einstellungen zeigt richtig, ob die Sitzung auf der Grafikkarte oder in
-> Software zeichnet. Veröffentlicht in der APT-Quelle ist Alpha 3.4 (27.10.2026: Seite
-> „Treiber“, Querencia Dateien 0.3.0 mit Rückgängig, Sperrbildschirm in fünf Sprachen).
+> **Status: Alpha 3.6 (28.10.2026, Satz `debs-alpha36-1`, unveröffentlicht).** Neu: Panel,
+> Arbeitsfläche und Dateien zeigen in frischen Installationen die Querencia-Symbole statt
+> GNOME Human; Querencia Software zeigt keine Programme mehr doppelt. Veröffentlicht in der
+> APT-Quelle ist Alpha 3.5 (28.10.2026: Anmeldebildschirm in fünf Sprachen, Treiber-Seite
+> zeigt Software-Darstellung richtig).
 > 24 Pakete aus 24 Quellpaketen bauen lokal mit `dpkg-buildpackage`; geprüft statisch, in
 > einer Wegwerf-Installation (auch mit `LANG=it_IT.UTF-8`) und mit Upgrade-Proben. Signatur
 > und Upload macht der Betreuer der Quelle ([docs/apt-quelle.md](docs/apt-quelle.md)).

@@ -493,3 +493,37 @@ Meldung bei abgelaufenem Passwort.
   Renderer. In einer virtuellen Maschine ohne 3D-Beschleunigung steht dort
   Software-Darstellung mit Grund statt „OpenGL auf der Grafikkarte“; der
   Kerneltreiber heißt dort `virtio_gpu`. Die Einschränkung aus Alpha 3.4 entfällt.
+
+## Nachtrag [Datum]: Alpha 3.6 (Entwurf)
+
+Am [Datum] um [Uhrzeit] (MEZ) ging der Index von Alpha 3.6 auf den Server: Satz
+`debs-alpha36-1` (Tag `packaging/alpha36-1`, 24 Pakete, `SHA256SUMS` mit der
+Summe `19dfc935…`). Neu gegenüber Alpha 3.5 sind vier Pakete:
+
+| Paket | Version | Änderung |
+|---|---|---|
+| `querencia-desktop` | 0.1.0~alpha3.6-1 | Versionsdatei „Alpha 3.6“; Mindestversionen Shell 0.1.0~alpha13, Dateien 0.3.1, Software 0.1.8 |
+| `querencia-shell` | 0.1.0~alpha13-1 | Panel 0.4.1 und Arbeitsfläche 0.3.2: Querencia-Symbole statt GNOME Human in frischer Installation |
+| `querencia-dateien` | 0.3.1-1 | ebenso für Querencia Dateien |
+| `querencia-software` | 0.1.8-1 | keine doppelten Programme im Software-Center; GIMP auch installiert sichtbar |
+
+Die übrigen 20 Pakete lagen byte-gleich im Pool.
+
+| Was | Wert |
+|---|---|
+| Release-Datum | [Date aus InRelease] |
+| InRelease (SHA256) | [Summe] |
+| Index | binary-amd64 24, binary-all 6; Pool [105 erwartet] Dateien, davon 4 neu; ältere Fassungen bleiben liegen |
+| Upload | [n] Dateien ([KiB]), [n] lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal [22/1 erwartet] (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server [10/0 erwartet] |
+
+Vor dem Upload liefen Upgrade 3.5 → 3.6 und Neuinstallation in einer frischen
+Ubuntu-VM: [Dauer, Anzahl, nichts entfernt, keine Rückfrage, Symbolthema im Panel].
+
+- **Symbole in frischen Installationen:** Panel, Arbeitsfläche und Querencia
+  Dateien nahmen ohne eigene Wahl des Symbolthemas immer GNOME Human. Jetzt gilt
+  die Vorgabe der Querencia-Sitzung, also die Querencia-Symbole. Wer ein
+  Symbolthema gewählt hat, sieht keinen Unterschied.
+- **Software-Center:** Programme, die Ubuntu in zwei Paketquellen unter leicht
+  verschiedener Kennung führt (etwa Remmina), stehen nur noch einmal in Suche
+  und Kategorien. GIMP fehlte, sobald es installiert war; das ist behoben.
