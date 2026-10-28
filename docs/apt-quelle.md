@@ -451,9 +451,9 @@ eingeschlossen (807 s, davon fast alles Download vom Ubuntu-Spiegel mit 312 kB/s
   „Diese Sitzung“ aber „OpenGL auf der Grafikkarte“ (VM-Probe 27.10.2026, Befund an
   die Einstellungen).
 
-## Nachtrag [Datum]: Alpha 3.5 (Entwurf)
+## Nachtrag 28.10.2026: Alpha 3.5
 
-Am [Datum] um [Uhrzeit] (MEZ) ging der Index von Alpha 3.5 auf den Server: Satz
+Am 28.10.2026 um 12:07:22 (MEZ) ging der Index von Alpha 3.5 auf den Server: Satz
 `debs-alpha35-1` (Tag `packaging/alpha35-1`, 24 Pakete, `SHA256SUMS` mit der
 Summe `e19e1421…`). Neu gegenüber Alpha 3.4 sind drei Pakete:
 
@@ -467,14 +467,22 @@ Die übrigen 21 Pakete lagen byte-gleich im Pool.
 
 | Was | Wert |
 |---|---|
-| Release-Datum | [Date aus InRelease] |
-| InRelease (SHA256) | [Summe] |
-| Index | binary-amd64 24, binary-all 6; Pool [101 erwartet] Dateien, davon 3 neu; ältere Fassungen bleiben liegen |
-| Upload | [n] Dateien ([KiB]), [n] lagen schon auf dem Server, nichts gelöscht |
-| Prüfung | lokal [22/1 erwartet] (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server [10/0 erwartet] |
+| Release-Datum | Wed, 28 Oct 2026 10:34:29 UTC |
+| InRelease (SHA256) | `2b95acefd82a1530626db3786bd58cd1d0fa8bfe44bc9115d16be9edd03f2018` |
+| Index | binary-amd64 24, binary-all 6; Pool 101 Dateien, davon 3 neu; ältere Fassungen bleiben liegen |
+| Upload | 29 Dateien (3847 KiB), 172 lagen schon auf dem Server, nichts gelöscht |
+| Prüfung | lokal 22/1 (bekannt: `querencia-anmeldung` in der Wegwerf-Hülle), Server 10/0 |
 
-Vor dem Upload liefen Upgrade 3.4 → 3.5 und Neuinstallation in einer frischen
-Ubuntu-VM: [Dauer, Anzahl, nichts entfernt, keine Rückfrage].
+Vor dem Upload liefen Upgrade 3.4 → 3.5 (mit Schnatter und Anmeldebildschirm aus
+der veröffentlichten Quelle) und Neuinstallation in einer frischen Ubuntu-VM. Das
+Upgrade aktualisierte die drei Pakete, ohne Rückfrage, ohne etwas zu entfernen und
+ohne neues Querencia-Paket; zusammen mit einem gleichzeitig erschienenen
+Ubuntu-Kernel dauerte `apt full-upgrade` 53 s (die drei Querencia-Pakete sind
+zusammen 3,6 MB groß). Die Neuinstallation brachte 392 Pakete, `locales-all` und
+`ubuntu-drivers-common` eingeschlossen (73 s). In der VM zeigte die Seite „Treiber“
+„Software-Darstellung: keine 3D-Beschleunigung …“ und `virtio_gpu`; der
+Anmeldebildschirm war nach Umstellung auf `it_IT.UTF-8` italienisch, auch die
+Meldung bei abgelaufenem Passwort.
 
 - **Anmeldebildschirm in fünf Sprachen:** Querencia Anmeldung 0.1.5 zeigt
   Beschriftungen, Knöpfe, Tooltips und Meldungen, auch die bei abgelaufenem
